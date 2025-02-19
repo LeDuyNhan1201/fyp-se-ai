@@ -30,6 +30,29 @@ subprojects {
         plugin 'io.spring.dependency-management'
     }
 
+    if (project.name == 'common') {
+        tasks.named("bootJar") {
+            enabled = false
+        }
+
+        tasks.named("jar") {
+            enabled = true
+        }
+
+    } else {
+        tasks.named("jar") {
+            enabled = false
+        }
+
+        tasks.named("bootJar") {
+            enabled = true
+        }
+
+        tasks.named('test') {
+            useJUnitPlatform()
+        }
+    }
+
     dependencies {
         compileOnly 'org.projectlombok:lombok'
         annotationProcessor 'org.projectlombok:lombok'
@@ -51,12 +74,12 @@ subprojects {
     tasks.withType(JavaCompile).configureEach {
         options.encoding = 'UTF-8'
     }
-
-    tasks.named('test') {
-        useJUnitPlatform()
-    }
 }
 
 tasks.named('jar') {
+    enabled = false
+}
+
+tasks.named("bootJar") {
     enabled = false
 }

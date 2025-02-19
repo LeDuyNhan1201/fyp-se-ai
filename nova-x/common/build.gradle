@@ -1,5 +1,6 @@
 plugins {
 	id 'java-library'
+	id 'org.springframework.boot' apply false
 	id 'com.google.protobuf' version "${googleProtobufVersion}"
 }
 
@@ -49,8 +50,4 @@ sourceSets {
 
 java {
 	withSourcesJar() // Tạo file sources.jar để có thể import code
-}
-
-tasks.named('bootJar') {
-	enabled = false // Vô hiệu hóa task bootJar
 }
