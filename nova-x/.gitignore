@@ -33,4 +33,7 @@ replay_pid*
 
 certs/
 
+.gradle
+build/
+
 env.properties
