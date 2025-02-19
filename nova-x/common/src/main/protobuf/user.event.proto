@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package com.ben.novax.common;
+
+option java_package = "com.ben.novax.common.user";
+option java_outer_classname = "UserEventProto";
+option java_multiple_files = true;
+
+message UserRegisteredEvent {
+
+  string user_id = 1;
+
+  string email = 2;
+
+  string full_name = 3;
+
+}

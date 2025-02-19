@@ -1,0 +1,341 @@
+services:
+  # Kafka brokers:
+  novax-kafka1:
+    image: confluentinc/cp-kafka:latest
+    container_name: novax-kafka1
+    restart: always
+    volumes:
+      - ../docker/kafka3/jaas:/etc/kafka/jaas
+      - ../certs/kafka/creds:/etc/kafka/secrets/creds
+      - ../certs/kafka/kafka1.truststore.jks:/etc/kafka/secrets/kafka.truststore.jks
+      - ../certs/kafka/kafka1.keystore.jks:/etc/kafka/secrets/kafka.keystore.jks
+    ports:
+      - "9091:9091"
+      - "9991:9991"
+    networks:
+      - novax-network
+    environment:
+      # Kraft
+      CLUSTER_ID: 'cLs1'
+      KAFKA_BROKER_ID: 1
+      KAFKA_BROKER_RACK: "r1"
+      KAFKA_NODE_ID: 1
+      KAFKA_PROCESS_ROLES: 'broker,controller'
+      KAFKA_CONTROLLER_QUORUM_VOTERS: '1@novax-kafka1:39091,2@novax-kafka2:39092,3@novax-kafka3:39093'
+
+      # Listeners
+      KAFKA_LISTENERS: 'SASL_SSL://novax-kafka1:29091,CONTROLLER://novax-kafka1:39091,LOCAL://:9091,BROKER://novax-kafka1:49091'
+      KAFKA_ADVERTISED_LISTENERS: 'SASL_SSL://novax-kafka1:29091,LOCAL://localhost:9091,BROKER://novax-kafka1:49091'
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: 'CONTROLLER:SASL_PLAINTEXT,SASL_SSL:SASL_SSL,LOCAL:SASL_SSL,BROKER:SASL_PLAINTEXT'
+      KAFKA_CONTROLLER_LISTENER_NAMES: 'CONTROLLER'
+      KAFKA_INTER_BROKER_LISTENER_NAME: 'BROKER'
+
+      # SSL/TLS
+      KAFKA_SSL_KEYSTORE_FILENAME: kafka.keystore.jks
+      KAFKA_SSL_KEYSTORE_CREDENTIALS: creds
+      KAFKA_SSL_KEY_CREDENTIALS: creds
+      KAFKA_SSL_TRUSTSTORE_FILENAME: kafka.truststore.jks
+      KAFKA_SSL_TRUSTSTORE_CREDENTIALS: creds
+      KAFKA_SSL_CLIENT_AUTH: 'none'
+      #KAFKA_SSL_CLIENT_AUTH: 'requested'
+      KAFKA_SSL_ENDPOINT_IDENTIFICATION_ALGORITHM: ''
+
+      # SASL
+      KAFKA_SASL_MECHANISM_INTER_BROKER_PROTOCOL: PLAIN
+      KAFKA_SASL_MECHANISMS_CONTROLLER_PROTOCOL: PLAIN
+      KAFKA_SASL_ENABLED_MECHANISMS: 'PLAIN'
+      KAFKA_SUPER_USERS: 'User:admin,User:ben'
+      KAFKA_LISTENER_NAME_INTERNAL_SASL_ENABLED_MECHANISMS: PLAIN
+      KAFKA_OPTS: "-Djava.security.auth.login.config=/etc/kafka/jaas/kafka_server.conf"
+
+      # Others
+      KAFKA_JMX_PORT: 9991
+      KAFKA_JMX_HOSTNAME: localhost
+
+      KAFKA_LOG_DIRS: '/tmp/kraft-combined-logs'
+      KAFKA_LOG4J_LOGGERS: "kafka.authorizer.logger=INFO"
+      KAFKA_LOG4J_ROOT_LOGLEVEL: INFO
+
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+      KAFKA_DELETE_TOPIC_ENABLE: 'true'
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: 'false'
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
+      KAFKA_DEFAULT_REPLICATION_FACTOR: 3
+
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 3
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 3
+
+  novax-kafka2:
+    image: confluentinc/cp-kafka:latest
+    container_name: novax-kafka2
+    restart: always
+    volumes:
+      - ../docker/kafka3/jaas:/etc/kafka/jaas
+      - ../certs/kafka/creds:/etc/kafka/secrets/creds
+      - ../certs/kafka/kafka2.truststore.jks:/etc/kafka/secrets/kafka.truststore.jks
+      - ../certs/kafka/kafka2.keystore.jks:/etc/kafka/secrets/kafka.keystore.jks
+    ports:
+      - "9092:9092"
+      - "9992:9992"
+    networks:
+      - novax-network
+    environment:
+      # Kraft
+      CLUSTER_ID: 'cLs1'
+      KAFKA_BROKER_ID: 2
+      KAFKA_BROKER_RACK: "r2"
+      KAFKA_NODE_ID: 2
+      KAFKA_PROCESS_ROLES: 'broker,controller'
+      KAFKA_CONTROLLER_QUORUM_VOTERS: '1@novax-kafka1:39091,2@novax-kafka2:39092,3@novax-kafka3:39093'
+
+      # Listeners
+      KAFKA_LISTENERS: 'SASL_SSL://novax-kafka2:29092,CONTROLLER://novax-kafka1:39092,LOCAL://:9092,BROKER://novax-kafka2:49092'
+      KAFKA_ADVERTISED_LISTENERS: 'SASL_SSL://novax-kafka2:29092,LOCAL://localhost:9092,BROKER://novax-kafka2:49092'
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: 'CONTROLLER:SASL_PLAINTEXT,SASL_SSL:SASL_SSL,LOCAL:SASL_SSL,BROKER:SASL_PLAINTEXT'
+      KAFKA_CONTROLLER_LISTENER_NAMES: 'CONTROLLER'
+      KAFKA_INTER_BROKER_LISTENER_NAME: 'BROKER'
+
+      # SSL/TLS
+      KAFKA_SSL_KEYSTORE_FILENAME: kafka.keystore.jks
+      KAFKA_SSL_KEYSTORE_CREDENTIALS: creds
+      KAFKA_SSL_KEY_CREDENTIALS: creds
+      KAFKA_SSL_TRUSTSTORE_FILENAME: kafka.truststore.jks
+      KAFKA_SSL_TRUSTSTORE_CREDENTIALS: creds
+      KAFKA_SSL_CLIENT_AUTH: 'none'
+      KAFKA_SSL_ENDPOINT_IDENTIFICATION_ALGORITHM: ''
+
+      # SASL
+      KAFKA_SASL_MECHANISM_INTER_BROKER_PROTOCOL: PLAIN
+      KAFKA_SASL_MECHANISMS_CONTROLLER_PROTOCOL: PLAIN
+      KAFKA_SASL_ENABLED_MECHANISMS: 'PLAIN'
+      KAFKA_SUPER_USERS: 'User:admin,User:ben'
+      KAFKA_LISTENER_NAME_INTERNAL_SASL_ENABLED_MECHANISMS: PLAIN
+      KAFKA_OPTS: "-Djava.security.auth.login.config=/etc/kafka/jaas/kafka_server.conf"
+
+      # Others
+      KAFKA_JMX_PORT: 9992
+      KAFKA_JMX_HOSTNAME: localhost
+
+      KAFKA_LOG_DIRS: '/tmp/kraft-combined-logs'
+      KAFKA_LOG4J_LOGGERS: "kafka.authorizer.logger=INFO"
+      KAFKA_LOG4J_ROOT_LOGLEVEL: INFO
+
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+      KAFKA_DELETE_TOPIC_ENABLE: 'true'
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: 'false'
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
+      KAFKA_DEFAULT_REPLICATION_FACTOR: 3
+
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 3
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 3
+
+  novax-kafka3:
+    image: confluentinc/cp-kafka:latest
+    container_name: novax-kafka3
+    restart: always
+    volumes:
+      - ../docker/kafka3/jaas:/etc/kafka/jaas
+      - ../certs/kafka/creds:/etc/kafka/secrets/creds
+      - ../certs/kafka/kafka3.truststore.jks:/etc/kafka/secrets/kafka.truststore.jks
+      - ../certs/kafka/kafka3.keystore.jks:/etc/kafka/secrets/kafka.keystore.jks
+    ports:
+      - "9093:9093"
+      - "9993:9993"
+    networks:
+      - novax-network
+    environment:
+      # Kraft
+      CLUSTER_ID: 'cLs1'
+      KAFKA_BROKER_ID: 3
+      KAFKA_BROKER_RACK: "r3"
+      KAFKA_NODE_ID: 3
+      KAFKA_PROCESS_ROLES: 'broker,controller'
+      KAFKA_CONTROLLER_QUORUM_VOTERS: '1@novax-kafka1:39091,2@novax-kafka2:39092,3@novax-kafka3:39093'
+
+      # Listeners
+      KAFKA_LISTENERS: 'SASL_SSL://novax-kafka3:29093,CONTROLLER://novax-kafka3:39093,LOCAL://:9093,BROKER://novax-kafka3:49093'
+      KAFKA_ADVERTISED_LISTENERS: 'SASL_SSL://novax-kafka3:29093,LOCAL://localhost:9093,BROKER://novax-kafka3:49093'
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: 'CONTROLLER:SASL_PLAINTEXT,SASL_SSL:SASL_SSL,LOCAL:SASL_SSL,BROKER:SASL_PLAINTEXT'
+      KAFKA_CONTROLLER_LISTENER_NAMES: 'CONTROLLER'
+      KAFKA_INTER_BROKER_LISTENER_NAME: 'BROKER'
+
+      # SSL/TLS
+      KAFKA_SSL_KEYSTORE_FILENAME: kafka.keystore.jks
+      KAFKA_SSL_KEYSTORE_CREDENTIALS: creds
+      KAFKA_SSL_KEY_CREDENTIALS: creds
+      KAFKA_SSL_TRUSTSTORE_FILENAME: kafka.truststore.jks
+      KAFKA_SSL_TRUSTSTORE_CREDENTIALS: creds
+      KAFKA_SSL_CLIENT_AUTH: 'none'
+      KAFKA_SSL_ENDPOINT_IDENTIFICATION_ALGORITHM: ''
+
+      # SASL
+      KAFKA_SASL_MECHANISM_INTER_BROKER_PROTOCOL: PLAIN
+      KAFKA_SASL_MECHANISMS_CONTROLLER_PROTOCOL: PLAIN
+      KAFKA_SASL_ENABLED_MECHANISMS: 'PLAIN'
+      KAFKA_SUPER_USERS: 'User:admin,User:ben'
+      KAFKA_LISTENER_NAME_INTERNAL_SASL_ENABLED_MECHANISMS: PLAIN
+      KAFKA_OPTS: "-Djava.security.auth.login.config=/etc/kafka/jaas/kafka_server.conf"
+
+      # Others
+      KAFKA_JMX_PORT: 9993
+      KAFKA_JMX_HOSTNAME: localhost
+
+      KAFKA_LOG_DIRS: '/tmp/kraft-combined-logs'
+      KAFKA_LOG4J_LOGGERS: "kafka.authorizer.logger=INFO"
+      KAFKA_LOG4J_ROOT_LOGLEVEL: INFO
+
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+      KAFKA_DELETE_TOPIC_ENABLE: 'true'
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: 'false'
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
+      KAFKA_DEFAULT_REPLICATION_FACTOR: 3
+
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 3
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 3
+
+#  novax-kafka0:
+#    image: bitnami/kafka:latest
+#    container_name: novax-kafka0
+#    hostname: novax-kafka0
+#    ports:
+#      - 9092:9092
+#    environment:
+#      # KRAFT
+#      KAFKA_CFG_NODE_ID: 0
+#      KAFKA_CFG_PROCESS_ROLES: broker,controller
+#      KAFKA_CFG_CONTROLLER_QUORUM_VOTERS: 0@novax-kafka0:9093
+#      # Listeners
+#      KAFKA_CFG_LISTENERS: SASL_SSL://:9092,CONTROLLER://:9093
+#      KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP: SASL_SSL:SASL_SSL,CONTROLLER:SASL_PLAINTEXT
+#      KAFKA_CFG_ADVERTISED_LISTENERS: SASL_SSL://novax-kafka0:9092, SASL_SSL://localhost:9092
+#      KAFKA_CFG_CONTROLLER_LISTENER_NAMES: CONTROLLER
+#      KAFKA_CFG_INTER_BROKER_LISTENER_NAME: SASL_SSL
+#      KAFKA_CLIENT_LISTENER_NAME: SASL_SSL
+#      # SASL
+#      KAFKA_CFG_SASL_MECHANISM_CONTROLLER_PROTOCOL: PLAIN
+#      KAFKA_CFG_SASL_MECHANISM_INTER_BROKER_PROTOCOL: PLAIN
+#      KAFKA_CONTROLLER_USER: controller_novax
+#      KAFKA_CONTROLLER_PASSWORD: Novax@123
+#      KAFKA_INTER_BROKER_USER: interbroker_novax
+#      KAFKA_INTER_BROKER_PASSWORD: Novax@123
+#      KAFKA_CLIENT_USERS: novax
+#      KAFKA_CLIENT_PASSWORDS: Novax@123
+#      # SSL
+#      KAFKA_TLS_TYPE: JKS
+#      KAFKA_CERTIFICATE_PASSWORD: Novax@123
+#    volumes:
+#      - ./certs/kafka0/keystore.jks:/bitnami/kafka/config/certs/kafka.keystore.jks:ro
+#      - ./certs/kafka0/truststore.jks:/bitnami/kafka/config/certs/kafka.truststore.jks:ro
+#      - novax-kafka0-data:/bitnami/kafka
+#    networks:
+#      - novax-network
+#    restart: unless-stopped
+
+  # Schema registry
+  novax-schemaregistry:
+    image: confluentinc/cp-schema-registry:latest
+    container_name: novax-schemaregistry
+    restart: always
+    depends_on:
+      - novax-kafka1
+      - novax-kafka2
+      - novax-kafka3
+    volumes:
+      - ../certs/schema-registry:/etc/kafka/secrets
+    ports:
+      - 8085:8085
+    environment:
+      SCHEMA_REGISTRY_HOST_NAME: novax-schemaregistry
+
+      SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: novax-kafka1:29091,novax-kafka2:29092,novax-kafka3:29093
+      SCHEMA_REGISTRY_LISTENERS: https://:8085
+      SCHEMA_REGISTRY_KAFKASTORE_SECURITY_PROTOCOL: SASL_SSL
+
+      SCHEMA_REGISTRY_KAFKASTORE_SASL_MECHANISM: PLAIN
+      SCHEMA_REGISTRY_KAFKASTORE_SASL_JAAS_CONFIG: |
+              org.apache.kafka.common.security.plain.PlainLoginModule required \
+              username="admin" \
+              password="admin-secret";
+      SCHEMA_REGISTRY_KAFKASTORE_SSL_TRUSTSTORE_LOCATION: /etc/kafka/secrets/kafka.schemaregistry.truststore.jks
+      SCHEMA_REGISTRY_KAFKASTORE_SSL_TRUSTSTORE_PASSWORD: Novax@123
+      SCHEMA_REGISTRY_KAFKASTORE_SSL_KEYSTORE_LOCATION: /etc/kafka/secrets/kafka.schemaregistry.keystore.jks
+      SCHEMA_REGISTRY_KAFKASTORE_SSL_KEYSTORE_PASSWORD: Novax@123
+      SCHEMA_REGISTRY_KAFKASTORE_SSL_KEY_PASSWORD: Novax@123
+
+      SCHEMA_REGISTRY_SSL_TRUSTSTORE_LOCATION: /etc/kafka/secrets/kafka.schemaregistry.truststore.jks
+      SCHEMA_REGISTRY_SSL_TRUSTSTORE_PASSWORD: Novax@123
+      SCHEMA_REGISTRY_SSL_KEYSTORE_LOCATION: /etc/kafka/secrets/kafka.schemaregistry.keystore.jks
+      SCHEMA_REGISTRY_SSL_KEYSTORE_PASSWORD: Novax@123
+      SCHEMA_REGISTRY_SSL_KEY_PASSWORD: Novax@123
+      SCHEMA_REGISTRY_SSL_CLIENT_AUTHENTICATION: 'NONE'
+
+      SCHEMA_REGISTRY_SCHEMA_REGISTRY_INTER_INSTANCE_PROTOCOL: "https"
+      SCHEMA_REGISTRY_LOG4J_ROOT_LOGLEVEL: INFO
+      SCHEMA_REGISTRY_KAFKASTORE_TOPIC: _schemas
+      SCHEMA_REGISTRY_KAFKASTORE_TOPIC_REPLICATION_FACTOR: 2
+
+      SCHEMA_REGISTRY_DEBUG: 'true'
+
+  # Kafka UI
+#  novax-kafka-ui:
+#    image: provectuslabs/kafka-ui:latest
+#    container_name: novax-kafka-ui
+#    restart: always
+#    depends_on:
+#      - novax-kafka1
+#      - novax-schemaregistry
+#    volumes:
+#      - ./certs/kafka/kafka1.truststore.jks:/kafka.truststore.jks
+#      - ./certs/kafka/kafka1.keystore.jks:/kafka.keystore.jks
+#      - ./certs/schema-registry/kafka.schemaregistry.truststore.jks:/kafka.schemaregistry.truststore.jks
+#      - ./certs/schema-registry/kafka.schemaregistry.keystore.jks:/kafka.schemaregistry.keystore.jks
+#    ports:
+#      - 8080:8080
+#    environment:
+#      KAFKA_CLUSTERS_0_NAME: local
+#      KAFKA_CLUSTERS_0_PROPERTIES_SECURITY_PROTOCOL: SASL_SSL
+#      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka1:9091
+#      KAFKA_CLUSTERS_0_PROPERTIES_SASL_MECHANISM: PLAIN
+#      KAFKA_CLUSTERS_0_PROPERTIES_SASL_JAAS_CONFIG: 'org.apache.kafka.common.security.plain.PlainLoginModule required username="admin" password="admin-secret";'
+#      KAFKA_CLUSTERS_0_PROPERTIES_SSL_ENDPOINT_IDENTIFICATION_ALGORITHM: ''
+#
+#      KAFKA_CLUSTERS_0_SCHEMAREGISTRY: https://schemaregistry:8085
+#      KAFKA_CLUSTERS_0_SCHEMAREGISTRYSSL_KEYSTORELOCATION: /kafka.schemaregistry.keystore.jks
+#      KAFKA_CLUSTERS_0_SCHEMAREGISTRYSSL_KEYSTOREPASSWORD: "confluent"
+#
+#      KAFKA_CLUSTERS_0_SSL_TRUSTSTORELOCATION: /kafka.schemaregistry.truststore.jks
+#      KAFKA_CLUSTERS_0_SSL_TRUSTSTOREPASSWORD: "confluent"
+
+#  novax-schema-registry:
+#    image: bitnami/schema-registry:latest
+#    container_name: novax-schema-registry
+#    depends_on:
+#      [ novax-kafka0 ]
+#    ports:
+#      - 8081:8081
+#      - 8082:8082
+#    environment:
+#      # Kafka brokers
+#      SCHEMA_REGISTRY_KAFKA_BROKERS: SASL_SSL://novax-kafka0:9092
+#      SCHEMA_REGISTRY_KAFKA_KEYSTORE_PASSWORD: Novax@123
+#      SCHEMA_REGISTRY_KAFKA_TRUSTSTORE_PASSWORD: Novax@123
+#      SCHEMA_REGISTRY_KAFKA_SASL_USER: novax
+#      SCHEMA_REGISTRY_KAFKA_SASL_PASSWORD: Novax@123
+#      # Listeners
+#      SCHEMA_REGISTRY_HOST_NAME: novax-schema-registry
+#      SCHEMA_REGISTRY_LISTENERS: http://:8081,https://:8082
+#      # SSL
+#      SCHEMA_REGISTRY_SSL_KEYSTORE_PASSWORD: Novax@123
+#      SCHEMA_REGISTRY_SSL_TRUSTSTORE_PASSWORD: Novax@123
+#      SCHEMA_REGISTRY_SSL_ENDPOINT_IDENTIFICATION_ALGORITHM: none
+#      SCHEMA_REGISTRY_CLIENT_AUTHENTICATION: REQUESTED
+#    volumes:
+#      - ./certs/schema-registry/keystore.jks:/opt/bitnami/schema-registry/certs/keystore.jks:ro
+#      - ./certs/schema-registry/truststore.jks:/opt/bitnami/schema-registry/certs/truststore.jks:ro
+#    networks:
+#      - novax-network
+#    restart: unless-stopped
+
+#volumes:
+#  novax-kafka0-data:
+#    driver: local

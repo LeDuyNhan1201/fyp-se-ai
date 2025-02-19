@@ -1,0 +1,6 @@
+rootProject.name = 'nova-x'
+
+// Include modules
+include 'common'
+include 'services:user'
+//include 'modules:profile'

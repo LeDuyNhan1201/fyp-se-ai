@@ -1,0 +1,56 @@
+plugins {
+	id 'java-library'
+	id 'com.google.protobuf' version "${googleProtobufVersion}"
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+dependencies {
+	/* --------- APIs Dependencies --------- */
+	api 'io.grpc:grpc-services'
+	api 'org.springframework.grpc:spring-grpc-spring-boot-starter'
+	api 'org.springframework.kafka:spring-kafka'
+	api "org.axonframework:axon-spring-boot-starter:${axonVersion}" // https://mvnrepository.com/artifact/org.axonframework/axon-spring-boot-starter
+	api "io.confluent:kafka-schema-registry-client:${confluentVersion}" // https://mvnrepository.com/artifact/io.confluent/kafka-schema-registry-client
+	api "io.confluent:kafka-protobuf-serializer:${confluentVersion}" // https://mvnrepository.com/artifact/io.confluent/kafka-avro-serializer
+	api "org.springdoc:springdoc-openapi-starter-webmvc-ui:${springdocOpenApiVersion}" // https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-starter-webmvc-ui
+}
+
+protobuf {
+	protoc {
+		artifact = 'com.google.protobuf:protoc'
+	}
+	plugins {
+		grpc {
+			artifact = 'io.grpc:protoc-gen-grpc-java'
+		}
+	}
+	generateProtoTasks {
+		all()*.plugins {
+			grpc {
+				option 'jakarta_omit'
+				option '@generated=omit'
+			}
+		}
+	}
+}
+
+sourceSets {
+	main {
+		proto {
+			srcDir 'src/main/protobuf'
+		}
+	}
+}
+
+java {
+	withSourcesJar() // Tạo file sources.jar để có thể import code
+}
+
+tasks.named('bootJar') {
+	enabled = false // Vô hiệu hóa task bootJar
+}

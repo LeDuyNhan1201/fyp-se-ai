@@ -1,0 +1,45 @@
+server:
+  port: 30001
+  servlet:
+    context-path: /user
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+      force-request: true
+      force-response: true
+
+# --------- API DOCUMENT ---------
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui
+  show-actuator: true
+
+openapi:
+  service:
+    api-docs: user-service-rest-api
+    title: User Service REST API
+    description: This is the APIs documentation for User Service.
+    version: 1.0.0
+    server-url: http://localhost:${server.port}${server.servlet.context-path}
+    server-description: Nova-X User Service APIs For Development
+
+# --------- SPRING CONFIGS ---------
+spring:
+  application:
+    name: user
+
+  kafka:
+    bootstrap-servers: localhost:9092,localhost:9092,localhost:9092
+    properties:
+      schema.registry.url: http://localhost:8085
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: io.confluent.kafka.serializers.protobuf.KafkaProtobufSerializer
+    consumer:
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: io.confluent.kafka.serializers.protobuf.KafkaProtobufDeserializer
+      auto-offset-reset: latest
+      enable-auto-commit: false
