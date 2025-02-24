@@ -1,7 +1,6 @@
 plugins {
 	id 'java-library'
-	id 'org.springframework.boot' apply false
-	id 'com.google.protobuf' version "${googleProtobufVersion}"
+	id 'com.google.protobuf' version "${googleProtobufVersion}"  
 }
 
 configurations {
@@ -11,14 +10,20 @@ configurations {
 }
 
 dependencies {
+	/* --------- Normal Dependencies --------- */
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+	implementation "io.micrometer:micrometer-core:${micrometerVersion}" // https://mvnrepository.com/artifact/io.micrometer/micrometer-core
+	implementation "org.axonframework:axon-micrometer:${axonVersion}" // https://mvnrepository.com/artifact/org.axonframework/axon-micrometer
+	implementation "org.axonframework:axon-tracing-opentelemetry:${axonVersion}" // https://mvnrepository.com/artifact/org.axonframework/axon-tracing-opentelemetry
+
 	/* --------- APIs Dependencies --------- */
-	api 'io.grpc:grpc-services'
 	api 'org.springframework.grpc:spring-grpc-spring-boot-starter'
 	api 'org.springframework.kafka:spring-kafka'
+	api "org.springdoc:springdoc-openapi-starter-webmvc-ui:${springdocOpenApiVersion}" // https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-starter-webmvc-ui
 	api "org.axonframework:axon-spring-boot-starter:${axonVersion}" // https://mvnrepository.com/artifact/org.axonframework/axon-spring-boot-starter
 	api "io.confluent:kafka-schema-registry-client:${confluentVersion}" // https://mvnrepository.com/artifact/io.confluent/kafka-schema-registry-client
 	api "io.confluent:kafka-protobuf-serializer:${confluentVersion}" // https://mvnrepository.com/artifact/io.confluent/kafka-avro-serializer
-	api "org.springdoc:springdoc-openapi-starter-webmvc-ui:${springdocOpenApiVersion}" // https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-starter-webmvc-ui
+	api 'io.grpc:grpc-services'
 }
 
 protobuf {

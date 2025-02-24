@@ -178,8 +178,12 @@ services:
     ports:
       - '8024:8024'
       - '8124:8124'
+    networks:
+      - novax-network
     environment:
+      AXONIQ_AXONSERVER_HOSTNAME: novax-axonserver
       AXONIQ_AXONSERVER_STANDALONE: TRUE
+      AXONIQ_AXONSERVER_DEVMODE: true
 
   # Kafka UI
   novax-kafka-ui:

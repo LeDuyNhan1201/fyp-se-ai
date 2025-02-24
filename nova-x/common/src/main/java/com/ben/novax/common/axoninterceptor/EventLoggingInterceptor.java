@@ -1,4 +1,4 @@
-package com.ben.novax.user.application.usecase.axoninterceptor;
+package com.ben.novax.common.axoninterceptor;
 
 import lombok.extern.slf4j.Slf4j;
 import org.axonframework.eventhandling.EventMessage;

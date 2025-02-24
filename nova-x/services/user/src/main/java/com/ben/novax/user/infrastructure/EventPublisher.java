@@ -1,6 +1,7 @@
 package com.ben.novax.user.infrastructure;
 
 import com.ben.novax.common.user.UserRegisteredEvent;
+import com.ben.novax.common.util.Constant;
 import com.ben.novax.user.application.contract.Event;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -25,7 +26,11 @@ public class EventPublisher {
                 .setFullName(event.getFullName())
                 .build();
 
-        userRegisteredTemplate.send("user.events", event.getUserId(), protoEvent);
+        userRegisteredTemplate.send(
+                Constant.KAFKA_TOPIC_USER_EVENT,
+                event.getUserId(),
+                protoEvent
+        );
     }
 
 }

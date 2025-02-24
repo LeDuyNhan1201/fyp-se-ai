@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.axonframework.commandhandling.gateway.CommandGateway;
+import org.axonframework.messaging.MetaData;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
@@ -35,7 +36,7 @@ public class UserController {
                 .email(request.getEmail())
                 .fullName(request.getFullName())
                 .build();
-        return commandGateway.send(command);
+        return commandGateway.send(command, MetaData.with("key", "123"));
     }
 
 }
