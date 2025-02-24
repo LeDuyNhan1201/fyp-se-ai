@@ -1,8 +1,8 @@
-package com.ben.smartcv.user.infrastructure;
+package com.ben.smartcv.file.infrastructure;
 
 import com.ben.smartcv.common.user.UserRegisteredEvent;
 import com.ben.smartcv.common.util.Constant;
-import com.ben.smartcv.user.application.contract.Event;
+import com.ben.smartcv.file.application.contract.Event;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;

@@ -1,0 +1,10 @@
+rootProject.name = 'smart-cv'
+
+// Include modules
+include 'common'
+include 'user'
+include 'file'
+include 'notification'
+project(':user').projectDir = file('services/user')
+project(':file').projectDir = file('services/file')
+project(':notification').projectDir = file('services/notification')

@@ -1,7 +1,7 @@
 server:
-  port: 30002
+  port: 30003
   servlet:
-    context-path: /file
+    context-path: /notification
     encoding:
       charset: UTF-8
       enabled: true
@@ -32,13 +32,13 @@ springdoc:
 
 openapi:
   service:
-    name: file-service
-    api-docs: file-service-rest-api
-    title: File Service REST API
-    description: This is the APIs documentation for File Service.
+    name: notification-service
+    api-docs: notification-service-rest-api
+    title: Notification Service REST API
+    description: This is the APIs documentation for Notification Service.
     version: 1.0.0
     server-url: http://localhost:${server.port}${server.servlet.context-path}
-    server-description: Nova-X File Service APIs For Development
+    server-description: Nova-X Notification Service APIs For Development
 
 # --------- METRICS & MONITORING ---------
 management:
@@ -90,7 +90,7 @@ management:
 # --------- SPRING CONFIGS ---------
 spring:
   application:
-    name: file
+    name: notification
 
   kafka:
     bootstrap-servers: localhost:9092,localhost:9092,localhost:9092

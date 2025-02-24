@@ -1,0 +1,19 @@
+services:
+  # --------- Minio ---------
+  novax-minio:
+    image: minio/minio:latest
+    container_name: novax-minio
+    command: server /data --console-address ":9001"
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    networks:
+      - novax-network
+    volumes:
+      - novax-minio-data:/data:r
+    environment:
+      MINIO_ROOT_USER: novax
+      MINIO_ROOT_PASSWORD: NoVaX123#
+
+volumes:
+  novax-minio-data:

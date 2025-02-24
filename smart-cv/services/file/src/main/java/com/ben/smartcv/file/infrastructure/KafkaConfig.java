@@ -1,4 +1,4 @@
-package com.ben.smartcv.user.infrastructure;
+package com.ben.smartcv.file.infrastructure;
 
 import com.ben.smartcv.common.util.Constant;
 import com.ben.smartcv.common.util.KafkaHelper;

@@ -1,4 +1,4 @@
-package com.ben.smartcv.file.application.dto;
+package com.ben.smartcv.notification.application.dto;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;

@@ -1,4 +1,4 @@
-package com.ben.smartcv.user.application.contract;
+package com.ben.smartcv.file.application.contract;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;

@@ -1,7 +1,7 @@
 server:
-  port: 30001
+  port: 30002
   servlet:
-    context-path: /user
+    context-path: /file
     encoding:
       charset: UTF-8
       enabled: true
@@ -32,13 +32,13 @@ springdoc:
 
 openapi:
   service:
-    name: user-service
-    api-docs: user-service-rest-api
-    title: User Service REST API
-    description: This is the APIs documentation for User Service.
+    name: file-service
+    api-docs: file-service-rest-api
+    title: File Service REST API
+    description: This is the APIs documentation for File Service.
     version: 1.0.0
     server-url: http://localhost:${server.port}${server.servlet.context-path}
-    server-description: Nova-X User Service APIs For Development
+    server-description: Nova-X File Service APIs For Development
 
 # --------- METRICS & MONITORING ---------
 management:
@@ -90,7 +90,7 @@ management:
 # --------- SPRING CONFIGS ---------
 spring:
   application:
-    name: user
+    name: file
 
   kafka:
     bootstrap-servers: localhost:9092,localhost:9092,localhost:9092

@@ -1,0 +1,85 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version "${springBootVersion}"
+    id 'io.spring.dependency-management' version "${springDependencyManagementVersion}"
+}
+
+allprojects {
+    group = 'com.ben.smartcv'
+    version = '0.0.1-SNAPSHOT'
+    java {
+        toolchain {
+            languageVersion = JavaLanguageVersion.of(javaVersion.toInteger())
+            sourceCompatibility = JavaVersion.VERSION_21
+            targetCompatibility = JavaVersion.VERSION_21
+        }
+    }
+
+    repositories {
+        mavenCentral()
+        maven { url 'https://packages.confluent.io/maven/' }
+        maven { url 'https://repo.spring.io/milestone' }
+        maven { url 'https://repo.spring.io/snapshot' }
+    }
+}
+
+subprojects {
+    apply {
+        plugin 'java'
+        plugin 'org.springframework.boot'
+        plugin 'io.spring.dependency-management'
+    }
+
+    if (project.name == 'common') {
+        tasks.named("bootJar") {
+            enabled = false
+        }
+
+        tasks.named("jar") {
+            enabled = true
+        }
+
+    } else {
+        tasks.named("jar") {
+            enabled = false
+        }
+
+        tasks.named("bootJar") {
+            enabled = true
+        }
+
+        tasks.named('test') {
+            useJUnitPlatform()
+        }
+    }
+
+    dependencies {
+        compileOnly 'org.projectlombok:lombok'
+        annotationProcessor 'org.projectlombok:lombok'
+
+        /* --------- Test Dependencies --------- */
+        testImplementation 'org.springframework.boot:spring-boot-starter-test'
+        testImplementation 'org.springframework.grpc:spring-grpc-test'
+        testImplementation 'org.springframework.kafka:spring-kafka-test'
+        testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    }
+
+    dependencyManagement {
+        imports {
+            mavenBom "org.springframework.grpc:spring-grpc-dependencies:${springGrpcVersion}"
+            mavenBom "org.axonframework:axon-bom:${axonVersion}"
+        }
+    }
+
+    tasks.withType(JavaCompile).configureEach {
+        options.encoding = 'UTF-8'
+    }
+}
+
+tasks.named('jar') {
+    enabled = true
+}
+
+tasks.named("bootJar") {
+    enabled = false
+}

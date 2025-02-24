@@ -1,7 +1,7 @@
-package com.ben.smartcv.user.application.usecase;
+package com.ben.smartcv.file.application.usecase;
 
-import com.ben.smartcv.user.application.contract.Event;
-import com.ben.smartcv.user.infrastructure.EventPublisher;
+import com.ben.smartcv.file.application.contract.Event;
+import com.ben.smartcv.file.infrastructure.EventPublisher;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;

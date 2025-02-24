@@ -1,6 +1,0 @@
-rootProject.name = 'nova-x'
-
-// Include modules
-include 'common'
-include 'user'
-project(':user').projectDir = file('services/user')

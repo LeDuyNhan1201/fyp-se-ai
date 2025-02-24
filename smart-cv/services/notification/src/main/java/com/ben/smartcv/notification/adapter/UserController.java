@@ -1,7 +1,7 @@
-package com.ben.smartcv.file.adapter;
+package com.ben.smartcv.notification.adapter;
 
-import com.ben.smartcv.file.application.contract.Command;
-import com.ben.smartcv.file.application.dto.RequestDto;
+import com.ben.smartcv.notification.application.contract.Command;
+import com.ben.smartcv.notification.application.dto.RequestDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
