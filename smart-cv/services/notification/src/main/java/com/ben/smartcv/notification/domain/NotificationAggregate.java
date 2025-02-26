@@ -1,7 +1,7 @@
 package com.ben.smartcv.notification.domain;
 
-import com.ben.smartcv.notification.application.contract.Command;
-import com.ben.smartcv.notification.application.contract.Event;
+import com.ben.smartcv.common.contract.command.UserCommand;
+import com.ben.smartcv.common.contract.event.UserEvent;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -23,7 +23,7 @@ import static org.axonframework.modelling.command.AggregateLifecycle.apply;
 @NoArgsConstructor
 @Aggregate
 @FieldDefaults(level = PRIVATE)
-public class UserAggregate {
+public class NotificationAggregate {
 
     @AggregateIdentifier
     String userId;
@@ -33,11 +33,11 @@ public class UserAggregate {
     String fullName;
 
     @CommandHandler
-    public UserAggregate(Command.RegisterUser command) {
+    public NotificationAggregate(UserCommand.RegisterUser command) {
         if (command.getEmail().isEmpty()) {
             throw new IllegalStateException("Email cannot be empty");
         }
-        apply(Event.UserRegistered.builder()
+        apply(UserEvent.UserRegistered.builder()
                 .userId(command.getUserId())
                 .email(command.getEmail())
                 .fullName(command.getFullName())
@@ -45,13 +45,13 @@ public class UserAggregate {
     }
 
     @EventSourcingHandler
-    public void on(Event.UserRegistered event) {
+    public void on(UserEvent.UserRegistered event) {
         this.userId = event.getUserId();
         this.email = event.getEmail();
         this.fullName = event.getFullName();
     }
 
-    @ExceptionHandler(resultType = IllegalStateException.class, payloadType = Command.RegisterUser.class)
+    @ExceptionHandler(resultType = IllegalStateException.class, payloadType = UserCommand.RegisterUser.class)
     public void handleIllegalStateExceptionsFromIssueCard(Exception exception) {
         log.error("IllegalStateException occurred: {}", exception.getMessage());
     }

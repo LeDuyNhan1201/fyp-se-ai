@@ -23,7 +23,7 @@ import static org.springframework.http.HttpStatus.OK;
 @Slf4j
 @RequiredArgsConstructor
 @FieldDefaults(level = PRIVATE, makeFinal = true)
-public class UserController {
+public class CommandController {
 
     CommandGateway commandGateway;
 

@@ -1,11 +1,11 @@
-package com.ben.smartcv.user.application.contract;
+package com.ben.smartcv.common.contract.query;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import static lombok.AccessLevel.PRIVATE;
 
-public class Query {
+public class UserQuery {
 
     @Getter
     @Setter

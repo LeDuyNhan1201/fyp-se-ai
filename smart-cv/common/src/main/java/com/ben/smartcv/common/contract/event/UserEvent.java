@@ -1,11 +1,11 @@
-package com.ben.smartcv.user.application.contract;
+package com.ben.smartcv.common.contract.event;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import static lombok.AccessLevel.PRIVATE;
 
-public class Event {
+public class UserEvent {
 
     @Getter
     @Setter

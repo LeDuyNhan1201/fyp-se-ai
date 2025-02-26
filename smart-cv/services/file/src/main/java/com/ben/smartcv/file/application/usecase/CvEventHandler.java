@@ -1,6 +1,6 @@
 package com.ben.smartcv.file.application.usecase;
 
-import com.ben.smartcv.file.application.contract.Event;
+import com.ben.smartcv.common.contract.event.CvEvent;
 import com.ben.smartcv.file.infrastructure.EventPublisher;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -14,13 +14,28 @@ import static lombok.AccessLevel.PRIVATE;
 @Component
 @RequiredArgsConstructor
 @FieldDefaults(level = PRIVATE, makeFinal = true)
-public class UserEventHandler {
+public class CvEventHandler {
 
     EventPublisher kafkaProducer;
 
     @EventHandler
-    public void on(Event.UserRegistered event) {
-        kafkaProducer.sendUserRegisteredEvent(event);
+    public void on(CvEvent.CvApplied event) {
+        kafkaProducer.sendCvAppliedEvent(event);
+    }
+
+    @EventHandler
+    public void on(CvEvent.CvApplicationFailed event) {
+        kafkaProducer.sendCvApplicationFailedEvent(event);
+    }
+
+    @EventHandler
+    public void on(CvEvent.CvParsed event) {
+        kafkaProducer.sendCCvParsedEvent(event);
+    }
+
+    @EventHandler
+    public void on(CvEvent.CvParsingFailed event) {
+        kafkaProducer.sendCCvParsingFailedEvent(event);
     }
 
 }

@@ -32,13 +32,13 @@ springdoc:
 
 openapi:
   service:
-    name: file-service
+    name: file
     api-docs: file-service-rest-api
     title: File Service REST API
     description: This is the APIs documentation for File Service.
     version: 1.0.0
     server-url: http://localhost:${server.port}${server.servlet.context-path}
-    server-description: Nova-X File Service APIs For Development
+    server-description: Smart CV File Service APIs For Development
 
 # --------- METRICS & MONITORING ---------
 management:

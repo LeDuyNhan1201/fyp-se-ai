@@ -1,6 +1,6 @@
 package com.ben.smartcv.file.adapter;
 
-import com.ben.smartcv.common.contract.CvCommand;
+import com.ben.smartcv.common.contract.command.CvCommand;
 import com.ben.smartcv.file.application.dto.RequestDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -10,7 +10,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.axonframework.messaging.MetaData;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
@@ -24,7 +23,7 @@ import static org.springframework.http.HttpStatus.OK;
 @Slf4j
 @RequiredArgsConstructor
 @FieldDefaults(level = PRIVATE, makeFinal = true)
-public class FileController {
+public class CommandController {
 
     CommandGateway commandGateway;
 

@@ -1,4 +1,4 @@
-package com.ben.smartcv.user.application.contract;
+package com.ben.smartcv.common.contract.command;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -6,7 +6,7 @@ import org.axonframework.modelling.command.TargetAggregateIdentifier;
 
 import static lombok.AccessLevel.PRIVATE;
 
-public class Command {
+public class UserCommand {
 
     @Getter
     @Setter

@@ -1,6 +1,6 @@
 package com.ben.smartcv.user.application.usecase;
 
-import com.ben.smartcv.user.application.contract.Event;
+import com.ben.smartcv.common.contract.event.UserEvent;
 import com.ben.smartcv.user.infrastructure.EventPublisher;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -19,7 +19,7 @@ public class UserEventHandler {
     EventPublisher kafkaProducer;
 
     @EventHandler
-    public void on(Event.UserRegistered event) {
+    public void on(UserEvent.UserRegistered event) {
         kafkaProducer.sendUserRegisteredEvent(event);
     }
 

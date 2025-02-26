@@ -2,7 +2,7 @@ package com.ben.smartcv.user.infrastructure;
 
 import com.ben.smartcv.common.user.UserRegisteredEvent;
 import com.ben.smartcv.common.util.Constant;
-import com.ben.smartcv.user.application.contract.Event;
+import com.ben.smartcv.common.contract.event.UserEvent;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
@@ -19,7 +19,7 @@ public class EventPublisher {
 
     KafkaTemplate<String, UserRegisteredEvent> userRegisteredTemplate;
 
-    public void sendUserRegisteredEvent(Event.UserRegistered event) {
+    public void sendUserRegisteredEvent(UserEvent.UserRegistered event) {
         UserRegisteredEvent protoEvent = UserRegisteredEvent.newBuilder()
                 .setUserId(event.getUserId())
                 .setEmail(event.getEmail())

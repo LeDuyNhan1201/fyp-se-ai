@@ -1,4 +1,4 @@
-package com.ben.smartcv.file.infrastructure;
+package com.ben.smartcv.common.config;
 
 import com.ben.smartcv.common.util.Constant;
 import com.ben.smartcv.common.util.KafkaHelper;
@@ -12,9 +12,15 @@ import org.springframework.context.annotation.Configuration;
 public class KafkaConfig {
 
     @Bean
-    public NewTopic createTopic() {
+    public NewTopic createUserEventTopic() {
         return KafkaHelper.createTopic(
                 Constant.KAFKA_TOPIC_USER_EVENT, 3, 1);
+    }
+
+    @Bean
+    public NewTopic createCvEventTopic() {
+        return KafkaHelper.createTopic(
+                Constant.KAFKA_TOPIC_CV_EVENT, 3, 1);
     }
 
 }

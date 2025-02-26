@@ -1,4 +1,4 @@
-package com.ben.smartcv.common;
+package com.ben.smartcv.common.config;
 
 import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.Tags;
@@ -18,45 +18,9 @@ import org.axonframework.queryhandling.QueryBus;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-@Configuration
-@Slf4j
+//@Configuration
+//@Slf4j
 public class MetricsConfig {
-
-    @Bean
-    public ConfigurerModule metricConfigurer(MeterRegistry meterRegistry) {
-        return configurer -> {
-            configureMonitoring(meterRegistry, configurer, EventStore.class);
-            configureMonitoring(meterRegistry, configurer, TrackingEventProcessor.class);
-            configureMonitoring(meterRegistry, configurer, CommandBus.class);
-            configureMonitoring(meterRegistry, configurer, QueryBus.class);
-        };
-    }
-
-    private <T> void configureMonitoring(MeterRegistry meterRegistry, Configurer configurer, Class<T> componentClass) {
-        configurer.configureMessageMonitor(componentClass, createMessageMonitorFactory(meterRegistry));
-    }
-
-    private MessageMonitorFactory createMessageMonitorFactory(MeterRegistry meterRegistry) {
-        return (configuration, componentType, componentName) -> {
-            MessageCountingMonitor messageCounter = MessageCountingMonitor.buildMonitor(
-                    componentName, meterRegistry,
-                    message -> Tags.of(TagsUtil.PAYLOAD_TYPE_TAG, message.getPayloadType().getSimpleName())
-            );
-
-            CapacityMonitor capacityMonitor = CapacityMonitor.buildMonitor(
-                    componentName, meterRegistry,
-                    message -> Tags.of(TagsUtil.PAYLOAD_TYPE_TAG, message.getPayloadType().getSimpleName())
-            );
-
-            MessageTimerMonitor messageTimer = MessageTimerMonitor.builder()
-                    .meterNamePrefix(componentName)
-                    .meterRegistry(meterRegistry)
-                    .tagsBuilder(message -> Tags.of(TagsUtil.PAYLOAD_TYPE_TAG, message.getPayloadType().getSimpleName()))
-                    .build();
-
-            return new MultiMessageMonitor<>(messageCounter, messageTimer, capacityMonitor);
-        };
-    }
 
 //    @Bean
 //    public ConfigurerModule metricConfigurer(MeterRegistry meterRegistry) {

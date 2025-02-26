@@ -9,11 +9,6 @@ server:
       force-request: true
       force-response: true
 
-# --------- GATEWAY ---------
-gateway:
-  domain: localhost
-  port: 30000
-
 # --------- AXON ---------
 axon:
   metrics:
@@ -21,24 +16,6 @@ axon:
       enabled: true
     micrometer:
       dimensional: true
-
-# --------- API DOCUMENT ---------
-springdoc:
-  api-docs:
-    path: /api-docs
-  swagger-ui:
-    path: /swagger-ui
-  show-actuator: true
-
-openapi:
-  service:
-    name: notification-service
-    api-docs: notification-service-rest-api
-    title: Notification Service REST API
-    description: This is the APIs documentation for Notification Service.
-    version: 1.0.0
-    server-url: http://localhost:${server.port}${server.servlet.context-path}
-    server-description: Nova-X Notification Service APIs For Development
 
 # --------- METRICS & MONITORING ---------
 management:

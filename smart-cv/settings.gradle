@@ -5,6 +5,9 @@ include 'common'
 include 'user'
 include 'file'
 include 'notification'
+include 'orchestration'
+
 project(':user').projectDir = file('services/user')
 project(':file').projectDir = file('services/file')
 project(':notification').projectDir = file('services/notification')
+project(':orchestration').projectDir = file('services/orchestration')

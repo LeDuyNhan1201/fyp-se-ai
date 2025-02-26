@@ -1,6 +1,5 @@
-package com.ben.smartcv.common.contract;
+package com.ben.smartcv.common.contract.event;
 
-import com.thoughtworks.xstream.annotations.XStreamAlias;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 

@@ -1,53 +1,91 @@
 package com.ben.smartcv.orchestration.saga;
 
+import com.ben.smartcv.common.contract.command.CvCommand;
+import com.ben.smartcv.common.contract.event.CvEvent;
+import com.ben.smartcv.common.cv.CvAppliedEvent;
+import com.ben.smartcv.common.util.Constant;
+import com.ben.smartcv.common.util.EventLogger;
+import lombok.experimental.FieldDefaults;
+import lombok.extern.slf4j.Slf4j;
+import org.axonframework.commandhandling.gateway.CommandGateway;
+import org.axonframework.modelling.saga.SagaEventHandler;
+import org.axonframework.modelling.saga.StartSaga;
+import org.axonframework.spring.stereotype.Saga;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.kafka.annotation.KafkaListener;
+
+import java.util.Map;
+
+import static lombok.AccessLevel.PRIVATE;
+import static org.axonframework.modelling.saga.SagaLifecycle.end;
+
 @Saga
-@Component
+@Slf4j
+@FieldDefaults(level = PRIVATE)
 public class ApplyCvSaga {
+
     @Autowired
-    private transient CommandGateway commandGateway;
+    transient CommandGateway commandGateway;
+
+    static final String ASSOCIATION_PROPERTY = "cvId";
 
     @StartSaga
-    @SagaEventHandler(associationProperty = "cvId")
-    public void on(CvAppliedEvent event) {
-        commandGateway.send(new ParseCvCommand(event.getCvId()));
+    @SagaEventHandler(associationProperty = ASSOCIATION_PROPERTY)
+    public void on(CvEvent.CvApplied event) {
+        log.info(EventLogger.logEvent("CvApplied", event.getCvId(), event.getCvId(),
+                Map.of("userId", event.getUserId())));
+
+        commandGateway.send(new CvCommand.ParseCv(event.getCvId()));
     }
 
-    @SagaEventHandler(associationProperty = "cvId")
-    public void on(CvNotAppliedEvent event) {
+    @SagaEventHandler(associationProperty = ASSOCIATION_PROPERTY)
+    public void on(CvEvent.CvApplicationFailed event) {
         end();
     }
 
-    @SagaEventHandler(associationProperty = "cvId")
-    public void on(CvParsedEvent event) {
+    @SagaEventHandler(associationProperty = ASSOCIATION_PROPERTY)
+    public void on(CvEvent.CvParsed event) {
         end();
     }
 
-    @SagaEventHandler(associationProperty = "cvId")
-    public void on(CvNotParsedEvent event) {
+    @SagaEventHandler(associationProperty = ASSOCIATION_PROPERTY)
+    public void on(CvEvent.CvParsingFailed event) {
         end();
     }
 
-    @KafkaListener(topics = "cvEvents", groupId = "orchestration-service")
-    public void consumeEvent(String eventJson) {
-        ObjectMapper objectMapper = new ObjectMapper();
-        JsonNode eventNode = objectMapper.readTree(eventJson);
-        String eventType = eventNode.get("type").asText();
-        String cvId = eventNode.get("cvId").asText();
-        String reason = eventNode.has("reason") ? eventNode.get("reason").asText() : null;
-
-        switch (eventType) {
-            case "CvAppliedEvent":
-                on(new CvAppliedEvent(cvId));
-                break;
-            case "CvNotAppliedEvent":
-                on(new CvNotAppliedEvent(cvId, reason));
-                break;
-            case "CvParsedEvent":
-                on(new CvParsedEvent(cvId));
-                break;
-            case "CvNotParsedEvent":
-                on(new CvNotParsedEvent(cvId, reason));
-                break;
-        }
+    @KafkaListener(topics = Constant.KAFKA_TOPIC_CV_EVENT,
+            groupId = Constant.KAFKA_GROUP_ORCHESTRATION)
+    public void consumeCvEvent(CvAppliedEvent event) {
+        on(CvEvent.CvApplied.builder()
+                .cvId(event.getCvId())
+                .userId(event.getUserId())
+                .build());
     }
+
+    @KafkaListener(topics = Constant.KAFKA_TOPIC_CV_EVENT,
+            groupId = Constant.KAFKA_GROUP_ORCHESTRATION)
+    public void consumeCvEvent(CvEvent.CvApplicationFailed event) {
+        on(CvEvent.CvApplicationFailed.builder()
+                .cvId(event.getCvId())
+                .reason(event.getReason())
+                .build());
+    }
+
+    @KafkaListener(topics = Constant.KAFKA_TOPIC_CV_EVENT,
+            groupId = Constant.KAFKA_GROUP_ORCHESTRATION)
+    public void consumeCvEvent(CvEvent.CvParsed event) {
+        on(CvEvent.CvParsed.builder()
+                .cvId(event.getCvId())
+                .build());
+    }
+
+    @KafkaListener(topics = Constant.KAFKA_TOPIC_CV_EVENT,
+            groupId = Constant.KAFKA_GROUP_ORCHESTRATION)
+    public void consumeCvEvent(CvEvent.CvParsingFailed event) {
+        on(CvEvent.CvParsingFailed.builder()
+                .cvId(event.getCvId())
+                .reason(event.getReason())
+                .build());
+    }
+
 }

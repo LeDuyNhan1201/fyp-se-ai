@@ -13,11 +13,10 @@ public class RequestDto {
     @AllArgsConstructor
     @NoArgsConstructor
     @FieldDefaults(level = PRIVATE)
-    public static class CreateUser {
-
-        String email;
+    public static class CreateCv {
 
         String fullName;
+
     }
 
 }

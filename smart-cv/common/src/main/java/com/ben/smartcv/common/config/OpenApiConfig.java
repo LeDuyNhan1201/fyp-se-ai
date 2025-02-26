@@ -1,4 +1,4 @@
-package com.ben.smartcv.common;
+package com.ben.smartcv.common.config;
 
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.ExternalDocumentation;
@@ -24,7 +24,7 @@ public class OpenApiConfig {
                                     @Value("${openapi.service.name}") String serviceName) {
         return GroupedOpenApi.builder()
             .group(apiDocs)
-            .packagesToScan("com.ben.novax." + serviceName + ".adapter")
+            .packagesToScan("com.ben.smartcv." + serviceName + ".adapter")
             .build();
     }
 
@@ -81,7 +81,7 @@ public class OpenApiConfig {
                         .description("Find out more about this service")
                         .url("http://abc.com")
                 )
-                .servers(List.of(new Server().url(String.format("http://%s:%s%s", gatewayDomain, gatewayPort, contextPath))))
+                //.servers(List.of(new Server().url(String.format("http://%s:%s%s", gatewayDomain, gatewayPort, contextPath))))
                 .components(
                         new Components()
                                 .addSecuritySchemes(

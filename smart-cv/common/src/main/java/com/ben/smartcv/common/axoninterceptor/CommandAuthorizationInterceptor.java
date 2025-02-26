@@ -21,6 +21,8 @@ public class CommandAuthorizationInterceptor implements MessageHandlerIntercepto
         
         // Giả sử có key trong metadata, ta kiểm tra quyền
         String key = (String) command.getMetaData().get("key");
+        log.debug("[LOG] Key: {}", key);
+
         if (key == null || !key.equals("123")) {
             throw new SecurityException("Unauthorized user");
         }
