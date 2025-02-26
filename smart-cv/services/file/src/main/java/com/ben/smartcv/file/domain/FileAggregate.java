@@ -1,5 +1,6 @@
 package com.ben.smartcv.file.domain;
 
+import com.ben.smartcv.common.contract.CvCommand;
 import com.ben.smartcv.file.application.contract.Command;
 import com.ben.smartcv.file.application.contract.Event;
 import lombok.Getter;
@@ -23,17 +24,15 @@ import static org.axonframework.modelling.command.AggregateLifecycle.apply;
 @NoArgsConstructor
 @Aggregate
 @FieldDefaults(level = PRIVATE)
-public class UserAggregate {
+public class CvAggregate {
 
     @AggregateIdentifier
+    String cvId;
+
     String userId;
 
-    String email;
-
-    String fullName;
-
     @CommandHandler
-    public UserAggregate(Command.RegisterUser command) {
+    public CvAggregate(CvCommand.ApplyCv command) {
         if (command.getEmail().isEmpty()) {
             throw new IllegalStateException("Email cannot be empty");
         }

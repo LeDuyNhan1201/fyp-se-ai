@@ -1,7 +1,7 @@
-package com.ben.smartcv.notification.adapter;
+package com.ben.smartcv.user.adapter;
 
-import com.ben.smartcv.notification.application.contract.Command;
-import com.ben.smartcv.notification.application.dto.RequestDto;
+import com.ben.smartcv.common.contract.command.UserCommand;
+import com.ben.smartcv.user.application.dto.RequestDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -31,7 +31,7 @@ public class UserController {
     @PostMapping
     @ResponseStatus(OK)
     public CompletableFuture<String> hello(@RequestBody RequestDto.CreateUser request) {
-        Command.RegisterUser command = Command.RegisterUser.builder()
+        UserCommand.RegisterUser command = UserCommand.RegisterUser.builder()
                 .userId(UUID.randomUUID().toString())
                 .email(request.getEmail())
                 .fullName(request.getFullName())
