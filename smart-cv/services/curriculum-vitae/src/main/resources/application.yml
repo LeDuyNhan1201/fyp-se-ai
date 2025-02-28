@@ -1,13 +1,18 @@
 server:
   port: 30003
   servlet:
-    context-path: /notification
+    context-path: /cv
     encoding:
       charset: UTF-8
       enabled: true
       force: true
       force-request: true
       force-response: true
+
+# --------- GATEWAY ---------
+gateway:
+  domain: localhost
+  port: 30000
 
 # --------- AXON ---------
 axon:
@@ -20,6 +25,24 @@ axon:
     enabled: true
   distributed:
     enabled: true
+
+# --------- API DOCUMENT ---------
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui
+  show-actuator: true
+
+openapi:
+  service:
+    name: curriculum_vitae
+    api-docs: cv-service-rest-api
+    title: Curriculum Vitae Service REST API
+    description: This is the APIs documentation for Curriculum Vitae Service.
+    version: 1.0.0
+    server-url: http://localhost:${server.port}${server.servlet.context-path}
+    server-description: Smart CV Curriculum Vitae Service APIs For Development
 
 # --------- METRICS & MONITORING ---------
 management:
@@ -71,7 +94,7 @@ management:
 # --------- SPRING CONFIGS ---------
 spring:
   application:
-    name: notification
+    name: curriculum-vitae
 
   kafka:
     bootstrap-servers: localhost:9092,localhost:9092,localhost:9092

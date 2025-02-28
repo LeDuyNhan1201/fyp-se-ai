@@ -23,4 +23,10 @@ public class KafkaConfig {
                 Constant.KAFKA_TOPIC_CV_EVENT, 3, 1);
     }
 
+    @Bean
+    public NewTopic createCvCommandTopic() {
+        return KafkaHelper.createTopic(
+                Constant.KAFKA_TOPIC_CV_COMMAND, 3, 1);
+    }
+
 }

@@ -1,7 +1,7 @@
-package com.ben.smartcv.file.infrastructure;
+package com.ben.smartcv.curriculum_vitae.infrastructure;
 
 import com.ben.smartcv.common.contract.event.CvEvent;
-import com.ben.smartcv.common.cv.CvAppliedEvent;
+import com.ben.smartcv.common.cv.CvParsedEvent;
 import com.ben.smartcv.common.util.Constant;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -17,15 +17,14 @@ import static lombok.AccessLevel.PRIVATE;
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 public class EventPublisher {
 
-    KafkaTemplate<String, CvAppliedEvent> cvAppliedEventTemplate;
+    KafkaTemplate<String, CvParsedEvent> cvParsedEventTemplate;
 
-    public void sendCvAppliedEvent(CvEvent.CvApplied event) {
-        CvAppliedEvent protoEvent = CvAppliedEvent.newBuilder()
-                .setUserId(event.getUserId())
+    public void send(CvEvent.CvParsed event) {
+        CvParsedEvent protoEvent = CvParsedEvent.newBuilder()
                 .setCvId(event.getCvId())
                 .build();
 
-        cvAppliedEventTemplate.send(
+        cvParsedEventTemplate.send(
                 Constant.KAFKA_TOPIC_CV_EVENT,
                 event.getCvId(),
                 protoEvent

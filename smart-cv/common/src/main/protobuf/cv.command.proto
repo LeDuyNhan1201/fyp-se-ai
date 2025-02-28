@@ -3,18 +3,10 @@ syntax = "proto3";
 package com.ben.smartcv.common;
 
 option java_package = "com.ben.smartcv.common.cv";
-option java_outer_classname = "CvEventProto";
+option java_outer_classname = "CvCommandProto";
 option java_multiple_files = true;
 
-message CvAppliedEvent {
-
-  string cv_id = 1;
-
-  string user_id = 2;
-
-}
-
-message CvParsedEvent {
+message ParseCvCommand {
 
   string cv_id = 1;
 

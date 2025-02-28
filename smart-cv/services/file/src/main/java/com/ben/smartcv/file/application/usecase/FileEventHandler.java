@@ -14,28 +14,14 @@ import static lombok.AccessLevel.PRIVATE;
 @Component
 @RequiredArgsConstructor
 @FieldDefaults(level = PRIVATE, makeFinal = true)
-public class CvEventHandler {
+public class FileEventHandler {
 
     EventPublisher kafkaProducer;
 
     @EventHandler
     public void on(CvEvent.CvApplied event) {
+        // 3
         kafkaProducer.sendCvAppliedEvent(event);
-    }
-
-    @EventHandler
-    public void on(CvEvent.CvApplicationFailed event) {
-        kafkaProducer.sendCvApplicationFailedEvent(event);
-    }
-
-    @EventHandler
-    public void on(CvEvent.CvParsed event) {
-        kafkaProducer.sendCCvParsedEvent(event);
-    }
-
-    @EventHandler
-    public void on(CvEvent.CvParsingFailed event) {
-        kafkaProducer.sendCCvParsingFailedEvent(event);
     }
 
 }

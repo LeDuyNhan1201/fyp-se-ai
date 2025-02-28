@@ -15,7 +15,6 @@ public class CvCommand {
     @AllArgsConstructor
     @NoArgsConstructor
     @FieldDefaults(level = PRIVATE)
-    @XStreamAlias("ApplyCv")
     public static class ApplyCv {
 
         @TargetAggregateIdentifier

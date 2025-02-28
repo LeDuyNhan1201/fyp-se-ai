@@ -16,6 +16,10 @@ axon:
       enabled: true
     micrometer:
       dimensional: true
+  axonserver:
+    enabled: true
+  distributed:
+    enabled: true
 
 # --------- METRICS & MONITORING ---------
 management:

@@ -27,37 +27,9 @@ public class CvEvent {
     @AllArgsConstructor
     @NoArgsConstructor
     @FieldDefaults(level = PRIVATE)
-    public static class CvApplicationFailed {
-
-        String cvId;
-
-        String reason;
-
-    }
-
-    @Getter
-    @Setter
-    @Builder
-    @AllArgsConstructor
-    @NoArgsConstructor
-    @FieldDefaults(level = PRIVATE)
     public static class CvParsed {
 
         String cvId;
-
-    }
-
-    @Getter
-    @Setter
-    @Builder
-    @AllArgsConstructor
-    @NoArgsConstructor
-    @FieldDefaults(level = PRIVATE)
-    public static class CvParsingFailed {
-
-        String cvId;
-
-        String reason;
 
     }
 

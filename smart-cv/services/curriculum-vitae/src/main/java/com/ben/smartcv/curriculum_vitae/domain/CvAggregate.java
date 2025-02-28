@@ -1,4 +1,4 @@
-package com.ben.smartcv.file.domain;
+package com.ben.smartcv.curriculum_vitae.domain;
 
 import com.ben.smartcv.common.contract.command.CvCommand;
 import com.ben.smartcv.common.contract.event.CvEvent;
@@ -14,8 +14,6 @@ import org.axonframework.messaging.interceptors.ExceptionHandler;
 import org.axonframework.modelling.command.AggregateIdentifier;
 import org.axonframework.spring.stereotype.Aggregate;
 
-import java.util.Map;
-
 import static lombok.AccessLevel.PRIVATE;
 import static org.axonframework.modelling.command.AggregateLifecycle.apply;
 
@@ -25,35 +23,31 @@ import static org.axonframework.modelling.command.AggregateLifecycle.apply;
 @NoArgsConstructor
 @Aggregate
 @FieldDefaults(level = PRIVATE)
-public class FileAggregate {
+public class CvAggregate {
 
     @AggregateIdentifier
     String cvId;
 
-    String userId;
-
     String failedReason;
 
     @CommandHandler
-    public FileAggregate(CvCommand.ApplyCv command) {
-        // 1
-        log.info(EventLogger.logCommand("ApplyCv", command.getCvId(),
-                Map.of("userId", command.getUserId())));
+    public CvAggregate(CvCommand.ParseCv command) {
+        // 6
+        log.info(EventLogger.logCommand("ParseCv", command.getCvId(),
+                null));
 
-        apply(CvEvent.CvApplied.builder()
+        apply(CvEvent.CvParsed.builder()
                 .cvId(command.getCvId())
-                .userId(command.getUserId())
                 .build());
     }
 
     @EventSourcingHandler
-    public void on(CvEvent.CvApplied event) {
-        // 2
-        this.userId = event.getUserId();
+    public void on(CvEvent.CvParsed event) {
+        // 7
         this.cvId = event.getCvId();
     }
 
-    @ExceptionHandler(resultType = IllegalStateException.class, payloadType = CvCommand.ApplyCv.class)
+    @ExceptionHandler(resultType = IllegalStateException.class, payloadType = CvCommand.ParseCv.class)
     public void handleIllegalStateExceptionsFromIssueCard(Exception exception) {
         log.error("IllegalStateException occurred: {}", exception.getMessage());
     }
