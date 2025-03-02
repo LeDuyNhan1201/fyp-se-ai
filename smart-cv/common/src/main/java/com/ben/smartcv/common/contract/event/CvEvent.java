@@ -15,6 +15,8 @@ public class CvEvent {
     @FieldDefaults(level = PRIVATE)
     public static class CvApplied {
 
+        String id;
+
         String cvId;
 
         String userId;
@@ -28,6 +30,8 @@ public class CvEvent {
     @NoArgsConstructor
     @FieldDefaults(level = PRIVATE)
     public static class CvParsed {
+
+        String id;
 
         String cvId;
 

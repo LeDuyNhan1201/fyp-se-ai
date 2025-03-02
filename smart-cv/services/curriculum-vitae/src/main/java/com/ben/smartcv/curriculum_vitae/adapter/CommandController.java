@@ -42,6 +42,7 @@ public class CommandController {
     @ResponseStatus(OK)
     public CompletableFuture<String> upload() {
         CvCommand.ParseCv command = CvCommand.ParseCv.builder()
+                .id(UUID.randomUUID().toString())
                 .cvId(UUID.randomUUID().toString())
                 .build();
         return commandGateway.send(command, MetaData.with("key", "123"));

@@ -17,6 +17,8 @@ public class UserCommand {
     public static class RegisterUser {
 
         @TargetAggregateIdentifier
+        String id;
+
         String userId;
 
         String email;

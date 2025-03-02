@@ -26,6 +26,8 @@ import static org.axonframework.modelling.command.AggregateLifecycle.apply;
 public class CvAggregate {
 
     @AggregateIdentifier
+    String id;
+
     String cvId;
 
     String failedReason;
@@ -37,6 +39,7 @@ public class CvAggregate {
                 null));
 
         apply(CvEvent.CvParsed.builder()
+                .id(command.getId())
                 .cvId(command.getCvId())
                 .build());
     }
@@ -44,6 +47,7 @@ public class CvAggregate {
     @EventSourcingHandler
     public void on(CvEvent.CvParsed event) {
         // 7
+        this.id = event.getId();
         this.cvId = event.getCvId();
     }
 

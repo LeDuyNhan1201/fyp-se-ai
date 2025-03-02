@@ -7,7 +7,6 @@ import com.ben.smartcv.common.cv.CvParsedEvent;
 import com.ben.smartcv.common.util.Constant;
 import com.ben.smartcv.common.util.EventLogger;
 import com.ben.smartcv.orchestration.publisher.CommandPublisher;
-import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.axonframework.commandhandling.gateway.CommandGateway;
@@ -19,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 
 import java.util.Map;
+import java.util.UUID;
 
 import static lombok.AccessLevel.PRIVATE;
 import static org.axonframework.modelling.saga.SagaLifecycle.end;
@@ -44,6 +44,7 @@ public class ApplyCvSaga {
                 event.getCvId(), event.getCvId(), Map.of("userId", event.getUserId())));
 
         commandGateway.sendAndWait(CvCommand.ParseCv.builder()
+                .id(UUID.randomUUID().toString())
                 .cvId(event.getCvId())
                 .build());
     }

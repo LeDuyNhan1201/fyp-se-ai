@@ -16,6 +16,7 @@ gateway:
 
 # --------- AXON ---------
 axon:
+  event-bus-name: smartcv-event-store
   metrics:
     auto-configuration:
       enabled: true
@@ -91,6 +92,10 @@ management:
 spring:
   application:
     name: user
+
+  data:
+    mongodb:
+      uri: mongodb://smartcv:SmArTcV123%23@localhost:27017/axon-framework?authSource=admin
 
   kafka:
     bootstrap-servers: localhost:9092,localhost:9092,localhost:9092

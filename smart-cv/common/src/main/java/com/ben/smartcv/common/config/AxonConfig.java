@@ -2,6 +2,9 @@ package com.ben.smartcv.common.config;
 
 import com.ben.smartcv.common.axoninterceptor.CommandAuthorizationInterceptor;
 import com.ben.smartcv.common.axoninterceptor.CommandLoggingInterceptor;
+import com.ben.smartcv.common.axoninterceptor.EventLoggingInterceptor;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.security.AnyTypePermission;
 import io.micrometer.core.instrument.MeterRegistry;
@@ -9,28 +12,36 @@ import io.micrometer.core.instrument.Tags;
 import lombok.extern.slf4j.Slf4j;
 import org.axonframework.commandhandling.CommandBus;
 import org.axonframework.commandhandling.SimpleCommandBus;
+import org.axonframework.common.transaction.TransactionManager;
 import org.axonframework.config.Configurer;
 import org.axonframework.config.ConfigurerModule;
 import org.axonframework.config.MessageMonitorFactory;
+import org.axonframework.eventhandling.EventBus;
 import org.axonframework.eventhandling.TrackingEventProcessor;
+import org.axonframework.eventhandling.tokenstore.TokenStore;
+import org.axonframework.eventsourcing.eventstore.EmbeddedEventStore;
+import org.axonframework.eventsourcing.eventstore.EventStorageEngine;
 import org.axonframework.eventsourcing.eventstore.EventStore;
-import org.axonframework.micrometer.CapacityMonitor;
-import org.axonframework.micrometer.MessageCountingMonitor;
-import org.axonframework.micrometer.MessageTimerMonitor;
-import org.axonframework.micrometer.TagsUtil;
+import org.axonframework.extensions.mongo.eventsourcing.eventstore.MongoEventStorageEngine;
+import org.axonframework.extensions.mongo.eventsourcing.tokenstore.MongoTokenStore;
+import org.axonframework.extensions.mongo.spring.SpringMongoTemplate;
+import org.axonframework.micrometer.*;
 import org.axonframework.monitoring.MultiMessageMonitor;
 import org.axonframework.queryhandling.QueryBus;
 import org.axonframework.queryhandling.SimpleQueryBus;
 import org.axonframework.serialization.Serializer;
+import org.axonframework.serialization.json.JacksonSerializer;
 import org.axonframework.serialization.xml.XStreamSerializer;
 import org.axonframework.tracing.LoggingSpanFactory;
 import org.axonframework.tracing.MultiSpanFactory;
 import org.axonframework.tracing.SpanFactory;
 import org.axonframework.tracing.attributes.*;
 import org.axonframework.tracing.opentelemetry.OpenTelemetrySpanFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.data.mongodb.MongoDatabaseFactory;
 
 import java.util.Arrays;
 
@@ -40,12 +51,20 @@ public class AxonConfig {
 
     @Bean
     @Primary
-    public Serializer defaultSerializer() {
+    public Serializer xStreamSerializer() {
         XStream xStream = new XStream();
         xStream.addPermission(AnyTypePermission.ANY);
 
         return XStreamSerializer.builder()
                 .xStream(xStream)
+                .build();
+    }
+
+    @Bean
+    public Serializer jacksonSerializer() {
+        return JacksonSerializer.builder()
+                .objectMapper(new ObjectMapper()
+                        .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)) // Bỏ qua thuộc tính không xác định
                 .build();
     }
 
@@ -72,12 +91,57 @@ public class AxonConfig {
     }
 
     @Bean
-    public CommandBus configureCommandBus() {
-        CommandBus commandBus = SimpleCommandBus.builder().build();
-        commandBus.registerDispatchInterceptor(new CommandLoggingInterceptor());
-        commandBus.registerHandlerInterceptor(new CommandAuthorizationInterceptor());
-        return commandBus;
+    @Primary
+    public EventStore smartCvEventStore(EventStorageEngine storageEngine,
+                                 GlobalMetricRegistry metricRegistry,
+                                 @Value("axon.event-bus-name") String eventBusName) {
+        return EmbeddedEventStore.builder()
+                .storageEngine(storageEngine)
+                .messageMonitor(metricRegistry.registerEventBus(eventBusName))
+                .spanFactory(spanFactory())
+                .build();
     }
+
+    @Bean
+    public TokenStore smartCvTokenStore(MongoDatabaseFactory factory,
+                                   TransactionManager transactionManager) {
+        return MongoTokenStore.builder()
+                .mongoTemplate(SpringMongoTemplate.builder()
+                        .factory(factory)
+                        .build())
+                .serializer(jacksonSerializer())
+                .transactionManager(transactionManager)
+                .build();
+    }
+
+//    @Bean
+//    public EventStorageEngine storageEngine(MongoClient client) {
+//        return MongoEventStorageEngine
+//                .builder()
+//                .mongoTemplate(DefaultMongoTemplate.builder()
+//                        .mongoDatabase(client)
+//                        .build())
+//                .build();
+//    }
+
+    @Bean
+    public EventStorageEngine smartCvStorageEngine(MongoDatabaseFactory factory,
+                                            TransactionManager transactionManager) {
+        return MongoEventStorageEngine.builder()
+                .mongoTemplate(SpringMongoTemplate.builder()
+                        .factory(factory)
+                        .build())
+                .transactionManager(transactionManager)
+                .build();
+    }
+
+//    @Bean
+//    public CommandBus configureCommandBus() {
+//        CommandBus commandBus = SimpleCommandBus.builder().build();
+//        commandBus.registerDispatchInterceptor(new CommandLoggingInterceptor());
+//        commandBus.registerHandlerInterceptor(new CommandAuthorizationInterceptor());
+//        return commandBus;
+//    }
 
     @Bean
     public QueryBus configureQueryBus() {
@@ -85,6 +149,15 @@ public class AxonConfig {
 //        queryBus.registerDispatchInterceptor(new QueryLoggingInterceptor());
 //        queryBus.registerHandlerInterceptor(new QueryAuthorizationInterceptor());
         return queryBus;
+    }
+
+    @Bean
+    public EventBus configureEventBus(EventStorageEngine eventStorageEngine) {
+        EventBus eventBus = EmbeddedEventStore.builder()
+                .storageEngine(eventStorageEngine)
+                .build();
+        eventBus.registerDispatchInterceptor(new EventLoggingInterceptor());
+        return eventBus;
     }
 
     @Bean

@@ -1,0 +1,35 @@
+services:
+  # --------- Mongo express ---------
+  smartcv-express:
+    image: mongo-express:latest
+    container_name: smartcv-express
+    restart: always
+    depends_on: [ smartcv-mongodb ]
+    ports:
+      - "5051:8081"
+    networks:
+      - smartcv-network
+    environment:
+      ME_CONFIG_BASICAUTH: false
+      ME_CONFIG_MONGODB_ADMINUSERNAME: smartcv
+      ME_CONFIG_MONGODB_ADMINPASSWORD: Password@123
+      ME_CONFIG_MONGODB_URL: mongodb://smartcv:SmArTcV123%23@smartcv-mongodb:27017/
+
+  # --------- Mongodb ---------
+  smartcv-mongodb:
+    image: mongo:latest
+    container_name: smartcv-mongodb
+    restart: always
+    ports:
+      - "27017:27017"
+    networks:
+      - smartcv-network
+    volumes:
+      - smartcv-mongodb-data:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: smartcv
+      MONGO_INITDB_ROOT_PASSWORD: SmArTcV123#
+
+volumes:
+  smartcv-mongodb-data:
+

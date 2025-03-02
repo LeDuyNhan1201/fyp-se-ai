@@ -1,6 +1,5 @@
 package com.ben.smartcv.common.contract.command;
 
-import com.thoughtworks.xstream.annotations.XStreamAlias;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.axonframework.modelling.command.TargetAggregateIdentifier;
@@ -18,6 +17,8 @@ public class CvCommand {
     public static class ApplyCv {
 
         @TargetAggregateIdentifier
+        String id;
+
         String cvId;
 
         String userId;
@@ -33,6 +34,8 @@ public class CvCommand {
     public static class ParseCv {
 
         @TargetAggregateIdentifier
+        String id;
+
         String cvId;
 
     }

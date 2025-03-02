@@ -15,6 +15,8 @@ public class UserEvent {
     @FieldDefaults(level = PRIVATE)
     public static class UserRegistered {
 
+        String id;
+
         String userId;
 
         String email;

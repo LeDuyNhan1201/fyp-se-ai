@@ -1,4 +1,4 @@
-import protobuf.user_pb2 as user_pb2
+import protobuf.cv_command_pb2 as command_pb2
 from confluent_kafka import Consumer
 from confluent_kafka.serialization import SerializationContext, MessageField
 from confluent_kafka.schema_registry.protobuf import ProtobufDeserializer
@@ -6,10 +6,10 @@ from confluent_kafka.schema_registry.protobuf import ProtobufDeserializer
 def main():
     topic = "cv.commands"
     bootstrap_servers = "localhost:9092"
-    schema_registry = "http://localhost:8081"
+    schema_registry = "http://localhost:8085"
     group_id = "cv-parser"
 
-    protobuf_deserializer = ProtobufDeserializer(user_pb2.User,
+    protobuf_deserializer = ProtobufDeserializer(command_pb2.,
                                                  {'use.deprecated.format': False})
 
     consumer_conf = {'bootstrap.servers': bootstrap_servers,

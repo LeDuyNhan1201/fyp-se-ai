@@ -28,6 +28,8 @@ import static org.axonframework.modelling.command.AggregateLifecycle.apply;
 public class FileAggregate {
 
     @AggregateIdentifier
+    String id;
+
     String cvId;
 
     String userId;
@@ -41,6 +43,7 @@ public class FileAggregate {
                 Map.of("userId", command.getUserId())));
 
         apply(CvEvent.CvApplied.builder()
+                .id(command.getId())
                 .cvId(command.getCvId())
                 .userId(command.getUserId())
                 .build());
@@ -49,6 +52,7 @@ public class FileAggregate {
     @EventSourcingHandler
     public void on(CvEvent.CvApplied event) {
         // 2
+        this.id = event.getId();
         this.userId = event.getUserId();
         this.cvId = event.getCvId();
     }
