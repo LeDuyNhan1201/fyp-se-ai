@@ -21,13 +21,13 @@ public class EventPublisher {
 
     public void sendCvAppliedEvent(CvEvent.CvApplied event) {
         CvAppliedEvent protoEvent = CvAppliedEvent.newBuilder()
-                .setUserId(event.getUserId())
+                .setFileName(event.getFileName())
                 .setCvId(event.getCvId())
                 .build();
 
         cvAppliedEventTemplate.send(
                 Constant.KAFKA_TOPIC_CV_EVENT,
-                event.getCvId(),
+                event.getId(),
                 protoEvent
         );
     }

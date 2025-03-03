@@ -1,6 +1,6 @@
 package com.ben.smartcv.notification.application.usecase;
 
-import com.ben.smartcv.common.contract.event.UserEvent;
+import com.ben.smartcv.common.contract.event.NotificationEvent;
 import com.ben.smartcv.notification.infrastructure.EventPublisher;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -19,8 +19,8 @@ public class NotificationEventHandler {
     EventPublisher kafkaProducer;
 
     @EventHandler
-    public void on(UserEvent.UserRegistered event) {
-        kafkaProducer.sendUserRegisteredEvent(event);
+    public void on(NotificationEvent.NotificationSent event) {
+        kafkaProducer.send(event);
     }
 
 }

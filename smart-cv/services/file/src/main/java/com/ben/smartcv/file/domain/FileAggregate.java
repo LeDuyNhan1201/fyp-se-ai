@@ -32,7 +32,7 @@ public class FileAggregate {
 
     String cvId;
 
-    String userId;
+    String fileName;
 
     String failedReason;
 
@@ -40,12 +40,12 @@ public class FileAggregate {
     public FileAggregate(CvCommand.ApplyCv command) {
         // 1
         log.info(EventLogger.logCommand("ApplyCv", command.getCvId(),
-                Map.of("userId", command.getUserId())));
+                Map.of("fileName", command.getFileName())));
 
         apply(CvEvent.CvApplied.builder()
                 .id(command.getId())
                 .cvId(command.getCvId())
-                .userId(command.getUserId())
+                .fileName(command.getFileName())
                 .build());
     }
 
@@ -53,7 +53,7 @@ public class FileAggregate {
     public void on(CvEvent.CvApplied event) {
         // 2
         this.id = event.getId();
-        this.userId = event.getUserId();
+        this.fileName = event.getFileName();
         this.cvId = event.getCvId();
     }
 

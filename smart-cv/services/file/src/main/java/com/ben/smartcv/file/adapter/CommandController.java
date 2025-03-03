@@ -44,7 +44,6 @@ public class CommandController {
     public CompletableFuture<String> upload(@RequestBody RequestDto.CreateCv requestDto) {
         CvCommand.ApplyCv command = CvCommand.ApplyCv.builder()
                 .id(UUID.randomUUID().toString())
-                .userId(UUID.randomUUID().toString())
                 .cvId(UUID.randomUUID().toString())
                 .build();
         return commandGateway.send(command, MetaData.with("key", "123"));

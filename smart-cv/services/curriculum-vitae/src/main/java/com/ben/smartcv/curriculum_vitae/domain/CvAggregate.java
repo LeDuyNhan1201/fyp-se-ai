@@ -2,6 +2,10 @@ package com.ben.smartcv.curriculum_vitae.domain;
 
 import com.ben.smartcv.common.contract.command.CvCommand;
 import com.ben.smartcv.common.contract.event.CvEvent;
+import com.ben.smartcv.common.contract.event.NotificationEvent;
+import com.ben.smartcv.common.cv.CvDeletedEvent;
+import com.ben.smartcv.common.cv.RollbackProcessCvCommand;
+import com.ben.smartcv.common.util.Constant;
 import com.ben.smartcv.common.util.EventLogger;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,6 +17,7 @@ import org.axonframework.eventsourcing.EventSourcingHandler;
 import org.axonframework.messaging.interceptors.ExceptionHandler;
 import org.axonframework.modelling.command.AggregateIdentifier;
 import org.axonframework.spring.stereotype.Aggregate;
+import org.springframework.kafka.annotation.KafkaListener;
 
 import static lombok.AccessLevel.PRIVATE;
 import static org.axonframework.modelling.command.AggregateLifecycle.apply;
@@ -30,30 +35,55 @@ public class CvAggregate {
 
     String cvId;
 
-    String failedReason;
+    String objectKey;
 
     @CommandHandler
-    public CvAggregate(CvCommand.ParseCv command) {
+    public CvAggregate(CvCommand.ProcessCv command) {
         // 6
         log.info(EventLogger.logCommand("ParseCv", command.getCvId(),
                 null));
 
-        apply(CvEvent.CvParsed.builder()
+        apply(CvEvent.CvProcessed.builder()
+                .id(command.getId())
+                .cvId(command.getCvId())
+                .build());
+    }
+
+    @CommandHandler
+    public CvAggregate(CvCommand.RollbackProcessCv command) {
+        log.info(EventLogger.logCommand("RollbackProcessCv", command.getCvId(),
+                null));
+
+        apply(CvEvent.CvDeleted.builder()
                 .id(command.getId())
                 .cvId(command.getCvId())
                 .build());
     }
 
     @EventSourcingHandler
-    public void on(CvEvent.CvParsed event) {
+    public void on(CvEvent.CvProcessed event) {
+        // 7
+        this.id = event.getId();
+        this.cvId = event.getCvId();
+        this.objectKey = event.getObjectKey();
+    }
+
+    @EventSourcingHandler
+    public void on(CvEvent.CvDeleted event) {
         // 7
         this.id = event.getId();
         this.cvId = event.getCvId();
     }
 
-    @ExceptionHandler(resultType = IllegalStateException.class, payloadType = CvCommand.ParseCv.class)
+    @ExceptionHandler(resultType = IllegalStateException.class, payloadType = CvCommand.ProcessCv.class)
     public void handleIllegalStateExceptionsFromIssueCard(Exception exception) {
         log.error("IllegalStateException occurred: {}", exception.getMessage());
     }
+
+    @ExceptionHandler(resultType = Exception.class, payloadType = CvEvent.CvApplied.class)
+    public void handleCvAppliedException(Exception exception) {
+        log.error("Unexpected Exception occurred when applied cv: {}", exception.getMessage());
+    }
+
 
 }

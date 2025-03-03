@@ -1,7 +1,7 @@
 package com.ben.smartcv.orchestration.publisher;
 
 import com.ben.smartcv.common.contract.command.CvCommand;
-import com.ben.smartcv.common.cv.ParseCvCommand;
+import com.ben.smartcv.common.cv.ProcessCvCommand;
 import com.ben.smartcv.common.util.Constant;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -17,14 +17,14 @@ import static lombok.AccessLevel.PRIVATE;
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 public class CommandPublisher {
 
-    KafkaTemplate<String, ParseCvCommand> parseCvCommandTemplate;
+    KafkaTemplate<String, ProcessCvCommand> processCvCommandTemplate;
 
-    public void send(CvCommand.ParseCv command) {
-        ParseCvCommand protoCommand = ParseCvCommand.newBuilder()
+    public void send(CvCommand.ProcessCv command) {
+        ProcessCvCommand protoCommand = ProcessCvCommand.newBuilder()
                 .setCvId(command.getCvId())
                 .build();
 
-        parseCvCommandTemplate.send(
+        processCvCommandTemplate.send(
                 Constant.KAFKA_TOPIC_CV_COMMAND,
                 command.getCvId(),
                 protoCommand

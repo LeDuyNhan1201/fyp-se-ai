@@ -6,8 +6,18 @@ option java_package = "com.ben.smartcv.common.cv";
 option java_outer_classname = "CvCommandProto";
 option java_multiple_files = true;
 
-message ParseCvCommand {
+message ProcessCvCommand {
 
   string cv_id = 1;
+
+  string object_key = 2;
+
+}
+
+message RollbackProcessCvCommand {
+
+  string cv_id = 1;
+
+  string object_key = 2;
 
 }

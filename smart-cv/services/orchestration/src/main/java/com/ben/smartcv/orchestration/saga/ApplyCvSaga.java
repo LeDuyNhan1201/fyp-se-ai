@@ -1,9 +1,12 @@
 package com.ben.smartcv.orchestration.saga;
 
 import com.ben.smartcv.common.contract.command.CvCommand;
+import com.ben.smartcv.common.contract.command.NotificationCommand;
 import com.ben.smartcv.common.contract.event.CvEvent;
+import com.ben.smartcv.common.contract.event.NotificationEvent;
 import com.ben.smartcv.common.cv.CvAppliedEvent;
-import com.ben.smartcv.common.cv.CvParsedEvent;
+import com.ben.smartcv.common.cv.CvDeletedEvent;
+import com.ben.smartcv.common.cv.CvProcessedEvent;
 import com.ben.smartcv.common.util.Constant;
 import com.ben.smartcv.common.util.EventLogger;
 import com.ben.smartcv.orchestration.publisher.CommandPublisher;
@@ -11,6 +14,7 @@ import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.axonframework.messaging.interceptors.ExceptionHandler;
+import org.axonframework.modelling.saga.EndSaga;
 import org.axonframework.modelling.saga.SagaEventHandler;
 import org.axonframework.modelling.saga.StartSaga;
 import org.axonframework.spring.stereotype.Saga;
@@ -21,7 +25,7 @@ import java.util.Map;
 import java.util.UUID;
 
 import static lombok.AccessLevel.PRIVATE;
-import static org.axonframework.modelling.saga.SagaLifecycle.end;
+import static org.axonframework.modelling.saga.SagaLifecycle.associateWith;
 
 @Saga
 @Slf4j
@@ -41,31 +45,54 @@ public class ApplyCvSaga {
     public void on(CvEvent.CvApplied event) {
         // 5
         log.info(EventLogger.logEvent("CvApplied",
-                event.getCvId(), event.getCvId(), Map.of("userId", event.getUserId())));
+                event.getCvId(), event.getCvId(), Map.of("fileName", event.getFileName())));
 
-        commandGateway.sendAndWait(CvCommand.ParseCv.builder()
+        commandGateway.sendAndWait(CvCommand.ProcessCv.builder()
                 .id(UUID.randomUUID().toString())
                 .cvId(event.getCvId())
                 .build());
     }
 
     @SagaEventHandler(associationProperty = ASSOCIATION_PROPERTY)
-    public void on(CvEvent.CvParsed event) {
+    public void on(CvEvent.CvProcessed event) {
         try {
             // 10
-            log.info(EventLogger.logCommand("ParseCv",
-                    event.getCvId(), null));
+            log.info(EventLogger.logEvent("CvProcessed",
+                    event.getCvId(), event.getCvId(), Map.of("cvId", event.getCvId())));
 
-            commandPublisher.send(CvCommand.ParseCv.builder()
+            commandPublisher.send(CvCommand.ProcessCv.builder()
                     .cvId(event.getCvId())
+                    .objectKey(event.getObjectKey())
                     .build());
 
         } catch (Exception e) {
             // send command to notification service
-
-        } finally {
-            end();
+            commandGateway.sendAndWait(CvCommand.RollbackProcessCv.builder()
+                    .id(UUID.randomUUID().toString())
+                    .cvId(event.getCvId())
+                    .objectKey(event.getObjectKey())
+                    .build());
         }
+    }
+
+    @SagaEventHandler(associationProperty = ASSOCIATION_PROPERTY)
+    public void on(CvEvent.CvDeleted event) {
+        log.info(EventLogger.logEvent("CvDeleted",
+                event.getCvId(), event.getCvId(), Map.of("cvId", event.getCvId())));
+
+        commandGateway.sendAndWait(NotificationCommand.SendNotification.builder()
+                .id(UUID.randomUUID().toString())
+                .title("CV Process Failed")
+                .content("CV processing failed for cvId: " + event.getCvId() + "please try again")
+                .build());
+    }
+
+    @EndSaga
+    @SagaEventHandler(associationProperty = "associationProperty")
+    public void on(NotificationEvent.NotificationSent event) {
+        log.info(EventLogger.logEvent("NotificationSent",
+                event.getAssociationProperty(), event.getAssociationProperty(), Map.of("title", event.getTitle())));
+        associateWith("associationProperty", event.getAssociationProperty());
     }
 
     @KafkaListener(topics = Constant.KAFKA_TOPIC_CV_EVENT,
@@ -74,22 +101,37 @@ public class ApplyCvSaga {
         // 4
         on(CvEvent.CvApplied.builder()
                 .cvId(event.getCvId())
-                .userId(event.getUserId())
+                .fileName(event.getFileName())
                 .build());
     }
 
     @KafkaListener(topics = Constant.KAFKA_TOPIC_CV_EVENT,
             groupId = Constant.KAFKA_GROUP_ORCHESTRATION)
-    public void consume(CvParsedEvent event) {
+    public void consume(CvProcessedEvent event) {
         // 9
-        on(CvEvent.CvParsed.builder()
+        on(CvEvent.CvProcessed.builder()
+                .cvId(event.getCvId())
+                .objectKey(event.getObjectKey())
+                .build());
+    }
+
+    @KafkaListener(topics = Constant.KAFKA_TOPIC_CV_EVENT,
+            groupId = Constant.KAFKA_GROUP_ORCHESTRATION)
+    public void consume(CvDeletedEvent event) {
+        on(CvEvent.CvDeleted.builder()
                 .cvId(event.getCvId())
                 .build());
     }
 
-    @ExceptionHandler(resultType = Exception.class, payloadType = CvEvent.CvParsed.class)
-    public void handleException(Exception exception) {
-        log.error("Exception occurred: {}", exception.getMessage());
+
+    @ExceptionHandler(resultType = Exception.class, payloadType = CvEvent.CvApplied.class)
+    public void handleCvAppliedException(Exception exception) {
+        log.error("Unexpected Exception occurred when applied cv: {}", exception.getMessage());
+    }
+
+    @ExceptionHandler(resultType = Exception.class, payloadType = CvEvent.CvProcessed.class)
+    public void handleCvProcessedException(Exception exception) {
+        log.error("Unexpected Exception occurred when processed cv: {}", exception.getMessage());
     }
 
 }

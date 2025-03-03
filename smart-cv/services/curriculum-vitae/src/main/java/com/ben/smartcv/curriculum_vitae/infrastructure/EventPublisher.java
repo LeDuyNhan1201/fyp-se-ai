@@ -1,7 +1,8 @@
 package com.ben.smartcv.curriculum_vitae.infrastructure;
 
 import com.ben.smartcv.common.contract.event.CvEvent;
-import com.ben.smartcv.common.cv.CvParsedEvent;
+import com.ben.smartcv.common.cv.CvDeletedEvent;
+import com.ben.smartcv.common.cv.CvProcessedEvent;
 import com.ben.smartcv.common.util.Constant;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -17,11 +18,14 @@ import static lombok.AccessLevel.PRIVATE;
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 public class EventPublisher {
 
-    KafkaTemplate<String, CvParsedEvent> cvParsedEventTemplate;
+    KafkaTemplate<String, CvProcessedEvent> cvParsedEventTemplate;
 
-    public void send(CvEvent.CvParsed event) {
-        CvParsedEvent protoEvent = CvParsedEvent.newBuilder()
+    KafkaTemplate<String, CvDeletedEvent> cvDeletedEventTemplate;
+
+    public void send(CvEvent.CvProcessed event) {
+        CvProcessedEvent protoEvent = CvProcessedEvent.newBuilder()
                 .setCvId(event.getCvId())
+                .setObjectKey(event.getObjectKey())
                 .build();
 
         cvParsedEventTemplate.send(
@@ -31,4 +35,15 @@ public class EventPublisher {
         );
     }
 
+    public void send(CvEvent.CvDeleted event) {
+        CvDeletedEvent protoEvent = CvDeletedEvent.newBuilder()
+                .setCvId(event.getCvId())
+                .build();
+
+        cvDeletedEventTemplate.send(
+                Constant.KAFKA_TOPIC_CV_EVENT,
+                event.getCvId(),
+                protoEvent
+        );
+    }
 }

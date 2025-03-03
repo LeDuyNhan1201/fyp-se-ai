@@ -19,8 +19,13 @@ public class CvEventHandler {
     EventPublisher kafkaProducer;
 
     @EventHandler
-    public void on(CvEvent.CvParsed event) {
+    public void on(CvEvent.CvProcessed event) {
         // 8
+        kafkaProducer.send(event);
+    }
+
+    @EventHandler
+    public void on(CvEvent.CvDeleted event) {
         kafkaProducer.send(event);
     }
 

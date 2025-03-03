@@ -1,7 +1,8 @@
 package com.ben.smartcv.notification.domain;
 
-import com.ben.smartcv.common.contract.command.UserCommand;
-import com.ben.smartcv.common.contract.event.UserEvent;
+import com.ben.smartcv.common.contract.command.NotificationCommand;
+import com.ben.smartcv.common.contract.event.CvEvent;
+import com.ben.smartcv.common.contract.event.NotificationEvent;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -26,34 +27,30 @@ import static org.axonframework.modelling.command.AggregateLifecycle.apply;
 public class NotificationAggregate {
 
     @AggregateIdentifier
-    String userId;
+    String id;
 
-    String email;
+    String title;
 
-    String fullName;
+    String content;
 
     @CommandHandler
-    public NotificationAggregate(UserCommand.RegisterUser command) {
-        if (command.getEmail().isEmpty()) {
-            throw new IllegalStateException("Email cannot be empty");
-        }
-        apply(UserEvent.UserRegistered.builder()
-                .userId(command.getUserId())
-                .email(command.getEmail())
-                .fullName(command.getFullName())
+    public NotificationAggregate(NotificationCommand.SendNotification command) {
+        apply(NotificationEvent.NotificationSent.builder()
+                .title(command.getTitle())
+                .content(command.getContent())
                 .build(), MetaData.with("key", "123"));
     }
 
     @EventSourcingHandler
-    public void on(UserEvent.UserRegistered event) {
-        this.userId = event.getUserId();
-        this.email = event.getEmail();
-        this.fullName = event.getFullName();
+    public void on(NotificationEvent.NotificationSent event) {
+        this.id = event.getId();
+        this.content = event.getContent();
+        this.title = event.getTitle();
     }
 
-    @ExceptionHandler(resultType = IllegalStateException.class, payloadType = UserCommand.RegisterUser.class)
-    public void handleIllegalStateExceptionsFromIssueCard(Exception exception) {
-        log.error("IllegalStateException occurred: {}", exception.getMessage());
+    @ExceptionHandler(resultType = Exception.class, payloadType = NotificationCommand.SendNotification.class)
+    public void handleNotificationSentException(Exception exception) {
+        log.error("Unexpected Exception occurred when send notification: {}", exception.getMessage());
     }
 
 }

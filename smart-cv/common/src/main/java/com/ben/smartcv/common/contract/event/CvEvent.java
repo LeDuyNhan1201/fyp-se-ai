@@ -1,7 +1,9 @@
 package com.ben.smartcv.common.contract.event;
 
+import com.ben.smartcv.common.contract.command.BaseCommand;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import lombok.experimental.SuperBuilder;
 
 import static lombok.AccessLevel.PRIVATE;
 
@@ -9,29 +11,39 @@ public class CvEvent {
 
     @Getter
     @Setter
-    @Builder
+    @SuperBuilder
     @AllArgsConstructor
     @NoArgsConstructor
     @FieldDefaults(level = PRIVATE)
-    public static class CvApplied {
-
-        String id;
+    public static class CvApplied extends BaseEvent<String> {
 
         String cvId;
 
-        String userId;
+        String fileName;
 
     }
 
     @Getter
     @Setter
-    @Builder
+    @SuperBuilder
     @AllArgsConstructor
     @NoArgsConstructor
     @FieldDefaults(level = PRIVATE)
-    public static class CvParsed {
+    public static class CvProcessed extends BaseEvent<String> {
 
-        String id;
+        String cvId;
+
+        String objectKey;
+
+    }
+
+    @Getter
+    @Setter
+    @SuperBuilder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @FieldDefaults(level = PRIVATE)
+    public static class CvDeleted extends BaseEvent<String> {
 
         String cvId;
 

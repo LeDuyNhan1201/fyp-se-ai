@@ -10,11 +10,19 @@ message CvAppliedEvent {
 
   string cv_id = 1;
 
-  string user_id = 2;
+  string file_name = 2;
 
 }
 
-message CvParsedEvent {
+message CvProcessedEvent {
+
+  string cv_id = 1;
+
+  string object_key = 2;
+
+}
+
+message CvDeletedEvent {
 
   string cv_id = 1;
 

@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package com.ben.smartcv.common;
+
+option java_package = "com.ben.smartcv.common.notification";
+option java_outer_classname = "NotificationCommandProto";
+option java_multiple_files = true;
+
+message SendNotificationCommand {
+
+  string title = 1;
+
+  string content = 2;
+
+  string association_property = 3;
+
+}

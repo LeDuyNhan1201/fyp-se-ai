@@ -41,7 +41,7 @@ public class CommandController {
     @GetMapping
     @ResponseStatus(OK)
     public CompletableFuture<String> upload() {
-        CvCommand.ParseCv command = CvCommand.ParseCv.builder()
+        CvCommand.ProcessCv command = CvCommand.ProcessCv.builder()
                 .id(UUID.randomUUID().toString())
                 .cvId(UUID.randomUUID().toString())
                 .build();
