@@ -1,5 +1,5 @@
 server:
-  port: 30001
+  port: 30006
   servlet:
     context-path: /user
     encoding:
@@ -9,21 +9,20 @@ server:
       force-request: true
       force-response: true
 
-# --------- GATEWAY ---------
+# --------- Gateway ---------
 gateway:
   domain: localhost
   port: 30000
 
-# --------- AXON ---------
+# --------- Axon ---------
 axon:
-  event-bus-name: smartcv-event-store
   metrics:
     auto-configuration:
       enabled: true
     micrometer:
       dimensional: true
 
-# --------- API DOCUMENT ---------
+# --------- API document ---------
 springdoc:
   api-docs:
     path: /api-docs
@@ -41,7 +40,7 @@ openapi:
     server-url: http://localhost:${server.port}${server.servlet.context-path}
     server-description: Smart CV User Service APIs For Development
 
-# --------- METRICS & MONITORING ---------
+# --------- Metrics & Monitoring ---------
 management:
   info:
     git:
@@ -88,7 +87,7 @@ management:
     sampling:
       probability: 1.0
 
-# --------- SPRING CONFIGS ---------
+# --------- Spring configs ---------
 spring:
   application:
     name: user

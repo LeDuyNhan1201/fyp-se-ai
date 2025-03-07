@@ -1,0 +1,6 @@
+grpcio-tools
+python-dotenv
+confluent-kafka[avro,json,protobuf]
+minio
+scikit-learn
+sentence-transformers

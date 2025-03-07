@@ -2,14 +2,16 @@ rootProject.name = 'smart-cv'
 
 // Include modules
 include 'common'
-include 'user'
+include 'curriculum-vitae'
 include 'file'
+include 'job'
 include 'notification'
 include 'orchestration'
-include 'curriculum-vitae'
+include 'user'
 
-project(':user').projectDir = file('services/user')
+project(':curriculum-vitae').projectDir = file('services/curriculum-vitae')
 project(':file').projectDir = file('services/file')
+project(':job').projectDir = file('services/job')
 project(':notification').projectDir = file('services/notification')
 project(':orchestration').projectDir = file('services/orchestration')
-project(':curriculum-vitae').projectDir = file('services/curriculum-vitae')
+project(':user').projectDir = file('services/user')

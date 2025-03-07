@@ -1,7 +1,7 @@
 server:
-  port: 30002
+  port: 30003
   servlet:
-    context-path: /file
+    context-path: /job
     encoding:
       charset: UTF-8
       enabled: true
@@ -22,13 +22,6 @@ axon:
     micrometer:
       dimensional: true
 
-# --------- Minio ---------
-minio:
-  endpoint: http://localhost:9000
-  access-key: smartcv
-  secret-key: SmArTcV123#
-  bucket-name: smartcv-bucket
-
 # --------- API document ---------
 springdoc:
   api-docs:
@@ -39,13 +32,13 @@ springdoc:
 
 openapi:
   service:
-    name: file
-    api-docs: file-service-rest-api
-    title: File Service REST API
-    description: This is the APIs documentation for File Service.
+    name: job
+    api-docs: job-service-rest-api
+    title: Job Service REST API
+    description: This is the APIs documentation for Job Service.
     version: 1.0.0
     server-url: http://localhost:${server.port}${server.servlet.context-path}
-    server-description: Smart CV File Service APIs For Development
+    server-description: Smart CV Job Service APIs For Development
 
 # --------- Metrics & Monitoring ---------
 management:
@@ -97,7 +90,7 @@ management:
 # --------- Spring configs ---------
 spring:
   application:
-    name: file
+    name: job
 
   data:
     mongodb:

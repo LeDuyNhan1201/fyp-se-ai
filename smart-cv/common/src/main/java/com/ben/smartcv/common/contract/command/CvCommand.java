@@ -3,6 +3,7 @@ package com.ben.smartcv.common.contract.command;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.SuperBuilder;
+import org.springframework.web.multipart.MultipartFile;
 
 import static lombok.AccessLevel.PRIVATE;
 
@@ -23,6 +24,8 @@ public class CvCommand {
         String fileMetadataType;
 
         String fileSize;
+
+        MultipartFile file;
 
     }
 

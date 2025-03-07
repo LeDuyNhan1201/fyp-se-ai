@@ -1,5 +1,5 @@
 server:
-  port: 30003
+  port: 30004
   servlet:
     context-path: /notification
     encoding:
@@ -9,16 +9,15 @@ server:
       force-request: true
       force-response: true
 
-# --------- AXON ---------
+# --------- Axon ---------
 axon:
-  event-bus-name: smartcv-event-store
   metrics:
     auto-configuration:
       enabled: true
     micrometer:
       dimensional: true
 
-# --------- METRICS & MONITORING ---------
+# --------- Metrics & Monitoring ---------
 management:
   info:
     git:
@@ -65,7 +64,7 @@ management:
     sampling:
       probability: 1.0
 
-# --------- SPRING CONFIGS ---------
+# --------- Spring configs ---------
 spring:
   application:
     name: notification
