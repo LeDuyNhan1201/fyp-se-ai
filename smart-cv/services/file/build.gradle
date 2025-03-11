@@ -1,7 +1,6 @@
 dependencies {
 	implementation project(':common')
 
-	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation "io.minio:minio:${minioVersion}" // https://mvnrepository.com/artifact/io.minio/minio
 
 }

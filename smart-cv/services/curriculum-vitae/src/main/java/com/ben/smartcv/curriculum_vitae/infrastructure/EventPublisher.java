@@ -18,7 +18,7 @@ import static lombok.AccessLevel.PRIVATE;
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 public class EventPublisher {
 
-    KafkaTemplate<String, CvProcessedEvent> cvParsedEventTemplate;
+    KafkaTemplate<String, CvProcessedEvent> cvProcessedEventTemplate;
 
     KafkaTemplate<String, CvDeletedEvent> cvDeletedEventTemplate;
 
@@ -28,7 +28,7 @@ public class EventPublisher {
                 .setObjectKey(event.getObjectKey())
                 .build();
 
-        cvParsedEventTemplate.send(
+        cvProcessedEventTemplate.send(
                 Constant.KAFKA_TOPIC_CV_EVENT,
                 event.getCvId(),
                 protoEvent

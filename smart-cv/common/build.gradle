@@ -20,6 +20,7 @@ dependencies {
 	implementation "org.axonframework.extensions.mongo:axon-mongo-spring:${axonMongoVersion}" // https://mvnrepository.com/artifact/org.axonframework.extensions.mongo/axon-mongo-spring
 
 	/* --------- APIs Dependencies --------- */
+	api 'org.springframework.boot:spring-boot-starter-web'
 	api 'org.springframework.grpc:spring-grpc-spring-boot-starter'
 	api 'org.springframework.kafka:spring-kafka'
 	api "org.springdoc:springdoc-openapi-starter-webmvc-ui:${springdocOpenApiVersion}" // https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-starter-webmvc-ui

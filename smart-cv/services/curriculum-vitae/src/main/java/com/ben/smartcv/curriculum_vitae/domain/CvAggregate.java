@@ -2,10 +2,6 @@ package com.ben.smartcv.curriculum_vitae.domain;
 
 import com.ben.smartcv.common.contract.command.CvCommand;
 import com.ben.smartcv.common.contract.event.CvEvent;
-import com.ben.smartcv.common.contract.event.NotificationEvent;
-import com.ben.smartcv.common.cv.CvDeletedEvent;
-import com.ben.smartcv.common.cv.RollbackProcessCvCommand;
-import com.ben.smartcv.common.util.Constant;
 import com.ben.smartcv.common.util.EventLogger;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,7 +13,6 @@ import org.axonframework.eventsourcing.EventSourcingHandler;
 import org.axonframework.messaging.interceptors.ExceptionHandler;
 import org.axonframework.modelling.command.AggregateIdentifier;
 import org.axonframework.spring.stereotype.Aggregate;
-import org.springframework.kafka.annotation.KafkaListener;
 
 import static lombok.AccessLevel.PRIVATE;
 import static org.axonframework.modelling.command.AggregateLifecycle.apply;
@@ -75,15 +70,19 @@ public class CvAggregate {
         this.cvId = event.getCvId();
     }
 
-    @ExceptionHandler(resultType = IllegalStateException.class, payloadType = CvCommand.ProcessCv.class)
-    public void handleIllegalStateExceptionsFromIssueCard(Exception exception) {
-        log.error("IllegalStateException occurred: {}", exception.getMessage());
-    }
-
-    @ExceptionHandler(resultType = Exception.class, payloadType = CvEvent.CvApplied.class)
-    public void handleCvAppliedException(Exception exception) {
+    @ExceptionHandler(resultType = Exception.class, payloadType = CvCommand.ApplyCv.class)
+    public void handleExceptionForApplyCvCommand(Exception exception) {
         log.error("Unexpected Exception occurred when applied cv: {}", exception.getMessage());
     }
 
+    @ExceptionHandler(resultType = Exception.class, payloadType = CvCommand.ProcessCv.class)
+    public void handleExceptionForProcessCvCommand(Exception exception) {
+        log.error("IllegalStateException occurred: {}", exception.getMessage());
+    }
+
+    @ExceptionHandler(resultType = Exception.class, payloadType = CvCommand.RollbackProcessCv.class)
+    public void handleExceptionForRollbackProcessCvCommand(Exception exception) {
+        log.error("IllegalStateException occurred: {}", exception.getMessage());
+    }
 
 }

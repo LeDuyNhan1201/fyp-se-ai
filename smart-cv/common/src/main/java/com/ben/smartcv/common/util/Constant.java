@@ -10,6 +10,10 @@ public class Constant {
 
     public static final String KAFKA_TOPIC_CV_COMMAND = "cv.commands";
 
+    public static final String KAFKA_TOPIC_JOB_COMMAND = "job.commands";
+
+    public static final String KAFKA_TOPIC_JOB_EVENT = "job.events";
+
     public static final String KAFKA_TOPIC_NOTIFICATION_COMMAND = "notification.commands";
 
     public static final String KAFKA_GROUP_ORCHESTRATION = "orchestration-service";

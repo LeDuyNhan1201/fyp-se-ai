@@ -16,6 +16,7 @@ import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.axonframework.messaging.MetaData;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -43,9 +44,9 @@ public class CommandController {
     String bucketName;
 
     @Operation(summary = "Upload", description = "API to upload file")
-    @PostMapping
+    @PostMapping("/upload")
     @ResponseStatus(OK)
-    public CompletableFuture<String> upload(@RequestPart MultipartFile curriculumVitae) {
+    public ResponseEntity<?> upload(@RequestPart MultipartFile curriculumVitae) {
         String cvId = UUID.randomUUID().toString();
         String contentType = curriculumVitae.getContentType();
         assert contentType != null;
@@ -63,7 +64,8 @@ public class CommandController {
                 .fileMetadataType(contentType.split("/")[1])
                 .fileName(fileName)
                 .build();
-        return commandGateway.send(command, MetaData.with("key", "123"));
+        commandGateway.send(command, MetaData.with("key", "123"));
+        return ResponseEntity.status(OK).body("ok");
     }
 
 //    @Operation(summary = "Upload", description = "API to upload file")

@@ -1,0 +1,2731 @@
+Proficient O
+in O
+Python B-SKILL
+, O
+Java B-SKILL
+, O
+and O
+C++ B-SKILL
+
+Experience O
+with O
+machine O
+learning O
+algorithms O
+
+Familiar O
+with O
+TensorFlow B-SKILL
+and O
+PyTorch B-SKILL
+
+Strong O
+understanding O
+of O
+HTML O
+, O
+CSS O
+, O
+and O
+JavaScript B-SKILL
+
+Expertise O
+in O
+data O
+analysis O
+and O
+visualization O
+using O
+Tableau B-SKILL
+
+Skilled O
+in O
+SQL B-SKILL
+database O
+management O
+
+Knowledge O
+of O
+React B-SKILL
+and O
+Angular B-SKILL
+frameworks O
+
+Proficiency O
+in O
+MATLAB B-SKILL
+for O
+numerical O
+computing O
+
+Experience O
+with O
+cloud O
+technologies O
+like O
+AWS B-SKILL
+and O
+Azure B-SKILL
+
+Expertise O
+in O
+natural O
+language O
+processing O
+and O
+NLP B-SKILL
+techniques O
+
+Familiarity O
+with O
+Git B-SKILL
+version O
+control O
+system O
+
+Knowledgeable O
+in O
+DevOps O
+practices O
+and O
+CI O
+CD O
+pipelines O
+
+Proficient O
+in O
+Java B-SKILL
+Spring O
+and O
+Hibernate B-SKILL
+frameworks O
+
+Expert O
+in O
+Linux O
+kernel O
+and O
+system O
+administration O
+
+Advanced O
+networking B-SKILL
+skills O
+configuring O
+routers O
+, O
+switches O
+, O
+firewalls O
+
+Experience O
+setting O
+up O
+Kubernetes B-SKILL
+clusters O
+on O
+AWS B-SKILL
+and O
+GCP B-SKILL
+
+Skilled O
+software O
+developer O
+with O
+5 O
+years O
+building O
+scalable O
+web O
+apps O
+
+Proficiency O
+in O
+Java B-SKILL
+, O
+Python B-SKILL
+, O
+C++ B-SKILL
+, O
+JavaScript B-SKILL
+, O
+and O
+Golang B-SKILL
+
+Expertise O
+in O
+full O
+stack O
+development O
+using O
+MongoDB B-SKILL
+, O
+Express O
+, O
+React B-SKILL
+, O
+Node O
+
+Experience O
+with O
+machine O
+learning O
+libraries O
+PyTorch B-SKILL
+, O
+TensorFlow B-SKILL
+, O
+Keras B-SKILL
+
+Skilled O
+in O
+CI O
+CD O
+pipelines O
+, O
+GitLab B-SKILL
+, O
+Jenkins B-SKILL
+, O
+Bamboo O
+, O
+CircleCI B-SKILL
+
+SQL B-SKILL
+
+JavaScript B-SKILL
+
+Machine O
+Learning O
+
+Data O
+Analysis O
+
+React.js O
+
+AngularJS O
+
+Node.js B-SKILL
+
+MongoDB B-SKILL
+
+AWS B-SKILL
+Cloud O
+
+Azure B-SKILL
+Cloud O
+
+Statistical O
+Modeling O
+
+Linux O
+operating O
+system O
+
+Windows O
+Server O
+administration O
+
+Network O
+configuration O
+and O
+troubleshooting O
+
+TCP O
+IP O
+, O
+OSI O
+model O
+
+Routing O
+protocols O
+like O
+OSPF O
+, O
+BGP O
+
+Cisco O
+switching O
+and O
+routing O
+
+VPN B-SKILL
+configuration O
+
+Firewall O
+administration O
+
+Network O
+security O
+
+Penetration O
+testing O
+
+Burp O
+Suite O
+
+Wireshark B-SKILL
+network O
+analysis O
+
+CCNA O
+certification O
+
+VMware B-SKILL
+administration O
+
+SAN O
+storage O
+configuration O
+
+NAS O
+storage O
+administration O
+
+RAID O
+arrays O
+
+Docker B-SKILL
+containerization B-SKILL
+
+Kubernetes B-SKILL
+
+Jenkins B-SKILL
+CI O
+CD O
+pipelines O
+
+Ansible B-SKILL
+automation O
+
+Terraform B-SKILL
+infrastructure O
+as O
+code O
+
+Azure B-SKILL
+administration O
+
+AWS B-SKILL
+cloud O
+architecture O
+
+Google O
+Cloud O
+Platform O
+
+DevOps O
+culture O
+and O
+practices O
+
+Agile B-SKILL
+development O
+methodologies O
+
+Waterfall O
+SDLC O
+
+Object O
+oriented O
+analysis O
+and O
+design O
+
+SQL B-SKILL
+database O
+programming O
+
+Oracle B-SKILL
+database O
+administration O
+
+MongoDB B-SKILL
+NoSQL B-SKILL
+databases O
+
+Redis O
+in O
+memory O
+caching O
+
+Data O
+modeling O
+and O
+warehousing O
+
+ETL O
+processing O
+pipelines O
+
+Hadoop B-SKILL
+cluster O
+configuration O
+
+Spark B-SKILL
+big O
+data O
+processing O
+
+Tableau B-SKILL
+data O
+visualization O
+
+Power O
+BI O
+business O
+analytics O
+
+Python B-SKILL
+programming O
+
+Java B-SKILL
+Spring O
+Boot O
+framework O
+
+PHP O
+web O
+application O
+development O
+
+Ruby B-SKILL
+on O
+Rails O
+web O
+framework O
+
+JavaScript B-SKILL
+front O
+end O
+development O
+
+React B-SKILL
+web O
+applications O
+
+Angular B-SKILL
+single O
+page O
+applications O
+
+Node.js B-SKILL
+back O
+end O
+services O
+
+REST O
+API O
+design O
+and O
+development O
+
+GraphQL B-SKILL
+API O
+development O
+
+Unit O
+testing O
+frameworks O
+like O
+JUnit B-SKILL
+
+UX B-SKILL
+design O
+and O
+usability O
+
+Git B-SKILL
+version O
+control O
+system O
+
+Continuous O
+integration O
+and O
+delivery O
+
+R B-SKILL
+language O
+data O
+analysis O
+
+MATLAB B-SKILL
+numerical O
+computing O
+
+C++ B-SKILL
+high O
+performance O
+programming O
+
+Multithreading O
+and O
+concurrency O
+
+Cryptography B-SKILL
+and O
+encryption O
+algorithms O
+
+Cybersecurity O
+awareness O
+
+Penetration O
+testing O
+and O
+ethical O
+hacking O
+
+Artificial O
+intelligence O
+and O
+machine O
+learning O
+
+Neural O
+networks O
+and O
+deep O
+learning O
+
+Computer O
+vision O
+with O
+OpenCV O
+
+Natural O
+language O
+processing O
+techniques O
+
+Recommender O
+systems O
+algorithms O
+
+Python B-SKILL
+
+Java B-SKILL
+
+TypeScript B-SKILL
+
+C++ B-SKILL
+
+C# B-SKILL
+
+Go B-SKILL
+
+Ruby B-SKILL
+
+PHP O
+
+Swift B-SKILL
+
+Rust O
+
+Dart O
+
+Kotlin B-SKILL
+
+NoSQL B-SKILL
+
+C O
+
+Scala O
+
+Perl O
+
+Haskell O
+
+Bash O
+
+Shell O
+
+Cobol O
+
+Fortran O
+
+Visual O
+Basic O
+
+Assembly O
+
+Pascal O
+
+Ada O
+
+ABAP O
+
+RPG O
+
+Lisp O
+
+Prolog O
+
+F# O
+
+Lua O
+
+MATLAB B-SKILL
+
+SAS B-SKILL
+
+SPSS B-SKILL
+
+R B-SKILL
+
+Julia O
+
+Mahout O
+
+Solr O
+
+Lucene O
+
+HBase O
+
+Cassandra O
+
+Neo4j O
+
+Unix O
+
+Linux O
+
+Windows O
+
+MacOS B-SKILL
+
+Android O
+
+HTML5 B-SKILL
+
+CSS3 B-SKILL
+
+React B-SKILL
+
+Angular B-SKILL
+
+Vue.js B-SKILL
+
+Express.js B-SKILL
+
+Django B-SKILL
+
+Flask B-SKILL
+
+RESTful O
+APIs O
+
+MySQL B-SKILL
+
+PostgreSQL B-SKILL
+
+Oracle B-SKILL
+
+SQLite B-SKILL
+
+Linux O
+Unix O
+
+Windows O
+Server O
+
+macOS B-SKILL
+
+Git B-SKILL
+
+GitHub B-SKILL
+
+GitLab B-SKILL
+
+Bitbucket B-SKILL
+
+Docker B-SKILL
+
+Jenkins B-SKILL
+
+Ansible B-SKILL
+
+Terraform B-SKILL
+
+Amazon O
+Web O
+Services O
+AWS B-SKILL
+
+Microsoft O
+Azure B-SKILL
+
+Google O
+Cloud O
+Platform O
+GCP B-SKILL
+
+Android O
+Development O
+Java B-SKILL
+Kotlin B-SKILL
+
+iOS O
+Development O
+Swift B-SKILL
+
+Network O
+Security O
+
+Ethical O
+Hacking O
+
+Cryptography B-SKILL
+
+Security O
+Protocols O
+
+Penetration O
+Testing O
+
+NumPy B-SKILL
+
+Pandas B-SKILL
+
+Matplotlib B-SKILL
+
+Scikit O
+learn O
+
+TensorFlow B-SKILL
+
+PyTorch B-SKILL
+
+Natural O
+Language O
+Processing O
+NLP B-SKILL
+
+Sorting O
+Algorithms O
+
+Searching O
+Algorithms O
+
+Graph O
+Theory O
+
+Dynamic O
+Programming O
+
+Agile B-SKILL
+
+Scrum B-SKILL
+
+Kanban B-SKILL
+
+Object O
+Oriented O
+Programming O
+OOP B-SKILL
+
+Functional O
+Programming O
+
+Event O
+Driven O
+Programming O
+
+WebSockets B-SKILL
+
+GraphQL B-SKILL
+
+WebAssembly B-SKILL
+
+Apache B-SKILL
+
+Nginx B-SKILL
+
+Tomcat B-SKILL
+
+JUnit B-SKILL
+
+Selenium B-SKILL
+
+Jest B-SKILL
+
+Continuous O
+Integration O
+
+Continuous O
+Deployment O
+
+OpenAPI B-SKILL
+
+Postman B-SKILL
+
+TCP O
+IP O
+
+DNS B-SKILL
+
+HTTP O
+HTTPS O
+
+VPN B-SKILL
+
+Spring O
+Java B-SKILL
+
+Django B-SKILL
+Python B-SKILL
+
+Ruby B-SKILL
+on O
+Rails O
+
+Flask B-SKILL
+Python B-SKILL
+
+Visual O
+Studio O
+Code O
+
+IntelliJ O
+IDEA O
+
+Eclipse B-SKILL
+
+Jira B-SKILL
+
+Trello B-SKILL
+
+Asana B-SKILL
+
+Communication B-SKILL
+
+Problem O
+Solving O
+
+Team O
+Collaboration B-SKILL
+
+Time O
+Management O
+
+Adaptability B-SKILL
+
+Shell O
+scripting O
+
+D3.js O
+Data O
+Driven O
+Documents O
+
+Redux O
+State O
+management O
+for O
+JavaScript B-SKILL
+apps O
+
+Xamarin O
+Cross O
+platform O
+mobile O
+app O
+development O
+
+Flask B-SKILL
+RESTful O
+RESTful O
+API O
+development O
+in O
+Python B-SKILL
+
+BigQuery O
+Google O
+Cloud O
+data O
+warehouse O
+
+Hadoop B-SKILL
+
+MapReduce B-SKILL
+
+Apache B-SKILL
+Kafka O
+Distributed O
+streaming O
+platform O
+
+RabbitMQ O
+Message O
+broker O
+
+GraphQL B-SKILL
+Query O
+language O
+for O
+APIs O
+
+Redux O
+Saga O
+Middleware O
+library O
+for O
+Redux O
+
+Electron O
+Cross O
+platform O
+desktop O
+app O
+development O
+
+Polymer O
+JavaScript B-SKILL
+library O
+for O
+building O
+web O
+components O
+
+Rust O
+Programming O
+language O
+focused O
+on O
+performance O
+and O
+safety O
+
+Clojure O
+Functional O
+programming O
+language O
+
+Elm O
+Functional O
+programming O
+language O
+for O
+front O
+end O
+development O
+
+Meteor O
+Full O
+stack O
+JavaScript B-SKILL
+framework O
+
+Apache B-SKILL
+Spark B-SKILL
+Distributed O
+computing O
+
+RxJS O
+Reactive O
+programming O
+in O
+JavaScript B-SKILL
+
+Blockchain O
+development O
+
+Solidity O
+Programming O
+language O
+for O
+smart O
+contracts O
+
+Apache B-SKILL
+Cordova O
+Mobile O
+app O
+development O
+using O
+web O
+technologies O
+
+Flask B-SKILL
+SQLAlchemy O
+SQL B-SKILL
+toolkit O
+for O
+Python B-SKILL
+
+GraphQL B-SKILL
+Yoga O
+Fully O
+featured O
+GraphQL B-SKILL
+server O
+
+Firebase O
+Mobile O
+and O
+web O
+application O
+development O
+platform O
+
+Amazon O
+DynamoDB O
+NoSQL B-SKILL
+database O
+
+Apache B-SKILL
+Cassandra O
+Distributed O
+NoSQL B-SKILL
+database O
+
+Neo4j O
+Graph O
+database O
+
+Microsoft O
+SQL B-SKILL
+Server O
+
+Heroku O
+Cloud O
+platform O
+as O
+a O
+service O
+
+PaaS O
+Platform O
+as O
+a O
+Service O
+
+Serverless O
+architecture O
+
+Microservices O
+architecture O
+
+Istio B-SKILL
+Service O
+mesh O
+
+AWS B-SKILL
+Lambda O
+Serverless O
+computing O
+
+Jupyter O
+Notebooks O
+Interactive O
+computing O
+and O
+data O
+visualization O
+
+R B-SKILL
+programming O
+language O
+
+Julia O
+Programming O
+language O
+for O
+technical O
+computing O
+
+Grafana O
+Open O
+source O
+analytics O
+and O
+monitoring O
+platform O
+
+Prometheus O
+Monitoring O
+and O
+alerting O
+toolkit O
+
+Splunk O
+Data O
+analysis O
+and O
+visualization O
+
+ELK O
+Stack O
+Elasticsearch B-SKILL
+
+Kibana O
+Data O
+visualization O
+tool O
+
+Zeppelin O
+Web O
+based O
+notebook O
+for O
+data O
+analytics O
+
+Data O
+warehousing O
+
+Power O
+BI O
+Business O
+analytics O
+tool O
+
+Tableau B-SKILL
+Data O
+visualization O
+and O
+business O
+intelligence O
+
+Snowflake O
+Cloud O
+based O
+data O
+warehousing O
+
+Virtualization O
+e.g. B-SKILL
+
+Augmented O
+Reality O
+AR B-SKILL
+
+Virtual O
+Reality O
+VR B-SKILL
+
+3D O
+modeling O
+e.g. B-SKILL
+
+Computer O
+vision O
+
+Natural O
+Language O
+Generation O
+NLG B-SKILL
+
+Automated O
+Speech O
+Recognition O
+ASR B-SKILL
+
+Computer O
+aided O
+design O
+CAD B-SKILL
+
+Cyber O
+physical O
+systems O
+
+Quantum O
+computing O
+
+Web O
+scraping O
+
+RESTful O
+design O
+principles O
+
+GraphQL B-SKILL
+mutations O
+
+OAuth O
+Authorization O
+framework O
+
+OpenID O
+Connect O
+Authentication O
+on O
+top O
+of O
+OAuth O
+
+JSON O
+Web O
+Tokens O
+JWT B-SKILL
+
+OAuth2.0 B-SKILL
+
+OpenID O
+Connect O
+OIDC B-SKILL
+
+WebAuthn B-SKILL
+Web O
+Authentication O
+API O
+
+JWT B-SKILL
+JSON O
+Web O
+Tokens O
+
+OAuth O
+Open O
+Authorization O
+
+OAuth2.0 B-SKILL
+Authorization O
+framework O
+
+Firebase O
+Authentication O
+
+OAuth2.0 B-SKILL
+flows O
+Authorization O
+Code O
+
+OAuth O
+2.0 O
+grants O
+Authorization O
+Code O
+
+Single O
+Sign O
+On O
+SSO B-SKILL
+
+Two O
+Factor O
+Authentication O
+2FA B-SKILL
+
+FIDO2 O
+WebAuthn B-SKILL
+
+Identity O
+and O
+Access O
+Management O
+IAM B-SKILL
+
+RBAC O
+Role O
+Based O
+Access O
+Control O
+
+ABAC O
+Attribute O
+Based O
+Access O
+Control O
+
+CQRS O
+Command O
+Query O
+Responsibility O
+Segregation O
+
+Event O
+Sourcing O
+
+Micro O
+Frontends O
+
+Progressive O
+Web O
+Apps O
+PWAs B-SKILL
+
+Single O
+Page O
+Applications O
+SPAs B-SKILL
+
+WebAssembly B-SKILL
+Wasm B-SKILL
+
+OpenAPI B-SKILL
+Specification O
+
+SOAP O
+Simple O
+Object O
+Access O
+Protocol O
+
+GraphQL B-SKILL
+subscriptions O
+
+Server O
+Sent O
+Events O
+SSE B-SKILL
+
+Webhooks B-SKILL
+
+Application O
+Performance O
+Monitoring O
+APM B-SKILL
+
+Log O
+management O
+
+Error O
+tracking O
+
+Distributed O
+tracing O
+
+Chaos O
+engineering O
+
+Load O
+balancing O
+
+Critical O
+Thinking O
+
+Decision O
+Making O
+
+Analytical O
+Skills O
+
+Creativity B-SKILL
+
+Innovation B-SKILL
+
+Organization B-SKILL
+
+Prioritization B-SKILL
+
+Collaboration B-SKILL
+
+Teamwork B-SKILL
+
+Leadership B-SKILL
+
+Conflict O
+Resolution O
+
+Emotional O
+Intelligence O
+
+Empathy B-SKILL
+
+Active O
+Listening O
+
+Presentation O
+Skills O
+
+Public O
+Speaking O
+
+Negotiation B-SKILL
+
+Networking B-SKILL
+
+Customer O
+Service O
+
+Client O
+Management O
+
+Relationship O
+Building O
+
+Cultural O
+Sensitivity O
+
+Ethics B-SKILL
+
+Integrity B-SKILL
+
+Initiative B-SKILL
+
+Self O
+Motivation O
+
+Learning O
+Agility O
+
+Flexibility B-SKILL
+
+Resilience B-SKILL
+
+Stress O
+Management O
+
+Interpersonal O
+Skills O
+
+Cross O
+Cultural O
+Competence O
+
+Business O
+Acumen O
+
+Project O
+Management O
+
+Risk O
+Management O
+
+Quality O
+Assurance O
+
+Conflict O
+Management O
+
+Change O
+Management O
+
+Decision O
+Making O
+
+Financial O
+Literacy O
+
+Entrepreneurship B-SKILL
+
+Business O
+Development O
+
+Sales O
+Skills O
+
+Marketing B-SKILL
+
+Customer O
+Relationship O
+Management O
+CRM B-SKILL
+
+Strategic O
+Planning O
+
+Data O
+Literacy O
+
+Digital O
+Literacy O
+
+Information O
+Literacy O
+
+Research O
+Skills O
+
+Technical O
+Writing O
+
+Documentation B-SKILL
+
+Report O
+Writing O
+
+Blogging B-SKILL
+
+Public O
+Relations O
+
+Time O
+Tracking O
+
+Goal O
+Setting O
+
+Delegation B-SKILL
+
+Motivational O
+Skills O
+
+Cross O
+Functional O
+Collaboration B-SKILL
+
+Stakeholder O
+Management O
+
+Feedback O
+and O
+Coaching O
+
+Mentoring B-SKILL
+
+Knowledge O
+Sharing O
+
+Training O
+and O
+Development O
+
+Facilitation O
+Skills O
+
+Decision O
+Making O
+Under O
+Pressure O
+
+Attention O
+to O
+Detail O
+
+Project O
+Coordination O
+
+Crisis O
+Management O
+
+Strategic O
+Thinking O
+
+Systems O
+Thinking O
+
+Forecasting B-SKILL
+
+Trend O
+Analysis O
+
+Presentation O
+Design O
+
+Data O
+Visualization O
+
+Storytelling B-SKILL
+
+Cultural O
+Intelligence O
+
+Social O
+Media O
+Management O
+
+Community O
+Building O
+
+Volunteerism B-SKILL
+
+Time O
+Blocking O
+
+Continuous O
+Improvement O
+
+Team O
+Building O
+
+Appreciative O
+Inquiry O
+
+User O
+Centered O
+Design O
+
+User O
+Experience O
+UX B-SKILL
+Design O
+
+User O
+Interface O
+UI B-SKILL
+Design O
+
+Human O
+Computer O
+Interaction O
+HCI B-SKILL
+
+Design O
+Thinking O
+
+Agile B-SKILL
+Methodology O
+
+Lean O
+Thinking O
+
+Racket O
+Lisp O
+dialect O
+
+WebRTC O
+Real O
+Time O
+Communication B-SKILL
+
+NATS O
+Messaging O
+system O
+
+CockroachDB O
+Distributed O
+SQL B-SKILL
+database O
+
+InfluxDB O
+Open O
+source O
+time O
+series O
+database O
+
+ArangoDB O
+Multi O
+model O
+NoSQL B-SKILL
+database O
+
+Flink O
+Stream O
+processing O
+framework O
+
+Celery O
+Distributed O
+task O
+queue O
+
+Redis O
+In O
+memory O
+data O
+structure O
+store O
+
+GRPC O
+Remote O
+procedure O
+call O
+framework O
+
+Protocol O
+Buffers O
+
+Flutter O
+UI B-SKILL
+toolkit O
+for O
+building O
+natively O
+compiled O
+applications O
+
+Unity B-SKILL
+Game O
+development O
+
+Godot O
+Engine O
+Open O
+source O
+game O
+development O
+
+ClojureScript O
+Clojure O
+compiler O
+for O
+JavaScript B-SKILL
+
+Puppet O
+Configuration O
+management O
+tool O
+
+Chef O
+Infrastructure O
+automation O
+framework O
+
+Pulumi O
+Infrastructure O
+as O
+code O
+
+HashiCorp O
+Vault O
+Secrets O
+management O
+
+Cockpit O
+Linux O
+server O
+management O
+
+Apache B-SKILL
+Kafka O
+Streams O
+Stream O
+processing O
+library O
+
+Logstash B-SKILL
+Server O
+side O
+data O
+processing O
+pipeline O
+
+Fluentd O
+Open O
+source O
+data O
+collector O
+
+ArgoCD O
+GitOps O
+continuous O
+delivery O
+tool O
+
+Argo O
+Workflows O
+Workflow O
+engine O
+
+Kubernetes B-SKILL
+Operators O
+
+Helm O
+Package O
+manager O
+for O
+Kubernetes B-SKILL
+
+Consul O
+Service O
+networking B-SKILL
+
+Linkerd O
+Service O
+mesh O
+
+Knative O
+Serverless O
+workloads O
+on O
+Kubernetes B-SKILL
+
+AWS B-SKILL
+Fargate O
+Serverless O
+container O
+service O
+
+AWS B-SKILL
+Step O
+Functions O
+Serverless O
+workflow O
+
+Apache B-SKILL
+NiFi O
+Data O
+integration O
+and O
+distribution O
+framework O
+
+Apache B-SKILL
+ZooKeeper O
+Distributed O
+coordination O
+
+Google O
+Cloud O
+Pub O
+Sub O
+Messaging O
+service O
+
+Firebase O
+Cloud O
+Messaging O
+FCM B-SKILL
+
+Azure B-SKILL
+Event O
+Hubs O
+Real O
+time O
+data O
+streaming O
+
+Azure B-SKILL
+Logic O
+Apps O
+Workflow O
+automation O
+
+Azure B-SKILL
+Functions O
+Serverless O
+compute O
+
+Machine O
+Learning O
+Operations O
+MLOps B-SKILL
+
+ModelOps B-SKILL
+Operationalizing O
+machine O
+learning O
+models O
+
+TensorFlow B-SKILL
+Extended O
+TFX B-SKILL
+
+Kubeflow B-SKILL
+Machine O
+learning O
+toolkit O
+for O
+Kubernetes B-SKILL
+
+DataRobot B-SKILL
+Automated O
+machine O
+learning O
+
+MLflow B-SKILL
+Open O
+source O
+platform O
+for O
+managing O
+the O
+end O
+to O
+end O
+machine O
+learning O
+lifecycle O
+
+SageMaker B-SKILL
+Amazon O
+s O
+machine O
+learning O
+platform O
+
+Amazon O
+Comprehend O
+Natural O
+language O
+processing O
+
+Dialogflow B-SKILL
+Conversational O
+interface O
+development O
+
+Alexa O
+Skills O
+Kit O
+ASK B-SKILL
+
+Chatbot O
+development O
+
+Speech O
+to O
+text O
+STT B-SKILL
+systems O
+
+Generative O
+Design O
+
+3D O
+printing O
+
+Optical O
+Character O
+Recognition O
+OCR B-SKILL
+
+Robotic O
+Process O
+Automation O
+RPA B-SKILL
+
+Process O
+Mining O
+
+Quantum O
+programming O
+languages O
+Qiskit B-SKILL
+
+Quantum O
+algorithms O
+
+Quantum O
+cryptography B-SKILL
+
+Quantum O
+machine O
+learning O
+
+CORS O
+Cross O
+Origin O
+Resource O
+Sharing O
+
+Web O
+Components O
+
+gRPC O
+Web O
+
+Lean O
+Six O
+Sigma O
+
+Statistical O
+Analysis O
+
+Regression O
+Analysis O
+
+A O
+B O
+Testing O
+
+Hypothesis O
+Testing O
+
+Data O
+Mining O
+
+Predictive O
+Analytics O
+
+Descriptive O
+Analytics O
+
+Prescriptive O
+Analytics O
+
+Risk O
+Analysis O
+
+Critical O
+Path O
+Analysis O
+
+SWOT O
+Analysis O
+
+Business O
+Intelligence O
+
+Competitive O
+Analysis O
+
+Market O
+Research O
+
+Lean O
+Canvas O
+
+Business O
+Model O
+Canvas O
+
+Value O
+Proposition O
+Design O
+
+Empathy B-SKILL
+Mapping O
+
+Journey O
+Mapping O
+
+NetBeans B-SKILL
+
+Visual O
+Studio O
+
+Atom B-SKILL
+
+Sublime O
+Text O
+
+Vim B-SKILL
+
+Emacs B-SKILL
+
+Notepad++ B-SKILL
+
+Xcode B-SKILL
+
+Android O
+Studio O
+
+PyCharm B-SKILL
+
+Jupyter O
+Notebooks O
+
+RStudio B-SKILL
+
+Anaconda B-SKILL
+
+Spyder B-SKILL
+
+Vagrant B-SKILL
+
+VirtualBox B-SKILL
+
+VMware B-SKILL
+
+Wireshark B-SKILL
+
+Swagger B-SKILL
+
+SoapUI B-SKILL
+
+Travis O
+CI O
+
+GitLab B-SKILL
+CI O
+CD O
+
+CircleCI B-SKILL
+
+SonarQube B-SKILL
+
+Confluence B-SKILL
+
+Slack B-SKILL
+
+Mattermost B-SKILL
+
+Rocket.Chat B-SKILL
+
+Discord B-SKILL
+
+Zoom B-SKILL
+
+Microsoft O
+Teams O
+
+Webex B-SKILL
+
+Google O
+Meet O
+
+Figma B-SKILL
+
+Sketch B-SKILL
+
+Adobe O
+XD O
+
+Zeplin B-SKILL
+
+Blender B-SKILL
+
+Unity B-SKILL
+
+Unreal O
+Engine O
+
+Godot O
+Engine O
+
+AutoCAD B-SKILL
+
+SolidWorks B-SKILL
+
+CATIA B-SKILL
+
+Creo B-SKILL
+
+KiCad B-SKILL
+
+Altium O
+Designer O
+
+Eagle B-SKILL
+
+Keras B-SKILL
+
+Tableau B-SKILL
+
+Power O
+BI O
+
+QlikView B-SKILL
+
+Mercurial B-SKILL
+
+Subversion B-SKILL
+
+CVS B-SKILL
+
+Perforce B-SKILL
+
+AWS B-SKILL
+Lambda O
+
+Apache B-SKILL
+NiFi O
+
+Apache B-SKILL
+ZooKeeper O
+
+Google O
+Cloud O
+Pub O
+Sub O
+
+Azure B-SKILL
+Event O
+Hubs O
+
+Azure B-SKILL
+Logic O
+Apps O
+
+Azure B-SKILL
+Functions O
+
+ModelOps B-SKILL
+
+Kubeflow B-SKILL
+
+DataRobot B-SKILL
+
+MLflow B-SKILL
+
+SageMaker B-SKILL
+
+Amazon O
+Comprehend O
+
+Dialogflow B-SKILL
+
+Wireshark B-SKILL
+Network O
+protocol O
+analyzer O
+
+Postman B-SKILL
+API O
+development O
+and O
+testing O
+
+Swagger B-SKILL
+API O
+documentation B-SKILL
+
+SoapUI B-SKILL
+API O
+testing O
+tool O
+
+Jenkins B-SKILL
+Continuous O
+Integration O
+Continuous O
+Deployment O
+
+Travis O
+CI O
+Continuous O
+Integration O
+
+GitLab B-SKILL
+CI O
+CD O
+Continuous O
+Integration O
+Continuous O
+Deployment O
+
+CircleCI B-SKILL
+Continuous O
+Integration O
+
+SonarQube B-SKILL
+Code O
+quality O
+analysis O
+
+Selenium B-SKILL
+Web O
+application O
+testing O
+
+Jira B-SKILL
+Project O
+management O
+and O
+issue O
+tracking O
+
+Trello B-SKILL
+Project O
+management O
+
+Asana B-SKILL
+Project O
+management O
+
+Confluence B-SKILL
+Collaboration B-SKILL
+and O
+documentation B-SKILL
+
+Slack B-SKILL
+Team O
+communication B-SKILL
+
+Mattermost B-SKILL
+Open O
+source O
+team O
+communication B-SKILL
+
+Rocket.Chat B-SKILL
+Open O
+source O
+team O
+communication B-SKILL
+
+Discord B-SKILL
+Voice B-SKILL
+
+Zoom B-SKILL
+Video B-SKILL
+conferencing O
+
+Microsoft O
+Teams O
+Collaboration B-SKILL
+platform O
+
+Webex B-SKILL
+Video B-SKILL
+conferencing O
+
+Google O
+Meet O
+Video B-SKILL
+conferencing O
+
+Unit O
+Testing O
+
+Integration O
+Testing O
+
+Test O
+Driven O
+Development O
+TDD B-SKILL
+
+RESTful O
+API O
+Design O
+
+Microservices O
+Architecture O
+
+Serverless O
+Computing O
+
+Cloud O
+Native O
+Development O
+
+DevOps O
+Practices O
+
+Continuous O
+Integration O
+Continuous O
+Deployment O
+CI O
+CD O
+
+Infrastructure O
+as O
+Code O
+IaC B-SKILL
+
+Container O
+Orchestration B-SKILL
+
+Service O
+Mesh O
+
+Observability B-SKILL
+
+Distributed O
+Systems O
+Design O
+
+Load O
+Balancing O
+
+Circuit O
+Breaker O
+Patterns O
+
+Design O
+Patterns O
+
+Refactoring B-SKILL
+
+Code O
+Review O
+
+Pair O
+Programming O
+
+Cross O
+Platform O
+Development O
+
+Responsive O
+Web O
+Design O
+
+Mobile O
+First O
+Development O
+
+Accessibility O
+Standards O
+
+Performance O
+Optimization O
+
+Code O
+Profiling O
+
+Memory O
+Management O
+
+Code O
+Versioning O
+e.g. B-SKILL
+
+Behavioral O
+Driven O
+Development O
+BDD B-SKILL
+
+Domain O
+Driven O
+Design O
+DDD B-SKILL
+
+Event O
+Driven O
+Architecture O
+
+Continuous O
+Learning O
+and O
+Adaptability B-SKILL
+
+Data O
+Scientist O
+
+Data O
+Exploration O
+
+Feature O
+Engineering O
+
+Model O
+Evaluation O
+
+Bayesian O
+Statistics O
+
+Time O
+Series O
+Analysis O
+
+Sentiment O
+Analysis O
+
+Predictive O
+Modeling O
+
+Machine O
+Learning O
+Algorithms O
+
+Neural O
+Networks O
+
+Deep O
+Learning O
+
+Reinforcement O
+Learning O
+
+Ensemble O
+Learning O
+
+Cross O
+Validation O
+
+Hyperparameter O
+Tuning O
+
+Dimensionality O
+Reduction O
+
+Clustering O
+Techniques O
+
+Data O
+Wrangling O
+
+Data O
+Cleaning O
+
+Data O
+Visualization O
+e.g. B-SKILL
+
+Dashboarding O
+Tools O
+e.g. B-SKILL
+
+Feature O
+Scaling O
+
+NoSQL B-SKILL
+Databases O
+
+Big O
+Data O
+Technologies O
+e.g. B-SKILL
+
+Data O
+Governance O
+
+Ethical O
+Data O
+Handling O
+
+Data O
+Privacy O
+Regulations O
+
+Threat O
+Intelligence O
+
+Security O
+Incident O
+Response O
+
+Vulnerability O
+Assessment O
+
+Security O
+Information O
+and O
+Event O
+Management O
+SIEM B-SKILL
+
+Firewall O
+Configuration O
+
+Intrusion O
+Detection O
+Systems O
+IDS B-SKILL
+
+Intrusion O
+Prevention O
+Systems O
+IPS B-SKILL
+
+Security O
+Auditing O
+
+Endpoint O
+Security O
+
+Encryption O
+Techniques O
+
+Secure O
+Coding O
+Practices O
+
+Application O
+Security O
+
+Cloud O
+Security O
+
+Incident O
+Handling O
+
+Security O
+Policies O
+and O
+Compliance O
+
+Security O
+Awareness O
+Training O
+
+Cloud O
+Service O
+Providers O
+e.g. B-SKILL
+
+Cloud O
+Architecture O
+Design O
+
+Hybrid O
+Cloud O
+Solutions O
+
+Multi O
+Cloud O
+Strategies O
+
+Identity O
+and O
+Access O
+Management O
+IAM B-SKILL
+in O
+Cloud O
+
+Serverless O
+Architectures O
+
+Microservices O
+Deployment O
+
+DevOps O
+in O
+Cloud O
+Environments O
+
+Cloud O
+Cost O
+Management O
+
+Disaster O
+Recovery O
+Planning O
+
+Cloud O
+Networking B-SKILL
+
+Containerization B-SKILL
+
+Orchestration B-SKILL
+
+Infrastructure O
+as O
+Code O
+
+API O
+Gateway O
+Configuration O
+
+Cloud O
+Monitoring O
+and O
+Optimization O
+
+Cloud O
+Governance O
+
+Routing O
+Protocols O
+
+Switching O
+Protocols O
+
+Firewalls O
+and O
+Proxy O
+Servers O
+
+Virtual O
+Private O
+Networks O
+
+Wireless O
+Networking B-SKILL
+
+Network O
+Monitoring O
+Tools O
+
+Quality O
+of O
+Service O
+QoS B-SKILL
+
+IP O
+Addressing O
+and O
+Subnetting O
+
+Network O
+Troubleshooting O
+
+Network O
+Design O
+
+Software O
+Defined O
+Networking B-SKILL
+SDN B-SKILL
+
+Network O
+Automation O
+
+Network O
+Configuration O
+Management O
+
+Voice B-SKILL
+over O
+IP O
+VoIP B-SKILL
+
+Network O
+Protocols O
+e.g. B-SKILL
+
+Network O
+Capacity O
+Planning O
+
+User O
+Research O
+
+Wireframing B-SKILL
+
+Prototyping B-SKILL
+
+User O
+Persona O
+Creation O
+
+Information O
+Architecture O
+
+Interaction O
+Design O
+
+Visual O
+Design O
+
+Responsive O
+Design O
+Principles O
+
+Mobile O
+App O
+Design O
+
+Usability O
+Testing O
+
+User O
+Centered O
+Design O
+UCD B-SKILL
+
+Design O
+Systems O
+
+Sketching O
+and O
+Illustration O
+
+Motion O
+Design O
+
+Color O
+Theory O
+
+Typography B-SKILL
+
+Figma B-SKILL
+or O
+Sketch B-SKILL
+
+Adobe O
+Creative O
+Suite O
+
+Mosyle O
+MDM O
+
+Google O
+Admin O
+Console O
+
+OneLogin O
+SAML O
+
+Microsoft O
+Power O
+Automate O
+
+Microsoft O
+SharePoint O
+
+CAD B-SKILL
+modeling O
+
+Autodesk O
+Fusion O
+360 O
+
+Arduino B-SKILL
+
+OS B-SKILL
+
+GUI B-SKILL
+

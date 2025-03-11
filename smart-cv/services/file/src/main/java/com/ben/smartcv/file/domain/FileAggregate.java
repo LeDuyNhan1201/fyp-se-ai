@@ -57,8 +57,8 @@ public class FileAggregate {
         this.cvId = event.getCvId();
     }
 
-    @ExceptionHandler(resultType = IllegalStateException.class, payloadType = CvCommand.ApplyCv.class)
-    public void handleIllegalStateExceptionsFromIssueCard(Exception exception) {
+    @ExceptionHandler(resultType = Exception.class, payloadType = CvCommand.ApplyCv.class)
+    public void handleExceptionForApplyCvCommand(Exception exception) {
         log.error("IllegalStateException occurred: {}", exception.getMessage());
     }
 

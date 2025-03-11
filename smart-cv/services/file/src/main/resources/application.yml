@@ -99,6 +99,18 @@ spring:
   application:
     name: file
 
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 50MB
+      max-request-size: 50MB
+
+  messages:
+    basename: i18n/messages
+    encoding: UTF-8
+    default-locale: en
+    cache-duration: 3600
+
   data:
     mongodb:
       uri: mongodb://smartcv:SmArTcV123%23@localhost:27017/axon-framework?authSource=admin

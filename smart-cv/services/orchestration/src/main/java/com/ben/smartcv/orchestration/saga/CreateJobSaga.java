@@ -1,12 +1,12 @@
 package com.ben.smartcv.orchestration.saga;
 
-import com.ben.smartcv.common.contract.command.CvCommand;
+import com.ben.smartcv.common.contract.command.JobCommand;
 import com.ben.smartcv.common.contract.command.NotificationCommand;
-import com.ben.smartcv.common.contract.event.CvEvent;
+import com.ben.smartcv.common.contract.event.JobEvent;
 import com.ben.smartcv.common.contract.event.NotificationEvent;
-import com.ben.smartcv.common.cv.CvAppliedEvent;
-import com.ben.smartcv.common.cv.CvDeletedEvent;
-import com.ben.smartcv.common.cv.CvProcessedEvent;
+import com.ben.smartcv.common.job.JobCreatedEvent;
+import com.ben.smartcv.common.job.JobDeletedEvent;
+import com.ben.smartcv.common.job.JobProcessedEvent;
 import com.ben.smartcv.common.util.Constant;
 import com.ben.smartcv.common.util.EventLogger;
 import com.ben.smartcv.orchestration.publisher.CommandPublisher;
@@ -30,7 +30,7 @@ import static org.axonframework.modelling.saga.SagaLifecycle.associateWith;
 @Saga
 @Slf4j
 @FieldDefaults(level = PRIVATE)
-public class ApplyCvSaga {
+public class CreateJobSaga {
 
     @Autowired
     transient CommandGateway commandGateway;
@@ -38,52 +38,50 @@ public class ApplyCvSaga {
     @Autowired
     transient CommandPublisher commandPublisher;
 
-    static final String ASSOCIATION_PROPERTY = "cvId";
+    static final String ASSOCIATION_PROPERTY = "jobId";
 
     @StartSaga
     @SagaEventHandler(associationProperty = ASSOCIATION_PROPERTY)
-    public void on(CvEvent.CvApplied event) {
+    public void on(JobEvent.JobCreated event) {
         // 5
-        log.info(EventLogger.logEvent("CvApplied",
-                event.getCvId(), event.getCvId(), Map.of("fileName", event.getFileName())));
+        log.info(EventLogger.logEvent("JobCreated",
+                event.getJobId(), event.getJobId(), Map.of("jobId", event.getJobId())));
 
-        commandGateway.sendAndWait(CvCommand.ProcessCv.builder()
+        commandGateway.sendAndWait(JobCommand.ProcessJob.builder()
                 .id(UUID.randomUUID().toString())
-                .cvId(event.getCvId())
+                .jobId(event.getJobId())
                 .build());
     }
 
     @SagaEventHandler(associationProperty = ASSOCIATION_PROPERTY)
-    public void on(CvEvent.CvProcessed event) {
+    public void on(JobEvent.JobProcessed event) {
         try {
             // 10
-            log.info(EventLogger.logEvent("CvProcessed",
-                    event.getCvId(), event.getCvId(), Map.of("cvId", event.getCvId())));
+            log.info(EventLogger.logEvent("JobProcessed",
+                    event.getJobId(), event.getJobId(), Map.of("jobId", event.getJobId())));
 
-            commandPublisher.send(CvCommand.ProcessCv.builder()
-                    .cvId(event.getCvId())
-                    .objectKey(event.getObjectKey())
+            commandPublisher.send(JobCommand.ProcessJob.builder()
+                    .jobId(event.getJobId())
                     .build());
 
         } catch (Exception e) {
             // send command to notification service
-            commandGateway.sendAndWait(CvCommand.RollbackProcessCv.builder()
+            commandGateway.sendAndWait(JobCommand.RollbackProcessJob.builder()
                     .id(UUID.randomUUID().toString())
-                    .cvId(event.getCvId())
-                    .objectKey(event.getObjectKey())
+                    .jobId(event.getJobId())
                     .build());
         }
     }
 
     @SagaEventHandler(associationProperty = ASSOCIATION_PROPERTY)
-    public void on(CvEvent.CvDeleted event) {
-        log.info(EventLogger.logEvent("CvDeleted",
-                event.getCvId(), event.getCvId(), Map.of("cvId", event.getCvId())));
+    public void on(JobEvent.JobDeleted event) {
+        log.info(EventLogger.logEvent("JobDeleted",
+                event.getJobId(), event.getJobId(), Map.of("jobId", event.getJobId())));
 
         commandGateway.sendAndWait(NotificationCommand.SendNotification.builder()
                 .id(UUID.randomUUID().toString())
-                .title("CV Process Failed")
-                .content("CV processing failed for cvId: " + event.getCvId() + "please try again")
+                .title("Job Process Failed")
+                .content("Job processing failed for jobId: " + event.getJobId() + "please try again")
                 .build());
     }
 
@@ -95,42 +93,38 @@ public class ApplyCvSaga {
         associateWith("associationProperty", event.getAssociationProperty());
     }
 
-    @KafkaListener(topics = Constant.KAFKA_TOPIC_CV_EVENT,
+    @KafkaListener(topics = Constant.KAFKA_TOPIC_JOB_EVENT,
             groupId = Constant.KAFKA_GROUP_ORCHESTRATION)
-    public void consume(CvAppliedEvent event) {
-        // 4
-        on(CvEvent.CvApplied.builder()
-                .cvId(event.getCvId())
-                .fileName(event.getFileName())
+    public void consume(JobCreatedEvent event) {
+        on(JobEvent.JobCreated.builder()
+                .jobId(event.getJobId())
                 .build());
     }
 
-    @KafkaListener(topics = Constant.KAFKA_TOPIC_CV_EVENT,
+    @KafkaListener(topics = Constant.KAFKA_TOPIC_JOB_EVENT,
             groupId = Constant.KAFKA_GROUP_ORCHESTRATION)
-    public void consume(CvProcessedEvent event) {
-        // 9
-        on(CvEvent.CvProcessed.builder()
-                .cvId(event.getCvId())
-                .objectKey(event.getObjectKey())
+    public void consume(JobProcessedEvent event) {
+        on(JobEvent.JobProcessed.builder()
+                .jobId(event.getJobId())
                 .build());
     }
 
-    @KafkaListener(topics = Constant.KAFKA_TOPIC_CV_EVENT,
+    @KafkaListener(topics = Constant.KAFKA_TOPIC_JOB_EVENT,
             groupId = Constant.KAFKA_GROUP_ORCHESTRATION)
-    public void consume(CvDeletedEvent event) {
-        on(CvEvent.CvDeleted.builder()
-                .cvId(event.getCvId())
+    public void consume(JobDeletedEvent event) {
+        on(JobEvent.JobDeleted.builder()
+                .jobId(event.getJobId())
                 .build());
     }
 
 
-    @ExceptionHandler(resultType = Exception.class, payloadType = CvEvent.CvApplied.class)
-    public void handleExceptionForCvAppliedEvent(Exception exception) {
+    @ExceptionHandler(resultType = Exception.class, payloadType = JobEvent.JobCreated.class)
+    public void handleExceptionForJobCreatedEvent(Exception exception) {
         log.error("Unexpected Exception occurred when applied cv: {}", exception.getMessage());
     }
 
-    @ExceptionHandler(resultType = Exception.class, payloadType = CvEvent.CvProcessed.class)
-    public void handleExceptionCvProcessedEvent(Exception exception) {
+    @ExceptionHandler(resultType = Exception.class, payloadType = JobEvent.JobProcessed.class)
+    public void handleExceptionJobProcessedEvent(Exception exception) {
         log.error("Unexpected Exception occurred when processed cv: {}", exception.getMessage());
     }
 

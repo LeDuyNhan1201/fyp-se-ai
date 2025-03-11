@@ -1,6 +1,13 @@
 grpcio-tools
 python-dotenv
+pytesseract
+pdf2image
 confluent-kafka[avro,json,protobuf]
 minio
 scikit-learn
 sentence-transformers
+transformers
+datasets
+seqeval
+torch
+accelerate
