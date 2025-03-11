@@ -23,7 +23,7 @@ public class JobCommand {
 
         String organizationName;
 
-        String jobPosition;
+        String position;
 
         String requirements;
 

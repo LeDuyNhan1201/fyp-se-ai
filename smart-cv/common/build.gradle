@@ -12,7 +12,6 @@ configurations {
 dependencies {
 	/* --------- Normal Dependencies --------- */
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
-	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
 	implementation "io.micrometer:micrometer-core:${micrometerVersion}" // https://mvnrepository.com/artifact/io.micrometer/micrometer-core
 	implementation "org.axonframework:axon-micrometer:${axonVersion}" // https://mvnrepository.com/artifact/org.axonframework/axon-micrometer
 	implementation "org.axonframework:axon-tracing-opentelemetry:${axonVersion}" // https://mvnrepository.com/artifact/org.axonframework/axon-tracing-opentelemetry
@@ -21,6 +20,7 @@ dependencies {
 
 	/* --------- APIs Dependencies --------- */
 	api 'org.springframework.boot:spring-boot-starter-web'
+	api 'org.springframework.boot:spring-boot-starter-data-mongodb'
 	api 'org.springframework.grpc:spring-grpc-spring-boot-starter'
 	api 'org.springframework.kafka:spring-kafka'
 	api "org.springdoc:springdoc-openapi-starter-webmvc-ui:${springdocOpenApiVersion}" // https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-starter-webmvc-ui

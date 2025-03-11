@@ -21,6 +21,12 @@ public class JobEvent {
 
         String jobId;
 
+        String organizationName;
+
+        String position;
+
+        String requirements;
+
     }
 
     @Getter

@@ -8,6 +8,7 @@ import com.ben.smartcv.common.cv.CvAppliedEvent;
 import com.ben.smartcv.common.cv.CvDeletedEvent;
 import com.ben.smartcv.common.cv.CvFileDeletedEvent;
 import com.ben.smartcv.common.cv.CvProcessedEvent;
+import com.ben.smartcv.common.notification.NotificationSentEvent;
 import com.ben.smartcv.common.util.Constant;
 import com.ben.smartcv.common.util.EventLogger;
 import com.ben.smartcv.orchestration.publisher.CommandPublisher;
@@ -144,6 +145,17 @@ public class ApplyCvSaga {
         on(CvEvent.CvFileDeleted.builder()
                 .cvId(event.getCvId())
                 .objectKey(event.getObjectKey())
+                .build());
+    }
+
+    @KafkaListener(topics = Constant.KAFKA_TOPIC_NOTIFICATION_EVENT,
+            groupId = Constant.KAFKA_GROUP_ORCHESTRATION)
+    public void consume(NotificationSentEvent event) {
+        // 10
+        on(NotificationEvent.NotificationSent.builder()
+                .associationProperty(event.getAssociationProperty())
+                .title(event.getTitle())
+                .content(event.getContent())
                 .build());
     }
 

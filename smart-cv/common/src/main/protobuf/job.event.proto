@@ -10,6 +10,12 @@ message JobCreatedEvent {
 
   string job_id = 1;
 
+  string organization_name = 2;
+
+  string position = 3;
+
+  string requirements = 4;
+
 }
 
 message JobProcessedEvent {

@@ -1,4 +1,4 @@
-package com.ben.smartcv.curriculum_vitae.domain;
+package com.ben.smartcv.curriculum_vitae.domain.aggregate;
 
 import com.ben.smartcv.common.contract.command.CvCommand;
 import com.ben.smartcv.common.contract.event.CvEvent;

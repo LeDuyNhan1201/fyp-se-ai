@@ -1,8 +1,11 @@
-package com.ben.smartcv.job.domain;
+package com.ben.smartcv.job.domain.aggregate;
 
 import com.ben.smartcv.common.contract.command.JobCommand;
+import com.ben.smartcv.common.contract.dto.BaseResponse;
 import com.ben.smartcv.common.contract.event.JobEvent;
 import com.ben.smartcv.common.util.EventLogger;
+import com.ben.smartcv.job.application.exception.JobError;
+import com.ben.smartcv.job.application.exception.JobHttpException;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,6 +16,8 @@ import org.axonframework.eventsourcing.EventSourcingHandler;
 import org.axonframework.messaging.interceptors.ExceptionHandler;
 import org.axonframework.modelling.command.AggregateIdentifier;
 import org.axonframework.spring.stereotype.Aggregate;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 import java.util.Map;
 
@@ -32,6 +37,12 @@ public class JobAggregate {
 
     String jobId;
 
+    String organizationName;
+
+    String position;
+
+    String requirements;
+
     @CommandHandler
     public JobAggregate(JobCommand.CreateJob command) {
         log.info(EventLogger.logCommand("CreateJob", command.getOrganizationName(),
@@ -40,6 +51,9 @@ public class JobAggregate {
         apply(JobEvent.JobCreated.builder()
                 .id(command.getId())
                 .jobId(command.getJobId())
+                .organizationName(command.getOrganizationName())
+                .position(command.getPosition())
+                .requirements(command.getRequirements())
                 .build());
     }
 
@@ -69,6 +83,9 @@ public class JobAggregate {
     public void on(JobEvent.JobCreated event) {
         this.id = event.getId();
         this.jobId = event.getJobId();
+        this.organizationName = event.getOrganizationName();
+        this.position = event.getPosition();
+        this.requirements = event.getRequirements();
     }
 
     @EventSourcingHandler
@@ -85,17 +102,17 @@ public class JobAggregate {
 
     @ExceptionHandler(resultType = Exception.class, payloadType = JobCommand.CreateJob.class)
     public void handleExceptionForCreateJobCommand(Exception exception) {
-        log.error("Unexpected exception occurred: {}", exception.getMessage());
+        log.error("Unexpected exception occurred when creating job: {}", exception.getMessage());
     }
 
     @ExceptionHandler(resultType = Exception.class, payloadType = JobCommand.ProcessJob.class)
     public void handleExceptionForProcessJobCommand(Exception exception) {
-        log.error("Unexpected exception occurred: {}", exception.getMessage());
+        log.error("Unexpected exception occurred when processing job: {}", exception.getMessage());
     }
 
     @ExceptionHandler(resultType = Exception.class, payloadType = JobCommand.RollbackProcessJob.class)
     public void handleExceptionForRollbackProcessJobCommand(Exception exception) {
-        log.error("Unexpected exception occurred: {}", exception.getMessage());
+        log.error("Unexpected exception occurred when rolling back process job: {}", exception.getMessage());
     }
 
 }

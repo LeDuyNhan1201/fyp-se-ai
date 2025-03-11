@@ -3,7 +3,7 @@ package com.ben.smartcv.file.application.exception;
 import lombok.Getter;
 
 @Getter
-public enum FileErrorCode {
+public enum FileError {
     NO_FILE_PROVIDED("file/no-file-provided", "ErrorMsg.NoFileProvided"),
     INVALID_FILE_PROVIDED("file/invalid-file-provided", "ErrorMsg.InvalidFileProvided"),
     INVALID_FILE_TYPE("file/invalid-file-type", "ErrorMsg.InvalidFileType"),
@@ -16,7 +16,7 @@ public enum FileErrorCode {
     CAN_NOT_INIT_BUCKET("file/can-not-init-bucket", "can_not_init_bucket")
     ;
 
-    FileErrorCode(String code, String message) {
+    FileError(String code, String message) {
         this.code = code;
         this.message = message;
     }

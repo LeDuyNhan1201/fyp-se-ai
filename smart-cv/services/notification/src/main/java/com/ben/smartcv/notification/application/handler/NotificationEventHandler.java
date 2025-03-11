@@ -1,4 +1,4 @@
-package com.ben.smartcv.notification.application.usecase;
+package com.ben.smartcv.notification.application.handler;
 
 import com.ben.smartcv.common.contract.event.NotificationEvent;
 import com.ben.smartcv.notification.infrastructure.EventPublisher;

@@ -1,4 +1,4 @@
-package com.ben.smartcv.user.application.usecase;
+package com.ben.smartcv.user.application.handler;
 
 import com.ben.smartcv.common.contract.event.UserEvent;
 import com.ben.smartcv.user.infrastructure.EventPublisher;

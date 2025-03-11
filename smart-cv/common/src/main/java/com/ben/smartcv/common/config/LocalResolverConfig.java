@@ -20,8 +20,8 @@ import java.util.Locale;
 public class LocalResolverConfig extends AcceptHeaderLocaleResolver implements WebMvcConfigurer {
 
     List<Locale> LOCALES = List.of(
-            Locale.of("en"),
-            Locale.of("vi")
+            Locale.of("en")
+//            Locale.of("vi")
     );
 
     @Override

@@ -1,7 +1,7 @@
 package com.ben.smartcv.file.infrastructure.impl;
 
-import com.ben.smartcv.file.application.exception.FileErrorCode;
-import com.ben.smartcv.file.application.exception.FileException;
+import com.ben.smartcv.file.application.exception.FileError;
+import com.ben.smartcv.file.application.exception.FileHttpException;
 import com.ben.smartcv.file.infrastructure.IMinioClient;
 import io.minio.*;
 import io.minio.errors.MinioException;
@@ -48,7 +48,7 @@ public class MinioClientImpl implements IMinioClient {
             ensureBucketExists(bucketName);
 
         } catch (Exception e) {
-            throw new FileException(FileErrorCode.CAN_NOT_INIT_BUCKET, HttpStatus.BAD_REQUEST);
+            throw new FileHttpException(FileError.CAN_NOT_INIT_BUCKET, HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -64,7 +64,7 @@ public class MinioClientImpl implements IMinioClient {
                     .build());
 
         } catch (Exception e) {
-            throw new FileException(FileErrorCode.CAN_NOT_STORE_FILE, HttpStatus.BAD_REQUEST);
+            throw new FileHttpException(FileError.CAN_NOT_STORE_FILE, HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -80,7 +80,7 @@ public class MinioClientImpl implements IMinioClient {
 
         } catch (MinioException | InvalidKeyException | IOException | NoSuchAlgorithmException e) {
             log.error("Error getting object URL", e);
-            throw new FileException(FileErrorCode.COULD_NOT_READ_FILE, HttpStatus.BAD_REQUEST);
+            throw new FileHttpException(FileError.COULD_NOT_READ_FILE, HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -93,10 +93,10 @@ public class MinioClientImpl implements IMinioClient {
                     .object(objectKey)
                     .build());
         } catch (Exception e) {
-            throw new FileException(FileErrorCode.COULD_NOT_READ_FILE, HttpStatus.BAD_REQUEST);
+            throw new FileHttpException(FileError.COULD_NOT_READ_FILE, HttpStatus.BAD_REQUEST);
         }
 
-        if (response == null) throw new FileException(FileErrorCode.FILE_NOT_FOUND, HttpStatus.BAD_REQUEST);
+        if (response == null) throw new FileHttpException(FileError.FILE_NOT_FOUND, HttpStatus.BAD_REQUEST);
 
         try {
             minioClient.removeObject(RemoveObjectArgs.builder()
@@ -105,7 +105,7 @@ public class MinioClientImpl implements IMinioClient {
                     .build());
 
         } catch (Exception e) {
-            throw new FileException(FileErrorCode.CAN_NOT_DELETE_FILE, HttpStatus.BAD_REQUEST);
+            throw new FileHttpException(FileError.CAN_NOT_DELETE_FILE, HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -118,7 +118,7 @@ public class MinioClientImpl implements IMinioClient {
                 log.info("Bucket '{}' created.", bucketName);
             }
         } catch (Exception e) {
-            throw new FileException(FileErrorCode.CAN_NOT_CHECK_BUCKET, HttpStatus.BAD_REQUEST);
+            throw new FileHttpException(FileError.CAN_NOT_CHECK_BUCKET, HttpStatus.BAD_REQUEST);
         }
     }
 

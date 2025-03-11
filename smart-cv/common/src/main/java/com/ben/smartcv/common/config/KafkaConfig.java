@@ -29,4 +29,22 @@ public class KafkaConfig {
                 Constant.KAFKA_TOPIC_CV_COMMAND, 3, 1);
     }
 
+    @Bean
+    public NewTopic createJobEventTopic() {
+        return KafkaHelper.createTopic(
+                Constant.KAFKA_TOPIC_JOB_EVENT, 3, 1);
+    }
+
+    @Bean
+    public NewTopic createJobCommandTopic() {
+        return KafkaHelper.createTopic(
+                Constant.KAFKA_TOPIC_JOB_COMMAND, 3, 1);
+    }
+
+    @Bean
+    public NewTopic createNotificationCommandTopic() {
+        return KafkaHelper.createTopic(
+                Constant.KAFKA_TOPIC_NOTIFICATION_COMMAND, 3, 1);
+    }
+
 }

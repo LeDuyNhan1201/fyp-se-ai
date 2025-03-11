@@ -1,9 +1,8 @@
-package com.ben.smartcv.file.application.usecase;
+package com.ben.smartcv.file.application.handler;
 
-import com.ben.smartcv.common.contract.command.CvCommand;
+import com.ben.smartcv.common.component.CommonEventPublisher;
+import com.ben.smartcv.common.contract.command.NotificationCommand;
 import com.ben.smartcv.common.contract.event.CvEvent;
-import com.ben.smartcv.common.util.Constant;
-import com.ben.smartcv.file.application.exception.FileException;
 import com.ben.smartcv.file.infrastructure.EventPublisher;
 import com.ben.smartcv.file.infrastructure.IMinioClient;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +14,8 @@ import org.axonframework.messaging.interceptors.ExceptionHandler;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import java.util.UUID;
+
 import static lombok.AccessLevel.PRIVATE;
 
 @Slf4j
@@ -24,6 +25,8 @@ import static lombok.AccessLevel.PRIVATE;
 public class FileEventHandler {
 
     EventPublisher kafkaProducer;
+
+    CommonEventPublisher commonEventPublisher;
 
     IMinioClient minioClient;
 
@@ -44,9 +47,14 @@ public class FileEventHandler {
         kafkaProducer.send(event);
     }
 
-    @ExceptionHandler(resultType = FileException.class, payloadType = CvEvent.CvFileDeleted.class)
-    public void handleExceptionForCvFileDeletedEvent(FileException exception) {
-        log.error("File exception occurred: {}", exception.getMessage());
+    @ExceptionHandler(payloadType = CvEvent.CvFileDeleted.class)
+    public void handleExceptionForCvFileDeletedEvent(Exception exception) {
+        log.error("Unexpected exception occurred when creating job: {}", exception.getMessage());
+        commonEventPublisher.send(NotificationCommand.SendNotification.builder()
+                .id(UUID.randomUUID().toString())
+                .title("Delete job Failed")
+                .content("Cv is deleted failed, please try again")
+                .build());
     }
 
 }

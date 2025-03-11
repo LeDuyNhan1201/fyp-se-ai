@@ -16,7 +16,7 @@ import static lombok.AccessLevel.PRIVATE;
 import static org.springframework.http.HttpStatus.OK;
 
 @RestController
-@RequestMapping
+@RequestMapping("/command")
 @Tag(name = "Job Command APIs")
 @Slf4j
 @RequiredArgsConstructor
@@ -26,13 +26,14 @@ public class CommandController {
     CommandGateway commandGateway;
 
     @Operation(summary = "Create JD", description = "API to Create new job description")
-    @PostMapping
+    @PostMapping("/")
     @ResponseStatus(OK)
     public BaseResponse<?, ?> createJob(@RequestBody RequestDto.CreateJobDescription requestDto) {
         JobCommand.CreateJob command = JobCommand.CreateJob.builder()
                 .id(UUID.randomUUID().toString())
+                .jobId(UUID.randomUUID().toString())
                 .organizationName(requestDto.organizationName())
-                .jobPosition(requestDto.jobPosition())
+                .position(requestDto.position())
                 .requirements(requestDto.requirements())
                 .build();
         commandGateway.send(command);

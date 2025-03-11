@@ -104,9 +104,19 @@ spring:
     default-locale: en
     cache-duration: 3600
 
+  elasticsearch:
+    uris: http://localhost:9200
+    connection-timeout: 5s
+    username: smartcv
+    password: SmArTcV123#
+
   data:
     mongodb:
       uri: mongodb://smartcv:SmArTcV123%23@localhost:27017/axon-framework?authSource=admin
+
+    elasticsearch:
+      repositories:
+        enabled: true
 
   kafka:
     bootstrap-servers: localhost:9091,localhost:9092,localhost:9093

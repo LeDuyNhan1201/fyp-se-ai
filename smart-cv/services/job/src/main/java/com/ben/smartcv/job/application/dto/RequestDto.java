@@ -13,7 +13,7 @@ public class RequestDto {
 
         @NotNull(message = "Validation.Null")
         @NotBlank(message = "Validation.Blank")
-        String jobPosition,
+        String position,
 
         @NotNull(message = "Validation.Null")
         @NotBlank(message = "Validation.Blank")

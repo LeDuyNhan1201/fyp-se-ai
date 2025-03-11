@@ -8,24 +8,24 @@ import org.springframework.http.HttpStatus;
 
 @Getter
 @FieldDefaults(level = AccessLevel.PROTECTED)
-public class FileException extends RuntimeException {
+public class FileHttpException extends RuntimeException {
 
-    public FileException(String Message, HttpStatus httpStatus, String... moreInfo) {
+    public FileHttpException(String Message, HttpStatus httpStatus, String... moreInfo) {
         super(Message);
         this.httpStatus = httpStatus;
         this.moreInfo = moreInfo;
     }
 
-    public FileException(FileErrorCode errorCode, HttpStatus httpStatus, String... moreInfo) {
-        super(errorCode.getMessage());
+    public FileHttpException(FileError error, HttpStatus httpStatus, String... moreInfo) {
+        super(error.getMessage());
         this.httpStatus = httpStatus;
-        this.errorCode = errorCode;
+        this.error = error;
         this.moreInfo = moreInfo;
     }
 
     @Setter
     String[] moreInfo;
     final HttpStatus httpStatus;
-    FileErrorCode errorCode;
+    FileError error;
 
 }
