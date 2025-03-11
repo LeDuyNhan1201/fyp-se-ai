@@ -26,4 +26,14 @@ message CvDeletedEvent {
 
   string cv_id = 1;
 
+  string object_key = 2;
+
+}
+
+message CvFileDeletedEvent {
+
+  string cv_id = 1;
+
+  string object_key = 2;
+
 }

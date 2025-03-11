@@ -10,11 +10,11 @@
         ],
         [
             "Python,",
-            "O"
+            "B-SKILL"
         ],
         [
             "Java,",
-            "O"
+            "B-SKILL"
         ],
         [
             "and",
@@ -36,15 +36,15 @@
         ],
         [
             "machine",
-            "O"
+            "B-SKILL"
         ],
         [
             "learning",
-            "O"
+            "I-SKILL"
         ],
         [
             "algorithms",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
@@ -58,7 +58,7 @@
         ],
         [
             "TensorFlow",
-            "O"
+            "B-SKILL"
         ],
         [
             "and",
@@ -66,7 +66,7 @@
         ],
         [
             "PyTorch",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
@@ -96,7 +96,7 @@
         ],
         [
             "JavaScript",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
@@ -110,11 +110,11 @@
         ],
         [
             "data",
-            "O"
+            "B-SKILL"
         ],
         [
             "analysis",
-            "O"
+            "I-SKILL"
         ],
         [
             "and",
@@ -130,7 +130,7 @@
         ],
         [
             "Tableau",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
@@ -144,7 +144,7 @@
         ],
         [
             "SQL",
-            "O"
+            "B-SKILL"
         ],
         [
             "database",
@@ -166,7 +166,7 @@
         ],
         [
             "React",
-            "O"
+            "B-SKILL"
         ],
         [
             "and",
@@ -174,7 +174,7 @@
         ],
         [
             "Angular",
-            "O"
+            "B-SKILL"
         ],
         [
             "frameworks",
@@ -192,7 +192,7 @@
         ],
         [
             "MATLAB",
-            "O"
+            "B-SKILL"
         ],
         [
             "for",
@@ -252,15 +252,15 @@
         ],
         [
             "natural",
-            "O"
+            "B-SKILL"
         ],
         [
             "language",
-            "O"
+            "I-SKILL"
         ],
         [
             "processing",
-            "O"
+            "I-SKILL"
         ],
         [
             "and",
@@ -286,7 +286,7 @@
         ],
         [
             "Git",
-            "O"
+            "B-SKILL"
         ],
         [
             "version",
@@ -312,11 +312,11 @@
         ],
         [
             "DevOps",
-            "O"
+            "B-SKILL"
         ],
         [
             "practices",
-            "O"
+            "I-SKILL"
         ],
         [
             "and",
@@ -342,11 +342,11 @@
         ],
         [
             "Java",
-            "O"
+            "B-SKILL"
         ],
         [
             "Spring",
-            "O"
+            "B-SKILL"
         ],
         [
             "and",
@@ -354,7 +354,7 @@
         ],
         [
             "Hibernate",
-            "O"
+            "B-SKILL"
         ],
         [
             "frameworks",
@@ -398,7 +398,7 @@
         ],
         [
             "networking",
-            "O"
+            "B-SKILL"
         ],
         [
             "skills",
@@ -440,7 +440,7 @@
         ],
         [
             "Kubernetes",
-            "O"
+            "B-SKILL"
         ],
         [
             "clusters",
@@ -516,11 +516,11 @@
         ],
         [
             "Java,",
-            "O"
+            "B-SKILL"
         ],
         [
             "Python,",
-            "O"
+            "B-SKILL"
         ],
         [
             "C++,",
@@ -528,7 +528,7 @@
         ],
         [
             "JavaScript,",
-            "O"
+            "B-SKILL"
         ],
         [
             "and",
@@ -536,7 +536,7 @@
         ],
         [
             "Golang",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
@@ -566,7 +566,7 @@
         ],
         [
             "MongoDB,",
-            "O"
+            "B-SKILL"
         ],
         [
             "Express,",
@@ -574,7 +574,7 @@
         ],
         [
             "React,",
-            "O"
+            "B-SKILL"
         ],
         [
             "Node",
@@ -604,15 +604,15 @@
         ],
         [
             "PyTorch,",
-            "O"
+            "B-SKILL"
         ],
         [
             "TensorFlow,",
-            "O"
+            "B-SKILL"
         ],
         [
             "Keras",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
@@ -634,11 +634,11 @@
         ],
         [
             "GitLab,",
-            "O"
+            "B-SKILL"
         ],
         [
             "Jenkins,",
-            "O"
+            "B-SKILL"
         ],
         [
             "Bamboo,",
@@ -646,19 +646,19 @@
         ],
         [
             "CircleCI",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "SQL",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "JavaScript",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
@@ -674,17 +674,17 @@
     [
         [
             "Data",
-            "O"
+            "B-SKILL"
         ],
         [
             "Analysis",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "React.js",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
@@ -696,13 +696,13 @@
     [
         [
             "Node.js",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "MongoDB",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
@@ -752,11 +752,11 @@
     [
         [
             "Windows",
-            "O"
+            "B-SKILL"
         ],
         [
             "Server",
-            "O"
+            "I-SKILL"
         ],
         [
             "administration",
@@ -784,7 +784,7 @@
     [
         [
             "TCP/IP,",
-            "O"
+            "B-SKILL"
         ],
         [
             "OSI",
@@ -798,11 +798,11 @@
     [
         [
             "Routing",
-            "O"
+            "B-SKILL"
         ],
         [
             "protocols",
-            "O"
+            "I-SKILL"
         ],
         [
             "like",
@@ -838,7 +838,7 @@
     [
         [
             "VPN",
-            "O"
+            "B-SKILL"
         ],
         [
             "configuration",
@@ -858,21 +858,21 @@
     [
         [
             "Network",
-            "O"
+            "B-SKILL"
         ],
         [
             "security",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Penetration",
-            "O"
+            "B-SKILL"
         ],
         [
             "testing",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
@@ -888,7 +888,7 @@
     [
         [
             "Wireshark",
-            "O"
+            "B-SKILL"
         ],
         [
             "network",
@@ -912,7 +912,7 @@
     [
         [
             "VMware",
-            "O"
+            "B-SKILL"
         ],
         [
             "administration",
@@ -960,23 +960,23 @@
     [
         [
             "Docker",
-            "O"
+            "B-SKILL"
         ],
         [
             "containerization",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Kubernetes",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Jenkins",
-            "O"
+            "B-SKILL"
         ],
         [
             "CI/CD",
@@ -990,7 +990,7 @@
     [
         [
             "Ansible",
-            "O"
+            "B-SKILL"
         ],
         [
             "automation",
@@ -1000,7 +1000,7 @@
     [
         [
             "Terraform",
-            "O"
+            "B-SKILL"
         ],
         [
             "infrastructure-as-code",
@@ -1034,15 +1034,15 @@
     [
         [
             "Google",
-            "O"
+            "B-SKILL"
         ],
         [
             "Cloud",
-            "O"
+            "I-SKILL"
         ],
         [
             "Platform",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
@@ -1066,7 +1066,7 @@
     [
         [
             "Agile",
-            "O"
+            "B-SKILL"
         ],
         [
             "development",
@@ -1108,7 +1108,7 @@
     [
         [
             "SQL",
-            "O"
+            "B-SKILL"
         ],
         [
             "database",
@@ -1122,7 +1122,7 @@
     [
         [
             "Oracle",
-            "O"
+            "B-SKILL"
         ],
         [
             "database",
@@ -1136,21 +1136,21 @@
     [
         [
             "MongoDB",
-            "O"
+            "B-SKILL"
         ],
         [
             "NoSQL",
-            "O"
+            "B-SKILL"
         ],
         [
             "databases",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Redis",
-            "O"
+            "B-SKILL"
         ],
         [
             "in-memory",
@@ -1196,7 +1196,7 @@
     [
         [
             "Hadoop",
-            "O"
+            "B-SKILL"
         ],
         [
             "cluster",
@@ -1228,25 +1228,25 @@
     [
         [
             "Tableau",
-            "O"
+            "B-SKILL"
         ],
         [
             "data",
-            "O"
+            "B-SKILL"
         ],
         [
             "visualization",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Power",
-            "O"
+            "B-SKILL"
         ],
         [
             "BI",
-            "O"
+            "I-SKILL"
         ],
         [
             "business",
@@ -1260,7 +1260,7 @@
     [
         [
             "Python",
-            "O"
+            "B-SKILL"
         ],
         [
             "programming",
@@ -1270,11 +1270,11 @@
     [
         [
             "Java",
-            "O"
+            "B-SKILL"
         ],
         [
             "Spring",
-            "O"
+            "B-SKILL"
         ],
         [
             "Boot",
@@ -1306,15 +1306,15 @@
     [
         [
             "Ruby",
-            "O"
+            "B-SKILL"
         ],
         [
             "on",
-            "O"
+            "I-SKILL"
         ],
         [
             "Rails",
-            "O"
+            "I-SKILL"
         ],
         [
             "web",
@@ -1328,7 +1328,7 @@
     [
         [
             "JavaScript",
-            "O"
+            "B-SKILL"
         ],
         [
             "front-end",
@@ -1342,7 +1342,7 @@
     [
         [
             "React",
-            "O"
+            "B-SKILL"
         ],
         [
             "web",
@@ -1356,29 +1356,29 @@
     [
         [
             "Angular",
-            "O"
+            "B-SKILL"
         ],
         [
             "single",
-            "O"
+            "B-SKILL"
         ],
         [
             "page",
-            "O"
+            "I-SKILL"
         ],
         [
             "applications",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Node.js",
-            "O"
+            "B-SKILL"
         ],
         [
             "back-end",
-            "B-SKILL"
+            "O"
         ],
         [
             "services",
@@ -1410,7 +1410,7 @@
     [
         [
             "GraphQL",
-            "O"
+            "B-SKILL"
         ],
         [
             "API",
@@ -1424,11 +1424,11 @@
     [
         [
             "Unit",
-            "O"
+            "B-SKILL"
         ],
         [
             "testing",
-            "O"
+            "I-SKILL"
         ],
         [
             "frameworks",
@@ -1440,7 +1440,7 @@
         ],
         [
             "JUnit",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
@@ -1464,7 +1464,7 @@
     [
         [
             "Git",
-            "O"
+            "B-SKILL"
         ],
         [
             "version",
@@ -1482,11 +1482,11 @@
     [
         [
             "Continuous",
-            "O"
+            "B-SKILL"
         ],
         [
             "integration",
-            "O"
+            "I-SKILL"
         ],
         [
             "and",
@@ -1500,7 +1500,7 @@
     [
         [
             "R",
-            "O"
+            "B-SKILL"
         ],
         [
             "language",
@@ -1508,17 +1508,17 @@
         ],
         [
             "data",
-            "O"
+            "B-SKILL"
         ],
         [
             "analysis",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "MATLAB",
-            "O"
+            "B-SKILL"
         ],
         [
             "numerical",
@@ -1564,7 +1564,7 @@
     [
         [
             "Cryptography",
-            "O"
+            "B-SKILL"
         ],
         [
             "and",
@@ -1592,11 +1592,11 @@
     [
         [
             "Penetration",
-            "O"
+            "B-SKILL"
         ],
         [
             "testing",
-            "O"
+            "I-SKILL"
         ],
         [
             "and",
@@ -1604,11 +1604,11 @@
         ],
         [
             "ethical",
-            "O"
+            "B-SKILL"
         ],
         [
             "hacking",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
@@ -1636,11 +1636,11 @@
     [
         [
             "Neural",
-            "O"
+            "B-SKILL"
         ],
         [
             "networks",
-            "O"
+            "I-SKILL"
         ],
         [
             "and",
@@ -1648,21 +1648,21 @@
         ],
         [
             "deep",
-            "O"
+            "B-SKILL"
         ],
         [
             "learning",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Computer",
-            "O"
+            "B-SKILL"
         ],
         [
             "vision",
-            "O"
+            "I-SKILL"
         ],
         [
             "with",
@@ -1676,15 +1676,15 @@
     [
         [
             "Natural",
-            "O"
+            "B-SKILL"
         ],
         [
             "language",
-            "O"
+            "I-SKILL"
         ],
         [
             "processing",
-            "O"
+            "I-SKILL"
         ],
         [
             "techniques",
@@ -1708,19 +1708,19 @@
     [
         [
             "Python",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Java",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "TypeScript",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
@@ -1738,13 +1738,13 @@
     [
         [
             "Go",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Ruby",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
@@ -1756,13 +1756,13 @@
     [
         [
             "Swift",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Rust",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
@@ -1774,13 +1774,13 @@
     [
         [
             "Kotlin",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "NoSQL",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
@@ -1898,31 +1898,31 @@
     [
         [
             "MATLAB",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "SAS",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "SPSS",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "R",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Julia",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
@@ -1958,7 +1958,7 @@
     [
         [
             "Neo4j",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
@@ -1982,7 +1982,7 @@
     [
         [
             "MacOS",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
@@ -1994,167 +1994,167 @@
     [
         [
             "HTML5",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "CSS3",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "React",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Angular",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Vue.js",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Express.js",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Django",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Flask",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "RESTful",
-            "O"
+            "B-SKILL"
         ],
         [
             "APIs",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "MySQL",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "PostgreSQL",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Oracle",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "SQLite",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Linux/Unix",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Windows",
-            "O"
+            "B-SKILL"
         ],
         [
             "Server",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "macOS",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Git",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "GitHub",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "GitLab",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Bitbucket",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Docker",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Jenkins",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Ansible",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Terraform",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Amazon",
-            "O"
+            "B-SKILL"
         ],
         [
             "Web",
-            "O"
+            "I-SKILL"
         ],
         [
             "Services",
-            "O"
+            "I-SKILL"
         ],
         [
             "(AWS)",
@@ -2164,25 +2164,25 @@
     [
         [
             "Microsoft",
-            "O"
+            "B-SKILL"
         ],
         [
             "Azure",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Google",
-            "O"
+            "B-SKILL"
         ],
         [
             "Cloud",
-            "O"
+            "I-SKILL"
         ],
         [
             "Platform",
-            "O"
+            "I-SKILL"
         ],
         [
             "(GCP)",
@@ -2192,11 +2192,11 @@
     [
         [
             "Android",
-            "O"
+            "B-SKILL"
         ],
         [
             "Development",
-            "O"
+            "I-SKILL"
         ],
         [
             "(Java/Kotlin)",
@@ -2206,11 +2206,11 @@
     [
         [
             "iOS",
-            "O"
+            "B-SKILL"
         ],
         [
             "Development",
-            "O"
+            "I-SKILL"
         ],
         [
             "(Swift)",
@@ -2220,97 +2220,97 @@
     [
         [
             "Network",
-            "O"
+            "B-SKILL"
         ],
         [
             "Security",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Ethical",
-            "O"
+            "B-SKILL"
         ],
         [
             "Hacking",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Cryptography",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Security",
-            "O"
+            "B-SKILL"
         ],
         [
             "Protocols",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Penetration",
-            "O"
+            "B-SKILL"
         ],
         [
             "Testing",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "NumPy",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Pandas",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Matplotlib",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Scikit-learn",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "TensorFlow",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "PyTorch",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Natural",
-            "O"
+            "B-SKILL"
         ],
         [
             "Language",
-            "O"
+            "I-SKILL"
         ],
         [
             "Processing",
-            "O"
+            "I-SKILL"
         ],
         [
             "(NLP)",
@@ -2320,69 +2320,69 @@
     [
         [
             "Sorting",
-            "O"
+            "B-SKILL"
         ],
         [
             "Algorithms",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Searching",
-            "O"
+            "B-SKILL"
         ],
         [
             "Algorithms",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Graph",
-            "O"
+            "B-SKILL"
         ],
         [
             "Theory",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Dynamic",
-            "O"
+            "B-SKILL"
         ],
         [
             "Programming",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Agile",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Scrum",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Kanban",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Object-Oriented",
-            "O"
+            "B-SKILL"
         ],
         [
             "Programming",
-            "O"
+            "I-SKILL"
         ],
         [
             "(OOP)",
@@ -2392,137 +2392,137 @@
     [
         [
             "Functional",
-            "O"
+            "B-SKILL"
         ],
         [
             "Programming",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Event-Driven",
-            "O"
+            "B-SKILL"
         ],
         [
             "Programming",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "WebSockets",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "GraphQL",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "WebAssembly",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Apache",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Nginx",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Tomcat",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "JUnit",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Selenium",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Jest",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Continuous",
-            "O"
+            "B-SKILL"
         ],
         [
             "Integration",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Continuous",
-            "O"
+            "B-SKILL"
         ],
         [
             "Deployment",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "OpenAPI",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Postman",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "TCP/IP",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "DNS",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "HTTP/HTTPS",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "VPN",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Spring",
-            "O"
+            "B-SKILL"
         ],
         [
             "(Java)",
@@ -2532,7 +2532,7 @@
     [
         [
             "Django",
-            "O"
+            "B-SKILL"
         ],
         [
             "(Python)",
@@ -2542,21 +2542,21 @@
     [
         [
             "Ruby",
-            "O"
+            "B-SKILL"
         ],
         [
             "on",
-            "O"
+            "I-SKILL"
         ],
         [
             "Rails",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Flask",
-            "O"
+            "B-SKILL"
         ],
         [
             "(Python)",
@@ -2566,107 +2566,107 @@
     [
         [
             "Visual",
-            "O"
+            "B-SKILL"
         ],
         [
             "Studio",
-            "O"
+            "I-SKILL"
         ],
         [
             "Code",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "IntelliJ",
-            "O"
+            "B-SKILL"
         ],
         [
             "IDEA",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Eclipse",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Jira",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Trello",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Asana",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Communication",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Problem-Solving",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Team",
-            "O"
+            "B-SKILL"
         ],
         [
             "Collaboration",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Time",
-            "O"
+            "B-SKILL"
         ],
         [
             "Management",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Adaptability",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Shell",
-            "O"
+            "B-SKILL"
         ],
         [
             "scripting",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "D3.js",
-            "O"
+            "B-SKILL"
         ],
         [
             "(Data-Driven",
-            "B-SKILL"
+            "O"
         ],
         [
             "Documents)",
@@ -2676,7 +2676,7 @@
     [
         [
             "Redux",
-            "O"
+            "B-SKILL"
         ],
         [
             "(State",
@@ -2692,7 +2692,7 @@
         ],
         [
             "JavaScript",
-            "O"
+            "B-SKILL"
         ],
         [
             "apps)",
@@ -2702,7 +2702,7 @@
     [
         [
             "Xamarin",
-            "O"
+            "B-SKILL"
         ],
         [
             "(Cross-platform",
@@ -2724,7 +2724,7 @@
     [
         [
             "Flask-RESTful",
-            "O"
+            "B-SKILL"
         ],
         [
             "(RESTful",
@@ -2744,13 +2744,13 @@
         ],
         [
             "Python)",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "BigQuery",
-            "O"
+            "B-SKILL"
         ],
         [
             "(Google",
@@ -2772,23 +2772,23 @@
     [
         [
             "Hadoop",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "MapReduce",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Apache",
-            "O"
+            "B-SKILL"
         ],
         [
             "Kafka",
-            "O"
+            "I-SKILL"
         ],
         [
             "(Distributed",
@@ -2806,7 +2806,7 @@
     [
         [
             "RabbitMQ",
-            "O"
+            "B-SKILL"
         ],
         [
             "(Message",
@@ -2820,7 +2820,7 @@
     [
         [
             "GraphQL",
-            "O"
+            "B-SKILL"
         ],
         [
             "(Query",
@@ -2842,7 +2842,7 @@
     [
         [
             "Redux-Saga",
-            "O"
+            "B-SKILL"
         ],
         [
             "(Middleware",
@@ -2858,13 +2858,13 @@
         ],
         [
             "Redux)",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Electron",
-            "O"
+            "B-SKILL"
         ],
         [
             "(Cross-platform",
@@ -2886,7 +2886,7 @@
     [
         [
             "Polymer",
-            "O"
+            "B-SKILL"
         ],
         [
             "(JavaScript",
@@ -2894,7 +2894,7 @@
         ],
         [
             "library",
-            "O"
+            "B-SKILL"
         ],
         [
             "for",
@@ -2906,17 +2906,17 @@
         ],
         [
             "web",
-            "O"
+            "B-SKILL"
         ],
         [
             "components)",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Rust",
-            "O"
+            "B-SKILL"
         ],
         [
             "(Programming",
@@ -2950,7 +2950,7 @@
     [
         [
             "Clojure",
-            "O"
+            "B-SKILL"
         ],
         [
             "(Functional",
@@ -2958,7 +2958,7 @@
         ],
         [
             "programming",
-            "O"
+            "B-SKILL"
         ],
         [
             "language)",
@@ -2968,7 +2968,7 @@
     [
         [
             "Elm",
-            "O"
+            "B-SKILL"
         ],
         [
             "(Functional",
@@ -2976,7 +2976,7 @@
         ],
         [
             "programming",
-            "O"
+            "B-SKILL"
         ],
         [
             "language",
@@ -2998,7 +2998,7 @@
     [
         [
             "Meteor",
-            "O"
+            "B-SKILL"
         ],
         [
             "(Full-stack",
@@ -3006,7 +3006,7 @@
         ],
         [
             "JavaScript",
-            "O"
+            "B-SKILL"
         ],
         [
             "framework)",
@@ -3016,11 +3016,11 @@
     [
         [
             "Apache",
-            "O"
+            "B-SKILL"
         ],
         [
             "Spark",
-            "O"
+            "I-SKILL"
         ],
         [
             "(Distributed",
@@ -3034,7 +3034,7 @@
     [
         [
             "RxJS",
-            "O"
+            "B-SKILL"
         ],
         [
             "(Reactive",
@@ -3050,23 +3050,23 @@
         ],
         [
             "JavaScript)",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Blockchain",
-            "O"
+            "B-SKILL"
         ],
         [
             "development",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Solidity",
-            "O"
+            "B-SKILL"
         ],
         [
             "(Programming",
@@ -3092,11 +3092,11 @@
     [
         [
             "Apache",
-            "O"
+            "B-SKILL"
         ],
         [
             "Cordova",
-            "O"
+            "I-SKILL"
         ],
         [
             "(Mobile",
@@ -3126,7 +3126,7 @@
     [
         [
             "Flask-SQLAlchemy",
-            "O"
+            "B-SKILL"
         ],
         [
             "(SQL",
@@ -3134,7 +3134,7 @@
         ],
         [
             "toolkit",
-            "O"
+            "B-SKILL"
         ],
         [
             "for",
@@ -3142,17 +3142,17 @@
         ],
         [
             "Python)",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "GraphQL",
-            "O"
+            "B-SKILL"
         ],
         [
             "Yoga",
-            "O"
+            "I-SKILL"
         ],
         [
             "(Fully-featured",
@@ -3160,7 +3160,7 @@
         ],
         [
             "GraphQL",
-            "O"
+            "B-SKILL"
         ],
         [
             "server)",
@@ -3170,7 +3170,7 @@
     [
         [
             "Firebase",
-            "O"
+            "B-SKILL"
         ],
         [
             "(Mobile",
@@ -3200,11 +3200,11 @@
     [
         [
             "Amazon",
-            "O"
+            "B-SKILL"
         ],
         [
             "DynamoDB",
-            "O"
+            "I-SKILL"
         ],
         [
             "(NoSQL",
@@ -3212,17 +3212,17 @@
         ],
         [
             "database)",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Apache",
-            "O"
+            "B-SKILL"
         ],
         [
             "Cassandra",
-            "O"
+            "I-SKILL"
         ],
         [
             "(Distributed",
@@ -3230,7 +3230,7 @@
         ],
         [
             "NoSQL",
-            "O"
+            "B-SKILL"
         ],
         [
             "database)",
@@ -3240,7 +3240,7 @@
     [
         [
             "Neo4j",
-            "O"
+            "B-SKILL"
         ],
         [
             "(Graph",
@@ -3254,21 +3254,21 @@
     [
         [
             "Microsoft",
-            "O"
+            "B-SKILL"
         ],
         [
             "SQL",
-            "O"
+            "I-SKILL"
         ],
         [
             "Server",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Heroku",
-            "O"
+            "B-SKILL"
         ],
         [
             "(Cloud",
@@ -3294,7 +3294,7 @@
     [
         [
             "PaaS",
-            "O"
+            "B-SKILL"
         ],
         [
             "(Platform",
@@ -3316,27 +3316,27 @@
     [
         [
             "Serverless",
-            "O"
+            "B-SKILL"
         ],
         [
             "architecture",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Microservices",
-            "O"
+            "B-SKILL"
         ],
         [
             "architecture",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Istio",
-            "O"
+            "B-SKILL"
         ],
         [
             "(Service",
@@ -3344,17 +3344,17 @@
         ],
         [
             "mesh)",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "AWS",
-            "O"
+            "B-SKILL"
         ],
         [
             "Lambda",
-            "O"
+            "I-SKILL"
         ],
         [
             "(Serverless",
@@ -3362,17 +3362,17 @@
         ],
         [
             "computing)",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Jupyter",
-            "O"
+            "B-SKILL"
         ],
         [
             "Notebooks",
-            "O"
+            "I-SKILL"
         ],
         [
             "(Interactive",
@@ -3388,31 +3388,31 @@
         ],
         [
             "data",
-            "O"
+            "B-SKILL"
         ],
         [
             "visualization)",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "R",
-            "O"
+            "B-SKILL"
         ],
         [
             "programming",
-            "O"
+            "I-SKILL"
         ],
         [
             "language",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Julia",
-            "O"
+            "B-SKILL"
         ],
         [
             "(Programming",
@@ -3438,7 +3438,7 @@
     [
         [
             "Grafana",
-            "O"
+            "B-SKILL"
         ],
         [
             "(Open-source",
@@ -3464,7 +3464,7 @@
     [
         [
             "Prometheus",
-            "O"
+            "B-SKILL"
         ],
         [
             "(Monitoring",
@@ -3486,7 +3486,7 @@
     [
         [
             "Splunk",
-            "O"
+            "B-SKILL"
         ],
         [
             "(Data",
@@ -3494,7 +3494,7 @@
         ],
         [
             "analysis",
-            "O"
+            "B-SKILL"
         ],
         [
             "and",
@@ -3508,11 +3508,11 @@
     [
         [
             "ELK",
-            "O"
+            "B-SKILL"
         ],
         [
             "Stack",
-            "O"
+            "I-SKILL"
         ],
         [
             "(Elasticsearch",
@@ -3522,7 +3522,7 @@
     [
         [
             "Kibana",
-            "O"
+            "B-SKILL"
         ],
         [
             "(Data",
@@ -3530,7 +3530,7 @@
         ],
         [
             "visualization",
-            "O"
+            "B-SKILL"
         ],
         [
             "tool)",
@@ -3540,7 +3540,7 @@
     [
         [
             "Zeppelin",
-            "O"
+            "B-SKILL"
         ],
         [
             "(Web-based",
@@ -3566,21 +3566,21 @@
     [
         [
             "Data",
-            "O"
+            "B-SKILL"
         ],
         [
             "warehousing",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Power",
-            "O"
+            "B-SKILL"
         ],
         [
             "BI",
-            "O"
+            "I-SKILL"
         ],
         [
             "(Business",
@@ -3598,7 +3598,7 @@
     [
         [
             "Tableau",
-            "O"
+            "B-SKILL"
         ],
         [
             "(Data",
@@ -3606,7 +3606,7 @@
         ],
         [
             "visualization",
-            "O"
+            "B-SKILL"
         ],
         [
             "and",
@@ -3614,17 +3614,17 @@
         ],
         [
             "business",
-            "O"
+            "B-SKILL"
         ],
         [
             "intelligence)",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Snowflake",
-            "O"
+            "B-SKILL"
         ],
         [
             "(Cloud-based",
@@ -3632,17 +3632,17 @@
         ],
         [
             "data",
-            "O"
+            "B-SKILL"
         ],
         [
             "warehousing)",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Virtualization",
-            "O"
+            "B-SKILL"
         ],
         [
             "(e.g.",
@@ -3652,11 +3652,11 @@
     [
         [
             "Augmented",
-            "O"
+            "B-SKILL"
         ],
         [
             "Reality",
-            "O"
+            "I-SKILL"
         ],
         [
             "(AR)",
@@ -3666,11 +3666,11 @@
     [
         [
             "Virtual",
-            "O"
+            "B-SKILL"
         ],
         [
             "Reality",
-            "O"
+            "I-SKILL"
         ],
         [
             "(VR)",
@@ -3680,11 +3680,11 @@
     [
         [
             "3D",
-            "O"
+            "B-SKILL"
         ],
         [
             "modeling",
-            "O"
+            "I-SKILL"
         ],
         [
             "(e.g.",
@@ -3694,25 +3694,25 @@
     [
         [
             "Computer",
-            "O"
+            "B-SKILL"
         ],
         [
             "vision",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Natural",
-            "O"
+            "B-SKILL"
         ],
         [
             "Language",
-            "O"
+            "I-SKILL"
         ],
         [
             "Generation",
-            "O"
+            "I-SKILL"
         ],
         [
             "(NLG)",
@@ -3722,15 +3722,15 @@
     [
         [
             "Automated",
-            "O"
+            "B-SKILL"
         ],
         [
             "Speech",
-            "O"
+            "I-SKILL"
         ],
         [
             "Recognition",
-            "O"
+            "I-SKILL"
         ],
         [
             "(ASR)",
@@ -3740,11 +3740,11 @@
     [
         [
             "Computer-aided",
-            "O"
+            "B-SKILL"
         ],
         [
             "design",
-            "O"
+            "I-SKILL"
         ],
         [
             "(CAD)",
@@ -3754,61 +3754,61 @@
     [
         [
             "Cyber-physical",
-            "O"
+            "B-SKILL"
         ],
         [
             "systems",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Quantum",
-            "O"
+            "B-SKILL"
         ],
         [
             "computing",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Web",
-            "O"
+            "B-SKILL"
         ],
         [
             "scraping",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "RESTful",
-            "O"
+            "B-SKILL"
         ],
         [
             "design",
-            "O"
+            "I-SKILL"
         ],
         [
             "principles",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "GraphQL",
-            "O"
+            "B-SKILL"
         ],
         [
             "mutations",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "OAuth",
-            "O"
+            "B-SKILL"
         ],
         [
             "(Authorization",
@@ -3822,11 +3822,11 @@
     [
         [
             "OpenID",
-            "O"
+            "B-SKILL"
         ],
         [
             "Connect",
-            "O"
+            "I-SKILL"
         ],
         [
             "(Authentication",
@@ -3846,21 +3846,21 @@
         ],
         [
             "OAuth)",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "JSON",
-            "O"
+            "B-SKILL"
         ],
         [
             "Web",
-            "O"
+            "I-SKILL"
         ],
         [
             "Tokens",
-            "O"
+            "I-SKILL"
         ],
         [
             "(JWT)",
@@ -3870,17 +3870,17 @@
     [
         [
             "OAuth2.0",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "OpenID",
-            "O"
+            "B-SKILL"
         ],
         [
             "Connect",
-            "O"
+            "I-SKILL"
         ],
         [
             "(OIDC)",
@@ -3890,7 +3890,7 @@
     [
         [
             "WebAuthn",
-            "O"
+            "B-SKILL"
         ],
         [
             "(Web",
@@ -3908,7 +3908,7 @@
     [
         [
             "JWT",
-            "O"
+            "B-SKILL"
         ],
         [
             "(JSON",
@@ -3916,17 +3916,17 @@
         ],
         [
             "Web",
-            "O"
+            "B-SKILL"
         ],
         [
             "Tokens)",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "OAuth",
-            "O"
+            "B-SKILL"
         ],
         [
             "(Open",
@@ -3940,11 +3940,11 @@
     [
         [
             "OAuth2.0",
-            "O"
+            "B-SKILL"
         ],
         [
             "(Authorization",
-            "B-SKILL"
+            "O"
         ],
         [
             "framework)",
@@ -3954,21 +3954,21 @@
     [
         [
             "Firebase",
-            "O"
+            "B-SKILL"
         ],
         [
             "Authentication",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "OAuth2.0",
-            "O"
+            "B-SKILL"
         ],
         [
             "flows",
-            "B-SKILL"
+            "I-SKILL"
         ],
         [
             "(Authorization",
@@ -3982,15 +3982,15 @@
     [
         [
             "OAuth",
-            "O"
+            "B-SKILL"
         ],
         [
             "2.0",
-            "O"
+            "I-SKILL"
         ],
         [
             "grants",
-            "B-SKILL"
+            "I-SKILL"
         ],
         [
             "(Authorization",
@@ -4004,11 +4004,11 @@
     [
         [
             "Single",
-            "O"
+            "B-SKILL"
         ],
         [
             "Sign-On",
-            "O"
+            "I-SKILL"
         ],
         [
             "(SSO)",
@@ -4018,11 +4018,11 @@
     [
         [
             "Two-Factor",
-            "O"
+            "B-SKILL"
         ],
         [
             "Authentication",
-            "O"
+            "I-SKILL"
         ],
         [
             "(2FA)",
@@ -4032,7 +4032,7 @@
     [
         [
             "FIDO2",
-            "O"
+            "B-SKILL"
         ],
         [
             "(WebAuthn)",
@@ -4042,19 +4042,19 @@
     [
         [
             "Identity",
-            "O"
+            "B-SKILL"
         ],
         [
             "and",
-            "O"
+            "I-SKILL"
         ],
         [
             "Access",
-            "O"
+            "I-SKILL"
         ],
         [
             "Management",
-            "O"
+            "I-SKILL"
         ],
         [
             "(IAM)",
@@ -4064,7 +4064,7 @@
     [
         [
             "RBAC",
-            "O"
+            "B-SKILL"
         ],
         [
             "(Role-Based",
@@ -4082,7 +4082,7 @@
     [
         [
             "ABAC",
-            "O"
+            "B-SKILL"
         ],
         [
             "(Attribute-Based",
@@ -4100,7 +4100,7 @@
     [
         [
             "CQRS",
-            "O"
+            "B-SKILL"
         ],
         [
             "(Command",
@@ -4122,35 +4122,35 @@
     [
         [
             "Event",
-            "O"
+            "B-SKILL"
         ],
         [
             "Sourcing",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Micro",
-            "O"
+            "B-SKILL"
         ],
         [
             "Frontends",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Progressive",
-            "O"
+            "B-SKILL"
         ],
         [
             "Web",
-            "O"
+            "I-SKILL"
         ],
         [
             "Apps",
-            "O"
+            "I-SKILL"
         ],
         [
             "(PWAs)",
@@ -4160,15 +4160,15 @@
     [
         [
             "Single",
-            "O"
+            "B-SKILL"
         ],
         [
             "Page",
-            "O"
+            "I-SKILL"
         ],
         [
             "Applications",
-            "O"
+            "I-SKILL"
         ],
         [
             "(SPAs)",
@@ -4178,7 +4178,7 @@
     [
         [
             "WebAssembly",
-            "O"
+            "B-SKILL"
         ],
         [
             "(Wasm)",
@@ -4188,17 +4188,17 @@
     [
         [
             "OpenAPI",
-            "O"
+            "B-SKILL"
         ],
         [
             "Specification",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "SOAP",
-            "O"
+            "B-SKILL"
         ],
         [
             "(Simple",
@@ -4220,21 +4220,21 @@
     [
         [
             "GraphQL",
-            "O"
+            "B-SKILL"
         ],
         [
             "subscriptions",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Server-Sent",
-            "O"
+            "B-SKILL"
         ],
         [
             "Events",
-            "O"
+            "I-SKILL"
         ],
         [
             "(SSE)",
@@ -4244,21 +4244,21 @@
     [
         [
             "Webhooks",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Application",
-            "O"
+            "B-SKILL"
         ],
         [
             "Performance",
-            "O"
+            "I-SKILL"
         ],
         [
             "Monitoring",
-            "O"
+            "I-SKILL"
         ],
         [
             "(APM)",
@@ -4268,429 +4268,429 @@
     [
         [
             "Log",
-            "O"
+            "B-SKILL"
         ],
         [
             "management",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Error",
-            "O"
+            "B-SKILL"
         ],
         [
             "tracking",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Distributed",
-            "O"
+            "B-SKILL"
         ],
         [
             "tracing",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Chaos",
-            "O"
+            "B-SKILL"
         ],
         [
             "engineering",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Load",
-            "O"
+            "B-SKILL"
         ],
         [
             "balancing",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Critical",
-            "O"
+            "B-SKILL"
         ],
         [
             "Thinking",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Decision",
-            "O"
+            "B-SKILL"
         ],
         [
             "Making",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Analytical",
-            "O"
+            "B-SKILL"
         ],
         [
             "Skills",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Creativity",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Innovation",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Organization",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Prioritization",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Collaboration",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Teamwork",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Leadership",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Conflict",
-            "O"
+            "B-SKILL"
         ],
         [
             "Resolution",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Emotional",
-            "O"
+            "B-SKILL"
         ],
         [
             "Intelligence",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Empathy",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Active",
-            "O"
+            "B-SKILL"
         ],
         [
             "Listening",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Presentation",
-            "O"
+            "B-SKILL"
         ],
         [
             "Skills",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Public",
-            "O"
+            "B-SKILL"
         ],
         [
             "Speaking",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Negotiation",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Networking",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Customer",
-            "O"
+            "B-SKILL"
         ],
         [
             "Service",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Client",
-            "O"
+            "B-SKILL"
         ],
         [
             "Management",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Relationship",
-            "O"
+            "B-SKILL"
         ],
         [
             "Building",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Cultural",
-            "O"
+            "B-SKILL"
         ],
         [
             "Sensitivity",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Ethics",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Integrity",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Initiative",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Self-Motivation",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Learning",
-            "O"
+            "B-SKILL"
         ],
         [
             "Agility",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Flexibility",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Resilience",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Stress",
-            "O"
+            "B-SKILL"
         ],
         [
             "Management",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Interpersonal",
-            "O"
+            "B-SKILL"
         ],
         [
             "Skills",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Cross-Cultural",
-            "O"
+            "B-SKILL"
         ],
         [
             "Competence",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Business",
-            "O"
+            "B-SKILL"
         ],
         [
             "Acumen",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Project",
-            "O"
+            "B-SKILL"
         ],
         [
             "Management",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Risk",
-            "O"
+            "B-SKILL"
         ],
         [
             "Management",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Quality",
-            "O"
+            "B-SKILL"
         ],
         [
             "Assurance",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Conflict",
-            "O"
+            "B-SKILL"
         ],
         [
             "Management",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Change",
-            "O"
+            "B-SKILL"
         ],
         [
             "Management",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Decision-Making",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Financial",
-            "O"
+            "B-SKILL"
         ],
         [
             "Literacy",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Entrepreneurship",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Business",
-            "O"
+            "B-SKILL"
         ],
         [
             "Development",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Sales",
-            "O"
+            "B-SKILL"
         ],
         [
             "Skills",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Marketing",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Customer",
-            "O"
+            "B-SKILL"
         ],
         [
             "Relationship",
-            "O"
+            "I-SKILL"
         ],
         [
             "Management",
-            "O"
+            "I-SKILL"
         ],
         [
             "(CRM)",
@@ -4700,407 +4700,407 @@
     [
         [
             "Strategic",
-            "O"
+            "B-SKILL"
         ],
         [
             "Planning",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Data",
-            "O"
+            "B-SKILL"
         ],
         [
             "Literacy",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Digital",
-            "O"
+            "B-SKILL"
         ],
         [
             "Literacy",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Information",
-            "O"
+            "B-SKILL"
         ],
         [
             "Literacy",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Research",
-            "O"
+            "B-SKILL"
         ],
         [
             "Skills",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Technical",
-            "O"
+            "B-SKILL"
         ],
         [
             "Writing",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Documentation",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Report",
-            "O"
+            "B-SKILL"
         ],
         [
             "Writing",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Blogging",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Public",
-            "O"
+            "B-SKILL"
         ],
         [
             "Relations",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Time",
-            "O"
+            "B-SKILL"
         ],
         [
             "Tracking",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Goal",
-            "O"
+            "B-SKILL"
         ],
         [
             "Setting",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Delegation",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Motivational",
-            "O"
+            "B-SKILL"
         ],
         [
             "Skills",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Cross-Functional",
-            "O"
+            "B-SKILL"
         ],
         [
             "Collaboration",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Stakeholder",
-            "O"
+            "B-SKILL"
         ],
         [
             "Management",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Feedback",
-            "O"
+            "B-SKILL"
         ],
         [
             "and",
-            "O"
+            "I-SKILL"
         ],
         [
             "Coaching",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Mentoring",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Knowledge",
-            "O"
+            "B-SKILL"
         ],
         [
             "Sharing",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Training",
-            "O"
+            "B-SKILL"
         ],
         [
             "and",
-            "O"
+            "I-SKILL"
         ],
         [
             "Development",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Facilitation",
-            "O"
+            "B-SKILL"
         ],
         [
             "Skills",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Decision",
-            "O"
+            "B-SKILL"
         ],
         [
             "Making",
-            "O"
+            "I-SKILL"
         ],
         [
             "Under",
-            "O"
+            "I-SKILL"
         ],
         [
             "Pressure",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Attention",
-            "O"
+            "B-SKILL"
         ],
         [
             "to",
-            "O"
+            "I-SKILL"
         ],
         [
             "Detail",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Project",
-            "O"
+            "B-SKILL"
         ],
         [
             "Coordination",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Crisis",
-            "O"
+            "B-SKILL"
         ],
         [
             "Management",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Strategic",
-            "O"
+            "B-SKILL"
         ],
         [
             "Thinking",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Systems",
-            "O"
+            "B-SKILL"
         ],
         [
             "Thinking",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Forecasting",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Trend",
-            "O"
+            "B-SKILL"
         ],
         [
             "Analysis",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Presentation",
-            "O"
+            "B-SKILL"
         ],
         [
             "Design",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Data",
-            "O"
+            "B-SKILL"
         ],
         [
             "Visualization",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Storytelling",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Cultural",
-            "O"
+            "B-SKILL"
         ],
         [
             "Intelligence",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Social",
-            "O"
+            "B-SKILL"
         ],
         [
             "Media",
-            "O"
+            "I-SKILL"
         ],
         [
             "Management",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Community",
-            "O"
+            "B-SKILL"
         ],
         [
             "Building",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Volunteerism",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Time",
-            "O"
+            "B-SKILL"
         ],
         [
             "Blocking",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Continuous",
-            "O"
+            "B-SKILL"
         ],
         [
             "Improvement",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Team",
-            "O"
+            "B-SKILL"
         ],
         [
             "Building",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Appreciative",
-            "O"
+            "B-SKILL"
         ],
         [
             "Inquiry",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "User-Centered",
-            "O"
+            "B-SKILL"
         ],
         [
             "Design",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
@@ -5142,11 +5142,11 @@
     [
         [
             "Human-Computer",
-            "O"
+            "B-SKILL"
         ],
         [
             "Interaction",
-            "O"
+            "I-SKILL"
         ],
         [
             "(HCI)",
@@ -5156,37 +5156,37 @@
     [
         [
             "Design",
-            "O"
+            "B-SKILL"
         ],
         [
             "Thinking",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Agile",
-            "O"
+            "B-SKILL"
         ],
         [
             "Methodology",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Lean",
-            "O"
+            "B-SKILL"
         ],
         [
             "Thinking",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Racket",
-            "O"
+            "B-SKILL"
         ],
         [
             "(Lisp",
@@ -5200,7 +5200,7 @@
     [
         [
             "WebRTC",
-            "O"
+            "B-SKILL"
         ],
         [
             "(Real-Time",
@@ -5208,13 +5208,13 @@
         ],
         [
             "Communication)",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "NATS",
-            "O"
+            "B-SKILL"
         ],
         [
             "(Messaging",
@@ -5228,7 +5228,7 @@
     [
         [
             "CockroachDB",
-            "O"
+            "B-SKILL"
         ],
         [
             "(Distributed",
@@ -5236,7 +5236,7 @@
         ],
         [
             "SQL",
-            "O"
+            "B-SKILL"
         ],
         [
             "database)",
@@ -5246,7 +5246,7 @@
     [
         [
             "InfluxDB",
-            "O"
+            "B-SKILL"
         ],
         [
             "(Open-source",
@@ -5264,7 +5264,7 @@
     [
         [
             "ArangoDB",
-            "O"
+            "B-SKILL"
         ],
         [
             "(Multi-model",
@@ -5272,7 +5272,7 @@
         ],
         [
             "NoSQL",
-            "O"
+            "B-SKILL"
         ],
         [
             "database)",
@@ -5282,7 +5282,7 @@
     [
         [
             "Flink",
-            "O"
+            "B-SKILL"
         ],
         [
             "(Stream",
@@ -5300,7 +5300,7 @@
     [
         [
             "Celery",
-            "O"
+            "B-SKILL"
         ],
         [
             "(Distributed",
@@ -5318,7 +5318,7 @@
     [
         [
             "Redis",
-            "O"
+            "B-SKILL"
         ],
         [
             "(In-memory",
@@ -5340,7 +5340,7 @@
     [
         [
             "GRPC",
-            "O"
+            "B-SKILL"
         ],
         [
             "(Remote",
@@ -5362,17 +5362,17 @@
     [
         [
             "Protocol",
-            "O"
+            "B-SKILL"
         ],
         [
             "Buffers",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Flutter",
-            "O"
+            "B-SKILL"
         ],
         [
             "(UI",
@@ -5406,7 +5406,7 @@
     [
         [
             "Unity",
-            "O"
+            "B-SKILL"
         ],
         [
             "(Game",
@@ -5420,11 +5420,11 @@
     [
         [
             "Godot",
-            "O"
+            "B-SKILL"
         ],
         [
             "Engine",
-            "O"
+            "I-SKILL"
         ],
         [
             "(Open-source",
@@ -5442,7 +5442,7 @@
     [
         [
             "ClojureScript",
-            "O"
+            "B-SKILL"
         ],
         [
             "(Clojure",
@@ -5450,7 +5450,7 @@
         ],
         [
             "compiler",
-            "O"
+            "B-SKILL"
         ],
         [
             "for",
@@ -5458,13 +5458,13 @@
         ],
         [
             "JavaScript)",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Puppet",
-            "O"
+            "B-SKILL"
         ],
         [
             "(Configuration",
@@ -5482,7 +5482,7 @@
     [
         [
             "Chef",
-            "O"
+            "B-SKILL"
         ],
         [
             "(Infrastructure",
@@ -5500,7 +5500,7 @@
     [
         [
             "Pulumi",
-            "O"
+            "B-SKILL"
         ],
         [
             "(Infrastructure",
@@ -5508,21 +5508,21 @@
         ],
         [
             "as",
-            "O"
+            "B-SKILL"
         ],
         [
             "code)",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "HashiCorp",
-            "O"
+            "B-SKILL"
         ],
         [
             "Vault",
-            "O"
+            "I-SKILL"
         ],
         [
             "(Secrets",
@@ -5536,7 +5536,7 @@
     [
         [
             "Cockpit",
-            "O"
+            "B-SKILL"
         ],
         [
             "(Linux",
@@ -5554,15 +5554,15 @@
     [
         [
             "Apache",
-            "O"
+            "B-SKILL"
         ],
         [
             "Kafka",
-            "O"
+            "I-SKILL"
         ],
         [
             "Streams",
-            "O"
+            "I-SKILL"
         ],
         [
             "(Stream",
@@ -5580,7 +5580,7 @@
     [
         [
             "Logstash",
-            "O"
+            "B-SKILL"
         ],
         [
             "(Server-side",
@@ -5602,7 +5602,7 @@
     [
         [
             "Fluentd",
-            "O"
+            "B-SKILL"
         ],
         [
             "(Open-source",
@@ -5620,7 +5620,7 @@
     [
         [
             "ArgoCD",
-            "O"
+            "B-SKILL"
         ],
         [
             "(GitOps",
@@ -5642,11 +5642,11 @@
     [
         [
             "Argo",
-            "O"
+            "B-SKILL"
         ],
         [
             "Workflows",
-            "O"
+            "I-SKILL"
         ],
         [
             "(Workflow",
@@ -5660,17 +5660,17 @@
     [
         [
             "Kubernetes",
-            "O"
+            "B-SKILL"
         ],
         [
             "Operators",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Helm",
-            "O"
+            "B-SKILL"
         ],
         [
             "(Package",
@@ -5686,13 +5686,13 @@
         ],
         [
             "Kubernetes)",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Consul",
-            "O"
+            "B-SKILL"
         ],
         [
             "(Service",
@@ -5700,13 +5700,13 @@
         ],
         [
             "networking)",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Linkerd",
-            "O"
+            "B-SKILL"
         ],
         [
             "(Service",
@@ -5714,13 +5714,13 @@
         ],
         [
             "mesh)",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Knative",
-            "O"
+            "B-SKILL"
         ],
         [
             "(Serverless",
@@ -5736,17 +5736,17 @@
         ],
         [
             "Kubernetes)",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "AWS",
-            "O"
+            "B-SKILL"
         ],
         [
             "Fargate",
-            "O"
+            "I-SKILL"
         ],
         [
             "(Serverless",
@@ -5764,15 +5764,15 @@
     [
         [
             "AWS",
-            "O"
+            "B-SKILL"
         ],
         [
             "Step",
-            "O"
+            "I-SKILL"
         ],
         [
             "Functions",
-            "O"
+            "I-SKILL"
         ],
         [
             "(Serverless",
@@ -5786,11 +5786,11 @@
     [
         [
             "Apache",
-            "O"
+            "B-SKILL"
         ],
         [
             "NiFi",
-            "O"
+            "I-SKILL"
         ],
         [
             "(Data",
@@ -5816,11 +5816,11 @@
     [
         [
             "Apache",
-            "O"
+            "B-SKILL"
         ],
         [
             "ZooKeeper",
-            "O"
+            "I-SKILL"
         ],
         [
             "(Distributed",
@@ -5834,15 +5834,15 @@
     [
         [
             "Google",
-            "O"
+            "B-SKILL"
         ],
         [
             "Cloud",
-            "O"
+            "I-SKILL"
         ],
         [
             "Pub/Sub",
-            "O"
+            "I-SKILL"
         ],
         [
             "(Messaging",
@@ -5856,15 +5856,15 @@
     [
         [
             "Firebase",
-            "O"
+            "B-SKILL"
         ],
         [
             "Cloud",
-            "O"
+            "I-SKILL"
         ],
         [
             "Messaging",
-            "O"
+            "I-SKILL"
         ],
         [
             "(FCM)",
@@ -5874,15 +5874,15 @@
     [
         [
             "Azure",
-            "O"
+            "B-SKILL"
         ],
         [
             "Event",
-            "O"
+            "I-SKILL"
         ],
         [
             "Hubs",
-            "O"
+            "I-SKILL"
         ],
         [
             "(Real-time",
@@ -5900,15 +5900,15 @@
     [
         [
             "Azure",
-            "O"
+            "B-SKILL"
         ],
         [
             "Logic",
-            "O"
+            "I-SKILL"
         ],
         [
             "Apps",
-            "O"
+            "I-SKILL"
         ],
         [
             "(Workflow",
@@ -5922,11 +5922,11 @@
     [
         [
             "Azure",
-            "O"
+            "B-SKILL"
         ],
         [
             "Functions",
-            "O"
+            "I-SKILL"
         ],
         [
             "(Serverless",
@@ -5940,15 +5940,15 @@
     [
         [
             "Machine",
-            "O"
+            "B-SKILL"
         ],
         [
             "Learning",
-            "O"
+            "I-SKILL"
         ],
         [
             "Operations",
-            "O"
+            "I-SKILL"
         ],
         [
             "(MLOps)",
@@ -5958,7 +5958,7 @@
     [
         [
             "ModelOps",
-            "O"
+            "B-SKILL"
         ],
         [
             "(Operationalizing",
@@ -5980,11 +5980,11 @@
     [
         [
             "TensorFlow",
-            "O"
+            "B-SKILL"
         ],
         [
             "Extended",
-            "O"
+            "I-SKILL"
         ],
         [
             "(TFX)",
@@ -5994,7 +5994,7 @@
     [
         [
             "Kubeflow",
-            "O"
+            "B-SKILL"
         ],
         [
             "(Machine",
@@ -6014,13 +6014,13 @@
         ],
         [
             "Kubernetes)",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "DataRobot",
-            "O"
+            "B-SKILL"
         ],
         [
             "(Automated",
@@ -6038,7 +6038,7 @@
     [
         [
             "MLflow",
-            "O"
+            "B-SKILL"
         ],
         [
             "(Open-source",
@@ -6080,7 +6080,7 @@
     [
         [
             "SageMaker",
-            "O"
+            "B-SKILL"
         ],
         [
             "(Amazon's",
@@ -6088,7 +6088,7 @@
         ],
         [
             "machine",
-            "B-SKILL"
+            "O"
         ],
         [
             "learning",
@@ -6102,11 +6102,11 @@
     [
         [
             "Amazon",
-            "O"
+            "B-SKILL"
         ],
         [
             "Comprehend",
-            "O"
+            "I-SKILL"
         ],
         [
             "(Natural",
@@ -6114,17 +6114,17 @@
         ],
         [
             "language",
-            "O"
+            "B-SKILL"
         ],
         [
             "processing)",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Dialogflow",
-            "O"
+            "B-SKILL"
         ],
         [
             "(Conversational",
@@ -6142,15 +6142,15 @@
     [
         [
             "Alexa",
-            "O"
+            "B-SKILL"
         ],
         [
             "Skills",
-            "O"
+            "I-SKILL"
         ],
         [
             "Kit",
-            "O"
+            "I-SKILL"
         ],
         [
             "(ASK)",
@@ -6160,11 +6160,11 @@
     [
         [
             "Chatbot",
-            "O"
+            "B-SKILL"
         ],
         [
             "development",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
@@ -6184,35 +6184,35 @@
     [
         [
             "Generative",
-            "O"
+            "B-SKILL"
         ],
         [
             "Design",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "3D",
-            "O"
+            "B-SKILL"
         ],
         [
             "printing",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Optical",
-            "O"
+            "B-SKILL"
         ],
         [
             "Character",
-            "O"
+            "I-SKILL"
         ],
         [
             "Recognition",
-            "O"
+            "I-SKILL"
         ],
         [
             "(OCR)",
@@ -6222,15 +6222,15 @@
     [
         [
             "Robotic",
-            "O"
+            "B-SKILL"
         ],
         [
             "Process",
-            "O"
+            "I-SKILL"
         ],
         [
             "Automation",
-            "O"
+            "I-SKILL"
         ],
         [
             "(RPA)",
@@ -6240,25 +6240,25 @@
     [
         [
             "Process",
-            "O"
+            "B-SKILL"
         ],
         [
             "Mining",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Quantum",
-            "O"
+            "B-SKILL"
         ],
         [
             "programming",
-            "O"
+            "I-SKILL"
         ],
         [
             "languages",
-            "O"
+            "I-SKILL"
         ],
         [
             "(Qiskit",
@@ -6268,41 +6268,41 @@
     [
         [
             "Quantum",
-            "O"
+            "B-SKILL"
         ],
         [
             "algorithms",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Quantum",
-            "O"
+            "B-SKILL"
         ],
         [
             "cryptography",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Quantum",
-            "O"
+            "B-SKILL"
         ],
         [
             "machine",
-            "O"
+            "I-SKILL"
         ],
         [
             "learning",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "CORS",
-            "O"
+            "B-SKILL"
         ],
         [
             "(Cross-Origin",
@@ -6320,277 +6320,277 @@
     [
         [
             "Web",
-            "O"
+            "B-SKILL"
         ],
         [
             "Components",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "gRPC-Web",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Lean",
-            "O"
+            "B-SKILL"
         ],
         [
             "Six",
-            "O"
+            "I-SKILL"
         ],
         [
             "Sigma",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Statistical",
-            "O"
+            "B-SKILL"
         ],
         [
             "Analysis",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Regression",
-            "O"
+            "B-SKILL"
         ],
         [
             "Analysis",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "A/B",
-            "O"
+            "B-SKILL"
         ],
         [
             "Testing",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Hypothesis",
-            "O"
+            "B-SKILL"
         ],
         [
             "Testing",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Data",
-            "O"
+            "B-SKILL"
         ],
         [
             "Mining",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Predictive",
-            "O"
+            "B-SKILL"
         ],
         [
             "Analytics",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Descriptive",
-            "O"
+            "B-SKILL"
         ],
         [
             "Analytics",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Prescriptive",
-            "O"
+            "B-SKILL"
         ],
         [
             "Analytics",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Risk",
-            "O"
+            "B-SKILL"
         ],
         [
             "Analysis",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Critical",
-            "O"
+            "B-SKILL"
         ],
         [
             "Path",
-            "O"
+            "I-SKILL"
         ],
         [
             "Analysis",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "SWOT",
-            "O"
+            "B-SKILL"
         ],
         [
             "Analysis",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Business",
-            "O"
+            "B-SKILL"
         ],
         [
             "Intelligence",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Competitive",
-            "O"
+            "B-SKILL"
         ],
         [
             "Analysis",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Market",
-            "O"
+            "B-SKILL"
         ],
         [
             "Research",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Lean",
-            "O"
+            "B-SKILL"
         ],
         [
             "Canvas",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Business",
-            "O"
+            "B-SKILL"
         ],
         [
             "Model",
-            "O"
+            "I-SKILL"
         ],
         [
             "Canvas",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Value",
-            "O"
+            "B-SKILL"
         ],
         [
             "Proposition",
-            "O"
+            "I-SKILL"
         ],
         [
             "Design",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Empathy",
-            "O"
+            "B-SKILL"
         ],
         [
             "Mapping",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Journey",
-            "O"
+            "B-SKILL"
         ],
         [
             "Mapping",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "NetBeans",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Visual",
-            "O"
+            "B-SKILL"
         ],
         [
             "Studio",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Atom",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Sublime",
-            "O"
+            "B-SKILL"
         ],
         [
             "Text",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Vim",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Emacs",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
@@ -6602,473 +6602,473 @@
     [
         [
             "Xcode",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Android",
-            "O"
+            "B-SKILL"
         ],
         [
             "Studio",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "PyCharm",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Jupyter",
-            "O"
+            "B-SKILL"
         ],
         [
             "Notebooks",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "RStudio",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Anaconda",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Spyder",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Vagrant",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "VirtualBox",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "VMware",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Wireshark",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Swagger",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "SoapUI",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Travis",
-            "O"
+            "B-SKILL"
         ],
         [
             "CI",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "GitLab",
-            "O"
+            "B-SKILL"
         ],
         [
             "CI/CD",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "CircleCI",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "SonarQube",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Confluence",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Slack",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Mattermost",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Rocket.Chat",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Discord",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Zoom",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Microsoft",
-            "O"
+            "B-SKILL"
         ],
         [
             "Teams",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Webex",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Google",
-            "O"
+            "B-SKILL"
         ],
         [
             "Meet",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Figma",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Sketch",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Adobe",
-            "O"
+            "B-SKILL"
         ],
         [
             "XD",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Zeplin",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Blender",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Unity",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Unreal",
-            "O"
+            "B-SKILL"
         ],
         [
             "Engine",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Godot",
-            "O"
+            "B-SKILL"
         ],
         [
             "Engine",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "AutoCAD",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "SolidWorks",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "CATIA",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Creo",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "KiCad",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Altium",
-            "O"
+            "B-SKILL"
         ],
         [
             "Designer",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Eagle",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Keras",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Tableau",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Power",
-            "O"
+            "B-SKILL"
         ],
         [
             "BI",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "QlikView",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Mercurial",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Subversion",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "CVS",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Perforce",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "AWS",
-            "O"
+            "B-SKILL"
         ],
         [
             "Lambda",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Apache",
-            "O"
+            "B-SKILL"
         ],
         [
             "NiFi",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Apache",
-            "O"
+            "B-SKILL"
         ],
         [
             "ZooKeeper",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Google",
-            "O"
+            "B-SKILL"
         ],
         [
             "Cloud",
-            "O"
+            "I-SKILL"
         ],
         [
             "Pub/Sub",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Azure",
-            "O"
+            "B-SKILL"
         ],
         [
             "Event",
-            "O"
+            "I-SKILL"
         ],
         [
             "Hubs",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Azure",
-            "O"
+            "B-SKILL"
         ],
         [
             "Logic",
-            "O"
+            "I-SKILL"
         ],
         [
             "Apps",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Azure",
-            "O"
+            "B-SKILL"
         ],
         [
             "Functions",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "ModelOps",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Kubeflow",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "DataRobot",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "MLflow",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "SageMaker",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Amazon",
-            "O"
+            "B-SKILL"
         ],
         [
             "Comprehend",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Dialogflow",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Wireshark",
-            "O"
+            "B-SKILL"
         ],
         [
             "(Network",
@@ -7086,7 +7086,7 @@
     [
         [
             "Postman",
-            "O"
+            "B-SKILL"
         ],
         [
             "(API",
@@ -7108,7 +7108,7 @@
     [
         [
             "Swagger",
-            "O"
+            "B-SKILL"
         ],
         [
             "(API",
@@ -7116,13 +7116,13 @@
         ],
         [
             "documentation)",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "SoapUI",
-            "O"
+            "B-SKILL"
         ],
         [
             "(API",
@@ -7140,7 +7140,7 @@
     [
         [
             "Jenkins",
-            "O"
+            "B-SKILL"
         ],
         [
             "(Continuous",
@@ -7148,21 +7148,21 @@
         ],
         [
             "Integration/Continuous",
-            "O"
+            "B-SKILL"
         ],
         [
             "Deployment)",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Travis",
-            "O"
+            "B-SKILL"
         ],
         [
             "CI",
-            "O"
+            "I-SKILL"
         ],
         [
             "(Continuous",
@@ -7170,17 +7170,17 @@
         ],
         [
             "Integration)",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "GitLab",
-            "O"
+            "B-SKILL"
         ],
         [
             "CI/CD",
-            "O"
+            "I-SKILL"
         ],
         [
             "(Continuous",
@@ -7188,17 +7188,17 @@
         ],
         [
             "Integration/Continuous",
-            "O"
+            "B-SKILL"
         ],
         [
             "Deployment)",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "CircleCI",
-            "O"
+            "B-SKILL"
         ],
         [
             "(Continuous",
@@ -7206,13 +7206,13 @@
         ],
         [
             "Integration)",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "SonarQube",
-            "O"
+            "B-SKILL"
         ],
         [
             "(Code",
@@ -7230,7 +7230,7 @@
     [
         [
             "Selenium",
-            "O"
+            "B-SKILL"
         ],
         [
             "(Web",
@@ -7248,7 +7248,7 @@
     [
         [
             "Jira",
-            "O"
+            "B-SKILL"
         ],
         [
             "(Project",
@@ -7256,7 +7256,7 @@
         ],
         [
             "management",
-            "O"
+            "B-SKILL"
         ],
         [
             "and",
@@ -7274,7 +7274,7 @@
     [
         [
             "Trello",
-            "O"
+            "B-SKILL"
         ],
         [
             "(Project",
@@ -7282,13 +7282,13 @@
         ],
         [
             "management)",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Asana",
-            "O"
+            "B-SKILL"
         ],
         [
             "(Project",
@@ -7296,13 +7296,13 @@
         ],
         [
             "management)",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Confluence",
-            "O"
+            "B-SKILL"
         ],
         [
             "(Collaboration",
@@ -7310,17 +7310,17 @@
         ],
         [
             "and",
-            "O"
+            "B-SKILL"
         ],
         [
             "documentation)",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Slack",
-            "O"
+            "B-SKILL"
         ],
         [
             "(Team",
@@ -7328,13 +7328,13 @@
         ],
         [
             "communication)",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Mattermost",
-            "O"
+            "B-SKILL"
         ],
         [
             "(Open-source",
@@ -7346,17 +7346,17 @@
         ],
         [
             "communication)",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Rocket.Chat",
-            "O"
+            "B-SKILL"
         ],
         [
             "(Open-source",
-            "B-SKILL"
+            "O"
         ],
         [
             "team",
@@ -7364,13 +7364,13 @@
         ],
         [
             "communication)",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Discord",
-            "O"
+            "B-SKILL"
         ],
         [
             "(Voice",
@@ -7380,7 +7380,7 @@
     [
         [
             "Zoom",
-            "O"
+            "B-SKILL"
         ],
         [
             "(Video",
@@ -7394,11 +7394,11 @@
     [
         [
             "Microsoft",
-            "O"
+            "B-SKILL"
         ],
         [
             "Teams",
-            "O"
+            "I-SKILL"
         ],
         [
             "(Collaboration",
@@ -7406,13 +7406,13 @@
         ],
         [
             "platform)",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Webex",
-            "O"
+            "B-SKILL"
         ],
         [
             "(Video",
@@ -7426,11 +7426,11 @@
     [
         [
             "Google",
-            "O"
+            "B-SKILL"
         ],
         [
             "Meet",
-            "O"
+            "I-SKILL"
         ],
         [
             "(Video",
@@ -7444,31 +7444,31 @@
     [
         [
             "Unit",
-            "O"
+            "B-SKILL"
         ],
         [
             "Testing",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Integration",
-            "O"
+            "B-SKILL"
         ],
         [
             "Testing",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Test-Driven",
-            "O"
+            "B-SKILL"
         ],
         [
             "Development",
-            "O"
+            "I-SKILL"
         ],
         [
             "(TDD)",
@@ -7478,69 +7478,69 @@
     [
         [
             "RESTful",
-            "O"
+            "B-SKILL"
         ],
         [
             "API",
-            "O"
+            "I-SKILL"
         ],
         [
             "Design",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Microservices",
-            "O"
+            "B-SKILL"
         ],
         [
             "Architecture",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Serverless",
-            "O"
+            "B-SKILL"
         ],
         [
             "Computing",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Cloud-Native",
-            "O"
+            "B-SKILL"
         ],
         [
             "Development",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "DevOps",
-            "O"
+            "B-SKILL"
         ],
         [
             "Practices",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Continuous",
-            "O"
+            "B-SKILL"
         ],
         [
             "Integration/Continuous",
-            "O"
+            "I-SKILL"
         ],
         [
             "Deployment",
-            "O"
+            "I-SKILL"
         ],
         [
             "(CI/CD)",
@@ -7550,15 +7550,15 @@
     [
         [
             "Infrastructure",
-            "O"
+            "B-SKILL"
         ],
         [
             "as",
-            "O"
+            "I-SKILL"
         ],
         [
             "Code",
-            "O"
+            "I-SKILL"
         ],
         [
             "(IaC)",
@@ -7568,185 +7568,185 @@
     [
         [
             "Container",
-            "O"
+            "B-SKILL"
         ],
         [
             "Orchestration",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Service",
-            "O"
+            "B-SKILL"
         ],
         [
             "Mesh",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Observability",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Distributed",
-            "O"
+            "B-SKILL"
         ],
         [
             "Systems",
-            "O"
+            "I-SKILL"
         ],
         [
             "Design",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Load",
-            "O"
+            "B-SKILL"
         ],
         [
             "Balancing",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Circuit",
-            "O"
+            "B-SKILL"
         ],
         [
             "Breaker",
-            "O"
+            "I-SKILL"
         ],
         [
             "Patterns",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Design",
-            "O"
+            "B-SKILL"
         ],
         [
             "Patterns",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Refactoring",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Code",
-            "O"
+            "B-SKILL"
         ],
         [
             "Review",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Pair",
-            "O"
+            "B-SKILL"
         ],
         [
             "Programming",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Cross-Platform",
-            "O"
+            "B-SKILL"
         ],
         [
             "Development",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Responsive",
-            "O"
+            "B-SKILL"
         ],
         [
             "Web",
-            "O"
+            "I-SKILL"
         ],
         [
             "Design",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Mobile-First",
-            "O"
+            "B-SKILL"
         ],
         [
             "Development",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Accessibility",
-            "O"
+            "B-SKILL"
         ],
         [
             "Standards",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Performance",
-            "O"
+            "B-SKILL"
         ],
         [
             "Optimization",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Code",
-            "O"
+            "B-SKILL"
         ],
         [
             "Profiling",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Memory",
-            "O"
+            "B-SKILL"
         ],
         [
             "Management",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Code",
-            "O"
+            "B-SKILL"
         ],
         [
             "Versioning",
-            "O"
+            "I-SKILL"
         ],
         [
             "(e.g.",
@@ -7756,15 +7756,15 @@
     [
         [
             "Behavioral",
-            "O"
+            "B-SKILL"
         ],
         [
             "Driven",
-            "O"
+            "I-SKILL"
         ],
         [
             "Development",
-            "O"
+            "I-SKILL"
         ],
         [
             "(BDD)",
@@ -7774,11 +7774,11 @@
     [
         [
             "Domain-Driven",
-            "O"
+            "B-SKILL"
         ],
         [
             "Design",
-            "O"
+            "I-SKILL"
         ],
         [
             "(DDD)",
@@ -7788,29 +7788,29 @@
     [
         [
             "Event-Driven",
-            "O"
+            "B-SKILL"
         ],
         [
             "Architecture",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Continuous",
-            "O"
+            "B-SKILL"
         ],
         [
             "Learning",
-            "O"
+            "I-SKILL"
         ],
         [
             "and",
-            "O"
+            "I-SKILL"
         ],
         [
             "Adaptability",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
@@ -7826,195 +7826,195 @@
     [
         [
             "Data",
-            "O"
+            "B-SKILL"
         ],
         [
             "Exploration",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Feature",
-            "O"
+            "B-SKILL"
         ],
         [
             "Engineering",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Model",
-            "O"
+            "B-SKILL"
         ],
         [
             "Evaluation",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Bayesian",
-            "O"
+            "B-SKILL"
         ],
         [
             "Statistics",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Time",
-            "O"
+            "B-SKILL"
         ],
         [
             "Series",
-            "O"
+            "I-SKILL"
         ],
         [
             "Analysis",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Sentiment",
-            "O"
+            "B-SKILL"
         ],
         [
             "Analysis",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Predictive",
-            "O"
+            "B-SKILL"
         ],
         [
             "Modeling",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Machine",
-            "O"
+            "B-SKILL"
         ],
         [
             "Learning",
-            "O"
+            "I-SKILL"
         ],
         [
             "Algorithms",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Neural",
-            "O"
+            "B-SKILL"
         ],
         [
             "Networks",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Deep",
-            "O"
+            "B-SKILL"
         ],
         [
             "Learning",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Reinforcement",
-            "O"
+            "B-SKILL"
         ],
         [
             "Learning",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Ensemble",
-            "O"
+            "B-SKILL"
         ],
         [
             "Learning",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Cross-Validation",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Hyperparameter",
-            "O"
+            "B-SKILL"
         ],
         [
             "Tuning",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Dimensionality",
-            "O"
+            "B-SKILL"
         ],
         [
             "Reduction",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Clustering",
-            "O"
+            "B-SKILL"
         ],
         [
             "Techniques",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Data",
-            "O"
+            "B-SKILL"
         ],
         [
             "Wrangling",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Data",
-            "O"
+            "B-SKILL"
         ],
         [
             "Cleaning",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Data",
-            "O"
+            "B-SKILL"
         ],
         [
             "Visualization",
-            "O"
+            "I-SKILL"
         ],
         [
             "(e.g.",
@@ -8024,11 +8024,11 @@
     [
         [
             "Dashboarding",
-            "O"
+            "B-SKILL"
         ],
         [
             "Tools",
-            "O"
+            "I-SKILL"
         ],
         [
             "(e.g.",
@@ -8038,35 +8038,35 @@
     [
         [
             "Feature",
-            "O"
+            "B-SKILL"
         ],
         [
             "Scaling",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "NoSQL",
-            "O"
+            "B-SKILL"
         ],
         [
             "Databases",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Big",
-            "O"
+            "B-SKILL"
         ],
         [
             "Data",
-            "O"
+            "I-SKILL"
         ],
         [
             "Technologies",
-            "O"
+            "I-SKILL"
         ],
         [
             "(e.g.",
@@ -8076,95 +8076,95 @@
     [
         [
             "Data",
-            "O"
+            "B-SKILL"
         ],
         [
             "Governance",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Ethical",
-            "O"
+            "B-SKILL"
         ],
         [
             "Data",
-            "O"
+            "I-SKILL"
         ],
         [
             "Handling",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Data",
-            "O"
+            "B-SKILL"
         ],
         [
             "Privacy",
-            "O"
+            "I-SKILL"
         ],
         [
             "Regulations",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Threat",
-            "O"
+            "B-SKILL"
         ],
         [
             "Intelligence",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Security",
-            "O"
+            "B-SKILL"
         ],
         [
             "Incident",
-            "O"
+            "I-SKILL"
         ],
         [
             "Response",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Vulnerability",
-            "O"
+            "B-SKILL"
         ],
         [
             "Assessment",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Security",
-            "O"
+            "B-SKILL"
         ],
         [
             "Information",
-            "O"
+            "I-SKILL"
         ],
         [
             "and",
-            "O"
+            "I-SKILL"
         ],
         [
             "Event",
-            "O"
+            "I-SKILL"
         ],
         [
             "Management",
-            "O"
+            "I-SKILL"
         ],
         [
             "(SIEM)",
@@ -8174,25 +8174,25 @@
     [
         [
             "Firewall",
-            "O"
+            "B-SKILL"
         ],
         [
             "Configuration",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Intrusion",
-            "O"
+            "B-SKILL"
         ],
         [
             "Detection",
-            "O"
+            "I-SKILL"
         ],
         [
             "Systems",
-            "O"
+            "I-SKILL"
         ],
         [
             "(IDS)",
@@ -8202,15 +8202,15 @@
     [
         [
             "Intrusion",
-            "O"
+            "B-SKILL"
         ],
         [
             "Prevention",
-            "O"
+            "I-SKILL"
         ],
         [
             "Systems",
-            "O"
+            "I-SKILL"
         ],
         [
             "(IPS)",
@@ -8220,121 +8220,121 @@
     [
         [
             "Security",
-            "O"
+            "B-SKILL"
         ],
         [
             "Auditing",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Endpoint",
-            "O"
+            "B-SKILL"
         ],
         [
             "Security",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Encryption",
-            "O"
+            "B-SKILL"
         ],
         [
             "Techniques",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Secure",
-            "O"
+            "B-SKILL"
         ],
         [
             "Coding",
-            "O"
+            "I-SKILL"
         ],
         [
             "Practices",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Application",
-            "O"
+            "B-SKILL"
         ],
         [
             "Security",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Cloud",
-            "O"
+            "B-SKILL"
         ],
         [
             "Security",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Incident",
-            "O"
+            "B-SKILL"
         ],
         [
             "Handling",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Security",
-            "O"
+            "B-SKILL"
         ],
         [
             "Policies",
-            "O"
+            "I-SKILL"
         ],
         [
             "and",
-            "O"
+            "I-SKILL"
         ],
         [
             "Compliance",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Security",
-            "O"
+            "B-SKILL"
         ],
         [
             "Awareness",
-            "O"
+            "I-SKILL"
         ],
         [
             "Training",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Cloud",
-            "O"
+            "B-SKILL"
         ],
         [
             "Service",
-            "O"
+            "I-SKILL"
         ],
         [
             "Providers",
-            "O"
+            "I-SKILL"
         ],
         [
             "(e.g.",
@@ -8344,57 +8344,57 @@
     [
         [
             "Cloud",
-            "O"
+            "B-SKILL"
         ],
         [
             "Architecture",
-            "O"
+            "I-SKILL"
         ],
         [
             "Design",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Hybrid",
-            "O"
+            "B-SKILL"
         ],
         [
             "Cloud",
-            "O"
+            "I-SKILL"
         ],
         [
             "Solutions",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Multi-Cloud",
-            "O"
+            "B-SKILL"
         ],
         [
             "Strategies",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Identity",
-            "O"
+            "B-SKILL"
         ],
         [
             "and",
-            "O"
+            "I-SKILL"
         ],
         [
             "Access",
-            "O"
+            "I-SKILL"
         ],
         [
             "Management",
-            "O"
+            "I-SKILL"
         ],
         [
             "(IAM)",
@@ -8412,235 +8412,235 @@
     [
         [
             "Serverless",
-            "O"
+            "B-SKILL"
         ],
         [
             "Architectures",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Microservices",
-            "O"
+            "B-SKILL"
         ],
         [
             "Deployment",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "DevOps",
-            "O"
+            "B-SKILL"
         ],
         [
             "in",
-            "O"
+            "I-SKILL"
         ],
         [
             "Cloud",
-            "O"
+            "I-SKILL"
         ],
         [
             "Environments",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Cloud",
-            "O"
+            "B-SKILL"
         ],
         [
             "Cost",
-            "O"
+            "I-SKILL"
         ],
         [
             "Management",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Disaster",
-            "O"
+            "B-SKILL"
         ],
         [
             "Recovery",
-            "O"
+            "I-SKILL"
         ],
         [
             "Planning",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Cloud",
-            "O"
+            "B-SKILL"
         ],
         [
             "Networking",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Containerization",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Orchestration",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Infrastructure",
-            "O"
+            "B-SKILL"
         ],
         [
             "as",
-            "O"
+            "I-SKILL"
         ],
         [
             "Code",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "API",
-            "O"
+            "B-SKILL"
         ],
         [
             "Gateway",
-            "O"
+            "I-SKILL"
         ],
         [
             "Configuration",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Cloud",
-            "O"
+            "B-SKILL"
         ],
         [
             "Monitoring",
-            "O"
+            "I-SKILL"
         ],
         [
             "and",
-            "O"
+            "I-SKILL"
         ],
         [
             "Optimization",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Cloud",
-            "O"
+            "B-SKILL"
         ],
         [
             "Governance",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Routing",
-            "O"
+            "B-SKILL"
         ],
         [
             "Protocols",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Switching",
-            "O"
+            "B-SKILL"
         ],
         [
             "Protocols",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Firewalls",
-            "O"
+            "B-SKILL"
         ],
         [
             "and",
-            "O"
+            "I-SKILL"
         ],
         [
             "Proxy",
-            "O"
+            "I-SKILL"
         ],
         [
             "Servers",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Virtual",
-            "O"
+            "B-SKILL"
         ],
         [
             "Private",
-            "O"
+            "I-SKILL"
         ],
         [
             "Networks",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Wireless",
-            "O"
+            "B-SKILL"
         ],
         [
             "Networking",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Network",
-            "O"
+            "B-SKILL"
         ],
         [
             "Monitoring",
-            "O"
+            "I-SKILL"
         ],
         [
             "Tools",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Quality",
-            "O"
+            "B-SKILL"
         ],
         [
             "of",
-            "O"
+            "I-SKILL"
         ],
         [
             "Service",
-            "O"
+            "I-SKILL"
         ],
         [
             "(QoS)",
@@ -8650,49 +8650,49 @@
     [
         [
             "IP",
-            "O"
+            "B-SKILL"
         ],
         [
             "Addressing",
-            "O"
+            "I-SKILL"
         ],
         [
             "and",
-            "O"
+            "I-SKILL"
         ],
         [
             "Subnetting",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Network",
-            "O"
+            "B-SKILL"
         ],
         [
             "Troubleshooting",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Network",
-            "O"
+            "B-SKILL"
         ],
         [
             "Design",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Software-Defined",
-            "O"
+            "B-SKILL"
         ],
         [
             "Networking",
-            "O"
+            "I-SKILL"
         ],
         [
             "(SDN)",
@@ -8702,39 +8702,39 @@
     [
         [
             "Network",
-            "O"
+            "B-SKILL"
         ],
         [
             "Automation",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Network",
-            "O"
+            "B-SKILL"
         ],
         [
             "Configuration",
-            "O"
+            "I-SKILL"
         ],
         [
             "Management",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Voice",
-            "O"
+            "B-SKILL"
         ],
         [
             "over",
-            "O"
+            "I-SKILL"
         ],
         [
             "IP",
-            "O"
+            "I-SKILL"
         ],
         [
             "(VoIP)",
@@ -8744,11 +8744,11 @@
     [
         [
             "Network",
-            "O"
+            "B-SKILL"
         ],
         [
             "Protocols",
-            "O"
+            "I-SKILL"
         ],
         [
             "(e.g.",
@@ -8758,129 +8758,129 @@
     [
         [
             "Network",
-            "O"
+            "B-SKILL"
         ],
         [
             "Capacity",
-            "O"
+            "I-SKILL"
         ],
         [
             "Planning",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "User",
-            "O"
+            "B-SKILL"
         ],
         [
             "Research",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Wireframing",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Prototyping",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "User",
-            "O"
+            "B-SKILL"
         ],
         [
             "Persona",
-            "O"
+            "I-SKILL"
         ],
         [
             "Creation",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Information",
-            "O"
+            "B-SKILL"
         ],
         [
             "Architecture",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Interaction",
-            "O"
+            "B-SKILL"
         ],
         [
             "Design",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Visual",
-            "O"
+            "B-SKILL"
         ],
         [
             "Design",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Responsive",
-            "O"
+            "B-SKILL"
         ],
         [
             "Design",
-            "O"
+            "I-SKILL"
         ],
         [
             "Principles",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Mobile",
-            "O"
+            "B-SKILL"
         ],
         [
             "App",
-            "O"
+            "I-SKILL"
         ],
         [
             "Design",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Usability",
-            "O"
+            "B-SKILL"
         ],
         [
             "Testing",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "User-Centered",
-            "O"
+            "B-SKILL"
         ],
         [
             "Design",
-            "O"
+            "I-SKILL"
         ],
         [
             "(UCD)",
@@ -8890,179 +8890,179 @@
     [
         [
             "Design",
-            "O"
+            "B-SKILL"
         ],
         [
             "Systems",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Sketching",
-            "O"
+            "B-SKILL"
         ],
         [
             "and",
-            "O"
+            "I-SKILL"
         ],
         [
             "Illustration",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Motion",
-            "O"
+            "B-SKILL"
         ],
         [
             "Design",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Color",
-            "O"
+            "B-SKILL"
         ],
         [
             "Theory",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Typography",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "Figma",
-            "O"
+            "B-SKILL"
         ],
         [
             "or",
-            "O"
+            "I-SKILL"
         ],
         [
             "Sketch",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Adobe",
-            "O"
+            "B-SKILL"
         ],
         [
             "Creative",
-            "O"
+            "I-SKILL"
         ],
         [
             "Suite",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Mosyle",
-            "O"
+            "B-SKILL"
         ],
         [
             "MDM",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Google",
-            "O"
+            "B-SKILL"
         ],
         [
             "Admin",
-            "O"
+            "I-SKILL"
         ],
         [
             "Console",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "OneLogin",
-            "O"
+            "B-SKILL"
         ],
         [
             "SAML",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Microsoft",
-            "O"
+            "B-SKILL"
         ],
         [
             "Power",
-            "O"
+            "I-SKILL"
         ],
         [
             "Automate",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Microsoft",
-            "O"
+            "B-SKILL"
         ],
         [
             "SharePoint",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "CAD",
-            "O"
+            "B-SKILL"
         ],
         [
             "modeling",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Autodesk",
-            "O"
+            "B-SKILL"
         ],
         [
             "Fusion",
-            "O"
+            "I-SKILL"
         ],
         [
             "360",
-            "O"
+            "I-SKILL"
         ]
     ],
     [
         [
             "Arduino",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "OS",
-            "O"
+            "B-SKILL"
         ]
     ],
     [
         [
             "GUI",
-            "O"
+            "B-SKILL"
         ]
     ]
 ]

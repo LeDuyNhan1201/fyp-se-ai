@@ -6,6 +6,7 @@ import com.ben.smartcv.common.contract.event.CvEvent;
 import com.ben.smartcv.common.contract.event.NotificationEvent;
 import com.ben.smartcv.common.cv.CvAppliedEvent;
 import com.ben.smartcv.common.cv.CvDeletedEvent;
+import com.ben.smartcv.common.cv.CvFileDeletedEvent;
 import com.ben.smartcv.common.cv.CvProcessedEvent;
 import com.ben.smartcv.common.util.Constant;
 import com.ben.smartcv.common.util.EventLogger;
@@ -66,7 +67,6 @@ public class ApplyCvSaga {
                     .build());
 
         } catch (Exception e) {
-            // send command to notification service
             commandGateway.sendAndWait(CvCommand.RollbackProcessCv.builder()
                     .id(UUID.randomUUID().toString())
                     .cvId(event.getCvId())
@@ -77,9 +77,21 @@ public class ApplyCvSaga {
 
     @SagaEventHandler(associationProperty = ASSOCIATION_PROPERTY)
     public void on(CvEvent.CvDeleted event) {
+        // 6
         log.info(EventLogger.logEvent("CvDeleted",
                 event.getCvId(), event.getCvId(), Map.of("cvId", event.getCvId())));
+        commandGateway.sendAndWait(CvCommand.DeleteCvFile.builder()
+                .id(UUID.randomUUID().toString())
+                .cvId(event.getCvId())
+                .objectKey(event.getObjectKey())
+                .build());
+    }
 
+    @SagaEventHandler(associationProperty = ASSOCIATION_PROPERTY)
+    public void on(CvEvent.CvFileDeleted event) {
+        // 11
+        log.info(EventLogger.logEvent("CvFileDeleted",
+                event.getCvId(), event.getCvId(), Map.of("objectKey", event.getObjectKey())));
         commandGateway.sendAndWait(NotificationCommand.SendNotification.builder()
                 .id(UUID.randomUUID().toString())
                 .title("CV Process Failed")
@@ -118,8 +130,20 @@ public class ApplyCvSaga {
     @KafkaListener(topics = Constant.KAFKA_TOPIC_CV_EVENT,
             groupId = Constant.KAFKA_GROUP_ORCHESTRATION)
     public void consume(CvDeletedEvent event) {
+        // 5
         on(CvEvent.CvDeleted.builder()
                 .cvId(event.getCvId())
+                .objectKey(event.getObjectKey())
+                .build());
+    }
+
+    @KafkaListener(topics = Constant.KAFKA_TOPIC_CV_EVENT,
+            groupId = Constant.KAFKA_GROUP_ORCHESTRATION)
+    public void consume(CvFileDeletedEvent event) {
+        // 10
+        on(CvEvent.CvFileDeleted.builder()
+                .cvId(event.getCvId())
+                .objectKey(event.getObjectKey())
                 .build());
     }
 

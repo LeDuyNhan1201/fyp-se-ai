@@ -57,4 +57,18 @@ public class CvCommand {
 
     }
 
+    @Getter
+    @Setter
+    @SuperBuilder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @FieldDefaults(level = PRIVATE)
+    public static class DeleteCvFile extends BaseCommand<String> {
+
+        String cvId;
+
+        String objectKey;
+
+    }
+
 }

@@ -25,6 +25,7 @@ public class CvProcessorConsumer {
     @KafkaListener(topics = Constant.KAFKA_TOPIC_CV_EVENT,
             groupId = Constant.KAFKA_GROUP_ORCHESTRATION)
     public void consume(RollbackProcessCvCommand command) {
+        // 1
         commandGateway.send(CvCommand.RollbackProcessCv.builder()
                 .id(UUID.randomUUID().toString())
                 .cvId(command.getCvId())

@@ -24,19 +24,14 @@ from typing import List, Tuple
 #     return skills
 
 def load_skills(skills: List[str]) -> List[str]:
-    """Làm sạch danh sách kỹ năng và thêm từ khóa con (ví dụ: HTML5 -> HTML)."""
-    cleaned_skills = set()
-    for skill in skills:
-        clean_skill = re.sub(r'\s*\(.*?\)', '', skill)  # Xóa phần trong ngoặc
-        cleaned_skills.add(clean_skill)
-
-        # Thêm dạng rút gọn nếu có số (HTML5 -> HTML, CSS3 -> CSS)
-        short_skill = re.sub(r'(\d+)$', '', clean_skill).strip()
-        if short_skill and short_skill != clean_skill:
-            cleaned_skills.add(short_skill)
-
-    return list(cleaned_skills)
-
+    """Làm sạch danh sách kỹ năng, bỏ phần mở ngoặc như (Java), (Python)."""
+    with open("skills.txt", "r", encoding="utf-8") as f:
+        skills = [line.strip() for line in f.readlines()]
+        cleaned_skills = []
+        for skill in skills:
+            clean_skill = re.sub(r'\s*\(.*?\)', '', skill)  # Xóa phần trong ngoặc
+            cleaned_skills.append(clean_skill)
+    return cleaned_skills
 
 def tokenize_and_label(sentence: str, skills: List[str]) -> List[Tuple[str, str]]:
     """Gán nhãn BIO cho từng token trong câu."""

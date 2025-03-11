@@ -26,6 +26,7 @@ public class CvEventHandler {
 
     @EventHandler
     public void on(CvEvent.CvDeleted event) {
+        // 4
         kafkaProducer.send(event);
     }
 

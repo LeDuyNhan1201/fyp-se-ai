@@ -32,9 +32,7 @@ public class FileAggregate {
 
     String cvId;
 
-    String fileName;
-
-    String failedReason;
+    String objectKey;
 
     @CommandHandler
     public FileAggregate(CvCommand.ApplyCv command) {
@@ -49,16 +47,41 @@ public class FileAggregate {
                 .build());
     }
 
+    @CommandHandler
+    public FileAggregate(CvCommand.DeleteCvFile command) {
+        // 7
+        log.info(EventLogger.logCommand("DeleteCvFile", command.getCvId(),
+                Map.of("objectKey", command.getObjectKey())));
+        apply(CvEvent.CvFileDeleted.builder()
+                .id(command.getId())
+                .cvId(command.getCvId())
+                .objectKey(command.getObjectKey())
+                .build());
+    }
+
     @EventSourcingHandler
     public void on(CvEvent.CvApplied event) {
         // 2
         this.id = event.getId();
-        this.fileName = event.getFileName();
+        this.objectKey = event.getFileName();
+        this.cvId = event.getCvId();
+    }
+
+    @EventSourcingHandler
+    public void on(CvEvent.CvFileDeleted event) {
+        // 8
+        this.id = event.getId();
+        this.objectKey = event.getObjectKey();
         this.cvId = event.getCvId();
     }
 
     @ExceptionHandler(resultType = Exception.class, payloadType = CvCommand.ApplyCv.class)
     public void handleExceptionForApplyCvCommand(Exception exception) {
+        log.error("IllegalStateException occurred: {}", exception.getMessage());
+    }
+
+    @ExceptionHandler(resultType = Exception.class, payloadType = CvCommand.DeleteCvFile.class)
+    public void handleExceptionForDeleteCvFileCommand(Exception exception) {
         log.error("IllegalStateException occurred: {}", exception.getMessage());
     }
 

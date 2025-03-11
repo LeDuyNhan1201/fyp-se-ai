@@ -46,9 +46,9 @@ public class CvAggregate {
 
     @CommandHandler
     public CvAggregate(CvCommand.RollbackProcessCv command) {
+        // 2
         log.info(EventLogger.logCommand("RollbackProcessCv", command.getCvId(),
                 null));
-
         apply(CvEvent.CvDeleted.builder()
                 .id(command.getId())
                 .cvId(command.getCvId())
@@ -65,7 +65,7 @@ public class CvAggregate {
 
     @EventSourcingHandler
     public void on(CvEvent.CvDeleted event) {
-        // 7
+        // 3
         this.id = event.getId();
         this.cvId = event.getCvId();
     }
