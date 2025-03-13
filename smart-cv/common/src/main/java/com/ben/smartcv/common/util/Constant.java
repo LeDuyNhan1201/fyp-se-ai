@@ -22,4 +22,6 @@ public class Constant {
 
     public static final String KAFKA_GROUP_CV_PROCESSOR = "cv-processor";
 
+    public static final String KAFKA_GROUP_JOB_PROCESSOR = "job-processor";
+
 }

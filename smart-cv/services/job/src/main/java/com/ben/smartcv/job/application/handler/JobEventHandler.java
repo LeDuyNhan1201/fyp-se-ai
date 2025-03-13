@@ -1,9 +1,11 @@
 package com.ben.smartcv.job.application.handler;
 
 import com.ben.smartcv.common.component.CommonEventPublisher;
+import com.ben.smartcv.common.contract.command.JobCommand;
 import com.ben.smartcv.common.contract.command.NotificationCommand;
 import com.ben.smartcv.common.contract.event.JobEvent;
 import com.ben.smartcv.job.domain.entity.Job;
+import com.ben.smartcv.job.infrastructure.CommandPublisher;
 import com.ben.smartcv.job.infrastructure.EventPublisher;
 import com.ben.smartcv.job.infrastructure.IJobRepository;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +26,8 @@ import static lombok.AccessLevel.PRIVATE;
 public class JobEventHandler {
 
     EventPublisher kafkaProducer;
+
+    CommandPublisher commandPublisher;
 
     CommonEventPublisher commonEventPublisher;
 
@@ -53,13 +57,16 @@ public class JobEventHandler {
         kafkaProducer.send(event);
     }
 
-    @ExceptionHandler(payloadType = JobEvent.JobCreated.class)
-    public void handleExceptionForJobCreatedEvent(Exception exception) {
+    public void handleExceptionForJobCreatedEvent(Exception exception, JobEvent.JobCreated event) {
         log.error("Unexpected exception occurred when creating job: {}", exception.getMessage());
-        commonEventPublisher.send(NotificationCommand.SendNotification.builder()
+//        commonEventPublisher.send(NotificationCommand.SendNotification.builder()
+//                .id(UUID.randomUUID().toString())
+//                .title("Create job Failed")
+//                .content("New job " + event.getJobId() + " is created failed, please try again")
+//                .build());
+        commandPublisher.send(JobCommand.RollbackProcessJob.builder()
                 .id(UUID.randomUUID().toString())
-                .title("Create job Failed")
-                .content("New job is created failed, please try again")
+                .jobId(event.getJobId())
                 .build());
     }
 

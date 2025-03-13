@@ -22,8 +22,8 @@ public class JobProcessorConsumer {
 
     CommandGateway commandGateway;
 
-    @KafkaListener(topics = Constant.KAFKA_TOPIC_JOB_EVENT,
-            groupId = Constant.KAFKA_GROUP_CV_PROCESSOR)
+    @KafkaListener(topics = Constant.KAFKA_TOPIC_JOB_COMMAND,
+            groupId = Constant.KAFKA_GROUP_JOB_PROCESSOR)
     public void consume(RollbackProcessJobCommand command) {
         commandGateway.send(JobCommand.RollbackProcessJob.builder()
                 .id(UUID.randomUUID().toString())

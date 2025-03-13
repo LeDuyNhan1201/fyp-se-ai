@@ -29,4 +29,8 @@ python -m grpc_tools.protoc --proto_path=./../common/src/main/protobuf \
 --python_out=./protobuf \
 --grpc_python_out=./protobuf \
 cv.command.proto
+
+python -m grpc_tools.protoc --proto_path=./../common/src/main/protobuf \
+--python_out=./protobuf \
+job.command.proto
 ````

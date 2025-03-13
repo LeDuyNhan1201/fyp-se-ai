@@ -119,7 +119,7 @@ spring:
         enabled: true
 
   kafka:
-    bootstrap-servers: localhost:9091,localhost:9092,localhost:9093
+    bootstrap-servers: localhost:9091
     properties:
       schema.registry.url: http://localhost:8085
     producer:

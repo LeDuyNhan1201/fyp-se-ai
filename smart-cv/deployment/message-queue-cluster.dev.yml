@@ -16,7 +16,7 @@ services:
       KAFKA_BROKER_RACK: "r1"
       KAFKA_NODE_ID: 1
       KAFKA_PROCESS_ROLES: 'broker,controller'
-      KAFKA_CONTROLLER_QUORUM_VOTERS: '1@smartcv-kafka1:29091'
+      KAFKA_CONTROLLER_QUORUM_VOTERS: '1@smartcv-kafka1:29091,2@smartcv-kafka2:29092,3@smartcv-kafka3:29093'
 
       # Listeners
       KAFKA_LISTENERS: 'LOCAL://:9091,PLAINTEXT://smartcv-kafka1:19091,CONTROLLER://smartcv-kafka1:29091,BROKER://smartcv-kafka1:39091'
@@ -54,11 +54,95 @@ services:
       KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
       KAFKA_DELETE_TOPIC_ENABLE: 'true'
       KAFKA_AUTO_CREATE_TOPICS_ENABLE: 'false'
-      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
-      KAFKA_DEFAULT_REPLICATION_FACTOR: 1
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
+      KAFKA_DEFAULT_REPLICATION_FACTOR: 3
 
-      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
-      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1 # 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 3
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 3
+
+  smartcv-kafka2:
+    image: confluentinc/cp-kafka:latest
+    container_name: smartcv-kafka2
+    restart: always
+    ports:
+      - "9092:9092"
+      - "9992:9992"
+    networks:
+      - smartcv-network
+    environment:
+      # Kraft
+      CLUSTER_ID: 'cLs1'
+      KAFKA_BROKER_ID: 2
+      KAFKA_BROKER_RACK: "r2"
+      KAFKA_NODE_ID: 2
+      KAFKA_PROCESS_ROLES: 'broker,controller'
+      KAFKA_CONTROLLER_QUORUM_VOTERS: '1@smartcv-kafka1:29091,2@smartcv-kafka2:29092,3@smartcv-kafka3:29093'
+
+      # Listeners
+      KAFKA_LISTENERS: 'LOCAL://:9092,PLAINTEXT://smartcv-kafka2:19092,CONTROLLER://smartcv-kafka2:29092,BROKER://smartcv-kafka2:39092'
+      KAFKA_ADVERTISED_LISTENERS: 'LOCAL://localhost:9092,PLAINTEXT://smartcv-kafka2:19092,BROKER://smartcv-kafka2:39092'
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: 'CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT,LOCAL:PLAINTEXT,BROKER:PLAINTEXT'
+      KAFKA_CONTROLLER_LISTENER_NAMES: 'CONTROLLER'
+      KAFKA_INTER_BROKER_LISTENER_NAME: 'BROKER'
+
+      # Others
+      KAFKA_JMX_PORT: 9992
+      KAFKA_JMX_HOSTNAME: smartcv-kafka2
+
+      KAFKA_LOG_DIRS: '/tmp/kraft-combined-logs'
+      KAFKA_LOG4J_LOGGERS: "kafka.authorizer.logger=INFO"
+      KAFKA_LOG4J_ROOT_LOGLEVEL: INFO
+
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+      KAFKA_DELETE_TOPIC_ENABLE: 'true'
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: 'false'
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
+      KAFKA_DEFAULT_REPLICATION_FACTOR: 3
+
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 3
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 3
+
+  smartcv-kafka3:
+    image: confluentinc/cp-kafka:latest
+    container_name: smartcv-kafka3
+    restart: always
+    ports:
+      - "9093:9093"
+      - "9993:9993"
+    networks:
+      - smartcv-network
+    environment:
+      # Kraft
+      CLUSTER_ID: 'cLs1'
+      KAFKA_BROKER_ID: 3
+      KAFKA_BROKER_RACK: "r3"
+      KAFKA_NODE_ID: 3
+      KAFKA_PROCESS_ROLES: 'broker,controller'
+      KAFKA_CONTROLLER_QUORUM_VOTERS: '1@smartcv-kafka1:29091,2@smartcv-kafka2:29092,3@smartcv-kafka3:29093'
+
+      # Listeners
+      KAFKA_LISTENERS: 'LOCAL://:9093,PLAINTEXT://smartcv-kafka3:19093,CONTROLLER://smartcv-kafka3:29093,BROKER://smartcv-kafka3:39093'
+      KAFKA_ADVERTISED_LISTENERS: 'LOCAL://localhost:9093,PLAINTEXT://smartcv-kafka3:19093,BROKER://smartcv-kafka3:39093'
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: 'CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT,LOCAL:PLAINTEXT,BROKER:PLAINTEXT'
+      KAFKA_CONTROLLER_LISTENER_NAMES: 'CONTROLLER'
+      KAFKA_INTER_BROKER_LISTENER_NAME: 'BROKER'
+
+      # Others
+      KAFKA_JMX_PORT: 9993
+      KAFKA_JMX_HOSTNAME: smartcv-kafka3
+
+      KAFKA_LOG_DIRS: '/tmp/kraft-combined-logs'
+      KAFKA_LOG4J_LOGGERS: "kafka.authorizer.logger=INFO"
+      KAFKA_LOG4J_ROOT_LOGLEVEL: INFO
+
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+      KAFKA_DELETE_TOPIC_ENABLE: 'true'
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: 'false'
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
+      KAFKA_DEFAULT_REPLICATION_FACTOR: 3
+
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 3
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 3
 
   # --------- Schema registry ---------
   smartcv-schemaregistry:
@@ -67,13 +151,15 @@ services:
     restart: always
     depends_on:
       - smartcv-kafka1
+      - smartcv-kafka2
+      - smartcv-kafka3
     ports:
       - "8085:8085"
     networks:
       - smartcv-network
     environment:
       SCHEMA_REGISTRY_HOST_NAME: smartcv-schemaregistry
-      SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: smartcv-kafka1:19091
+      SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: smartcv-kafka1:19091,smartcv-kafka2:19092,smartcv-kafka3:19093
       SCHEMA_REGISTRY_KAFKASTORE_SECURITY_PROTOCOL: PLAINTEXT
       SCHEMA_REGISTRY_LISTENERS: http://smartcv-schemaregistry:8085,http://localhost:8085
 
@@ -106,6 +192,8 @@ services:
     restart: always
     depends_on:
       - smartcv-kafka1
+      - smartcv-kafka2
+      - smartcv-kafka3
       - smartcv-schemaregistry
     ports:
       - "8080:8080"

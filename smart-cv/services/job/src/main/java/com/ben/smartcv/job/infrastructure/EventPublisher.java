@@ -28,6 +28,9 @@ public class EventPublisher {
     public void send(JobEvent.JobCreated event) {
         JobCreatedEvent protoEvent = JobCreatedEvent.newBuilder()
                 .setJobId(event.getJobId())
+                .setOrganizationName(event.getOrganizationName())
+                .setPosition(event.getPosition())
+                .setRequirements(event.getRequirements())
                 .build();
 
         jobCreatedEventTemplate.send(

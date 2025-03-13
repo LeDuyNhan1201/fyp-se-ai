@@ -30,7 +30,7 @@ public abstract class BaseDocument<TId> {
     @LastModifiedDate
     Date updatedAt;
 
-    Boolean isDeleted = false;
+    Boolean isDeleted;
 
     String deletedBy;
 

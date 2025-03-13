@@ -37,3 +37,7 @@ certs/
 build/
 
 env.properties
+
+__pycache__/
+*.pyc
+*.pyo

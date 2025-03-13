@@ -1,8 +1,8 @@
 package com.ben.smartcv.job.infrastructure;
 
 import com.ben.smartcv.job.domain.entity.Job;
-import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
 
-public interface IJobRepository extends MongoRepository<Job, String> {
+public interface IJobRepository extends ElasticsearchRepository<Job, String> {
 
 }
