@@ -106,6 +106,7 @@ public class ApplyCvSaga {
         log.info(EventLogger.logEvent("NotificationSent",
                 event.getAssociationProperty(), event.getAssociationProperty(), Map.of("title", event.getTitle())));
         associateWith("associationProperty", event.getAssociationProperty());
+        log.info("End apply cv saga");
     }
 
     @KafkaListener(topics = Constant.KAFKA_TOPIC_CV_EVENT,
@@ -148,17 +149,20 @@ public class ApplyCvSaga {
                 .build());
     }
 
-    @KafkaListener(topics = Constant.KAFKA_TOPIC_NOTIFICATION_EVENT,
-            groupId = Constant.KAFKA_GROUP_ORCHESTRATION)
-    public void consume(NotificationSentEvent event) {
-        // 10
-        on(NotificationEvent.NotificationSent.builder()
-                .associationProperty(event.getAssociationProperty())
-                .title(event.getTitle())
-                .content(event.getContent())
-                .build());
-    }
-
+//     @KafkaListener(topics = Constant.KAFKA_TOPIC_NOTIFICATION_EVENT,
+//             groupId = Constant.KAFKA_GROUP_ORCHESTRATION)
+//     public void consume(NotificationSentEvent event) {
+//         // 10
+//         log.info("lsdfjaslkdfjdklsfjkdlsfjkldfjsklfjksldfjsklfjlksdfdjliksf");
+//         if (event.getTitle().toLowerCase().contains("cv")) {
+//             log.info("Finish applying CV");
+//             on(NotificationEvent.NotificationSent.builder()
+//                     .associationProperty(event.getAssociationProperty())
+//                     .title(event.getTitle())
+//                     .content(event.getContent())
+//                     .build());
+//         }
+//     }
 
     @ExceptionHandler(resultType = Exception.class, payloadType = CvEvent.CvApplied.class)
     public void handleExceptionForCvAppliedEvent(Exception exception) {

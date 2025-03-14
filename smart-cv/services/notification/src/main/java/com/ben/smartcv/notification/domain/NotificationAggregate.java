@@ -33,11 +33,15 @@ public class NotificationAggregate {
 
     String content;
 
+    String associationProperty;
+
     @CommandHandler
     public NotificationAggregate(NotificationCommand.SendNotification command) {
         apply(NotificationEvent.NotificationSent.builder()
+                .id(command.getId())
                 .title(command.getTitle())
                 .content(command.getContent())
+                .associationProperty(command.getAssociationProperty())
                 .build(), MetaData.with("key", "123"));
     }
 
@@ -46,6 +50,7 @@ public class NotificationAggregate {
         this.id = event.getId();
         this.content = event.getContent();
         this.title = event.getTitle();
+        this.associationProperty = event.getAssociationProperty();
     }
 
     @ExceptionHandler(resultType = Exception.class, payloadType = NotificationCommand.SendNotification.class)

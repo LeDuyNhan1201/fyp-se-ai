@@ -24,10 +24,10 @@ class DependencyInjection:
             rollback_producer = rollback_process_job_producer,
             send_noti_producer = send_noti_producer)
 
-        # self.process_cv_consumer = ProcessCvConsumer(
-        #     schema = PROCESS_CV_COMMAND,
-        #     topic = KAFKA_TOPIC_CV_COMMAND,
-        #     group_id = KAFKA_GROUP_CV_PROCESSOR,
-        #     file_storage_client = minio_client,
-        #     rollback_producer = rollback_process_cv_producer,
-        #     send_noti_producer = send_noti_producer)
+        self.process_cv_consumer = ProcessCvConsumer(
+            schema = PROCESS_CV_COMMAND,
+            topic = KAFKA_TOPIC_CV_COMMAND,
+            group_id = KAFKA_GROUP_CV_PROCESSOR,
+            file_storage_client = minio_client,
+            rollback_producer = rollback_process_cv_producer,
+            send_noti_producer = send_noti_producer)

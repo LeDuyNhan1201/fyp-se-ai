@@ -1,8 +1,14 @@
+import logging
 import os
 from typing import Union, Any, Optional
 
 from minio import Minio
 
+logger = logging.getLogger(__name__)
+logging.basicConfig(
+    level = logging.INFO,
+    format = f"%(asctime)s - {__name__} - %(levelname)s - %(message)s"
+)
 
 class MinioClient:
     def __init__(self):
@@ -28,5 +34,5 @@ class MinioClient:
             self.client.fget_object(self.bucket_name, object_name, download_path)
             return download_path
         except Exception as e:
-            print(f"❌ Unexpected Error: {e}")
+            logger.error(f"❌ Unexpected Error: {e}")
             return None

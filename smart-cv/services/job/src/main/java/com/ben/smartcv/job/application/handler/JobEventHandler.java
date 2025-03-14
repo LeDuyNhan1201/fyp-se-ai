@@ -44,6 +44,7 @@ public class JobEventHandler {
 
         jobRepository.save(job);
         kafkaProducer.send(event);
+        System.out.println("Job created event: " + event.getJobId());
     }
 
 

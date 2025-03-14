@@ -2,7 +2,8 @@ from dotenv import load_dotenv
 from transformers import pipeline
 
 from infrastructure.dependency_injection import DependencyInjection
-
+from infrastructure.kafka_consumer import KafkaConsumer
+import concurrent.futures
 
 def merge_subtokens(ner_results):
     merged_entities = []
@@ -27,11 +28,21 @@ def merge_subtokens(ner_results):
 
     return merged_entities
 
+def run_consumer(consumer: KafkaConsumer):
+    consumer.consume()
+
 def main():
     application_context = DependencyInjection()
     print("App is running")
-
     application_context.process_job_consumer.consume()
+    # consumers = [
+    #     application_context.process_job_consumer,
+    #     application_context.process_cv_consumer
+    # ]
+    #
+    # with concurrent.futures.ProcessPoolExecutor(max_workers = len(consumers)) as executor:
+    #     executor.map(run_consumer, consumers)
+
     # Load model đã train
 #     ner_pipeline = pipeline("ner", model = "skill_ner_model", tokenizer = "skill_ner_model")
 #

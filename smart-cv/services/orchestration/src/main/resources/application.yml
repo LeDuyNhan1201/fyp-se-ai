@@ -74,7 +74,7 @@ spring:
       uri: mongodb://smartcv:SmArTcV123%23@localhost:27017/axon-framework?authSource=admin
 
   kafka:
-    bootstrap-servers: localhost:9091,localhost:9092,localhost:9093
+    bootstrap-servers: localhost:9091
     properties:
       schema.registry.url: http://localhost:8085
     producer:

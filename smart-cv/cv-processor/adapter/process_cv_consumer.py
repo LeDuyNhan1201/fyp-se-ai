@@ -1,3 +1,4 @@
+import logging
 from abc import abstractmethod
 
 from infrastructure.kafka_consumer import KafkaConsumer
@@ -9,6 +10,11 @@ from extract_data_from_file import extract_text_from_pdf, extract_text_from_imag
 from infrastructure.kafka_producer import KafkaProducer
 from infrastructure.minio_client import MinioClient
 
+logger = logging.getLogger(__name__)
+logging.basicConfig(
+    level = logging.INFO,
+    format = f"%(asctime)s - {__name__} - %(levelname)s - %(message)s"
+)
 
 class ProcessCvConsumer(KafkaConsumer):
     def __init__(self, schema, topic: str, group_id: str,
@@ -22,11 +28,11 @@ class ProcessCvConsumer(KafkaConsumer):
 
     @abstractmethod
     def handle(self, message):
-        file_path = self.file_storage_client.download_file(message["objectKey"])
+        file_path = self.file_storage_client.download_file(message.object_key)
         raw_text = extract_text_from_pdf(file_path) \
-            if get_file_extensions(message["objectKey"]) == "pdf" else extract_text_from_image(file_path)
+            if get_file_extensions(message.object_key) == "pdf" else extract_text_from_image(file_path)
         data = extract_cv_info(raw_text)
-        print(data)
+        logger.info(data)
         job_description = """
                         Job Type: Full-time
                         Experience Level: Mid-Senior
@@ -49,18 +55,20 @@ class ProcessCvConsumer(KafkaConsumer):
                         Knowledge of PCB design and hardware debugging is a plus.
                         """
         score = match_cv_with_jd(data, job_description)
-        print(score)
+        logger.info(score)
 
         if not validation(data):
-            fail_command = ROLLBACK_PROCESS_CV_COMMAND
-            fail_command.cvId = message["cvId"]
-            fail_command.objectKey = message["objectKey"]
+            fail_command = ROLLBACK_PROCESS_CV_COMMAND(
+                cvId = message.cv_id,
+                objectKey = message.object_key
+            )
             self.rollback_producer.publish(KAFKA_TOPIC_JOB_COMMAND, fail_command)
 
-        success_command = SEND_NOTIFICATION_COMMAND
-        success_command.associationProperty = message["cvId"]
-        success_command.title = "CV Processed"
-        success_command.content = "CV processed successfully"
+        success_command = SEND_NOTIFICATION_COMMAND(
+            association_property = message.cv_id,
+            title = "CV Processed",
+            content = "CV processed successfully"
+        )
         self.send_noti_producer.publish(KAFKA_TOPIC_NOTIFICATION_COMMAND, success_command)
         # Save to database
 

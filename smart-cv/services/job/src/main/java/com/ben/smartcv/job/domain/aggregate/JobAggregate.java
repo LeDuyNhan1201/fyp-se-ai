@@ -45,9 +45,6 @@ public class JobAggregate {
 
     @CommandHandler
     public JobAggregate(JobCommand.CreateJob command) {
-        log.info(EventLogger.logCommand("CreateJob", command.getOrganizationName(),
-                Map.of("organizationName", command.getOrganizationName())));
-
         apply(JobEvent.JobCreated.builder()
                 .id(command.getId())
                 .jobId(command.getJobId())
@@ -55,6 +52,9 @@ public class JobAggregate {
                 .position(command.getPosition())
                 .requirements(command.getRequirements())
                 .build());
+
+        log.info(EventLogger.logCommand("CreateJob", command.getOrganizationName(),
+                Map.of("organizationName", command.getOrganizationName())));
     }
 
     @CommandHandler

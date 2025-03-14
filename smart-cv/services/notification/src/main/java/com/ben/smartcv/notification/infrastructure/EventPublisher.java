@@ -9,8 +9,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
-import java.util.UUID;
-
 import static lombok.AccessLevel.PRIVATE;
 
 @Slf4j
@@ -22,14 +20,16 @@ public class EventPublisher {
     KafkaTemplate<String, NotificationSentEvent> notificationSentTemplate;
 
     public void send(NotificationEvent.NotificationSent event) {
+        log.info("Sending notification event: {}", event);
         NotificationSentEvent protoEvent = NotificationSentEvent.newBuilder()
                 .setTitle(event.getTitle())
                 .setContent(event.getContent())
+                .setAssociationProperty(event.getAssociationProperty())
                 .build();
 
         notificationSentTemplate.send(
                 Constant.KAFKA_TOPIC_NOTIFICATION_EVENT,
-                UUID.randomUUID().toString(),
+                event.getId(),
                 protoEvent
         );
     }
