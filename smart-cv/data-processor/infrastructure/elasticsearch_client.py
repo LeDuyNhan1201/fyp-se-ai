@@ -1,4 +1,6 @@
 import os
+
+from dotenv import load_dotenv
 from elasticsearch import Elasticsearch
 from elasticsearch.exceptions import NotFoundError
 
@@ -8,6 +10,7 @@ class ElasticsearchClient:
         Khởi tạo Elasticsearch client.
         :param hosts: Danh sách các host Elasticsearch (ví dụ: ["http://localhost:9200"])
         """
+        load_dotenv()
         hosts = [ os.getenv("ELASTICSEARCH_HOSTS") ]
         self.client = Elasticsearch(hosts)
 

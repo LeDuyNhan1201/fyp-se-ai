@@ -12,8 +12,3 @@ message ProcessJobCommand {
 
 }
 
-message RollbackProcessJobCommand {
-
-  string job_id = 1;
-
-}

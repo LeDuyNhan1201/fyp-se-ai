@@ -1,6 +1,5 @@
 package com.ben.smartcv.curriculum_vitae.infrastructure;
 
-import com.ben.smartcv.common.component.CommonEventPublisher;
 import com.ben.smartcv.common.contract.event.CvEvent;
 import com.ben.smartcv.common.cv.CvDeletedEvent;
 import com.ben.smartcv.common.cv.CvProcessedEvent;

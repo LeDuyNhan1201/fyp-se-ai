@@ -1,5 +1,8 @@
 package com.ben.smartcv.common.util;
 
+import io.grpc.Context;
+import io.grpc.Metadata;
+
 public class Constant {
 
     public static final String KAFKA_TOPIC_USER_EVENT = "user.events";
@@ -23,5 +26,13 @@ public class Constant {
     public static final String KAFKA_GROUP_CV_PROCESSOR = "cv-processor";
 
     public static final String KAFKA_GROUP_JOB_PROCESSOR = "job-processor";
+
+    public static final Metadata.Key<String> AUTHORIZATION_KEY = Metadata.Key.of("Authorization", Metadata.ASCII_STRING_MARSHALLER);
+
+    public static final Context.Key<String> GRPC_AUTHORIZATION_CONTEXT = Context.key("authToken");
+
+    public static final ThreadLocal<String> REST_AUTHORIZATION_CONTEXT = new ThreadLocal<>();
+
+    //public static final JWSAlgorithm ACCESS_TOKEN_SIGNATURE_ALGORITHM = HS512;
 
 }

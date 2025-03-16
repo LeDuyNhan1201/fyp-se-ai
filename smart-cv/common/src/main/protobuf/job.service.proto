@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package com.ben.smartcv.common;
+
+option java_package = "com.ben.smartcv.common.job";
+option java_outer_classname = "JobServiceProto";
+option java_multiple_files = true;
+
+import "job.command.proto";
+
+message ExtractedJobData {
+
+  string email = 1;
+
+  string phone = 2;
+
+  string education = 3;
+
+  string skills = 4;
+
+  string experience = 5;
+
+}
+
+service JobProcessor {
+
+  rpc ExtractData (ProcessJobCommand) returns (ExtractedJobData) {
+  }
+
+}

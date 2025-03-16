@@ -77,12 +77,12 @@ public class CvAggregate {
 
     @ExceptionHandler(resultType = Exception.class, payloadType = CvCommand.ProcessCv.class)
     public void handleExceptionForProcessCvCommand(Exception exception) {
-        log.error("IllegalStateException occurred: {}", exception.getMessage());
+        log.error("IllegalStateException occurred when processed cv: {}", exception.getMessage());
     }
 
     @ExceptionHandler(resultType = Exception.class, payloadType = CvCommand.RollbackProcessCv.class)
     public void handleExceptionForRollbackProcessCvCommand(Exception exception) {
-        log.error("IllegalStateException occurred: {}", exception.getMessage());
+        log.error("IllegalStateException occurred when rolled back process cv: {}", exception.getMessage());
     }
 
 }

@@ -1,11 +1,8 @@
 package com.ben.smartcv.job.domain.aggregate;
 
 import com.ben.smartcv.common.contract.command.JobCommand;
-import com.ben.smartcv.common.contract.dto.BaseResponse;
 import com.ben.smartcv.common.contract.event.JobEvent;
 import com.ben.smartcv.common.util.EventLogger;
-import com.ben.smartcv.job.application.exception.JobError;
-import com.ben.smartcv.job.application.exception.JobHttpException;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -16,8 +13,6 @@ import org.axonframework.eventsourcing.EventSourcingHandler;
 import org.axonframework.messaging.interceptors.ExceptionHandler;
 import org.axonframework.modelling.command.AggregateIdentifier;
 import org.axonframework.spring.stereotype.Aggregate;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 
 import java.util.Map;
 
@@ -73,7 +68,7 @@ public class JobAggregate {
         log.info(EventLogger.logCommand("RollbackProcessJob", command.getJobId(),
                 Map.of("jobId", command.getJobId())));
 
-        apply(JobEvent.JobProcessed.builder()
+        apply(JobEvent.JobDeleted.builder()
                 .id(command.getId())
                 .jobId(command.getJobId())
                 .build());

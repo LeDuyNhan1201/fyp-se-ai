@@ -45,34 +45,41 @@ public class CreateJobSaga {
     @SagaEventHandler(associationProperty = ASSOCIATION_PROPERTY)
     public void on(JobEvent.JobCreated event) {
         // 5
+        log.info(EventLogger.logEvent("JobCreated",
+                event.getJobId(), event.getJobId(), Map.of("jobId", event.getJobId())));
+
         commandGateway.sendAndWait(JobCommand.ProcessJob.builder()
                 .id(UUID.randomUUID().toString())
                 .jobId(event.getJobId())
                 .build());
-
-        log.info(EventLogger.logEvent("JobCreated",
-                event.getJobId(), event.getJobId(), Map.of("jobId", event.getJobId())));
     }
 
     @SagaEventHandler(associationProperty = ASSOCIATION_PROPERTY)
     public void on(JobEvent.JobProcessed event) {
-        try {
-            // 10
-            commandPublisher.send(JobCommand.ProcessJob.builder()
-                    .jobId(event.getJobId())
-                    .build());
-            log.info(EventLogger.logEvent("JobProcessed",
-                    event.getJobId(), event.getJobId(), Map.of("jobId", event.getJobId())));
+//        try {
+//            // 10
+//            commandPublisher.send(JobCommand.ProcessJob.builder()
+//                    .jobId(event.getJobId())
+//                    .build());
+//
+//        } catch (Exception e) {
+//            // send command to notification service
+//            commandGateway.sendAndWait(JobCommand.RollbackProcessJob.builder()
+//                    .id(UUID.randomUUID().toString())
+//                    .jobId(event.getJobId())
+//                    .build());
+//        }
+        log.info(EventLogger.logEvent("JobProcessed",
+                event.getJobId(), event.getJobId(), Map.of("jobId", event.getJobId())));
 
-        } catch (Exception e) {
-            // send command to notification service
-            commandGateway.sendAndWait(JobCommand.RollbackProcessJob.builder()
-                    .id(UUID.randomUUID().toString())
-                    .jobId(event.getJobId())
-                    .build());
-        }
+        commandGateway.sendAndWait(NotificationCommand.SendNotification.builder()
+                .id(UUID.randomUUID().toString())
+                .title("Job process successfully")
+                .content("Job processing failed successfully jobId: " + event.getJobId())
+                .build());
     }
 
+    @EndSaga
     @SagaEventHandler(associationProperty = ASSOCIATION_PROPERTY)
     public void on(JobEvent.JobDeleted event) {
         log.info(EventLogger.logEvent("JobDeleted",
@@ -80,19 +87,20 @@ public class CreateJobSaga {
 
         commandGateway.sendAndWait(NotificationCommand.SendNotification.builder()
                 .id(UUID.randomUUID().toString())
-                .title("Job Process Failed")
+                .title("Job process Failed")
                 .content("Job processing failed for jobId: " + event.getJobId() + "please try again")
                 .build());
     }
 
-    @EndSaga
-    @SagaEventHandler(associationProperty = "associationProperty")
-    public void on(NotificationEvent.NotificationSent event) {
-        log.info(EventLogger.logEvent("NotificationSent",
-                event.getAssociationProperty(), event.getAssociationProperty(), Map.of("title", event.getTitle())));
-        associateWith("associationProperty", event.getAssociationProperty());
-        log.info("End create Job saga");
-    }
+//    @EndSaga
+//    @SagaEventHandler(associationProperty = "associationProperty")
+//    public void on(NotificationEvent.NotificationSent event) {
+//        log.info(EventLogger.logEvent("NotificationSent",
+//                event.getAssociationProperty(), event.getAssociationProperty(), Map.of("title", event.getTitle())));
+//
+//        associateWith("associationProperty", event.getAssociationProperty());
+//        log.info("End create Job saga");
+//    }
 
     @KafkaListener(topics = Constant.KAFKA_TOPIC_JOB_EVENT,
             groupId = Constant.KAFKA_GROUP_ORCHESTRATION)
@@ -118,20 +126,20 @@ public class CreateJobSaga {
                 .build());
     }
 
-    @KafkaListener(topics = Constant.KAFKA_TOPIC_NOTIFICATION_EVENT,
-            groupId = Constant.KAFKA_GROUP_ORCHESTRATION)
-    public void consume(NotificationSentEvent event) {
-        // 10
-        log.info("lsdfjaslkdfjdklsfjkdlsfjkldfjsklfjksldfjsklfjlksdfdjliksf");
-        if (event.getTitle().toLowerCase().contains("job")) {
-            log.info("Finish creating Job");
-            on(NotificationEvent.NotificationSent.builder()
-                    .associationProperty(event.getAssociationProperty())
-                    .title(event.getTitle())
-                    .content(event.getContent())
-                    .build());
-        }
-    }
+//    @KafkaListener(topics = Constant.KAFKA_TOPIC_NOTIFICATION_EVENT,
+//            groupId = Constant.KAFKA_GROUP_ORCHESTRATION)
+//    public void consume(NotificationSentEvent event) {
+//        // 10
+//        log.info("lsdfjaslkdfjdklsfjkdlsfjkldfjsklfjksldfjsklfjlksdfdjliksf");
+//        if (event.getTitle().toLowerCase().contains("job")) {
+//            log.info("Finish creating Job");
+//            on(NotificationEvent.NotificationSent.builder()
+//                    .associationProperty(event.getAssociationProperty())
+//                    .title(event.getTitle())
+//                    .content(event.getContent())
+//                    .build());
+//        }
+//    }
 
     @ExceptionHandler(resultType = Exception.class, payloadType = JobEvent.JobCreated.class)
     public void handleExceptionForJobCreatedEvent(Exception exception) {

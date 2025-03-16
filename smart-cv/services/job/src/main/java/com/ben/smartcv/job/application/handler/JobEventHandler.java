@@ -1,18 +1,17 @@
 package com.ben.smartcv.job.application.handler;
 
-import com.ben.smartcv.common.component.CommonEventPublisher;
 import com.ben.smartcv.common.contract.command.JobCommand;
-import com.ben.smartcv.common.contract.command.NotificationCommand;
 import com.ben.smartcv.common.contract.event.JobEvent;
+import com.ben.smartcv.common.job.ExtractedJobData;
 import com.ben.smartcv.job.domain.entity.Job;
-import com.ben.smartcv.job.infrastructure.CommandPublisher;
 import com.ben.smartcv.job.infrastructure.EventPublisher;
+import com.ben.smartcv.job.infrastructure.GrpcClientJobService;
 import com.ben.smartcv.job.infrastructure.IJobRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
+import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.axonframework.eventhandling.EventHandler;
-import org.axonframework.messaging.interceptors.ExceptionHandler;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;
@@ -25,11 +24,11 @@ import static lombok.AccessLevel.PRIVATE;
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 public class JobEventHandler {
 
-    EventPublisher kafkaProducer;
+    EventPublisher eventPublisher;
 
-    CommandPublisher commandPublisher;
+    CommandGateway commandGateway;
 
-    CommonEventPublisher commonEventPublisher;
+    GrpcClientJobService grpcClientJobService;
 
     IJobRepository jobRepository;
 
@@ -43,31 +42,57 @@ public class JobEventHandler {
                 .build();
 
         jobRepository.save(job);
-        kafkaProducer.send(event);
-        System.out.println("Job created event: " + event.getJobId());
+        eventPublisher.send(event);
     }
 
 
     @EventHandler
     public void on(JobEvent.JobProcessed event) {
-        kafkaProducer.send(event);
+        try {
+            ExtractedJobData extractedJobData = grpcClientJobService.callExtractData(event.getJobId());
+            Job currentJob = jobRepository.findById(event.getJobId()).orElse(null);
+
+            if (currentJob == null) {
+                log.error("Job not found: {}", event.getJobId());
+
+            } else {
+                currentJob.setEmail(extractedJobData.getEmail());
+                currentJob.setPhone(extractedJobData.getPhone());
+                currentJob.setEducation(extractedJobData.getEducation());
+                currentJob.setSkills(extractedJobData.getSkills());
+                currentJob.setExperience(extractedJobData.getExperience());
+
+                try {
+                    jobRepository.save(currentJob);
+
+                } catch (Exception e) {
+                    log.error("Error saving job: {}", e.getMessage());
+                }
+            }
+
+        } catch (Exception e) {
+            log.error("Extract data failed: {}", e.getMessage());
+            sendRollbackCommand(event.getJobId());
+
+        }
+        eventPublisher.send(event);
     }
 
     @EventHandler
     public void on(JobEvent.JobDeleted event) {
-        kafkaProducer.send(event);
+        jobRepository.deleteById(event.getJobId());
+        eventPublisher.send(event);
+        log.info("Job deleted event: {}", event.getJobId());
     }
 
-    public void handleExceptionForJobCreatedEvent(Exception exception, JobEvent.JobCreated event) {
-        log.error("Unexpected exception occurred when creating job: {}", exception.getMessage());
-//        commonEventPublisher.send(NotificationCommand.SendNotification.builder()
-//                .id(UUID.randomUUID().toString())
-//                .title("Create job Failed")
-//                .content("New job " + event.getJobId() + " is created failed, please try again")
-//                .build());
-        commandPublisher.send(JobCommand.RollbackProcessJob.builder()
+    public void handleExceptionForJobDeletedEvent(Exception exception, JobEvent.JobDeleted event) {
+        log.error("Unexpected exception occurred when deleting job {}: {}", event.getJobId(), exception.getMessage());
+    }
+
+    private void sendRollbackCommand(String jobId) {
+        commandGateway.send(JobCommand.RollbackProcessJob.builder()
                 .id(UUID.randomUUID().toString())
-                .jobId(event.getJobId())
+                .jobId(jobId)
                 .build());
     }
 

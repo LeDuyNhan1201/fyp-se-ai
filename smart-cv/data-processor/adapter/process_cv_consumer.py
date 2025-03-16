@@ -2,8 +2,6 @@ import logging
 from abc import abstractmethod
 
 from infrastructure.kafka_consumer import KafkaConsumer
-from application.constant import KAFKA_TOPIC_JOB_COMMAND, KAFKA_TOPIC_NOTIFICATION_COMMAND
-from application.proto_message import ROLLBACK_PROCESS_CV_COMMAND, SEND_NOTIFICATION_COMMAND
 from application.utils import get_file_extensions
 from cv_parser import extract_cv_info, match_cv_with_jd
 from extract_data_from_file import extract_text_from_pdf, extract_text_from_image
@@ -57,19 +55,19 @@ class ProcessCvConsumer(KafkaConsumer):
         score = match_cv_with_jd(data, job_description)
         logger.info(score)
 
-        if not validation(data):
-            fail_command = ROLLBACK_PROCESS_CV_COMMAND(
-                cvId = message.cv_id,
-                objectKey = message.object_key
-            )
-            self.rollback_producer.publish(KAFKA_TOPIC_JOB_COMMAND, fail_command)
-
-        success_command = SEND_NOTIFICATION_COMMAND(
-            association_property = message.cv_id,
-            title = "CV Processed",
-            content = "CV processed successfully"
-        )
-        self.send_noti_producer.publish(KAFKA_TOPIC_NOTIFICATION_COMMAND, success_command)
+        # if not validation(data):
+        #     fail_command = ROLLBACK_PROCESS_CV_COMMAND(
+        #         cvId = message.cv_id,
+        #         objectKey = message.object_key
+        #     )
+        #     self.rollback_producer.publish(KAFKA_TOPIC_JOB_COMMAND, fail_command)
+        #
+        # success_command = SEND_NOTIFICATION_COMMAND(
+        #     association_property = message.cv_id,
+        #     title = "CV Processed",
+        #     content = "CV processed successfully"
+        # )
+        # self.send_noti_producer.publish(KAFKA_TOPIC_NOTIFICATION_COMMAND, success_command)
         # Save to database
 
 def validation(data) -> bool:
