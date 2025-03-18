@@ -3,9 +3,7 @@ package com.ben.smartcv.common.component;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.SuperBuilder;
-import org.springframework.data.annotation.CreatedBy;
-import org.springframework.data.annotation.LastModifiedBy;
-import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.annotation.*;
 
 import java.util.Date;
 
@@ -17,6 +15,7 @@ import java.util.Date;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public abstract class BaseDocument<TId> {
 
+    @Id
     TId id;
 
     @CreatedBy
@@ -36,6 +35,7 @@ public abstract class BaseDocument<TId> {
 
     Date deletedAt;
 
+    @Version
     Long version;
 
 }

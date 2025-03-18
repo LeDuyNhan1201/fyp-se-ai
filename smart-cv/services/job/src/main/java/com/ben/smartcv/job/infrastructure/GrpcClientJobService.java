@@ -4,6 +4,7 @@ import com.ben.smartcv.common.job.ExtractedJobData;
 import com.ben.smartcv.common.job.JobProcessorGrpc;
 import com.ben.smartcv.common.job.ProcessJobCommand;
 import io.grpc.ManagedChannel;
+import jakarta.annotation.PreDestroy;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
@@ -26,10 +27,12 @@ public class GrpcClientJobService {
                 .setJobId(jobId)
                 .build();
         ExtractedJobData response = jobProcessorClient.extractData(request);
-
-        jobProcessorManagedChannel.shutdown();
-
         log.info("Extracted job data: {}", response);
         return response;
+    }
+
+    @PreDestroy
+    public void shutdownGrpcChanel() {
+        jobProcessorManagedChannel.shutdown();
     }
 }

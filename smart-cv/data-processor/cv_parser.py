@@ -26,36 +26,34 @@ def extract_email(text):
 def extract_experience_years(text):
     pattern = r"(\d+)\s*(?:\+|plus|more than|at least)?\s*(?:years|yrs|year)"
     matches = re.findall(pattern, text, re.IGNORECASE)
-    return ", ".join(set(matches)) if matches else ""
+    return list(set(matches)) if matches else []
 
 def extract_experience_level(text):
     levels = ["Intern", "Junior", "Middle", "Senior", "Lead", "Manager", "Principal", "Director", "Architect"]
     pattern = r"(?i)\b(" + "|".join(levels) + r")\b"
     matches = re.findall(pattern, text)
-    return ", ".join(set(matches)) if matches else ""
+    return list(set(matches)) if matches else []
 
 def extract_experience(text):
     yoe = extract_experience_years(text)
     level = extract_experience_level(text)
-    return ", ".join(filter(None, [yoe, level]))
+    return yoe + level
 
 def extract_skills(text):
     skills = []
     for skill in read_list_from_txt("extracted_rules/skills.txt"):
         pattern = r"(?<!\w){}(?!\w)".format(re.escape(skill))
-        match = re.search(pattern, text, re.IGNORECASE)
-        if match:
+        if re.search(pattern, text, re.IGNORECASE):
             skills.append(skill)
-    return ", ".join(skills)
+    return skills
 
 def extract_education(text):
     education = []
     for keyword in read_list_from_txt("extracted_rules/educations.txt"):
         pattern = r"(?i)\b{}\b".format(re.escape(keyword))
-        match = re.search(pattern, text)
-        if match:
-            education.append(match.group())
-    return ", ".join(education)
+        if re.search(pattern, text):
+            education.append(keyword)
+    return education
 
 def extract_cv_info(text):
     name = extract_name(text)
@@ -67,7 +65,7 @@ def extract_cv_info(text):
     return {
         "name": name,
         "email": email,
-        "phone_number": phone,
+        "phone": phone,
         "skills": skills,
         "education": education,
     }

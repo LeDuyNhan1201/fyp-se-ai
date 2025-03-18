@@ -38,6 +38,10 @@ Natural Language Processing
 Computer Vision
 Image Processing
 OCR
+SPI
+I2C
+UART
+PCB
 Speech Recognition
 Recommendation Systems
 Collaborative Filtering
@@ -56,12 +60,14 @@ Logistic Regression
 K-Means Clustering
 Hierarchical Clustering
 DBSCAN
+CAN
 Association Rule Learning
 Apache Hadoop
 Apache Spark
 MapReduce
 Hive
 HBase
+Terraform
 Apache Kafka
 Data Warehousing
 ETL
@@ -73,9 +79,11 @@ Google Cloud Platform (GCP)
 Docker
 Kubernetes
 Linux
+LIN
 Shell Scripting
 Cybersecurity
 Network Security
+Cloud Security
 Penetration Testing
 Firewalls
 Encryption
@@ -347,3 +355,28 @@ cloud platforms (AWS IoT, Azure IoT Hub)
 embedded systems
 edge computing
 AI/ML integration
+Microcontrollers (STM32, ESP32, Nordic)
+JTAG debugging
+wireless protocols (Zigbee, LoRa)
+LoRaWAN
+TLS
+SSH
+firmware security
+Edge AI
+TinyML
+OpenCV
+DSP
+FPGA
+RF circuits
+signal integrity analysis
+PLC
+SCADA
+Modbus
+OPC-UA
+sensor integration
+AUTOSAR
+MATLAB/Simulink
+Home automation protocols (Z-Wave, Zigbee, Matter)
+smart sensors
+cloud-based home automation
+voice assistants integration

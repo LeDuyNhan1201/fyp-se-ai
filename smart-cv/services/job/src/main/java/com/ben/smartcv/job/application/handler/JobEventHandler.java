@@ -12,6 +12,7 @@ import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.axonframework.eventhandling.EventHandler;
+import org.springframework.data.domain.Range;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;
@@ -34,10 +35,13 @@ public class JobEventHandler {
 
     @EventHandler
     public void on(JobEvent.JobCreated event) {
+        Range<Double> salaryRange = Range.closed(event.getFromSalary(), event.getToSalary());
         Job job = Job.builder()
                 .id(event.getJobId())
                 .organizationName(event.getOrganizationName())
                 .position(event.getPosition())
+                .salary(salaryRange)
+                .expiredAt(event.getExpiredAt())
                 .rawText(event.getRequirements())
                 .build();
 
@@ -58,19 +62,21 @@ public class JobEventHandler {
             } else {
                 currentJob.setEmail(extractedJobData.getEmail());
                 currentJob.setPhone(extractedJobData.getPhone());
-                currentJob.setEducation(extractedJobData.getEducation());
-                currentJob.setSkills(extractedJobData.getSkills());
-                currentJob.setExperience(extractedJobData.getExperience());
+                currentJob.setEducation(extractedJobData.getEducationList());
+                currentJob.setSkills(extractedJobData.getSkillsList());
+                currentJob.setExperience(extractedJobData.getExperienceList());
 
                 try {
                     jobRepository.save(currentJob);
 
                 } catch (Exception e) {
                     log.error("Error saving job: {}", e.getMessage());
+                    sendRollbackCommand(event.getJobId());
                 }
             }
 
         } catch (Exception e) {
+            log.error(String.valueOf(e));
             log.error("Extract data failed: {}", e.getMessage());
             sendRollbackCommand(event.getJobId());
 

@@ -98,6 +98,17 @@ spring:
       max-file-size: 50MB
       max-request-size: 50MB
 
+  graphql:
+    playground:
+      enabled: true
+      endpoint: /job/graphql
+      subscriptions:
+        endpoint: /job/subscriptions
+
+    graphiql:
+      enabled: true  # Bật GraphiQL UI để test API GraphQL
+      path: /job/graphiql
+
   messages:
     basename: i18n/messages
     encoding: UTF-8

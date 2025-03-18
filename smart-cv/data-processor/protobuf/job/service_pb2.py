@@ -25,7 +25,7 @@ _sym_db = _symbol_database.Default()
 from protobuf.job import command_pb2 as job_dot_command__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x11job.service.proto\x12\x16\x63om.ben.smartcv.common\x1a\x11job.command.proto\"g\n\x10\x45xtractedJobData\x12\r\n\x05\x65mail\x18\x01 \x01(\t\x12\r\n\x05phone\x18\x02 \x01(\t\x12\x11\n\teducation\x18\x03 \x01(\t\x12\x0e\n\x06skills\x18\x04 \x01(\t\x12\x12\n\nexperience\x18\x05 \x01(\t2t\n\x0cJobProcessor\x12\x64\n\x0b\x45xtractData\x12).com.ben.smartcv.common.ProcessJobCommand\x1a(.com.ben.smartcv.common.ExtractedJobData\"\x00\x42/\n\x1a\x63om.ben.smartcv.common.jobB\x0fJobServiceProtoP\x01\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x11job.service.proto\x12\x16\x63om.ben.smartcv.common\x1a\x11job.command.proto\"g\n\x10\x45xtractedJobData\x12\r\n\x05\x65mail\x18\x01 \x01(\t\x12\r\n\x05phone\x18\x02 \x01(\t\x12\x11\n\teducation\x18\x03 \x03(\t\x12\x0e\n\x06skills\x18\x04 \x03(\t\x12\x12\n\nexperience\x18\x05 \x03(\t2t\n\x0cJobProcessor\x12\x64\n\x0b\x45xtractData\x12).com.ben.smartcv.common.ProcessJobCommand\x1a(.com.ben.smartcv.common.ExtractedJobData\"\x00\x42/\n\x1a\x63om.ben.smartcv.common.jobB\x0fJobServiceProtoP\x01\x62\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)

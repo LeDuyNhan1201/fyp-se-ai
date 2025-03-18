@@ -7,6 +7,8 @@ import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.SuperBuilder;
 
+import java.time.Instant;
+
 import static lombok.AccessLevel.PRIVATE;
 
 public class JobEvent {
@@ -24,6 +26,12 @@ public class JobEvent {
         String organizationName;
 
         String position;
+
+        Instant expiredAt;
+
+        Double fromSalary;
+
+        Double toSalary;
 
         String requirements;
 

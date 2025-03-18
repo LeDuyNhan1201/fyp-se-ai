@@ -14,11 +14,11 @@ message ExtractedJobData {
 
   string phone = 2;
 
-  string education = 3;
+  repeated string education = 3;
 
-  string skills = 4;
+  repeated string skills = 4;
 
-  string experience = 5;
+  repeated string experience = 5;
 
 }
 

@@ -17,11 +17,14 @@ dependencies {
 	implementation "org.axonframework:axon-tracing-opentelemetry:${axonVersion}" // https://mvnrepository.com/artifact/org.axonframework/axon-tracing-opentelemetry
 	implementation "org.axonframework.extensions.mongo:axon-mongo:${axonMongoVersion}" // https://mvnrepository.com/artifact/org.axonframework.extensions.mongo/axon-mongo
 	implementation "org.axonframework.extensions.mongo:axon-mongo-spring:${axonMongoVersion}" // https://mvnrepository.com/artifact/org.axonframework.extensions.mongo/axon-mongo-spring
+	implementation "com.graphql-java:graphql-java-extended-scalars:${graphqlScalarsVersion}" // https://mvnrepository.com/artifact/com.graphql-java/graphql-java-extended-scalars
 
 	/* --------- APIs Dependencies --------- */
+	api 'org.springframework.boot:spring-boot-starter-validation'
 	api 'org.springframework.boot:spring-boot-starter-web'
 	api 'org.springframework.boot:spring-boot-starter-data-mongodb'
 	api 'org.springframework.grpc:spring-grpc-spring-boot-starter'
+	api 'org.springframework.boot:spring-boot-starter-graphql'
 	api 'org.springframework.kafka:spring-kafka'
 	api "org.springdoc:springdoc-openapi-starter-webmvc-ui:${springdocOpenApiVersion}" // https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-starter-webmvc-ui
 	api "org.axonframework:axon-spring-boot-starter:${axonVersion}" // https://mvnrepository.com/artifact/org.axonframework/axon-spring-boot-starter

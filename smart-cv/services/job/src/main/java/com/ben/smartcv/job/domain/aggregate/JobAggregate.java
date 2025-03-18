@@ -14,6 +14,8 @@ import org.axonframework.messaging.interceptors.ExceptionHandler;
 import org.axonframework.modelling.command.AggregateIdentifier;
 import org.axonframework.spring.stereotype.Aggregate;
 
+import java.time.Instant;
+import java.util.Date;
 import java.util.Map;
 
 import static lombok.AccessLevel.PRIVATE;
@@ -36,6 +38,12 @@ public class JobAggregate {
 
     String position;
 
+    Instant expiredAt;
+
+    Double fromSalary;
+
+    Double toSalary;
+
     String requirements;
 
     @CommandHandler
@@ -45,6 +53,9 @@ public class JobAggregate {
                 .jobId(command.getJobId())
                 .organizationName(command.getOrganizationName())
                 .position(command.getPosition())
+                .fromSalary(command.getFromSalary())
+                .toSalary(command.getToSalary())
+                .expiredAt(command.getExpiredAt())
                 .requirements(command.getRequirements())
                 .build());
 
@@ -80,6 +91,9 @@ public class JobAggregate {
         this.jobId = event.getJobId();
         this.organizationName = event.getOrganizationName();
         this.position = event.getPosition();
+        this.fromSalary = event.getFromSalary();
+        this.toSalary = event.getToSalary();
+        this.expiredAt = event.getExpiredAt();
         this.requirements = event.getRequirements();
     }
 

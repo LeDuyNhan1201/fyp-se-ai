@@ -2,6 +2,7 @@ package com.ben.smartcv.common.exception;
 
 import com.ben.smartcv.common.component.Translator;
 import com.ben.smartcv.common.contract.dto.BaseResponse;
+import com.ben.smartcv.common.util.StringHelper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -33,23 +34,24 @@ public class GlobalHttpExceptionHandler {
         e.getBindingResult().getAllErrors()
                 .forEach((error) -> {
                     String field = ((FieldError) error).getField();
+                    String fieldAfterFormat = StringHelper.formatFieldName(field);
                     String validationType = determineValidationType((FieldError) error);
 
                     assert validationType != null;
                     String message = switch (validationType) {
-                        case "NotBlank", "NotNull" -> Translator.getMessage(error.getDefaultMessage(), field);
+                        case "NotBlank", "NotNull" -> Translator.getMessage(error.getDefaultMessage(), fieldAfterFormat);
                         case "Size" -> {
                             Object min = getArgument((FieldError) error, 2);
                             Object max = getArgument((FieldError) error, 1);
                             if (min != null && max != null) {
-                                yield Translator.getMessage(error.getDefaultMessage(), field, min, max);
+                                yield Translator.getMessage(error.getDefaultMessage(), fieldAfterFormat, min, max);
                             }
                             yield Translator.getMessage(error.getDefaultMessage());
                         }
                         case "Min", "Max" -> {
                             Object value = getArgument((FieldError) error, 1);
                             if (value != null) {
-                                yield Translator.getMessage(error.getDefaultMessage(), field, value);
+                                yield Translator.getMessage(error.getDefaultMessage(), fieldAfterFormat, value);
                             }
                             yield Translator.getMessage(error.getDefaultMessage());
                         }

@@ -5,6 +5,7 @@ import com.ben.smartcv.common.job.JobCreatedEvent;
 import com.ben.smartcv.common.job.JobDeletedEvent;
 import com.ben.smartcv.common.job.JobProcessedEvent;
 import com.ben.smartcv.common.util.Constant;
+import com.ben.smartcv.common.util.TimeHelper;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
@@ -31,6 +32,9 @@ public class EventPublisher {
                 .setOrganizationName(event.getOrganizationName())
                 .setPosition(event.getPosition())
                 .setRequirements(event.getRequirements())
+                .setExpiredAt(TimeHelper.convertToTimestamp(event.getExpiredAt()))
+                .setFromSalary(event.getFromSalary())
+                .setToSalary(event.getToSalary())
                 .build();
 
         jobCreatedEventTemplate.send(

@@ -6,26 +6,34 @@ option java_package = "com.ben.smartcv.common.job";
 option java_outer_classname = "JobEventProto";
 option java_multiple_files = true;
 
+import "google/protobuf/timestamp.proto";
+
 message JobCreatedEvent {
 
-  string job_id = 1;
+    string job_id = 1;
 
-  string organization_name = 2;
+    string organization_name = 2;
 
-  string position = 3;
+    string position = 3;
 
-  string requirements = 4;
+    string requirements = 4;
+
+    double from_salary = 5;
+
+    double to_salary = 6;
+
+    google.protobuf.Timestamp expired_at = 7;
 
 }
 
 message JobProcessedEvent {
 
-  string job_id = 1;
+    string job_id = 1;
 
 }
 
 message JobDeletedEvent {
 
-  string job_id = 1;
+    string job_id = 1;
 
 }

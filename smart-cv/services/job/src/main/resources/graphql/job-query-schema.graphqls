@@ -1,0 +1,30 @@
+scalar Date
+
+type JobDescription {
+    id: ID
+    organizationName: String
+    email: String
+    phone: String
+    position: String
+    education: String
+    skills: String
+    experience: String
+    fromSalary: Float,
+    toSalary: Float,
+    createdAt: Date
+    expiredAt: Date
+}
+
+type Query {
+    searchJobs(
+        orgName: String,
+        position: String,
+        education: String,
+        skills: String,
+        experience: String,
+        fromSalary: Float,
+        toSalary: Float,
+        page: Int,
+        size: Int
+    ): [JobDescription]
+}

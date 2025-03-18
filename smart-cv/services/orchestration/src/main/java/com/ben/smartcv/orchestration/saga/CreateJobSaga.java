@@ -10,6 +10,7 @@ import com.ben.smartcv.common.job.JobProcessedEvent;
 import com.ben.smartcv.common.notification.NotificationSentEvent;
 import com.ben.smartcv.common.util.Constant;
 import com.ben.smartcv.common.util.EventLogger;
+import com.ben.smartcv.common.util.TimeHelper;
 import com.ben.smartcv.orchestration.publisher.CommandPublisher;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
@@ -107,6 +108,12 @@ public class CreateJobSaga {
     public void consume(JobCreatedEvent event) {
         on(JobEvent.JobCreated.builder()
                 .jobId(event.getJobId())
+                .organizationName(event.getOrganizationName())
+                .position(event.getPosition())
+                .fromSalary(event.getFromSalary())
+                .toSalary(event.getToSalary())
+                .expiredAt(TimeHelper.convertToInstant(event.getExpiredAt()))
+                .requirements(event.getRequirements())
                 .build());
     }
 

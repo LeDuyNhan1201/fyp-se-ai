@@ -16,4 +16,9 @@ public class StringHelper {
         return result.toString().toUpperCase();
     }
 
+    public static String formatFieldName(String fieldName) {
+        return fieldName.replaceAll("([a-z])([A-Z])", "$1 $2") // Tách camelCase bằng khoảng trắng
+                .replaceFirst("^.", fieldName.substring(0, 1).toUpperCase()); // Viết hoa chữ cái đầu
+    }
+
 }

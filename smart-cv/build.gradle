@@ -60,6 +60,7 @@ subprojects {
         /* --------- Test Dependencies --------- */
         testImplementation 'org.springframework.boot:spring-boot-starter-test'
         testImplementation 'org.springframework.grpc:spring-grpc-test'
+        testImplementation 'org.springframework.graphql:spring-graphql-test'
         testImplementation 'org.springframework.kafka:spring-kafka-test'
         testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
     }
