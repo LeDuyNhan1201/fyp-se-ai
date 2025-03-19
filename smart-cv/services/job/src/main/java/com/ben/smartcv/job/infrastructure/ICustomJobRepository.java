@@ -2,6 +2,7 @@ package com.ben.smartcv.job.infrastructure;
 
 import com.ben.smartcv.job.domain.entity.Job;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Range;
 import org.springframework.data.elasticsearch.core.SearchPage;
 import org.springframework.stereotype.Repository;
 
@@ -16,6 +17,7 @@ public interface ICustomJobRepository {
             List<String> education,
             List<String> skills,
             List<String> experience,
+            Range<Double> salary,
             Pageable pageable
     );
 

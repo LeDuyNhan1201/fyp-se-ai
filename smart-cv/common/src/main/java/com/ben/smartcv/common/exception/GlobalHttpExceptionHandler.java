@@ -4,17 +4,21 @@ import com.ben.smartcv.common.component.Translator;
 import com.ben.smartcv.common.contract.dto.BaseResponse;
 import com.ben.smartcv.common.util.StringHelper;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
+
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 
-@ControllerAdvice
+@RestControllerAdvice
+@Order()
 @Slf4j
 public class GlobalHttpExceptionHandler {
 
@@ -41,15 +45,15 @@ public class GlobalHttpExceptionHandler {
                     String message = switch (validationType) {
                         case "NotBlank", "NotNull" -> Translator.getMessage(error.getDefaultMessage(), fieldAfterFormat);
                         case "Size" -> {
-                            Object min = getArgument((FieldError) error, 2);
-                            Object max = getArgument((FieldError) error, 1);
+                            String min = Objects.requireNonNull(getArgument((FieldError) error, 2)).toString();
+                            String max = Objects.requireNonNull(getArgument((FieldError) error, 1)).toString();
                             if (min != null && max != null) {
                                 yield Translator.getMessage(error.getDefaultMessage(), fieldAfterFormat, min, max);
                             }
                             yield Translator.getMessage(error.getDefaultMessage());
                         }
                         case "Min", "Max" -> {
-                            Object value = getArgument((FieldError) error, 1);
+                            String value = Objects.requireNonNull(getArgument((FieldError) error, 1)).toString();
                             if (value != null) {
                                 yield Translator.getMessage(error.getDefaultMessage(), fieldAfterFormat, value);
                             }

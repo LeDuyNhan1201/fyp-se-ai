@@ -3,18 +3,17 @@ package com.ben.smartcv.orchestration.saga;
 import com.ben.smartcv.common.contract.command.JobCommand;
 import com.ben.smartcv.common.contract.command.NotificationCommand;
 import com.ben.smartcv.common.contract.event.JobEvent;
-import com.ben.smartcv.common.contract.event.NotificationEvent;
 import com.ben.smartcv.common.job.JobCreatedEvent;
 import com.ben.smartcv.common.job.JobDeletedEvent;
 import com.ben.smartcv.common.job.JobProcessedEvent;
-import com.ben.smartcv.common.notification.NotificationSentEvent;
 import com.ben.smartcv.common.util.Constant;
-import com.ben.smartcv.common.util.EventLogger;
+import com.ben.smartcv.common.util.LogHelper;
 import com.ben.smartcv.common.util.TimeHelper;
 import com.ben.smartcv.orchestration.publisher.CommandPublisher;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.axonframework.commandhandling.gateway.CommandGateway;
+import org.axonframework.messaging.annotation.MetaDataValue;
 import org.axonframework.messaging.interceptors.ExceptionHandler;
 import org.axonframework.modelling.saga.EndSaga;
 import org.axonframework.modelling.saga.SagaEventHandler;
@@ -22,12 +21,10 @@ import org.axonframework.modelling.saga.StartSaga;
 import org.axonframework.spring.stereotype.Saga;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
-
-import java.util.Map;
+import org.springframework.messaging.handler.annotation.Header;
 import java.util.UUID;
 
 import static lombok.AccessLevel.PRIVATE;
-import static org.axonframework.modelling.saga.SagaLifecycle.associateWith;
 
 @Saga
 @Slf4j
@@ -44,11 +41,11 @@ public class CreateJobSaga {
 
     @StartSaga
     @SagaEventHandler(associationProperty = ASSOCIATION_PROPERTY)
-    public void on(JobEvent.JobCreated event) {
+    public void on(JobEvent.JobCreated event,
+                   @MetaDataValue("correlationId") String correlationId,
+                   @MetaDataValue("causationId") String causationId) {
         // 5
-        log.info(EventLogger.logEvent("JobCreated",
-                event.getJobId(), event.getJobId(), Map.of("jobId", event.getJobId())));
-
+        LogHelper.logMessage(log, "JobCreated", correlationId, causationId, event);
         commandGateway.sendAndWait(JobCommand.ProcessJob.builder()
                 .id(UUID.randomUUID().toString())
                 .jobId(event.getJobId())
@@ -56,7 +53,9 @@ public class CreateJobSaga {
     }
 
     @SagaEventHandler(associationProperty = ASSOCIATION_PROPERTY)
-    public void on(JobEvent.JobProcessed event) {
+    public void on(JobEvent.JobProcessed event,
+                   @MetaDataValue("correlationId") String correlationId,
+                   @MetaDataValue("causationId") String causationId) {
 //        try {
 //            // 10
 //            commandPublisher.send(JobCommand.ProcessJob.builder()
@@ -70,9 +69,7 @@ public class CreateJobSaga {
 //                    .jobId(event.getJobId())
 //                    .build());
 //        }
-        log.info(EventLogger.logEvent("JobProcessed",
-                event.getJobId(), event.getJobId(), Map.of("jobId", event.getJobId())));
-
+        LogHelper.logMessage(log, "JobProcessed", correlationId, causationId, event);
         commandGateway.sendAndWait(NotificationCommand.SendNotification.builder()
                 .id(UUID.randomUUID().toString())
                 .title("Job process successfully")
@@ -82,10 +79,10 @@ public class CreateJobSaga {
 
     @EndSaga
     @SagaEventHandler(associationProperty = ASSOCIATION_PROPERTY)
-    public void on(JobEvent.JobDeleted event) {
-        log.info(EventLogger.logEvent("JobDeleted",
-                event.getJobId(), event.getJobId(), Map.of("jobId", event.getJobId())));
-
+    public void on(JobEvent.JobDeleted event,
+                   @MetaDataValue("correlationId") String correlationId,
+                   @MetaDataValue("causationId") String causationId) {
+        LogHelper.logMessage(log, "JobDeleted", correlationId, causationId, event);
         commandGateway.sendAndWait(NotificationCommand.SendNotification.builder()
                 .id(UUID.randomUUID().toString())
                 .title("Job process Failed")
@@ -105,7 +102,9 @@ public class CreateJobSaga {
 
     @KafkaListener(topics = Constant.KAFKA_TOPIC_JOB_EVENT,
             groupId = Constant.KAFKA_GROUP_ORCHESTRATION)
-    public void consume(JobCreatedEvent event) {
+    public void consume(JobCreatedEvent event,
+                        @Header(name = "correlationId", required = false) String correlationId,
+                        @Header(name = "causationId", required = false) String causationId) {
         on(JobEvent.JobCreated.builder()
                 .jobId(event.getJobId())
                 .organizationName(event.getOrganizationName())
@@ -114,23 +113,27 @@ public class CreateJobSaga {
                 .toSalary(event.getToSalary())
                 .expiredAt(TimeHelper.convertToInstant(event.getExpiredAt()))
                 .requirements(event.getRequirements())
-                .build());
+                .build(), correlationId, causationId);
     }
 
     @KafkaListener(topics = Constant.KAFKA_TOPIC_JOB_EVENT,
             groupId = Constant.KAFKA_GROUP_ORCHESTRATION)
-    public void consume(JobProcessedEvent event) {
+    public void consume(JobProcessedEvent event,
+                        @Header(name = "correlationId", required = false) String correlationId,
+                        @Header(name = "causationId", required = false) String causationId) {
         on(JobEvent.JobProcessed.builder()
                 .jobId(event.getJobId())
-                .build());
+                .build(), correlationId, causationId);
     }
 
     @KafkaListener(topics = Constant.KAFKA_TOPIC_JOB_EVENT,
             groupId = Constant.KAFKA_GROUP_ORCHESTRATION)
-    public void consume(JobDeletedEvent event) {
+    public void consume(JobDeletedEvent event,
+                        @Header(name = "correlationId", required = false) String correlationId,
+                        @Header(name = "causationId", required = false) String causationId) {
         on(JobEvent.JobDeleted.builder()
                 .jobId(event.getJobId())
-                .build());
+                .build(), correlationId, causationId);
     }
 
 //    @KafkaListener(topics = Constant.KAFKA_TOPIC_NOTIFICATION_EVENT,

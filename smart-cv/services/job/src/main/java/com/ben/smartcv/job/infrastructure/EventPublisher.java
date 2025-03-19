@@ -9,8 +9,13 @@ import com.ben.smartcv.common.util.TimeHelper;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.kafka.clients.producer.ProducerRecord;
+import org.apache.kafka.common.header.internals.RecordHeader;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
+
+import java.nio.charset.StandardCharsets;
+import java.util.List;
 
 import static lombok.AccessLevel.PRIVATE;
 
@@ -37,11 +42,11 @@ public class EventPublisher {
                 .setToSalary(event.getToSalary())
                 .build();
 
-        jobCreatedEventTemplate.send(
-                Constant.KAFKA_TOPIC_JOB_EVENT,
-                event.getJobId(),
-                protoEvent
-        );
+        ProducerRecord<String, JobCreatedEvent> record = new ProducerRecord<>(
+                Constant.KAFKA_TOPIC_JOB_EVENT, null, event.getJobId(), protoEvent,
+                List.of(new RecordHeader("correlationId", event.getId().getBytes(StandardCharsets.UTF_8)),
+                        new RecordHeader("causationId", event.getId().getBytes(StandardCharsets.UTF_8))));
+        jobCreatedEventTemplate.send(record);
     }
 
     public void send(JobEvent.JobProcessed event) {
@@ -49,11 +54,11 @@ public class EventPublisher {
                 .setJobId(event.getJobId())
                 .build();
 
-        jobProcessedEventTemplate.send(
-                Constant.KAFKA_TOPIC_JOB_EVENT,
-                event.getJobId(),
-                protoEvent
-        );
+        ProducerRecord<String, JobProcessedEvent> record = new ProducerRecord<>(
+                Constant.KAFKA_TOPIC_JOB_EVENT, null, event.getJobId(), protoEvent,
+                List.of(new RecordHeader("correlationId", event.getId().getBytes(StandardCharsets.UTF_8)),
+                        new RecordHeader("causationId", event.getId().getBytes(StandardCharsets.UTF_8))));
+        jobProcessedEventTemplate.send(record);
     }
 
     public void send(JobEvent.JobDeleted event) {
@@ -61,10 +66,10 @@ public class EventPublisher {
                 .setJobId(event.getJobId())
                 .build();
 
-        jobDeletedEventTemplate.send(
-                Constant.KAFKA_TOPIC_JOB_EVENT,
-                event.getJobId(),
-                protoEvent
-        );
+        ProducerRecord<String, JobDeletedEvent> record = new ProducerRecord<>(
+                Constant.KAFKA_TOPIC_JOB_EVENT, null, event.getJobId(), protoEvent,
+                List.of(new RecordHeader("correlationId", event.getId().getBytes(StandardCharsets.UTF_8)),
+                        new RecordHeader("causationId", event.getId().getBytes(StandardCharsets.UTF_8))));
+        jobDeletedEventTemplate.send(record);
     }
 }

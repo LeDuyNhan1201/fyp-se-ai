@@ -88,7 +88,6 @@ public class JobEventHandler {
     public void on(JobEvent.JobDeleted event) {
         jobRepository.deleteById(event.getJobId());
         eventPublisher.send(event);
-        log.info("Job deleted event: {}", event.getJobId());
     }
 
     public void handleExceptionForJobDeletedEvent(Exception exception, JobEvent.JobDeleted event) {

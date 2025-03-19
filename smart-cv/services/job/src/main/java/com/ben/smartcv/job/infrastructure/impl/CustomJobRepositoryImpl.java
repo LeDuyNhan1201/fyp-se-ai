@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Range;
 import org.springframework.data.elasticsearch.client.elc.NativeQuery;
 import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
 import org.springframework.data.elasticsearch.core.SearchHitSupport;
@@ -35,6 +36,7 @@ public class CustomJobRepositoryImpl implements ICustomJobRepository {
             List<String> education,
             List<String> skills,
             List<String> experience,
+            Range<Double> salary,
             Pageable pageable) {
 
         Query searchQuery = buildSearchQuery(
@@ -42,7 +44,8 @@ public class CustomJobRepositoryImpl implements ICustomJobRepository {
                 position,
                 education,
                 skills,
-                experience
+                experience,
+                salary
         );
 
         SearchHits<Job> searchHits = elasticsearchOperations.search(searchQuery, Job.class);
@@ -54,31 +57,35 @@ public class CustomJobRepositoryImpl implements ICustomJobRepository {
             String position,
             List<String> education,
             List<String> skills,
-            List<String> experience) {
+            List<String> experience,
+            Range<Double> salary) {
 
         return NativeQuery.builder()
                 .withQuery(q -> q.bool(b -> {
-                    if (organizationName != null) {
-                        b.must(ElasticSearchHelper.matchQuery("organizationName", organizationName));
-                    }
-                    if (position != null) {
-                        b.must(ElasticSearchHelper.matchQuery("position", position));
-                    }
-                    if (education != null && !education.isEmpty()) {
-                        b.filter(ElasticSearchHelper.termsQuery("education.keyword", education));
-                    }
-                    if (skills != null && !skills.isEmpty()) {
-                        b.must(ElasticSearchHelper.termsQuery("skills.keyword", skills));
-                    }
-                    if (experience != null && !experience.isEmpty()) {
-                        b.must(ElasticSearchHelper.termsQuery("experience.keyword", experience));
-                    }
+//                    if (organizationName != null) {
+//                        b.must(ElasticSearchHelper.matchQuery("organizationName", organizationName));
+//                    }
+//                    if (position != null) {
+//                        b.must(ElasticSearchHelper.matchQuery("position", position));
+//                    }
+//                    if (education != null && !education.isEmpty()) {
+//                        b.filter(ElasticSearchHelper.termsQuery("education.keyword", education));
+//                    }
+//                    if (skills != null && !skills.isEmpty()) {
+//                        b.filter(ElasticSearchHelper.termsQuery("skills.keyword", skills));
+//                    }
+//                    if (experience != null && !experience.isEmpty()) {
+//                        b.filter(ElasticSearchHelper.termsQuery("experience.keyword", experience));
+//                    }
+//                    if (salary != null) {
+//                        b.must(ElasticSearchHelper.rangeQuery("salary", salary));
+//                    }
                     return b;
                 }))
-                .withAggregation("organizationNameAgg", Aggregation.of(a -> a
-                        .terms(ta -> ta.field("organizationName.keyword").size(10))))
-                .withAggregation("positionAgg", Aggregation.of(a -> a
-                        .terms(ta -> ta.field("position.keyword").size(10))))
+//                .withAggregation("organizationNameAgg", Aggregation.of(a -> a
+//                        .terms(ta -> ta.field("organizationName").size(10))))
+//                .withAggregation("positionAgg", Aggregation.of(a -> a
+//                        .terms(ta -> ta.field("position").size(10))))
                 .build();
     }
 

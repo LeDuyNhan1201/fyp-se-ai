@@ -7,8 +7,13 @@ import com.ben.smartcv.common.util.Constant;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.kafka.clients.producer.ProducerRecord;
+import org.apache.kafka.common.header.internals.RecordHeader;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
+
+import java.nio.charset.StandardCharsets;
+import java.util.List;
 
 import static lombok.AccessLevel.PRIVATE;
 
@@ -28,11 +33,11 @@ public class EventPublisher {
                 .setObjectKey(event.getObjectKey())
                 .build();
 
-        cvProcessedEventTemplate.send(
-                Constant.KAFKA_TOPIC_CV_EVENT,
-                event.getCvId(),
-                protoEvent
-        );
+        ProducerRecord<String, CvProcessedEvent> record = new ProducerRecord<>(
+                Constant.KAFKA_TOPIC_CV_EVENT, null, event.getCvId(), protoEvent,
+                List.of(new RecordHeader("correlationId", event.getId().getBytes(StandardCharsets.UTF_8)),
+                        new RecordHeader("causationId", event.getId().getBytes(StandardCharsets.UTF_8))));
+        cvProcessedEventTemplate.send(record);
     }
 
     public void send(CvEvent.CvDeleted event) {
@@ -40,10 +45,10 @@ public class EventPublisher {
                 .setCvId(event.getCvId())
                 .build();
 
-        cvDeletedEventTemplate.send(
-                Constant.KAFKA_TOPIC_CV_EVENT,
-                event.getCvId(),
-                protoEvent
-        );
+        ProducerRecord<String, CvDeletedEvent> record = new ProducerRecord<>(
+                Constant.KAFKA_TOPIC_CV_EVENT, null, event.getCvId(), protoEvent,
+                List.of(new RecordHeader("correlationId", event.getId().getBytes(StandardCharsets.UTF_8)),
+                        new RecordHeader("causationId", event.getId().getBytes(StandardCharsets.UTF_8))));
+        cvDeletedEventTemplate.send(record);
     }
 }

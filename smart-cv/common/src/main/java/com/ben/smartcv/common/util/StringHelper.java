@@ -21,4 +21,20 @@ public class StringHelper {
                 .replaceFirst("^.", fieldName.substring(0, 1).toUpperCase()); // Viết hoa chữ cái đầu
     }
 
+    public static String arrayToString(String[] array) {
+        if (array == null || array.length == 0) {
+            return "";
+        }
+        return String.join("|", array);
+    }
+
+    // Chuyển từ String thành String[]
+    public static String[] stringToArray(String str) {
+        if (str == null || str.isEmpty()) {
+            return new String[0];
+        }
+        return str.split("\\|");
+    }
+
+
 }

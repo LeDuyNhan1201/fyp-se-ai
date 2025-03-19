@@ -2,7 +2,7 @@ package com.ben.smartcv.job.domain.aggregate;
 
 import com.ben.smartcv.common.contract.command.JobCommand;
 import com.ben.smartcv.common.contract.event.JobEvent;
-import com.ben.smartcv.common.util.EventLogger;
+import com.ben.smartcv.common.util.LogHelper;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -10,13 +10,12 @@ import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.eventsourcing.EventSourcingHandler;
+import org.axonframework.messaging.annotation.MetaDataValue;
 import org.axonframework.messaging.interceptors.ExceptionHandler;
 import org.axonframework.modelling.command.AggregateIdentifier;
 import org.axonframework.spring.stereotype.Aggregate;
 
 import java.time.Instant;
-import java.util.Date;
-import java.util.Map;
 
 import static lombok.AccessLevel.PRIVATE;
 import static org.axonframework.modelling.command.AggregateLifecycle.apply;
@@ -47,7 +46,8 @@ public class JobAggregate {
     String requirements;
 
     @CommandHandler
-    public JobAggregate(JobCommand.CreateJob command) {
+    public JobAggregate(JobCommand.CreateJob command, @MetaDataValue("causationId") String causationId) {
+        LogHelper.logMessage(log, "CreateJob", command.getId(), causationId, command);
         apply(JobEvent.JobCreated.builder()
                 .id(command.getId())
                 .jobId(command.getJobId())
@@ -58,16 +58,11 @@ public class JobAggregate {
                 .expiredAt(command.getExpiredAt())
                 .requirements(command.getRequirements())
                 .build());
-
-        log.info(EventLogger.logCommand("CreateJob", command.getOrganizationName(),
-                Map.of("organizationName", command.getOrganizationName())));
     }
 
     @CommandHandler
-    public JobAggregate(JobCommand.ProcessJob command) {
-        log.info(EventLogger.logCommand("ProcessJob", command.getJobId(),
-                Map.of("jobId", command.getJobId())));
-
+    public JobAggregate(JobCommand.ProcessJob command, @MetaDataValue("causationId") String causationId) {
+        LogHelper.logMessage(log, "ProcessJob", command.getId(), causationId, command);
         apply(JobEvent.JobProcessed.builder()
                 .id(command.getId())
                 .jobId(command.getJobId())
@@ -75,10 +70,8 @@ public class JobAggregate {
     }
 
     @CommandHandler
-    public JobAggregate(JobCommand.RollbackProcessJob command) {
-        log.info(EventLogger.logCommand("RollbackProcessJob", command.getJobId(),
-                Map.of("jobId", command.getJobId())));
-
+    public JobAggregate(JobCommand.RollbackProcessJob command, @MetaDataValue("causationId") String causationId) {
+        LogHelper.logMessage(log, "RollbackProcessJob", command.getId(), causationId, command);
         apply(JobEvent.JobDeleted.builder()
                 .id(command.getId())
                 .jobId(command.getJobId())

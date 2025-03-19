@@ -2,16 +2,12 @@ package com.ben.smartcv.job.infrastructure;
 
 import co.elastic.clients.elasticsearch._types.FieldValue;
 import co.elastic.clients.elasticsearch._types.query_dsl.*;
+import org.springframework.data.domain.Range;
 
 import java.util.List;
-import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 public class ElasticSearchHelper {
-
-    public static Supplier<Query> matchAllSupplier() {
-        return () -> Query.of(q -> q.matchAll(new MatchAllQuery.Builder().build()));
-    }
 
     public static List<FieldValue> convertToFieldValues(List<String> values) {
         return values == null ? List.of() : values.stream().map(FieldValue::of).collect(Collectors.toList());
@@ -26,6 +22,12 @@ public class ElasticSearchHelper {
                 .terms(terms -> terms.value(values.stream()
                 .map(FieldValue::of)
                 .toList()))));
+    }
+
+    public static Query rangeQuery(String field, Range<Double> doubleRange) {
+        return Query.of(q -> q.range(r -> r.number(n -> n.field(field)
+                .gte(doubleRange.getLowerBound().getValue().orElse(0.0))
+                .lte(doubleRange.getLowerBound().getValue().orElse(99999999999999999999.0)))));
     }
 
 }

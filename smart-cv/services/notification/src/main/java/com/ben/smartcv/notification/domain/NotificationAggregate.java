@@ -1,7 +1,6 @@
 package com.ben.smartcv.notification.domain;
 
 import com.ben.smartcv.common.contract.command.NotificationCommand;
-import com.ben.smartcv.common.contract.event.CvEvent;
 import com.ben.smartcv.common.contract.event.NotificationEvent;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

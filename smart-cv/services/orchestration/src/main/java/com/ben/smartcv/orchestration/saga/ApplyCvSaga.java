@@ -8,11 +8,12 @@ import com.ben.smartcv.common.cv.CvDeletedEvent;
 import com.ben.smartcv.common.cv.CvFileDeletedEvent;
 import com.ben.smartcv.common.cv.CvProcessedEvent;
 import com.ben.smartcv.common.util.Constant;
-import com.ben.smartcv.common.util.EventLogger;
+import com.ben.smartcv.common.util.LogHelper;
 import com.ben.smartcv.orchestration.publisher.CommandPublisher;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.axonframework.commandhandling.gateway.CommandGateway;
+import org.axonframework.messaging.annotation.MetaDataValue;
 import org.axonframework.messaging.interceptors.ExceptionHandler;
 import org.axonframework.modelling.saga.EndSaga;
 import org.axonframework.modelling.saga.SagaEventHandler;
@@ -20,8 +21,8 @@ import org.axonframework.modelling.saga.StartSaga;
 import org.axonframework.spring.stereotype.Saga;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.messaging.handler.annotation.Header;
 
-import java.util.Map;
 import java.util.UUID;
 
 import static lombok.AccessLevel.PRIVATE;
@@ -41,11 +42,11 @@ public class ApplyCvSaga {
 
     @StartSaga
     @SagaEventHandler(associationProperty = ASSOCIATION_PROPERTY)
-    public void on(CvEvent.CvApplied event) {
+    public void on(CvEvent.CvApplied event,
+                   @MetaDataValue("correlationId") String correlationId,
+                   @MetaDataValue("causationId") String causationId) {
         // 5
-        log.info(EventLogger.logEvent("CvApplied",
-                event.getCvId(), event.getCvId(), Map.of("fileName", event.getFileName())));
-
+        LogHelper.logMessage(log, "CvApplied", correlationId, causationId, event);
         commandGateway.sendAndWait(CvCommand.ProcessCv.builder()
                 .id(UUID.randomUUID().toString())
                 .cvId(event.getCvId())
@@ -54,11 +55,11 @@ public class ApplyCvSaga {
 
     @EndSaga
     @SagaEventHandler(associationProperty = ASSOCIATION_PROPERTY)
-    public void on(CvEvent.CvProcessed event) {
+    public void on(CvEvent.CvProcessed event,
+                   @MetaDataValue("correlationId") String correlationId,
+                   @MetaDataValue("causationId") String causationId) {
         // 10
-        log.info(EventLogger.logEvent("CvProcessed",
-                event.getCvId(), event.getCvId(), Map.of("cvId", event.getCvId())));
-
+        LogHelper.logMessage(log, "CvProcessed", correlationId, causationId, event);
         commandGateway.sendAndWait(NotificationCommand.SendNotification.builder()
                 .id(UUID.randomUUID().toString())
                 .title("CV process successfully")
@@ -67,11 +68,11 @@ public class ApplyCvSaga {
     }
 
     @SagaEventHandler(associationProperty = ASSOCIATION_PROPERTY)
-    public void on(CvEvent.CvDeleted event) {
+    public void on(CvEvent.CvDeleted event,
+                   @MetaDataValue("correlationId") String correlationId,
+                   @MetaDataValue("causationId") String causationId) {
         // 6
-        log.info(EventLogger.logEvent("CvDeleted",
-                event.getCvId(), event.getCvId(), Map.of("cvId", event.getCvId())));
-
+        LogHelper.logMessage(log, "CvDeleted", correlationId, causationId, event);
         commandGateway.sendAndWait(CvCommand.DeleteCvFile.builder()
                 .id(UUID.randomUUID().toString())
                 .cvId(event.getCvId())
@@ -81,11 +82,11 @@ public class ApplyCvSaga {
 
     @EndSaga
     @SagaEventHandler(associationProperty = ASSOCIATION_PROPERTY)
-    public void on(CvEvent.CvFileDeleted event) {
+    public void on(CvEvent.CvFileDeleted event,
+                   @MetaDataValue("correlationId") String correlationId,
+                   @MetaDataValue("causationId") String causationId) {
         // 11
-        log.info(EventLogger.logEvent("CvFileDeleted",
-                event.getCvId(), event.getCvId(), Map.of("objectKey", event.getObjectKey())));
-
+        LogHelper.logMessage(log, "CvFileDeleted", correlationId, causationId, event);
         commandGateway.sendAndWait(NotificationCommand.SendNotification.builder()
                 .id(UUID.randomUUID().toString())
                 .title("CV Process Failed")
@@ -95,42 +96,50 @@ public class ApplyCvSaga {
 
     @KafkaListener(topics = Constant.KAFKA_TOPIC_CV_EVENT,
             groupId = Constant.KAFKA_GROUP_ORCHESTRATION)
-    public void consume(CvAppliedEvent event) {
+    public void consume(CvAppliedEvent event,
+                        @Header(name = "correlationId", required = false) String correlationId,
+                        @Header(name = "causationId", required = false) String causationId) {
         // 4
         on(CvEvent.CvApplied.builder()
                 .cvId(event.getCvId())
                 .fileName(event.getFileName())
-                .build());
+                .build(), correlationId, causationId);
     }
 
     @KafkaListener(topics = Constant.KAFKA_TOPIC_CV_EVENT,
             groupId = Constant.KAFKA_GROUP_ORCHESTRATION)
-    public void consume(CvProcessedEvent event) {
+    public void consume(CvProcessedEvent event,
+                        @Header(name = "correlationId", required = false) String correlationId,
+                        @Header(name = "causationId", required = false) String causationId) {
         // 9
         on(CvEvent.CvProcessed.builder()
                 .cvId(event.getCvId())
                 .objectKey(event.getObjectKey())
-                .build());
+                .build(), correlationId, causationId);
     }
 
     @KafkaListener(topics = Constant.KAFKA_TOPIC_CV_EVENT,
             groupId = Constant.KAFKA_GROUP_ORCHESTRATION)
-    public void consume(CvDeletedEvent event) {
+    public void consume(CvDeletedEvent event,
+                        @Header(name = "correlationId", required = false) String correlationId,
+                        @Header(name = "causationId", required = false) String causationId) {
         // 5
         on(CvEvent.CvDeleted.builder()
                 .cvId(event.getCvId())
                 .objectKey(event.getObjectKey())
-                .build());
+                .build(), correlationId, causationId);
     }
 
     @KafkaListener(topics = Constant.KAFKA_TOPIC_CV_EVENT,
             groupId = Constant.KAFKA_GROUP_ORCHESTRATION)
-    public void consume(CvFileDeletedEvent event) {
+    public void consume(CvFileDeletedEvent event,
+                        @Header(name = "correlationId", required = false) String correlationId,
+                        @Header(name = "causationId", required = false) String causationId) {
         // 10
         on(CvEvent.CvFileDeleted.builder()
                 .cvId(event.getCvId())
                 .objectKey(event.getObjectKey())
-                .build());
+                .build(), correlationId, causationId);
     }
 
     @ExceptionHandler(resultType = Exception.class, payloadType = CvEvent.CvApplied.class)

@@ -23,7 +23,7 @@ public class Translator {
         Translator.messageSource = messageSource;
     }
 
-    public static String getMessage(String messageKey, Object... args) {
+    public static String getMessage(String messageKey, String... args) {
         Locale locale = LocaleContextHolder.getLocale();
         try {
             return messageSource.getMessage(messageKey, args, locale);

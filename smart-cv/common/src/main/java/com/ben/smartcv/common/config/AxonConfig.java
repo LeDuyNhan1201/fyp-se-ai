@@ -44,6 +44,7 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.data.mongodb.MongoDatabaseFactory;
 
 import java.util.Arrays;
+import java.util.List;
 
 @Configuration
 @Slf4j
@@ -54,6 +55,7 @@ public class AxonConfig {
     public Serializer xStreamSerializer() {
         XStream xStream = new XStream();
         xStream.addPermission(AnyTypePermission.ANY);
+        xStream.addImmutableType(List.of().getClass(), false);
 
         return XStreamSerializer.builder()
                 .xStream(xStream)
@@ -143,13 +145,13 @@ public class AxonConfig {
 //        return commandBus;
 //    }
 
-    @Bean
-    public QueryBus configureQueryBus() {
-        QueryBus queryBus = SimpleQueryBus.builder().build();
+//    @Bean
+//    public QueryBus configureQueryBus() {
+//        QueryBus queryBus = SimpleQueryBus.builder().build();
 //        queryBus.registerDispatchInterceptor(new QueryLoggingInterceptor());
 //        queryBus.registerHandlerInterceptor(new QueryAuthorizationInterceptor());
-        return queryBus;
-    }
+//        return queryBus;
+//    }
 
     @Bean
     public EventBus configureEventBus(EventStorageEngine eventStorageEngine) {

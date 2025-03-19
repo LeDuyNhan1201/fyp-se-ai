@@ -2,7 +2,7 @@ package com.ben.smartcv.curriculum_vitae.domain.aggregate;
 
 import com.ben.smartcv.common.contract.command.CvCommand;
 import com.ben.smartcv.common.contract.event.CvEvent;
-import com.ben.smartcv.common.util.EventLogger;
+import com.ben.smartcv.common.util.LogHelper;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -10,6 +10,7 @@ import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.eventsourcing.EventSourcingHandler;
+import org.axonframework.messaging.annotation.MetaDataValue;
 import org.axonframework.messaging.interceptors.ExceptionHandler;
 import org.axonframework.modelling.command.AggregateIdentifier;
 import org.axonframework.spring.stereotype.Aggregate;
@@ -33,11 +34,9 @@ public class CvAggregate {
     String objectKey;
 
     @CommandHandler
-    public CvAggregate(CvCommand.ProcessCv command) {
+    public CvAggregate(CvCommand.ProcessCv command, @MetaDataValue("causationId") String causationId) {
         // 6
-        log.info(EventLogger.logCommand("ParseCv", command.getCvId(),
-                null));
-
+        LogHelper.logMessage(log, "ProcessCv", command.getId(), causationId, command);
         apply(CvEvent.CvProcessed.builder()
                 .id(command.getId())
                 .cvId(command.getCvId())
@@ -45,10 +44,9 @@ public class CvAggregate {
     }
 
     @CommandHandler
-    public CvAggregate(CvCommand.RollbackProcessCv command) {
+    public CvAggregate(CvCommand.RollbackProcessCv command, @MetaDataValue("causationId") String causationId) {
         // 2
-        log.info(EventLogger.logCommand("RollbackProcessCv", command.getCvId(),
-                null));
+        LogHelper.logMessage(log, "RollbackProcessCv", command.getId(), causationId, command);
         apply(CvEvent.CvDeleted.builder()
                 .id(command.getId())
                 .cvId(command.getCvId())
@@ -77,12 +75,12 @@ public class CvAggregate {
 
     @ExceptionHandler(resultType = Exception.class, payloadType = CvCommand.ProcessCv.class)
     public void handleExceptionForProcessCvCommand(Exception exception) {
-        log.error("IllegalStateException occurred when processed cv: {}", exception.getMessage());
+        log.error("Unexpected Exception occurred when processed cv: {}", exception.getMessage());
     }
 
     @ExceptionHandler(resultType = Exception.class, payloadType = CvCommand.RollbackProcessCv.class)
     public void handleExceptionForRollbackProcessCvCommand(Exception exception) {
-        log.error("IllegalStateException occurred when rolled back process cv: {}", exception.getMessage());
+        log.error("Unexpected Exception occurred when rolled back process cv: {}", exception.getMessage());
     }
 
 }

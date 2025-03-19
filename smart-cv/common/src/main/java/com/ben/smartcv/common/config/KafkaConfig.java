@@ -29,11 +29,11 @@ public class KafkaConfig {
                 Constant.KAFKA_TOPIC_CV_EVENT, 6, 1);
     }
 
-    @Bean
-    public NewTopic createCvCommandTopic() {
-        return KafkaHelper.createTopic(
-                Constant.KAFKA_TOPIC_CV_COMMAND, 6, 1);
-    }
+//    @Bean
+//    public NewTopic createCvCommandTopic() {
+//        return KafkaHelper.createTopic(
+//                Constant.KAFKA_TOPIC_CV_COMMAND, 6, 1);
+//    }
 
     @Bean
     public NewTopic createJobEventTopic() {
@@ -41,22 +41,22 @@ public class KafkaConfig {
                 Constant.KAFKA_TOPIC_JOB_EVENT, 6, 1);
     }
 
-    @Bean
-    public NewTopic createJobCommandTopic() {
-        return KafkaHelper.createTopic(
-                Constant.KAFKA_TOPIC_JOB_COMMAND, 6, 1);
-    }
+//    @Bean
+//    public NewTopic createJobCommandTopic() {
+//        return KafkaHelper.createTopic(
+//                Constant.KAFKA_TOPIC_JOB_COMMAND, 6, 1);
+//    }
 
-    @Bean
-    public NewTopic createNotificationCommandTopic() {
-        return KafkaHelper.createTopic(
-                Constant.KAFKA_TOPIC_NOTIFICATION_COMMAND, 6, 1);
-    }
-
-    @Bean
-    public NewTopic createNotificationEventTopic() {
-        return KafkaHelper.createTopic(
-                Constant.KAFKA_TOPIC_NOTIFICATION_EVENT, 6, 1);
-    }
+//    @Bean
+//    public NewTopic createNotificationCommandTopic() {
+//        return KafkaHelper.createTopic(
+//                Constant.KAFKA_TOPIC_NOTIFICATION_COMMAND, 6, 1);
+//    }
+//
+//    @Bean
+//    public NewTopic createNotificationEventTopic() {
+//        return KafkaHelper.createTopic(
+//                Constant.KAFKA_TOPIC_NOTIFICATION_EVENT, 6, 1);
+//    }
 
 }

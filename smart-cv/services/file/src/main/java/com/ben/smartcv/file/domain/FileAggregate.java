@@ -2,7 +2,7 @@ package com.ben.smartcv.file.domain;
 
 import com.ben.smartcv.common.contract.command.CvCommand;
 import com.ben.smartcv.common.contract.event.CvEvent;
-import com.ben.smartcv.common.util.EventLogger;
+import com.ben.smartcv.common.util.LogHelper;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -10,11 +10,10 @@ import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.eventsourcing.EventSourcingHandler;
+import org.axonframework.messaging.annotation.MetaDataValue;
 import org.axonframework.messaging.interceptors.ExceptionHandler;
 import org.axonframework.modelling.command.AggregateIdentifier;
 import org.axonframework.spring.stereotype.Aggregate;
-
-import java.util.Map;
 
 import static lombok.AccessLevel.PRIVATE;
 import static org.axonframework.modelling.command.AggregateLifecycle.apply;
@@ -35,11 +34,9 @@ public class FileAggregate {
     String objectKey;
 
     @CommandHandler
-    public FileAggregate(CvCommand.ApplyCv command) {
+    public FileAggregate(CvCommand.ApplyCv command, @MetaDataValue("causationId") String causationId) {
         // 1
-        log.info(EventLogger.logCommand("ApplyCv", command.getCvId(),
-                Map.of("fileName", command.getFileName())));
-
+        LogHelper.logMessage(log, "ApplyCv", command.getId(), causationId, command);
         apply(CvEvent.CvApplied.builder()
                 .id(command.getId())
                 .cvId(command.getCvId())
@@ -48,10 +45,9 @@ public class FileAggregate {
     }
 
     @CommandHandler
-    public FileAggregate(CvCommand.DeleteCvFile command) {
+    public FileAggregate(CvCommand.DeleteCvFile command, @MetaDataValue("causationId") String causationId) {
         // 7
-        log.info(EventLogger.logCommand("DeleteCvFile", command.getCvId(),
-                Map.of("objectKey", command.getObjectKey())));
+        LogHelper.logMessage(log, "DeleteCvFile", command.getId(), causationId, command);
         apply(CvEvent.CvFileDeleted.builder()
                 .id(command.getId())
                 .cvId(command.getCvId())
@@ -77,12 +73,12 @@ public class FileAggregate {
 
     @ExceptionHandler(resultType = Exception.class, payloadType = CvCommand.ApplyCv.class)
     public void handleExceptionForApplyCvCommand(Exception exception) {
-        log.error("IllegalStateException occurred: {}", exception.getMessage());
+        log.error("Unexpected Exception occurred when applying cv: {}", exception.getMessage());
     }
 
     @ExceptionHandler(resultType = Exception.class, payloadType = CvCommand.DeleteCvFile.class)
     public void handleExceptionForDeleteCvFileCommand(Exception exception) {
-        log.error("IllegalStateException occurred: {}", exception.getMessage());
+        log.error("Unexpected Exception occurred when deleting cv file: {}", exception.getMessage());
     }
 
 }

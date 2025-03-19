@@ -5,6 +5,7 @@ import lombok.Getter;
 @Getter
 public enum JobError {
     CAN_NOT_SAVE_JOB("job/can-not-save-job", "ErrorMsg.canNotSaveJob"),
+    INVALID_SALARY_RANGE("job/invalid-salary-range", "ErrorMsg.invalidSalaryRange"),
     ;
 
     JobError(String code, String message) {

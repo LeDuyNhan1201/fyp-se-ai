@@ -1,4 +1,4 @@
-package com.ben.smartcv.job.application.dto;
+package com.ben.smartcv.common.contract.model;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -6,12 +6,11 @@ import lombok.experimental.FieldDefaults;
 import org.springframework.data.domain.Range;
 
 import java.time.Instant;
-import java.util.Date;
 import java.util.List;
 
 import static lombok.AccessLevel.PRIVATE;
 
-public class ResponseDto {
+public class JobModel {
 
     @Getter
     @Builder
