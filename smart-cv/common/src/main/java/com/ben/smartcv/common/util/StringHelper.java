@@ -1,5 +1,10 @@
 package com.ben.smartcv.common.util;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class StringHelper {
 
     public static String convertToUpperHyphen(String input) {
@@ -21,20 +26,20 @@ public class StringHelper {
                 .replaceFirst("^.", fieldName.substring(0, 1).toUpperCase()); // Viết hoa chữ cái đầu
     }
 
-    public static String arrayToString(String[] array) {
-        if (array == null || array.length == 0) {
+    public static String listToString(List<String> list) {
+        if (list == null || list.isEmpty()) {
             return "";
         }
-        return String.join("|", array);
+        return String.join("|", list);
     }
 
-    // Chuyển từ String thành String[]
-    public static String[] stringToArray(String str) {
+    // Chuyển từ String thành List<String>
+    public static List<String> stringToList(String str) {
         if (str == null || str.isEmpty()) {
-            return new String[0];
+            return Collections.emptyList();
         }
-        return str.split("\\|");
+        return Arrays.stream(str.split("\\|"))
+                .collect(Collectors.toList());
     }
-
 
 }

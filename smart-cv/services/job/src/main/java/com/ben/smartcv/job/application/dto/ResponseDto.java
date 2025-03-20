@@ -3,10 +3,8 @@ package com.ben.smartcv.job.application.dto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.experimental.FieldDefaults;
-import org.springframework.data.domain.Range;
 
 import java.time.Instant;
-import java.util.Date;
 import java.util.List;
 
 import static lombok.AccessLevel.PRIVATE;
@@ -34,7 +32,9 @@ public class ResponseDto {
 
         List<String> experience;
 
-        Range<Double> salary;
+        Double fromSalary;
+
+        Double toSalary;
 
         Instant expiredAt;
 

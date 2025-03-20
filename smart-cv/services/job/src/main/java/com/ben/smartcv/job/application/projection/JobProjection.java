@@ -13,7 +13,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Range;
 import org.springframework.data.elasticsearch.core.SearchHit;
-import org.springframework.data.elasticsearch.core.SearchPage;
+import org.springframework.data.elasticsearch.core.SearchHits;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -31,30 +31,35 @@ public class JobProjection {
     ICustomJobRepository jobRepository;
 
     @QueryHandler
-    public ResponseDto.JobDescriptions handle(JobQuery.GetAllJobs query) {
+    public List<ResponseDto.JobDescription> handle(JobQuery.GetAllJobs query) {
         List<ResponseDto.JobDescription> jobDescriptions = getAllJobs(
-                query.getOrganizationName(),
-                query.getPosition(),
-                Optional.of(StringHelper.stringToArray(query.getEducation())).map(List::of).orElse(null),
-                Optional.of(StringHelper.stringToArray(query.getSkills())).map(List::of).orElse(null),
-                Optional.of(StringHelper.stringToArray(query.getExperience())).map(List::of).orElse(null),
-                query.getSalary(),
-                query.getPage(),
-                query.getSize()
-        ).stream()
-                .map(job -> ResponseDto.JobDescription.builder()
-                        .id(job.getId())
-                        .organizationName(job.getOrganizationName())
-                        .position(job.getPosition())
-                        .expiredAt(job.getExpiredAt())
-                        .salary(job.getSalary())
-                        .build())
-                .toList();
-        
-        ResponseDto.JobDescriptions result = ResponseDto.JobDescriptions.builder()
-                .jobDescriptions(jobDescriptions)
-                .build();
-        return result;
+                                query.getOrganizationName(),
+                                query.getPosition(),
+                                Optional.of(StringHelper.stringToList(query.getEducation())).orElse(null),
+                                Optional.of(StringHelper.stringToList(query.getSkills())).orElse(null),
+                                Optional.of(StringHelper.stringToList(query.getExperience())).orElse(null),
+                                query.getSalary(),
+                                query.getPage(),
+                                query.getSize()
+                        )
+                        .stream()
+                        .map(job -> ResponseDto.JobDescription.builder()
+                                .id(job.getId())
+                                .organizationName(job.getOrganizationName())
+                                .email(job.getEmail())
+                                .phone(job.getPhone())
+                                .position(job.getPosition())
+                                .skills(job.getSkills())
+                                .education(job.getEducation())
+                                .experience(job.getExperience())
+                                .expiredAt(job.getExpiredAt())
+                                .fromSalary(job.getSalary().getLowerBound().getValue().get())
+                                .toSalary(job.getSalary().getUpperBound().getValue().get())
+                                .build()
+                        )
+                        .toList();
+
+        return jobDescriptions;
     }
 
     public List<Job> getAllJobs(
@@ -67,10 +72,10 @@ public class JobProjection {
             int page,
             int size) {
         Pageable pageable = PageRequest.of(page, size);
-        SearchPage<Job> searchHits = jobRepository.findAll(
+        SearchHits<Job> searchHits = jobRepository.findAll(
                 organizationName, position, education, skills, experience, salary, pageable);
 
-        return searchHits.getSearchHits().stream()
+        return searchHits.stream()
                 .map(SearchHit::getContent)
                 .collect(Collectors.toList());
     }

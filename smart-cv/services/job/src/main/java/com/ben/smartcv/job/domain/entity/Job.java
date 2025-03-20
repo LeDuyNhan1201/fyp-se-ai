@@ -6,10 +6,7 @@ import lombok.experimental.FieldDefaults;
 import org.springframework.data.annotation.*;
 import org.springframework.data.domain.Persistable;
 import org.springframework.data.domain.Range;
-import org.springframework.data.elasticsearch.annotations.DateFormat;
-import org.springframework.data.elasticsearch.annotations.Document;
-import org.springframework.data.elasticsearch.annotations.Field;
-import org.springframework.data.elasticsearch.annotations.FieldType;
+import org.springframework.data.elasticsearch.annotations.*;
 
 import java.time.Instant;
 import java.util.List;
@@ -27,32 +24,41 @@ public class Job implements Persistable<String> {
     String id;
 
     @CreatedBy
-    @Field(type = FieldType.Keyword)
+    @Field(name = "created_by", type = FieldType.Keyword)
     String createdBy;
 
     @CreatedDate
-    @Field(type = FieldType.Date, format = DateFormat.basic_date_time)
+    @Field(name = "created_at", type = FieldType.Date, format = DateFormat.basic_date_time)
     Instant createdAt;
 
     @LastModifiedBy
-    @Field(type = FieldType.Keyword)
+    @Field(name = "updated_by", type = FieldType.Keyword)
     String updatedBy;
 
     @LastModifiedDate
-    @Field(type = FieldType.Date, format = DateFormat.basic_date_time)
+    @Field(name = "updated_at", type = FieldType.Date, format = DateFormat.basic_date_time)
     Instant updatedAt;
 
-    @Field(type = FieldType.Boolean)
+    @Field(name = "is_deleted", type = FieldType.Boolean)
     Boolean isDeleted = false;
 
-    @Field(type = FieldType.Keyword)
+    @Field(name = "deleted_by", type = FieldType.Keyword)
     String deletedBy;
 
-    @Field(type = FieldType.Date, format = DateFormat.basic_date_time)
+    @Field(name = "deleted_at", type = FieldType.Date, format = DateFormat.basic_date_time)
     Instant deletedAt;
+//
+//    @Version
+//    @Field(name = "version", type = FieldType.Version)
+//    Long version;
 
     @NotNull
-    @Field(name = "organization_name", type = FieldType.Text)
+    @MultiField(
+            mainField = @Field(type = FieldType.Text, fielddata = true),
+            otherFields = {
+                    @InnerField(suffix = "verbatim", type = FieldType.Keyword)
+            }
+    )
     String organizationName;
 
     @Field(name = "email", type = FieldType.Text)
