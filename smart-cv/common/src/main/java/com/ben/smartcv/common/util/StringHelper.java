@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class StringHelper {
+public final class StringHelper {
 
     public static String convertToUpperHyphen(String input) {
         StringBuilder result = new StringBuilder();

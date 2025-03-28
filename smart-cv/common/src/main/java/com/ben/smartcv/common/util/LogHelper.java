@@ -3,7 +3,7 @@ package com.ben.smartcv.common.util;
 import org.slf4j.Logger;
 import java.time.Instant;
 
-public class LogHelper {
+public final class LogHelper {
 
     public static String logEvent(String eventName, String correlationId, String causationId, Object payload) {
         String logMessage = String.format(

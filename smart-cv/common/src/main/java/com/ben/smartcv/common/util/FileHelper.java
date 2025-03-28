@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.UUID;
 
-public class FileHelper {
+public final class FileHelper {
 
     public static String generateFileName(String fileType, String extension) {
         // Lấy thời gian hiện tại với format yyyyMMdd_HHmmss

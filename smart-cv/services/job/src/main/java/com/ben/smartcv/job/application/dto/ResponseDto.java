@@ -4,7 +4,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.experimental.FieldDefaults;
 
-import java.time.Instant;
+import java.time.OffsetDateTime;
 import java.util.List;
 
 import static lombok.AccessLevel.PRIVATE;
@@ -36,16 +36,15 @@ public class ResponseDto {
 
         Double toSalary;
 
-        Instant expiredAt;
+        OffsetDateTime expiredAt;
 
-    }
+        OffsetDateTime createdAt;
 
-    @Getter
-    @Builder
-    @FieldDefaults(level = PRIVATE)
-    public static class JobDescriptions {
+        Integer page;
 
-        List<JobDescription> jobDescriptions;
+        Integer size;
+
+        Integer totalPages;
 
     }
 

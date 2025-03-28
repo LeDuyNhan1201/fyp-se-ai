@@ -3,7 +3,11 @@ package com.ben.smartcv.common.util;
 import io.grpc.Context;
 import io.grpc.Metadata;
 
-public class Constant {
+public final class Constant {
+
+    public static final String DEFAULT_PAGE_SIZE = "10";
+
+    public static final String DEFAULT_PAGE_NUMBER = "0";
 
     public static final String KAFKA_TOPIC_USER_EVENT = "user.events";
 

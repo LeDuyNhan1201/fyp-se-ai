@@ -164,3 +164,14 @@ Ecology
 Conservation Biology
 Wildlife Biology
 Zoology
+Embedded Systems
+Electronics
+Computer Vision
+Mechatronics
+Automation
+IoT
+Automotive Engineering
+Bachelor
+Master
+PhD
+AI

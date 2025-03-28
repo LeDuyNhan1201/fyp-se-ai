@@ -30,6 +30,12 @@ public class CommandController {
     CommandGateway commandGateway;
 
     @Operation(summary = "Create JD", description = "API to Create new job description")
+//    @ApiResponses(value = {
+//            @ApiResponse(responseCode = "common/no-content", description = "No content", content = @Content()),
+//            @ApiResponse(responseCode = "", description = ApiConstant.NOT_FOUND,
+//                    content = @Content(schema = @Schema(implementation = ErrorVm.class))),
+//            @ApiResponse(responseCode = "400", description = "Can not save job",
+//                    content = @Content(schema = @Schema(implementation = ErrorVm.class)))})
     @PostMapping
     @ResponseStatus(OK)
     public ResponseEntity<BaseResponse<?, ?>> createJob(@RequestBody @Valid RequestDto.CreateJobDescription request) {
@@ -55,7 +61,7 @@ public class CommandController {
             commandGateway.sendAndWait(command);
 
             return ResponseEntity.status(OK).body(BaseResponse.builder().message(
-                    Translator.getMessage("SuccessMsg.Created", "New job " + jobId)).build());
+                    Translator.getMessage("SuccessMsg.Created", "New job")).build());
 
         } catch (Exception e) {
             log.error("Error: ", e);

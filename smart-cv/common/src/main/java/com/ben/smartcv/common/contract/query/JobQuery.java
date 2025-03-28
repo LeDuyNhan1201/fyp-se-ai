@@ -4,6 +4,8 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.springframework.data.domain.Range;
 
+import java.util.List;
+
 import static lombok.AccessLevel.PRIVATE;
 
 public class JobQuery {
@@ -17,11 +19,11 @@ public class JobQuery {
 
         String position;
 
-        String education;
+        List<String> education;
 
-        String skills;
+        List<String> skills;
 
-        String experience;
+        List<String> experience;
 
         Range<Double> salary;
 

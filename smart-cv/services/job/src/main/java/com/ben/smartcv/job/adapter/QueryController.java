@@ -1,7 +1,7 @@
 package com.ben.smartcv.job.adapter;
 
+import com.ben.smartcv.common.contract.dto.PageResponse;
 import com.ben.smartcv.common.contract.query.JobQuery;
-import com.ben.smartcv.common.util.StringHelper;
 import com.ben.smartcv.job.application.dto.ResponseDto;
 import com.ben.smartcv.job.application.exception.JobError;
 import com.ben.smartcv.job.application.exception.JobHttpException;
@@ -30,7 +30,7 @@ public class QueryController {
     QueryGateway queryGateway;
 
     @QueryMapping
-    public List<ResponseDto.JobDescription> searchJobs(
+    public PageResponse<ResponseDto.JobDescription> searchJobs(
             @Argument String organizationName,
             @Argument String position,
             @Argument List<String> education,
@@ -52,9 +52,9 @@ public class QueryController {
         JobQuery.GetAllJobs query = JobQuery.GetAllJobs.builder()
                 .organizationName(organizationName)
                 .position(position)
-                .education(StringHelper.listToString(education))
-                .skills(StringHelper.listToString(skills))
-                .experience(StringHelper.listToString(experience))
+                .education(education)
+                .skills(skills)
+                .experience(experience)
                 .salary(fromSalary == null ? null : Range.closed(fromSalary, toSalary))
                 .page(Optional.ofNullable(page).orElse(1))
                 .size(Optional.ofNullable(size).orElse(10))
@@ -63,7 +63,13 @@ public class QueryController {
         List<ResponseDto.JobDescription> result =
                 queryGateway.query(query, ResponseTypes.multipleInstancesOf(ResponseDto.JobDescription.class)).join();
 
-        return result;
+        PageResponse<ResponseDto.JobDescription> pageResponse = PageResponse.<ResponseDto.JobDescription>builder()
+                .items(result)
+                .page(!result.isEmpty() ? result.getFirst().getPage() : 1)
+                .size(!result.isEmpty() ? result.getFirst().getSize() : 10)
+                .totalPages(!result.isEmpty() ? result.getFirst().getTotalPages() : 1)
+                .build();
+        return pageResponse;
     }
 
 }

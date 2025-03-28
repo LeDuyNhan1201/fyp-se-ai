@@ -1,7 +1,9 @@
 package com.ben.smartcv.job.application.projection;
 
+import com.ben.smartcv.common.contract.dto.PageResponse;
 import com.ben.smartcv.common.contract.query.JobQuery;
 import com.ben.smartcv.common.util.StringHelper;
+import com.ben.smartcv.common.util.TimeHelper;
 import com.ben.smartcv.job.application.dto.ResponseDto;
 import com.ben.smartcv.job.domain.entity.Job;
 import com.ben.smartcv.job.infrastructure.ICustomJobRepository;
@@ -14,8 +16,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Range;
 import org.springframework.data.elasticsearch.core.SearchHit;
 import org.springframework.data.elasticsearch.core.SearchHits;
+import org.springframework.data.elasticsearch.core.SearchPage;
 import org.springframework.stereotype.Component;
 
+import java.time.ZoneOffset;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -32,17 +36,19 @@ public class JobProjection {
 
     @QueryHandler
     public List<ResponseDto.JobDescription> handle(JobQuery.GetAllJobs query) {
-        List<ResponseDto.JobDescription> jobDescriptions = getAllJobs(
-                                query.getOrganizationName(),
-                                query.getPosition(),
-                                Optional.of(StringHelper.stringToList(query.getEducation())).orElse(null),
-                                Optional.of(StringHelper.stringToList(query.getSkills())).orElse(null),
-                                Optional.of(StringHelper.stringToList(query.getExperience())).orElse(null),
-                                query.getSalary(),
-                                query.getPage(),
-                                query.getSize()
-                        )
+        SearchPage<Job> searchPage = getAllJobs(
+                query.getOrganizationName(),
+                query.getPosition(),
+                query.getEducation(),
+                query.getSkills(),
+                query.getExperience(),
+                query.getSalary(),
+                query.getPage(),
+                query.getSize()
+        );
+        List<ResponseDto.JobDescription> jobDescriptions = searchPage
                         .stream()
+                        .map(SearchHit::getContent)
                         .map(job -> ResponseDto.JobDescription.builder()
                                 .id(job.getId())
                                 .organizationName(job.getOrganizationName())
@@ -52,17 +58,21 @@ public class JobProjection {
                                 .skills(job.getSkills())
                                 .education(job.getEducation())
                                 .experience(job.getExperience())
-                                .expiredAt(job.getExpiredAt())
+                                .expiredAt(TimeHelper.convertToOffsetDateTime(job.getExpiredAt(), ZoneOffset.UTC))
+                                .createdAt(TimeHelper.convertToOffsetDateTime(job.getCreatedAt(), ZoneOffset.UTC))
                                 .fromSalary(job.getSalary().getLowerBound().getValue().get())
                                 .toSalary(job.getSalary().getUpperBound().getValue().get())
+
+                                .page(searchPage.getNumber() + 1)
+                                .size(searchPage.getSize())
+                                .totalPages(searchPage.getTotalPages())
                                 .build()
                         )
                         .toList();
-
         return jobDescriptions;
     }
 
-    public List<Job> getAllJobs(
+    public SearchPage<Job> getAllJobs(
             String organizationName,
             String position,
             List<String> education,
@@ -71,13 +81,10 @@ public class JobProjection {
             Range<Double> salary,
             int page,
             int size) {
-        Pageable pageable = PageRequest.of(page, size);
-        SearchHits<Job> searchHits = jobRepository.findAll(
+        Pageable pageable = PageRequest.of(page - 1, size);
+        SearchPage<Job> result = jobRepository.findAll(
                 organizationName, position, education, skills, experience, salary, pageable);
-
-        return searchHits.stream()
-                .map(SearchHit::getContent)
-                .collect(Collectors.toList());
+        return result;
     }
 
 }

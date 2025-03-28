@@ -1,33 +1,56 @@
 package com.ben.smartcv.job.infrastructure;
 
-import co.elastic.clients.elasticsearch._types.FieldValue;
-import co.elastic.clients.elasticsearch._types.query_dsl.*;
-import org.springframework.data.domain.Range;
+import co.elastic.clients.elasticsearch._types.query_dsl.BoolQuery;
+import co.elastic.clients.elasticsearch._types.query_dsl.Query;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
-public class ElasticSearchHelper {
+public final class ElasticSearchHelper {
 
-    public static List<FieldValue> convertToFieldValues(List<String> values) {
-        return values == null ? List.of() : values.stream().map(FieldValue::of).collect(Collectors.toList());
+    public static void extractedTermFilter(String fieldName, String fieldValue, BoolQuery.Builder b) {
+        if (fieldValue == null || fieldValue.isEmpty()) {
+            return;
+        }
+        b.must(m -> m
+                .term(t -> t
+                        .field(fieldName)
+                        .value(fieldValue)
+                        .caseInsensitive(true)
+                )
+        );
     }
 
-    public static Query matchQuery(String field, String value) {
-        return Query.of(q -> q.match(m -> m.field(field).query(value)));
+    public static void extractedTermsFilter(String fieldName, List<String> fieldValues, BoolQuery.Builder b) {
+        if (fieldValues.isEmpty()) {
+            return;
+        }
+        b.must(m -> {
+            BoolQuery.Builder innerBool = new BoolQuery.Builder();
+            for (String value : fieldValues) {
+                innerBool.should(s -> s
+                        .term(t -> t
+                                .field(fieldName)
+                                .value(value)
+                                .caseInsensitive(true)
+                        )
+                );
+            }
+            return new Query.Builder().bool(innerBool.build());
+        });
     }
 
-    public static Query termsQuery(String field, List<String> values) {
-        return Query.of(q -> q.terms(t -> t.field(field)
-                .terms(terms -> terms.value(values.stream()
-                .map(FieldValue::of)
-                .toList()))));
-    }
-
-    public static Query rangeQuery(String field, Range<Double> doubleRange) {
-        return Query.of(q -> q.range(r -> r.number(n -> n.field(field)
-                .gte(doubleRange.getLowerBound().getValue().orElse(0.0))
-                .lte(doubleRange.getLowerBound().getValue().orElse(99999999999999999999.0)))));
+    public static void extractedRange(String fieldName, Number min, Number max, BoolQuery.Builder bool) {
+        if (min != null || max != null) {
+            bool.must(m -> m
+                    .range(r -> r
+                            .term(t -> t
+                                    .field(fieldName)
+                                    .from(min != null ? min.toString() : null)
+                                    .to(max != null ? max.toString() : null)
+                            )
+                    )
+            );
+        }
     }
 
 }

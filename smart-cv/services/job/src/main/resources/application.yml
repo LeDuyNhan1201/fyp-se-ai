@@ -9,6 +9,9 @@ server:
       force-request: true
       force-response: true
 
+cors:
+  allowed-origins: "*"
+
 # --------- Gateway ---------
 gateway:
   domain: localhost
@@ -39,6 +42,15 @@ openapi:
     version: 1.0.0
     server-url: http://localhost:${server.port}${server.servlet.context-path}
     server-description: Smart CV Job Service APIs For Development
+
+# --------- Logging ---------
+logging:
+  pattern:
+    correlation: "[${spring.application.name:}, %X{traceId:-}, %X{spanId:-}]"
+#  level:
+#    org:
+#      springframework:
+#        security: DEBUG
 
 # --------- Metrics & Monitoring ---------
 management:

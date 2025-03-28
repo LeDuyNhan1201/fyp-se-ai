@@ -4,7 +4,6 @@ import com.ben.smartcv.common.component.Translator;
 import com.ben.smartcv.common.contract.dto.BaseResponse;
 import com.ben.smartcv.common.util.LogHelper;
 import com.ben.smartcv.job.adapter.CommandController;
-import com.ben.smartcv.job.adapter.QueryController;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.Ordered;
@@ -16,10 +15,10 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import java.util.HashMap;
 import java.util.Map;
 
-@RestControllerAdvice(assignableTypes = { CommandController.class, QueryController.class })
+@RestControllerAdvice(assignableTypes = { CommandController.class })
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @Slf4j
-public class JobHttpExceptionHandler {
+public class JobRestExceptionHandler {
 
     @Value("${spring.application.name}")
     private String microserviceName;

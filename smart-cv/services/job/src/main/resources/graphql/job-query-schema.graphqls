@@ -16,6 +16,13 @@ type JobDescription {
     expiredAt: DateTime!
 }
 
+type Page {
+    items: [JobDescription]!
+    page: Int!
+    size: Int!
+    totalPages: Int!
+}
+
 type Query {
     searchJobs(
         organizationName: String
@@ -27,5 +34,5 @@ type Query {
         toSalary: Float
         page: Int
         size: Int
-    ): [JobDescription!]!
+    ): Page!
 }
