@@ -5,6 +5,7 @@ import { getCookie, setCookie } from "cookies-next";
 import { jwtDecode } from "jwt-decode";
 import { accessTokenPayloadSchema } from "./schemas/tokens.schema";
 import { refreshTokenApi } from "./apis/authentication.api";
+import { FieldValues, Path, UseFormSetError } from "react-hook-form";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
@@ -16,6 +17,23 @@ export function formatDate(date: string) {
     day: "numeric",
     year: "numeric",
   });
+}
+
+export function mapFieldErrorToFormError<T extends FieldValues>(
+  setError: UseFormSetError<T>,
+  errors: Record<string, string[] | string>,
+) {
+  for (const [field, messages] of Object.entries(errors)) {
+    if (Array.isArray(messages)) {
+      return setError(field as unknown as Path<T>, {
+        message: messages.join(", "),
+      });
+    }
+
+    setError(field as unknown as Path<T>, {
+      message: messages,
+    });
+  }
 }
 
 export async function getAccessToken(): Promise<string | null> {

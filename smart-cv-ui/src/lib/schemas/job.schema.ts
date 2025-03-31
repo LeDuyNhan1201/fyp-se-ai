@@ -1,5 +1,10 @@
 import { z } from "zod";
-import { unauthorizedErrorResponseSchema } from "./errors.schema";
+import {
+  unauthorizedErrorResponseSchema,
+  validationErrorResponseSchema,
+  forbiddenErrorResponseSchema,
+  resourceNotFoundErrorResponseSchema,
+} from "./errors.schema";
 
 export const jobDescriptionSchema = z.object({
   id: z.string().uuid(),
@@ -17,37 +22,57 @@ export const jobDescriptionSchema = z.object({
 });
 export type JobDescriptionSchema = z.infer<typeof jobDescriptionSchema>;
 
-export const searchJobQuerySchema = z.object({
+export const searchJobsSchema = z.object({
   organizationName: z.string().optional().nullable().default(null),
   position: z.string().optional().nullable().default(null),
-  education: z.array(z.string()).optional().nullable().default([]),
-  skills: z.array(z.string()).optional().nullable().default([]),
-  experience: z.array(z.string()).optional().nullable().default([]),
+  education: z.array(z.string()).optional().default([]),
+  skills: z.array(z.string()).optional().default([]),
+  experience: z.array(z.string()).optional().default([]),
   fromSalary: z.number().optional().nullable().default(null),
   toSalary: z.number().optional().nullable().default(null),
   page: z.number().int().positive().optional().nullable().default(1),
   size: z.number().int().positive().optional().nullable().default(3),
 });
-export type SearchJobQuerySchema = z.infer<typeof searchJobQuerySchema>;
+export type SearchJobsSchema = z.infer<typeof searchJobsSchema>;
 
 export const searchJobsByUserParamsSchema = z.object({
   userId: z.string().uuid(),
 });
 export type SearchJobsByUserParamsSchema = z.infer<typeof searchJobsByUserParamsSchema>;
 
-export const getJobsResponseSchema = z.object({
+export const searchJobsResponseSchema = z.object({
   items: z.array(jobDescriptionSchema).default([]),
   page: z.number().int().positive().default(1),
-  size: z.number().int().positive().default(10),
+  size: z.number().int().positive().default(3),
   totalPages: z.number().positive().default(1),
 
 });
-export type GetJobsResponseSchema = z.infer<typeof getJobsResponseSchema>;
+export type SearchJobsResponseSchema = z.infer<typeof searchJobsResponseSchema>;
 
-export const getTimelinePostsErrorResponseSchema = z.discriminatedUnion(
+export const createJobSchema = z.object({
+  organizationName: z.string(),
+  position: z.string(),
+  fromSalary: z.number(),
+  toSalary: z.number(),
+  expiredAt: z.string().datetime(),
+  details: z.string().max(300),
+});
+export type CreateJobSchema = z.infer<typeof createJobSchema>;
+
+export const createJobResponseSchema = z.object({
+  message: z.string(),
+});
+export type CreateJobResponseSchema = z.infer<typeof createJobResponseSchema>;
+
+export const jobErrorResponseSchema = z.discriminatedUnion(
   "type",
-  [unauthorizedErrorResponseSchema],
+  [
+    unauthorizedErrorResponseSchema,
+    validationErrorResponseSchema,
+    forbiddenErrorResponseSchema,
+    resourceNotFoundErrorResponseSchema,
+  ],
 );
-export type GetTimelinePostsErrorResponseSchema = z.infer<typeof getTimelinePostsErrorResponseSchema>;
+export type JobErrorResponseSchema = z.infer<typeof jobErrorResponseSchema>;
 
 

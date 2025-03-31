@@ -37,9 +37,9 @@ export function JobDescriptionCard({ job }: { job: JobDescriptionSchema }) {
       </div>
 
       <Link href={`/job/${id}`}>
-        <p className="startup-card_desc">{skills}</p>
-        <p className="startup-card_desc">{experience}</p>
-        <p className="startup-card_desc">{education}</p>
+        <p className="startup-card_desc">{skills?.join(", ")}</p>
+        <p className="startup-card_desc">{experience?.join(", ")}</p>
+        <p className="startup-card_desc">{education?.join(", ")}</p>
         <p className="startup-card_desc">{fromSalary}</p>
         <p className="startup-card_desc">{toSalary}</p>
       </Link>

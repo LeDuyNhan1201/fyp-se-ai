@@ -1,11 +1,11 @@
 "use client";
 
 import React, { useState } from "react";
-import { useSearchJobs } from "@/hooks/queries/search-jobs.query";
+import { useSearchJobs } from "@/hooks/queries/job.query";
 import { JobDescriptionCard } from "@/components/Job-description-card";
 import {
-  searchJobQuerySchema,
-  SearchJobQuerySchema
+  searchJobsSchema,
+  SearchJobsSchema
 } from "@/lib/schemas/job.schema";
 import {
   Pagination,
@@ -17,8 +17,8 @@ import {
 import JobSearchForm from "./search-jobs-form";
 
 const JobList = () => {
-  const [filters, setFilters] = useState<SearchJobQuerySchema>(
-    searchJobQuerySchema.parse({})
+  const [filters, setFilters] = useState<SearchJobsSchema>(
+    searchJobsSchema.parse({})
   );
 
   const { loading, error, data, goToPage } = useSearchJobs(filters);

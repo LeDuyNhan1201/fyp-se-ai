@@ -1,8 +1,8 @@
 import { gql, useQuery } from "@apollo/client";
 import {
-  searchJobQuerySchema,
-  SearchJobQuerySchema,
-  getJobsResponseSchema
+  searchJobsSchema,
+  SearchJobsSchema,
+  searchJobsResponseSchema
 } from "../../lib/schemas/job.schema";
 
 export const SEARCH_JOBS_QUERY = gql`
@@ -49,8 +49,8 @@ export const SEARCH_JOBS_QUERY = gql`
   }
 `;
 
-export const useSearchJobs = (filters: SearchJobQuerySchema) => {
-  const validatedFilters = searchJobQuerySchema.parse(filters);
+export const useSearchJobs = (filters: SearchJobsSchema) => {
+  const validatedFilters = searchJobsSchema.parse(filters);
   const { loading, error, data, refetch } = useQuery(SEARCH_JOBS_QUERY, {
     variables: validatedFilters,
     notifyOnNetworkStatusChange: true,
@@ -61,7 +61,7 @@ export const useSearchJobs = (filters: SearchJobQuerySchema) => {
   if (!data || !data.searchJobs)
     return { loading, error: null, data: null, goToPage: () => { } };
 
-  const validatedData = getJobsResponseSchema.parse(data.searchJobs);
+  const validatedData = searchJobsResponseSchema.parse(data.searchJobs);
 
   const goToPage = (page: number) => {
     if (page < 1 || page > validatedData.totalPages) return;
