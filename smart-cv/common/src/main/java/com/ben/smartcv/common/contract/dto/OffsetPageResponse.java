@@ -13,7 +13,7 @@ import java.util.List;
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class PageResponse<TData> {
+public class OffsetPageResponse<TData> {
 
     List<TData> items;
 

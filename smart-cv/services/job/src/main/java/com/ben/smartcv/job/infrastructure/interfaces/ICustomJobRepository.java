@@ -1,9 +1,8 @@
-package com.ben.smartcv.job.infrastructure;
+package com.ben.smartcv.job.infrastructure.interfaces;
 
 import com.ben.smartcv.job.domain.entity.Job;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Range;
-import org.springframework.data.elasticsearch.core.SearchHits;
 import org.springframework.data.elasticsearch.core.SearchPage;
 import org.springframework.stereotype.Repository;
 
@@ -21,5 +20,7 @@ public interface ICustomJobRepository {
             Range<Double> salary,
             Pageable pageable
     );
+
+    List<String> autoComplete(String fieldName, String keyword);
 
 }

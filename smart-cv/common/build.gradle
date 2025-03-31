@@ -18,6 +18,7 @@ dependencies {
 	implementation "org.axonframework.extensions.mongo:axon-mongo:${axonMongoVersion}" // https://mvnrepository.com/artifact/org.axonframework.extensions.mongo/axon-mongo
 	implementation "org.axonframework.extensions.mongo:axon-mongo-spring:${axonMongoVersion}" // https://mvnrepository.com/artifact/org.axonframework.extensions.mongo/axon-mongo-spring
 	implementation "com.graphql-java:graphql-java-extended-scalars:${graphqlScalarsVersion}" // https://mvnrepository.com/artifact/com.graphql-java/graphql-java-extended-scalars
+	implementation "org.apache.poi:poi:${apachePoiVersion}" // https://mvnrepository.com/artifact/org.apache.poi/poi
 
 	/* --------- APIs Dependencies --------- */
 	api 'org.springframework.boot:spring-boot-starter-validation'

@@ -5,17 +5,14 @@ import com.ben.smartcv.common.job.JobCreatedEvent;
 import com.ben.smartcv.common.job.JobDeletedEvent;
 import com.ben.smartcv.common.job.JobProcessedEvent;
 import com.ben.smartcv.common.util.Constant;
+import com.ben.smartcv.common.util.KafkaHelper;
 import com.ben.smartcv.common.util.TimeHelper;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.producer.ProducerRecord;
-import org.apache.kafka.common.header.internals.RecordHeader;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
-
-import java.nio.charset.StandardCharsets;
-import java.util.List;
 
 import static lombok.AccessLevel.PRIVATE;
 
@@ -44,8 +41,7 @@ public class EventPublisher {
 
         ProducerRecord<String, JobCreatedEvent> record = new ProducerRecord<>(
                 Constant.KAFKA_TOPIC_JOB_EVENT, null, event.getJobId(), protoEvent,
-                List.of(new RecordHeader("correlationId", event.getId().getBytes(StandardCharsets.UTF_8)),
-                        new RecordHeader("causationId", event.getId().getBytes(StandardCharsets.UTF_8))));
+                KafkaHelper.createHeaders(event.getId(), event.getId()));
         jobCreatedEventTemplate.send(record);
     }
 
@@ -56,8 +52,7 @@ public class EventPublisher {
 
         ProducerRecord<String, JobProcessedEvent> record = new ProducerRecord<>(
                 Constant.KAFKA_TOPIC_JOB_EVENT, null, event.getJobId(), protoEvent,
-                List.of(new RecordHeader("correlationId", event.getId().getBytes(StandardCharsets.UTF_8)),
-                        new RecordHeader("causationId", event.getId().getBytes(StandardCharsets.UTF_8))));
+                KafkaHelper.createHeaders(event.getId(), event.getId()));
         jobProcessedEventTemplate.send(record);
     }
 
@@ -68,8 +63,7 @@ public class EventPublisher {
 
         ProducerRecord<String, JobDeletedEvent> record = new ProducerRecord<>(
                 Constant.KAFKA_TOPIC_JOB_EVENT, null, event.getJobId(), protoEvent,
-                List.of(new RecordHeader("correlationId", event.getId().getBytes(StandardCharsets.UTF_8)),
-                        new RecordHeader("causationId", event.getId().getBytes(StandardCharsets.UTF_8))));
+                KafkaHelper.createHeaders(event.getId(), event.getId()));
         jobDeletedEventTemplate.send(record);
     }
 }

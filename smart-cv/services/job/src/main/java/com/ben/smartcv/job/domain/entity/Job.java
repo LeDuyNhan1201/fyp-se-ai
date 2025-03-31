@@ -18,6 +18,7 @@ import java.util.List;
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Document(indexName = "jobs")
+@Setting(settingPath = "es-settings/analysis-config.json")
 public class Job implements Persistable<String> {
 
     @Id
@@ -28,7 +29,8 @@ public class Job implements Persistable<String> {
     String createdBy;
 
     @CreatedDate
-    @Field(name = "created_at", type = FieldType.Date, format = DateFormat.basic_date_time)
+    @Field(name = "created_at", type = FieldType.Date,
+            format = DateFormat.basic_date_time)
     Instant createdAt;
 
     @LastModifiedBy
@@ -36,7 +38,8 @@ public class Job implements Persistable<String> {
     String updatedBy;
 
     @LastModifiedDate
-    @Field(name = "updated_at", type = FieldType.Date, format = DateFormat.basic_date_time)
+    @Field(name = "updated_at", type = FieldType.Date,
+            format = DateFormat.basic_date_time)
     Instant updatedAt;
 
     @Field(name = "is_deleted", type = FieldType.Boolean)
@@ -45,16 +48,15 @@ public class Job implements Persistable<String> {
     @Field(name = "deleted_by", type = FieldType.Keyword)
     String deletedBy;
 
-    @Field(name = "deleted_at", type = FieldType.Date, format = DateFormat.basic_date_time)
+    @Field(name = "deleted_at", type = FieldType.Date,
+            format = DateFormat.basic_date_time)
     Instant deletedAt;
-//
-//    @Version
-//    @Field(name = "version", type = FieldType.Version)
-//    Long version;
 
     @NotNull
     @MultiField(
-            mainField = @Field(type = FieldType.Text, fielddata = true),
+            mainField = @Field(name = "organization_name", type = FieldType.Text, fielddata = true,
+                    analyzer = "autocomplete_index",
+                    searchAnalyzer = "autocomplete_search"),
             otherFields = {
                     @InnerField(suffix = "verbatim", type = FieldType.Keyword)
             }
@@ -68,7 +70,9 @@ public class Job implements Persistable<String> {
     String phone;
 
     @NotNull
-    @Field(name = "position", type = FieldType.Text)
+    @Field(name = "position", type = FieldType.Text,
+            analyzer = "autocomplete_index",
+            searchAnalyzer = "autocomplete_search")
     String position;
 
     @Field(name = "education", type = FieldType.Keyword)
@@ -84,14 +88,15 @@ public class Job implements Persistable<String> {
     @Field(name = "salary", type = FieldType.Double_Range)
     Range<Double> salary;
 
-    @Field(name = "expired_at", type = FieldType.Date, format = DateFormat.basic_date_time)
+    @Field(name = "expired_at", type = FieldType.Date,
+            format = DateFormat.basic_date_time)
     Instant expiredAt;
 
     @NotNull
     @Field(name = "raw_text", type = FieldType.Text)
     String rawText;
 
-    private void delete() {
+    public void delete() {
         deletedAt = Instant.now();
         isDeleted = true;
     }

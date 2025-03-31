@@ -6,7 +6,7 @@ import com.ben.smartcv.common.job.ExtractedJobData;
 import com.ben.smartcv.job.domain.entity.Job;
 import com.ben.smartcv.job.infrastructure.EventPublisher;
 import com.ben.smartcv.job.infrastructure.GrpcClientJobService;
-import com.ben.smartcv.job.infrastructure.IJobRepository;
+import com.ben.smartcv.job.infrastructure.interfaces.IJobRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;

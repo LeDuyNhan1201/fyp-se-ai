@@ -1,11 +1,12 @@
-package com.ben.smartcv.job.infrastructure.impl;
+package com.ben.smartcv.job.infrastructure;
 
 import com.ben.smartcv.job.domain.entity.Job;
-import com.ben.smartcv.job.infrastructure.ElasticSearchHelper;
-import com.ben.smartcv.job.infrastructure.ICustomJobRepository;
+import com.ben.smartcv.job.infrastructure.interfaces.ICustomJobRepository;
+import com.ben.smartcv.job.util.ElasticsearchHelper;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Range;
 import org.springframework.data.elasticsearch.client.elc.NativeQuery;
@@ -13,9 +14,11 @@ import org.springframework.data.elasticsearch.client.elc.NativeQueryBuilder;
 import org.springframework.data.elasticsearch.core.*;
 import org.springframework.data.elasticsearch.core.query.Criteria;
 import org.springframework.data.elasticsearch.core.query.CriteriaQuery;
+import org.springframework.data.elasticsearch.core.query.FetchSourceFilter;
 import org.springframework.data.elasticsearch.core.query.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.Collections;
 import java.util.List;
 
 import static lombok.AccessLevel.PRIVATE;
@@ -49,11 +52,34 @@ public class CustomJobRepositoryImpl implements ICustomJobRepository {
         );
 
         SearchHits<Job> searchHits = elasticsearchOperations.search(query, Job.class);
-        SearchPage<Job> productPage = SearchHitSupport.searchPageFor(searchHits, query.getPageable());
+        SearchPage<Job> page = SearchHitSupport.searchPageFor(searchHits, query.getPageable());
 
         log.info("page: {}, size: {}, totalElements: {}, totalPages: {}",
-                productPage.getNumber(), productPage.getSize(), productPage.getTotalElements(), productPage.getTotalPages());
-        return productPage;
+                page.getNumber(), page.getSize(), page.getTotalElements(), page.getTotalPages());
+        return page;
+    }
+
+    @Override
+    public List<String> autoComplete(String fieldName, String keyword) {
+        NativeQuery matchQuery = NativeQuery.builder()
+                .withQuery(q -> q.matchPhrasePrefix(
+                        m -> m.field(fieldName).query(keyword)
+                ))
+                .withSourceFilter(
+                        new FetchSourceFilter(
+                                new String[] { fieldName },
+                                new String[] {  }
+                        ))
+                .build();
+
+        SearchHits<Job> searchHits = elasticsearchOperations.search(matchQuery, Job.class);
+        SearchPage<Job> page = SearchHitSupport.searchPageFor(searchHits, PageRequest.of(1, 20));
+
+        return switch (fieldName) {
+            case "organization_name" -> page.stream().map(hit -> hit.getContent().getOrganizationName()).toList();
+            case "position" -> page.stream().map(hit -> hit.getContent().getPosition()).toList();
+            default -> Collections.emptyList();
+        };
     }
 
     private Query buildSearchQuery(
@@ -94,8 +120,7 @@ public class CustomJobRepositoryImpl implements ICustomJobRepository {
         return new CriteriaQuery(criteria).setPageable(pageable);
     }
 
-
-    public SearchHits<Job> buildSearchQuery1(
+    public SearchPage<Job> buildSearchQuery1(
             String organizationName,
             String position,
             List<String> education,
@@ -127,32 +152,32 @@ public class CustomJobRepositoryImpl implements ICustomJobRepository {
                 .bool(b -> {
                     if (organizationName != null) {
                         log.info("organizationName: {}", organizationName);
-                        ElasticSearchHelper.extractedTermFilter("organization_name", organizationName, b);
+                        ElasticsearchHelper.extractedTermFilter("organization_name", organizationName, b);
                     }
 
                     if (position != null) {
                         log.info("position: {}", position);
-                        ElasticSearchHelper.extractedTermFilter("position", position, b);
+                        ElasticsearchHelper.extractedTermFilter("position", position, b);
                     }
 
                     if (skills != null && !skills.isEmpty()) {
                         log.info("skills: {}", skills);
-                        ElasticSearchHelper.extractedTermsFilter("education", education, b);
+                        ElasticsearchHelper.extractedTermsFilter("education", education, b);
                     }
 
                     if (education != null && !education.isEmpty()) {
                         log.info("education: {}", education);
-                        ElasticSearchHelper.extractedTermsFilter("experience", experience, b);
+                        ElasticsearchHelper.extractedTermsFilter("experience", experience, b);
                     }
 
                     if (experience != null && !experience.isEmpty()) {
                         log.info("experience: {}", experience);
-                        ElasticSearchHelper.extractedTermsFilter("skills", skills, b);
+                        ElasticsearchHelper.extractedTermsFilter("skills", skills, b);
                     }
 
                     if (salary != null) {
                         log.info("salary: {}", salary);
-                        ElasticSearchHelper.extractedRange("salary",
+                        ElasticsearchHelper.extractedRange("salary",
                                 salary.getLowerBound().getValue().get(), salary.getUpperBound().getValue().get(), b);
                     }
 
@@ -171,13 +196,7 @@ public class CustomJobRepositoryImpl implements ICustomJobRepository {
 
         SearchHits<Job> searchHitsResult = elasticsearchOperations.search(nativeQuery.build(), Job.class);
         SearchPage<Job> productPage = SearchHitSupport.searchPageFor(searchHitsResult, nativeQuery.getPageable());
-
-        log.info("page: {}, size: {}, totalElements: {}, totalPages: {}",
-                productPage.getNumber(), productPage.getSize(), productPage.getTotalElements(), productPage.getTotalPages());
-
-        List<Job> jobs = searchHitsResult.stream().map(SearchHit::getContent).toList();
-
-        return searchHitsResult;
+        return productPage;
     }
 
 }

@@ -1,12 +1,10 @@
 package com.ben.smartcv.job.application.projection;
 
-import com.ben.smartcv.common.contract.dto.PageResponse;
 import com.ben.smartcv.common.contract.query.JobQuery;
-import com.ben.smartcv.common.util.StringHelper;
 import com.ben.smartcv.common.util.TimeHelper;
 import com.ben.smartcv.job.application.dto.ResponseDto;
 import com.ben.smartcv.job.domain.entity.Job;
-import com.ben.smartcv.job.infrastructure.ICustomJobRepository;
+import com.ben.smartcv.job.infrastructure.interfaces.ICustomJobRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
@@ -15,14 +13,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Range;
 import org.springframework.data.elasticsearch.core.SearchHit;
-import org.springframework.data.elasticsearch.core.SearchHits;
 import org.springframework.data.elasticsearch.core.SearchPage;
 import org.springframework.stereotype.Component;
 
 import java.time.ZoneOffset;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 import static lombok.AccessLevel.PRIVATE;
 
@@ -60,8 +55,8 @@ public class JobProjection {
                                 .experience(job.getExperience())
                                 .expiredAt(TimeHelper.convertToOffsetDateTime(job.getExpiredAt(), ZoneOffset.UTC))
                                 .createdAt(TimeHelper.convertToOffsetDateTime(job.getCreatedAt(), ZoneOffset.UTC))
-                                .fromSalary(job.getSalary().getLowerBound().getValue().get())
-                                .toSalary(job.getSalary().getUpperBound().getValue().get())
+                                .fromSalary(job.getSalary().getLowerBound().getValue().get()) // Already checked
+                                .toSalary(job.getSalary().getUpperBound().getValue().get()) // Already checked
 
                                 .page(searchPage.getNumber() + 1)
                                 .size(searchPage.getSize())
@@ -79,8 +74,8 @@ public class JobProjection {
             List<String> skills,
             List<String> experience,
             Range<Double> salary,
-            int page,
-            int size) {
+            Integer page,
+            Integer size) {
         Pageable pageable = PageRequest.of(page - 1, size);
         SearchPage<Job> result = jobRepository.findAll(
                 organizationName, position, education, skills, experience, salary, pageable);

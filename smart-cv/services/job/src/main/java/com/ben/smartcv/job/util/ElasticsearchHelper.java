@@ -1,11 +1,11 @@
-package com.ben.smartcv.job.infrastructure;
+package com.ben.smartcv.job.util;
 
 import co.elastic.clients.elasticsearch._types.query_dsl.BoolQuery;
 import co.elastic.clients.elasticsearch._types.query_dsl.Query;
 
 import java.util.List;
 
-public final class ElasticSearchHelper {
+public final class ElasticsearchHelper {
 
     public static void extractedTermFilter(String fieldName, String fieldValue, BoolQuery.Builder b) {
         if (fieldValue == null || fieldValue.isEmpty()) {

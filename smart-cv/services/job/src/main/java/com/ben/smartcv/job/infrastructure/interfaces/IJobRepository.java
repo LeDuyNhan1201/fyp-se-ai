@@ -1,4 +1,4 @@
-package com.ben.smartcv.job.infrastructure;
+package com.ben.smartcv.job.infrastructure.interfaces;
 
 import com.ben.smartcv.job.domain.entity.Job;
 import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;

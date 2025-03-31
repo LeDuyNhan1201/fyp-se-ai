@@ -3,9 +3,11 @@ package com.ben.smartcv.job.adapter;
 import com.ben.smartcv.common.component.Translator;
 import com.ben.smartcv.common.contract.command.JobCommand;
 import com.ben.smartcv.common.contract.dto.BaseResponse;
+import com.ben.smartcv.common.util.Seeder;
 import com.ben.smartcv.job.application.dto.RequestDto;
 import com.ben.smartcv.job.application.exception.JobError;
 import com.ben.smartcv.job.application.exception.JobHttpException;
+import com.ben.smartcv.job.util.ValidationHelper;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -16,7 +18,10 @@ import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 import java.util.UUID;
+
 import static lombok.AccessLevel.PRIVATE;
 import static org.springframework.http.HttpStatus.OK;
 
@@ -39,18 +44,11 @@ public class CommandController {
     @PostMapping
     @ResponseStatus(OK)
     public ResponseEntity<BaseResponse<?, ?>> createJob(@RequestBody @Valid RequestDto.CreateJobDescription request) {
-        if (request.fromSalary() == null && request.toSalary() == null) {
-            throw new JobHttpException(JobError.INVALID_SALARY_RANGE, HttpStatus.BAD_REQUEST);
-        }
-
-        if (request.fromSalary() != null && request.toSalary() != null && request.fromSalary() > request.toSalary()) {
-            throw new JobHttpException(JobError.INVALID_SALARY_RANGE, HttpStatus.BAD_REQUEST);
-        }
+        ValidationHelper.validateSalaryRange(request.fromSalary(), request.toSalary());
         try {
-            String jobId = UUID.randomUUID().toString();
             JobCommand.CreateJob command = JobCommand.CreateJob.builder()
                     .id(UUID.randomUUID().toString())
-                    .jobId(jobId)
+                    .jobId(UUID.randomUUID().toString())
                     .organizationName(request.organizationName())
                     .position(request.position())
                     .requirements(request.requirements())
@@ -58,13 +56,41 @@ public class CommandController {
                     .fromSalary(request.fromSalary())
                     .toSalary(request.toSalary())
                     .build();
+
             commandGateway.sendAndWait(command);
 
-            return ResponseEntity.status(OK).body(BaseResponse.builder().message(
-                    Translator.getMessage("SuccessMsg.Created", "New job")).build());
-
+            return ResponseEntity.ok(BaseResponse.builder()
+                    .message(Translator.getMessage("SuccessMsg.Created", "New job"))
+                    .build());
         } catch (Exception e) {
-            log.error("Error: ", e);
+            log.error("Error creating job: {}", e.getMessage(), e);
+            throw new JobHttpException(JobError.CAN_NOT_SAVE_JOB, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping
+    @ResponseStatus(OK)
+    public ResponseEntity<BaseResponse<?, ?>> seedJobs() {
+        try {
+            List<String> jobFiles = List.of(
+                    "ai_jobs.xlsx", "android_jobs.xlsx", "backend_jobs.xlsx", "devops_jobs.xlsx",
+                    "frontend_jobs.xlsx", "ios_jobs.xlsx", "iot_embedded_jobs.xlsx", "tester_jobs.xlsx"
+            );
+
+            List<JobCommand.CreateJob> allJobs = jobFiles.stream()
+                    .map(Seeder::extractJobDescriptions)
+                    .flatMap(List::stream)
+                    .toList();
+
+            allJobs.forEach(commandGateway::sendAndWait);
+
+            Seeder.writeLinesToFile(allJobs.stream().map(JobCommand.CreateJob::getJobId).toList());
+
+            return ResponseEntity.ok(BaseResponse.builder()
+                    .message(Translator.getMessage("SuccessMsg.DataSeeded", String.valueOf(allJobs.size())))
+                    .build());
+        } catch (Exception e) {
+            log.error("Error seeding jobs: ", e);
             throw new JobHttpException(JobError.CAN_NOT_SAVE_JOB, HttpStatus.BAD_REQUEST);
         }
     }

@@ -9,6 +9,8 @@ services:
       - "9991:9991"
     networks:
       - smartcv-network
+    volumes:
+      - smartcv-kafka1-data:/tmp/kraft-combined-logs
     environment:
       # Kraft
       CLUSTER_ID: 'cLs1'
@@ -98,24 +100,5 @@ services:
       AXONIQ_AXONSERVER_HOSTNAME: smartcv-axonserver
       AXONIQ_AXONSERVER_STANDALONE: TRUE
       AXONIQ_AXONSERVER_DEVMODE: true
-
-  # --------- Kafka UI ---------
-  smartcv-kafka-ui:
-    image: provectuslabs/kafka-ui:latest
-    container_name: smartcv-kafka-ui
-    restart: always
-    depends_on:
-      - smartcv-kafka1
-      - smartcv-schemaregistry
-    ports:
-      - "8080:8080"
-    networks:
-      - smartcv-network
-    environment:
-      KAFKA_CLUSTERS_0_NAME: local
-      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: smartcv-kafka1:19091
-      KAFKA_CLUSTERS_0_METRICS_PORT: 9991
-      KAFKA_CLUSTERS_0_SCHEMAREGISTRY: http://smartcv-schemaregistry:8085
-      DYNAMIC_CONFIG_ENABLED: 'true'
 
 
