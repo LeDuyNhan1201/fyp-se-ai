@@ -23,7 +23,7 @@ import static lombok.AccessLevel.PRIVATE;
 @Slf4j
 @RequiredArgsConstructor
 @FieldDefaults(level = PRIVATE, makeFinal = true)
-public class QueryController {
+public class  QueryController {
 
     QueryGateway queryGateway;
 
@@ -31,9 +31,9 @@ public class QueryController {
     public OffsetPageResponse<ResponseDto.JobDescription> searchJobs(
             @Argument String organizationName,
             @Argument String position,
-            @Argument List<String> education,
+            @Argument List<String> educations,
             @Argument List<String> skills,
-            @Argument List<String> experience,
+            @Argument List<String> experiences,
             @Argument Double fromSalary,
             @Argument Double toSalary,
             @Argument Integer page,
@@ -44,9 +44,9 @@ public class QueryController {
         JobQuery.GetAllJobs query = JobQuery.GetAllJobs.builder()
                 .organizationName(organizationName)
                 .position(position)
-                .education(education)
+                .education(educations)
                 .skills(skills)
-                .experience(experience)
+                .experience(experiences)
                 .salary(fromSalary == null ? null : Range.closed(fromSalary, toSalary))
                 .page(Optional.ofNullable(page).orElse(1))
                 .size(Optional.ofNullable(size).orElse(10))

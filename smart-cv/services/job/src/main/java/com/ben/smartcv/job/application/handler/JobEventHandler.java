@@ -3,10 +3,10 @@ package com.ben.smartcv.job.application.handler;
 import com.ben.smartcv.common.contract.command.JobCommand;
 import com.ben.smartcv.common.contract.event.JobEvent;
 import com.ben.smartcv.common.job.ExtractedJobData;
-import com.ben.smartcv.job.domain.entity.Job;
+import com.ben.smartcv.job.domain.entity.SlaveJob;
 import com.ben.smartcv.job.infrastructure.EventPublisher;
-import com.ben.smartcv.job.infrastructure.GrpcClientJobService;
-import com.ben.smartcv.job.infrastructure.interfaces.IJobRepository;
+import com.ben.smartcv.job.infrastructure.grpc.GrpcClientJobProcessor;
+import com.ben.smartcv.job.infrastructure.elasticsearch.IJobRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
@@ -29,14 +29,14 @@ public class JobEventHandler {
 
     CommandGateway commandGateway;
 
-    GrpcClientJobService grpcClientJobService;
+    GrpcClientJobProcessor grpcClientJobProcessor;
 
     IJobRepository jobRepository;
 
     @EventHandler
     public void on(JobEvent.JobCreated event) {
         Range<Double> salaryRange = Range.closed(event.getFromSalary(), event.getToSalary());
-        Job job = Job.builder()
+        SlaveJob slaveJob = SlaveJob.builder()
                 .id(event.getJobId())
                 .organizationName(event.getOrganizationName())
                 .position(event.getPosition())
@@ -45,7 +45,7 @@ public class JobEventHandler {
                 .rawText(event.getRequirements())
                 .build();
 
-        jobRepository.save(job);
+        jobRepository.save(slaveJob);
         eventPublisher.send(event);
     }
 
@@ -53,21 +53,21 @@ public class JobEventHandler {
     @EventHandler
     public void on(JobEvent.JobProcessed event) {
         try {
-            ExtractedJobData extractedJobData = grpcClientJobService.callExtractData(event.getJobId());
-            Job currentJob = jobRepository.findById(event.getJobId()).orElse(null);
+            ExtractedJobData extractedJobData = grpcClientJobProcessor.callExtractData(event.getJobId());
+            SlaveJob currentSlaveJob = jobRepository.findById(event.getJobId()).orElse(null);
 
-            if (currentJob == null) {
+            if (currentSlaveJob == null) {
                 log.error("Job not found: {}", event.getJobId());
 
             } else {
-                currentJob.setEmail(extractedJobData.getEmail());
-                currentJob.setPhone(extractedJobData.getPhone());
-                currentJob.setEducation(extractedJobData.getEducationList());
-                currentJob.setSkills(extractedJobData.getSkillsList());
-                currentJob.setExperience(extractedJobData.getExperienceList());
+                currentSlaveJob.setEmail(extractedJobData.getEmail());
+                currentSlaveJob.setPhone(extractedJobData.getPhone());
+                currentSlaveJob.setEducations(extractedJobData.getEducationsList());
+                currentSlaveJob.setSkills(extractedJobData.getSkillsList());
+                currentSlaveJob.setExperiences(extractedJobData.getExperiencesList());
 
                 try {
-                    jobRepository.save(currentJob);
+                    jobRepository.save(currentSlaveJob);
 
                 } catch (Exception e) {
                     log.error("Error saving job: {}", e.getMessage());

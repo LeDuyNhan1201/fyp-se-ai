@@ -1,6 +1,6 @@
 package com.ben.smartcv.job.application.exception;
 
-import com.ben.smartcv.common.component.Translator;
+import com.ben.smartcv.common.util.Translator;
 import graphql.GraphQLError;
 import graphql.GraphqlErrorBuilder;
 import graphql.schema.DataFetchingEnvironment;

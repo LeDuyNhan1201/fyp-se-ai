@@ -26,11 +26,11 @@ public class ResponseDto {
 
         String position;
 
-        List<String> education;
+        List<String> educations;
 
         List<String> skills;
 
-        List<String> experience;
+        List<String> experiences;
 
         Double fromSalary;
 

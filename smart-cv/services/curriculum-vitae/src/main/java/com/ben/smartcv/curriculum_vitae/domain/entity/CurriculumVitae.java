@@ -1,6 +1,6 @@
 package com.ben.smartcv.curriculum_vitae.domain.entity;
 
-import com.ben.smartcv.common.component.BaseDocument;
+import com.ben.smartcv.common.domain.MongoAuditingDocument;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -15,7 +15,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Document(collection = "curriculum_vitae")
-public class CurriculumVitae extends BaseDocument<String> {
+public class CurriculumVitae extends MongoAuditingDocument {
 
     @NotNull
     @Field("name")

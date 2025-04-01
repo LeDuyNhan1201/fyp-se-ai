@@ -1,18 +1,48 @@
 services:
+  # --------- postgres ---------
+  smartcv-postgres:
+    image: debezium/postgres:17-alpine
+    container_name: smartcv-postgres
+    restart: always
+    build: ../../docker/postgres
+    command: postgres -c 'max_connections=500'
+    ports:
+      - 5432:5432
+    networks:
+      - smartcv-network
+    volumes:
+      - ../../docker/postgres/postgresql.conf.sample:/usr/share/postgresql/postgresql.conf.sample
+      - ../../docker/postgres/postgres_init.sql:/docker-entrypoint-initdb.d/postgres_init.sql
+      - smartcv-postgres-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: ${POSTGRES_USERNAME}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+
   # --------- Mongodb ---------
   smartcv-mongodb:
     image: mongo:latest
     container_name: smartcv-mongodb
     restart: always
     ports:
-      - "27017:27017"
+      - 27017:27017
     networks:
       - smartcv-network
     volumes:
       - smartcv-mongodb-data:/data/db
     environment:
-      MONGO_INITDB_ROOT_USERNAME: smartcv
-      MONGO_INITDB_ROOT_PASSWORD: SmArTcV123#
+      MONGO_INITDB_ROOT_USERNAME: ${MONGODB_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGODB_PASSWORD}
+
+#  smartcv-redis:
+#    image: redis:latest
+#    container_name: smartcv-redis
+#    restart: always
+#    volumes:
+#      - smartcv-redis-data:/data
+#    ports:
+#      - "6379:6379"
+#    networks:
+#      - smartcv-network
 
   # --------- Elasticsearch ---------
   smartcv-elasticsearch:
@@ -20,14 +50,15 @@ services:
     container_name: smartcv-elasticsearch
     restart: always
     ports:
-      - "9200:9200"
-      - "9300:9300"
+      - 9200:9200
+      - 9300:9300
     networks:
       - smartcv-network
     volumes:
       - smartcv-elasticsearch-data:/usr/share/elasticsearch/data
     environment:
-      xpack.security.enabled: false
+      ELASTIC_PASSWORD: ${ELASTIC_PASSWORD}
+      xpack.security.enabled: true
       discovery.type: single-node
       bootstrap.memory_lock: true
       ES_JAVA_OPTS: -Xms4g -Xmx4g
@@ -42,6 +73,8 @@ services:
       - IPC_LOCK
 
 volumes:
+  smartcv-postgres-data:
   smartcv-mongodb-data:
+  smartcv-redis-data:
   smartcv-elasticsearch-data:
 

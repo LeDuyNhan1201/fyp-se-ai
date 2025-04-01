@@ -67,6 +67,7 @@ subprojects {
 
     dependencyManagement {
         imports {
+            mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
             mavenBom "org.springframework.grpc:spring-grpc-dependencies:${springGrpcVersion}"
             mavenBom "org.axonframework:axon-bom:${axonVersion}"
         }

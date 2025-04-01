@@ -1,6 +1,6 @@
 package com.ben.smartcv.job.application.exception;
 
-import com.ben.smartcv.common.component.Translator;
+import com.ben.smartcv.common.util.Translator;
 import com.ben.smartcv.common.contract.dto.BaseResponse;
 import com.ben.smartcv.common.util.LogHelper;
 import com.ben.smartcv.job.adapter.CommandController;

@@ -1,6 +1,6 @@
 package com.ben.smartcv.notification;
 
-import com.ben.smartcv.common.config.OpenApiConfig;
+import com.ben.smartcv.common.infrastructure.web.OpenApiConfig;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;

@@ -3,8 +3,8 @@ package com.ben.smartcv.job.application.projection;
 import com.ben.smartcv.common.contract.query.JobQuery;
 import com.ben.smartcv.common.util.TimeHelper;
 import com.ben.smartcv.job.application.dto.ResponseDto;
-import com.ben.smartcv.job.domain.entity.Job;
-import com.ben.smartcv.job.infrastructure.interfaces.ICustomJobRepository;
+import com.ben.smartcv.job.domain.entity.SlaveJob;
+import com.ben.smartcv.job.infrastructure.elasticsearch.ICustomJobRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
@@ -31,7 +31,7 @@ public class JobProjection {
 
     @QueryHandler
     public List<ResponseDto.JobDescription> handle(JobQuery.GetAllJobs query) {
-        SearchPage<Job> searchPage = getAllJobs(
+        SearchPage<SlaveJob> searchPage = getAllJobs(
                 query.getOrganizationName(),
                 query.getPosition(),
                 query.getEducation(),
@@ -51,8 +51,8 @@ public class JobProjection {
                                 .phone(job.getPhone())
                                 .position(job.getPosition())
                                 .skills(job.getSkills())
-                                .education(job.getEducation())
-                                .experience(job.getExperience())
+                                .educations(job.getEducations())
+                                .experiences(job.getExperiences())
                                 .expiredAt(TimeHelper.convertToOffsetDateTime(job.getExpiredAt(), ZoneOffset.UTC))
                                 .createdAt(TimeHelper.convertToOffsetDateTime(job.getCreatedAt(), ZoneOffset.UTC))
                                 .fromSalary(job.getSalary().getLowerBound().getValue().get()) // Already checked
@@ -67,7 +67,7 @@ public class JobProjection {
         return jobDescriptions;
     }
 
-    public SearchPage<Job> getAllJobs(
+    public SearchPage<SlaveJob> getAllJobs(
             String organizationName,
             String position,
             List<String> education,
@@ -77,7 +77,7 @@ public class JobProjection {
             Integer page,
             Integer size) {
         Pageable pageable = PageRequest.of(page - 1, size);
-        SearchPage<Job> result = jobRepository.findAll(
+        SearchPage<SlaveJob> result = jobRepository.findAll(
                 organizationName, position, education, skills, experience, salary, pageable);
         return result;
     }

@@ -8,7 +8,7 @@ services:
       - smartcv-kafka1
       - smartcv-schemaregistry
     ports:
-      - "8080:8080"
+      - 8080:8080
     networks:
       - smartcv-network
     environment:
@@ -16,7 +16,22 @@ services:
       KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: smartcv-kafka1:19091
       KAFKA_CLUSTERS_0_METRICS_PORT: 9991
       KAFKA_CLUSTERS_0_SCHEMAREGISTRY: http://smartcv-schemaregistry:8085
-      DYNAMIC_CONFIG_ENABLED: 'true'
+      DYNAMIC_CONFIG_ENABLED: true
+
+  # --------- Pgadmin ---------
+  smartcv-pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: smartcv-pgadmin
+    restart: always
+    depends_on: [ smartcv-postgres ]
+    ports:
+      - 5050:80
+    networks:
+      - smartcv-network
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD}
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
 
   # --------- Mongo express ---------
   smartcv-express:
@@ -25,14 +40,25 @@ services:
     restart: always
     depends_on: [ smartcv-mongodb ]
     ports:
-      - "5051:8081"
+      - 5051:8081
     networks:
       - smartcv-network
     environment:
       ME_CONFIG_BASICAUTH: false
-      ME_CONFIG_MONGODB_ADMINUSERNAME: smartcv
-      ME_CONFIG_MONGODB_ADMINPASSWORD: SmArTcV123#
-      ME_CONFIG_MONGODB_URL: mongodb://smartcv:SmArTcV123%23@smartcv-mongodb:27017/
+      ME_CONFIG_MONGODB_ADMINUSERNAME: ${MONGODB_USERNAME}
+      ME_CONFIG_MONGODB_ADMINPASSWORD: ${MONGODB_PASSWORD}
+      ME_CONFIG_MONGODB_URL: mongodb://${MONGODB_USERNAME}:${MONGODB_PASSWORD_ENCODED}@smartcv-mongodb:27017/
+
+  # --------- Redis Insight ---------
+#  smartcv-redis-insight:
+#    image: redis/redisinsight:latest
+#    container_name: smartcv-redis-insight
+#    restart: always
+#    depends_on: [ smartcv-redis ]
+#    ports:
+#      - 5540:5540
+#    networks:
+#      - smartcv-network
 
   # --------- Kibana ---------
   smartcv-kibana:
@@ -42,12 +68,12 @@ services:
     depends_on:
       [ smartcv-elasticsearch ]
     ports:
-      - "5601:5601"
+      - 5601:5601
     networks:
       - smartcv-network
     environment:
       ELASTICSEARCH_HOSTS: http://smartcv-elasticsearch:9200
-      ELASTICSEARCH_USERNAME: smartcv
-      ELASTICSEARCH_PASSWORD: SmArTcV123#
-      xpack.security.enabled: false # Disable X-Pack security features
+      ELASTICSEARCH_USERNAME: ${ELASTIC_USERNAME}
+      ELASTICSEARCH_PASSWORD: ${ELASTIC_PASSWORD}
+      xpack.security.enabled: true
 
