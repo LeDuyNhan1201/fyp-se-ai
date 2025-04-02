@@ -1,7 +1,7 @@
 from dotenv import load_dotenv
 from transformers import pipeline
 
-from application.job_service_grpc import serve
+from application.job_service_grpc import job_processor_serve
 from infrastructure.elasticsearch_client import ElasticsearchClient
 
 def merge_subtokens(ner_results):
@@ -29,7 +29,7 @@ def merge_subtokens(ner_results):
 
 def main():
     elasticsearch_client = ElasticsearchClient()
-    serve(elasticsearch_client)
+    job_processor_serve()
     print("App is running")
     # Load model đã train
 #     ner_pipeline = pipeline("ner", model = "skill_ner_model", tokenizer = "skill_ner_model")

@@ -1,4 +1,4 @@
-package com.ben.smartcv.job.infrastructure.elasticsearch;
+package com.ben.smartcv.job.infrastructure.repository;
 
 import com.ben.smartcv.job.domain.entity.SlaveJob;
 import com.ben.smartcv.job.util.ElasticsearchHelper;
@@ -26,7 +26,7 @@ import static lombok.AccessLevel.PRIVATE;
 @Slf4j
 @RequiredArgsConstructor
 @FieldDefaults(level = PRIVATE, makeFinal = true)
-public class CustomJobRepositoryImpl implements ICustomJobRepository {
+public class AdvancedSearchRepositoryImpl implements IAdvancedSearchRepository {
 
     ElasticsearchOperations elasticsearchOperations;
 

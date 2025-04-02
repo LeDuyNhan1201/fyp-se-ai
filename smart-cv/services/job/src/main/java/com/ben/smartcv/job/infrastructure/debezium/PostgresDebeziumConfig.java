@@ -2,7 +2,6 @@ package com.ben.smartcv.job.infrastructure.debezium;
 
 import com.ben.smartcv.job.application.exception.JobError;
 import com.ben.smartcv.job.application.exception.JobHttpException;
-import com.ben.smartcv.job.infrastructure.DebeziumRestClient;
 import feign.FeignException;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +14,7 @@ import static org.springframework.http.HttpStatus.BAD_REQUEST;
 @Configuration
 @RequiredArgsConstructor
 @Slf4j
-public class DebeziumConnectorConfig {
+public class PostgresDebeziumConfig {
 
     @Value("${spring.application.name}")
     private String microserviceName;
@@ -72,9 +71,10 @@ public class DebeziumConnectorConfig {
         try {
             List<String> connections = debeziumRestClient.getConnections();
             if (!connections.contains(connectionName)) {
-                ConnectionRequest request = ConnectionRequest.builder()
+                RequestDto.ConnectionRequest<RequestDto.ConfigForPostgres> request =
+                        RequestDto.ConnectionRequest.<RequestDto.ConfigForPostgres>builder()
                         .name(connectionName)
-                        .config(ConnectionRequest.Config.builder()
+                        .config(RequestDto.ConfigForPostgres.builder()
                                 .connectorClass(connectorClass)
                                 .databaseHostname(databaseHostname)
                                 .databasePort(databasePort)
@@ -101,7 +101,7 @@ public class DebeziumConnectorConfig {
         }
     }
 
-    private void createConnectionAndValidate(ConnectionRequest request) {
+    private void createConnectionAndValidate(RequestDto.ConnectionRequest<RequestDto.ConfigForPostgres> request) {
         try {
             debeziumRestClient.createConnection(request);
             log.info("[{}]: Debezium connection created successfully.", microserviceName);

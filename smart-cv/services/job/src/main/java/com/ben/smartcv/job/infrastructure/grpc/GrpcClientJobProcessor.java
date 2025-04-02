@@ -1,8 +1,10 @@
 package com.ben.smartcv.job.infrastructure.grpc;
 
+import com.ben.smartcv.common.contract.event.JobEvent;
 import com.ben.smartcv.common.job.ExtractedJobData;
+import com.ben.smartcv.common.job.JobCreatedEvent;
 import com.ben.smartcv.common.job.JobProcessorGrpc;
-import com.ben.smartcv.common.job.ProcessJobCommand;
+import com.ben.smartcv.common.util.TimeHelper;
 import io.grpc.ManagedChannel;
 import jakarta.annotation.PreDestroy;
 import lombok.RequiredArgsConstructor;
@@ -22,11 +24,16 @@ public class GrpcClientJobProcessor {
 
     JobProcessorGrpc.JobProcessorBlockingStub jobProcessorClient;
 
-    public ExtractedJobData callExtractData(String jobId) {
-        ProcessJobCommand request = ProcessJobCommand.newBuilder()
-                .setJobId(jobId)
+    public ExtractedJobData callExtractData(JobEvent.JobCreated event) {
+        JobCreatedEvent protoEvent = JobCreatedEvent.newBuilder()
+                .setOrganizationName(event.getOrganizationName())
+                .setPosition(event.getPosition())
+                .setExpiredAt(TimeHelper.convertToTimestamp(event.getExpiredAt()))
+                .setFromSalary(event.getFromSalary())
+                .setToSalary(event.getToSalary())
+                .setRequirements(event.getRequirements())
                 .build();
-        ExtractedJobData response = jobProcessorClient.extractData(request);
+        ExtractedJobData response = jobProcessorClient.extractData(protoEvent);
         log.info("Extracted job data: {}", response);
         return response;
     }
@@ -35,4 +42,5 @@ public class GrpcClientJobProcessor {
     public void shutdownGrpcChanel() {
         jobProcessorManagedChannel.shutdown();
     }
+
 }

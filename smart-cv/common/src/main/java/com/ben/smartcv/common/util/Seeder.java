@@ -8,9 +8,6 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.core.io.ClassPathResource;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -18,17 +15,6 @@ import java.util.List;
 import java.util.UUID;
 
 public final class Seeder {
-
-    public static void writeLinesToFile(List<String> lines) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("fake-job-ids.txt"))) {
-            for (String line : lines) {
-                writer.write(line);
-                writer.newLine();
-            }
-        } catch (IOException e) {
-            throw new RuntimeException("Error writing to file: ", e);
-        }
-    }
 
     public static List<JobCommand.CreateJob> extractJobDescriptions(String fileName) {
         List<JobCommand.CreateJob> jobDescriptions = new ArrayList<>();

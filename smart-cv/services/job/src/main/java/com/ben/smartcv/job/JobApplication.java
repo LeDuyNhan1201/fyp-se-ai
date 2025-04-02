@@ -4,12 +4,12 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.data.elasticsearch.config.EnableElasticsearchAuditing;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 @SpringBootApplication
 @ComponentScan(basePackages = { "com.ben.smartcv.common", "com.ben.smartcv.job" })
-@EnableElasticsearchAuditing
 @EnableFeignClients
+@EnableJpaAuditing(auditorAwareRef = "auditorProvider")
 public class JobApplication {
 
 	public static void main(String[] args) {

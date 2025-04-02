@@ -48,7 +48,6 @@ public class CommandController {
         try {
             JobCommand.CreateJob command = JobCommand.CreateJob.builder()
                     .id(UUID.randomUUID().toString())
-                    .jobId(UUID.randomUUID().toString())
                     .organizationName(request.organizationName())
                     .position(request.position())
                     .requirements(request.requirements())
@@ -84,14 +83,12 @@ public class CommandController {
 
             allJobs.forEach(commandGateway::sendAndWait);
 
-            Seeder.writeLinesToFile(allJobs.stream().map(JobCommand.CreateJob::getJobId).toList());
-
             return ResponseEntity.ok(BaseResponse.builder()
                     .message(Translator.getMessage("SuccessMsg.DataSeeded", String.valueOf(allJobs.size())))
                     .build());
         } catch (Exception e) {
             log.error("Error seeding jobs: ", e);
-            throw new JobHttpException(JobError.CAN_NOT_SAVE_JOB, HttpStatus.BAD_REQUEST);
+            throw new JobHttpException(JobError.CAN_NOT_SEED_JOBS, HttpStatus.BAD_REQUEST);
         }
     }
 

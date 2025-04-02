@@ -19,17 +19,20 @@ public final class Constant {
 
     public static final String KAFKA_TOPIC_JOB_EVENT = "job.events";
 
-    public static final String KAFKA_TOPIC_NOTIFICATION_COMMAND = "notification.commands";
+    public static final String KAFKA_TOPIC_JOB_CDC = "job.cdc";
 
     public static final String KAFKA_TOPIC_NOTIFICATION_EVENT = "notification.events";
 
     public static final String KAFKA_GROUP_ORCHESTRATION = "orchestration-service";
 
-    public static final String KAFKA_GROUP_NOTIFICATION = "notification-service";
+    public static final String KAFKA_GROUP_JOB_CDC = "job-service-cdc";
 
-    public static final String KAFKA_GROUP_CV_PROCESSOR = "cv-processor";
+    public static final String JOB_CDC_LISTENER_CONTAINER_FACTORY = "jobCdcListenerContainerFactory";
 
-    public static final String KAFKA_GROUP_JOB_PROCESSOR = "job-processor";
+//    public static final String KAFKA_TOPIC_NOTIFICATION_COMMAND = "notification.commands";
+//    public static final String KAFKA_GROUP_NOTIFICATION = "notification-service";
+//    public static final String KAFKA_GROUP_CV_PROCESSOR = "cv-processor";
+//    public static final String KAFKA_GROUP_JOB_PROCESSOR = "job-processor";
 
     public static final Metadata.Key<String> AUTHORIZATION_KEY = Metadata.Key.of("Authorization", Metadata.ASCII_STRING_MARSHALLER);
 

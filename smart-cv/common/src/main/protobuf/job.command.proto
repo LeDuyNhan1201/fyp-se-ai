@@ -6,9 +6,21 @@ option java_package = "com.ben.smartcv.common.job";
 option java_outer_classname = "JobCommandProto";
 option java_multiple_files = true;
 
-message ProcessJobCommand {
+import "google/protobuf/timestamp.proto";
 
-  string job_id = 1;
+message CreateJobCommand {
+
+    string organizationName = 1;
+
+    string position = 2;
+
+    double from_salary = 3;
+
+    double to_salary = 4;
+
+    google.protobuf.Timestamp expired_at = 5;
+
+    string requirements = 6;
 
 }
 

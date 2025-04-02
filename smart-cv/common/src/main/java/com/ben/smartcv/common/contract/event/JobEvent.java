@@ -21,8 +21,6 @@ public class JobEvent {
     @FieldDefaults(level = PRIVATE)
     public static class JobCreated extends BaseEvent<String> {
 
-        String jobId;
-
         String organizationName;
 
         String position;
@@ -34,18 +32,6 @@ public class JobEvent {
         Double toSalary;
 
         String requirements;
-
-    }
-
-    @Getter
-    @Setter
-    @SuperBuilder
-    @AllArgsConstructor
-    @NoArgsConstructor
-    @FieldDefaults(level = PRIVATE)
-    public static class JobProcessed extends BaseEvent<String> {
-
-        String jobId;
 
     }
 

@@ -1,4 +1,4 @@
-package com.ben.smartcv.common.infrastructure;
+package com.ben.smartcv.common.infrastructure.kafka;
 
 import com.ben.smartcv.common.util.Constant;
 import com.ben.smartcv.common.util.KafkaHelper;
@@ -20,43 +20,49 @@ public class KafkaConfig {
     @Bean
     public NewTopic createUserEventTopic() {
         return KafkaHelper.createTopic(
-                Constant.KAFKA_TOPIC_USER_EVENT, 6, 1);
+                Constant.KAFKA_TOPIC_USER_EVENT, 3, 1);
     }
 
     @Bean
     public NewTopic createCvEventTopic() {
         return KafkaHelper.createTopic(
-                Constant.KAFKA_TOPIC_CV_EVENT, 6, 1);
+                Constant.KAFKA_TOPIC_CV_EVENT, 3, 1);
     }
 
 //    @Bean
 //    public NewTopic createCvCommandTopic() {
 //        return KafkaHelper.createTopic(
-//                Constant.KAFKA_TOPIC_CV_COMMAND, 6, 1);
+//                Constant.KAFKA_TOPIC_CV_COMMAND, 3, 1);
 //    }
 
     @Bean
     public NewTopic createJobEventTopic() {
         return KafkaHelper.createTopic(
-                Constant.KAFKA_TOPIC_JOB_EVENT, 6, 1);
+                Constant.KAFKA_TOPIC_JOB_EVENT, 3, 1);
+    }
+
+    @Bean
+    public NewTopic createJobCdcTopic() {
+        return KafkaHelper.createTopic(
+                Constant.KAFKA_TOPIC_JOB_CDC, 3, 1);
     }
 
 //    @Bean
 //    public NewTopic createJobCommandTopic() {
 //        return KafkaHelper.createTopic(
-//                Constant.KAFKA_TOPIC_JOB_COMMAND, 6, 1);
+//                Constant.KAFKA_TOPIC_JOB_COMMAND, 3, 1);
 //    }
 
 //    @Bean
 //    public NewTopic createNotificationCommandTopic() {
 //        return KafkaHelper.createTopic(
-//                Constant.KAFKA_TOPIC_NOTIFICATION_COMMAND, 6, 1);
+//                Constant.KAFKA_TOPIC_NOTIFICATION_COMMAND, 3, 1);
 //    }
 //
 //    @Bean
 //    public NewTopic createNotificationEventTopic() {
 //        return KafkaHelper.createTopic(
-//                Constant.KAFKA_TOPIC_NOTIFICATION_EVENT, 6, 1);
+//                Constant.KAFKA_TOPIC_NOTIFICATION_EVENT, 3, 1);
 //    }
 
 }

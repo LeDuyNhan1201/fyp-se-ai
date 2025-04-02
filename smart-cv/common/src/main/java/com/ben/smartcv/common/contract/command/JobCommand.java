@@ -5,6 +5,7 @@ import lombok.experimental.FieldDefaults;
 import lombok.experimental.SuperBuilder;
 
 import java.time.Instant;
+import java.util.List;
 
 import static lombok.AccessLevel.PRIVATE;
 
@@ -14,8 +15,6 @@ public class JobCommand {
     @SuperBuilder
     @FieldDefaults(level = PRIVATE)
     public static class CreateJob extends BaseCommand<String> {
-
-        String jobId;
 
         String organizationName;
 
@@ -34,7 +33,7 @@ public class JobCommand {
     @Getter
     @SuperBuilder
     @FieldDefaults(level = PRIVATE)
-    public static class ProcessJob extends BaseCommand<String> {
+    public static class RollbackCreateJob extends BaseCommand<String> {
 
         String jobId;
 
@@ -43,7 +42,7 @@ public class JobCommand {
     @Getter
     @SuperBuilder
     @FieldDefaults(level = PRIVATE)
-    public static class RollbackProcessJob extends BaseCommand<String> {
+    public static class RollbackUpdateJob extends BaseCommand<String> {
 
         String jobId;
 

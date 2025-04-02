@@ -6,25 +6,25 @@ option java_package = "com.ben.smartcv.common.job";
 option java_outer_classname = "JobServiceProto";
 option java_multiple_files = true;
 
-import "job.command.proto";
+import "job.event.proto";
 
 message ExtractedJobData {
 
-  string email = 1;
+    string email = 1;
 
-  string phone = 2;
+    string phone = 2;
 
-  repeated string educations = 3;
+    repeated string educations = 3;
 
-  repeated string skills = 4;
+    repeated string skills = 5;
 
-  repeated string experiences = 5;
+    repeated string experiences = 6;
 
 }
 
 service JobProcessor {
 
-  rpc ExtractData (ProcessJobCommand) returns (ExtractedJobData) {
-  }
+    rpc ExtractData (JobCreatedEvent) returns (ExtractedJobData) {
+    }
 
 }

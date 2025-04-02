@@ -10,25 +10,17 @@ import "google/protobuf/timestamp.proto";
 
 message JobCreatedEvent {
 
-    string job_id = 1;
+    string organizationName = 1;
 
-    string organization_name = 2;
+    string position = 2;
 
-    string position = 3;
+    double from_salary = 3;
 
-    string requirements = 4;
+    double to_salary = 4;
 
-    double from_salary = 5;
+    google.protobuf.Timestamp expired_at = 5;
 
-    double to_salary = 6;
-
-    google.protobuf.Timestamp expired_at = 7;
-
-}
-
-message JobProcessedEvent {
-
-    string job_id = 1;
+    string requirements = 6;
 
 }
 

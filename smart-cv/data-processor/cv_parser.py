@@ -34,7 +34,7 @@ def extract_experience_level(text):
     matches = re.findall(pattern, text)
     return list(set(matches)) if matches else []
 
-def extract_experience(text):
+def extract_experiences(text):
     yoe = extract_experience_years(text)
     level = extract_experience_level(text)
     return yoe + level
@@ -47,7 +47,7 @@ def extract_skills(text):
             skills.append(skill)
     return skills
 
-def extract_education(text):
+def extract_educations(text):
     education = []
     for keyword in read_list_from_txt("extracted_rules/educations.txt"):
         pattern = r"(?i)\b{}\b".format(re.escape(keyword))
@@ -59,7 +59,7 @@ def extract_cv_info(text):
     name = extract_name(text)
     phone = extract_contact_number(text)
     email = extract_email(text)
-    education = extract_education(text)
+    educations = extract_educations(text)
     skills = extract_skills(text)
 
     return {
@@ -67,22 +67,22 @@ def extract_cv_info(text):
         "email": email,
         "phone": phone,
         "skills": skills,
-        "education": education,
+        "educations": educations,
     }
 
 def extract_job_info(text):
     phone = extract_contact_number(text)
     email = extract_email(text)
-    education = extract_education(text)
+    educations = extract_educations(text)
     skills = extract_skills(text)
-    experience = extract_experience(text)
+    experiences = extract_experiences(text)
 
     return {
         "email": email,
         "phone": phone,
         "skills": skills,
-        "education": education,
-        "experience": experience
+        "educations": educations,
+        "experiences": experiences
     }
 
 # Load SBERT model

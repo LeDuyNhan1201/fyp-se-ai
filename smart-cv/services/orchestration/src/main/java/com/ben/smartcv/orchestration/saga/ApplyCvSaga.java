@@ -94,7 +94,9 @@ public class ApplyCvSaga {
                 .build());
     }
 
-    @KafkaListener(topics = Constant.KAFKA_TOPIC_CV_EVENT,
+    @KafkaListener(
+            id = "saga.cv-applied-event",
+            topics = Constant.KAFKA_TOPIC_CV_EVENT,
             groupId = Constant.KAFKA_GROUP_ORCHESTRATION)
     public void consume(CvAppliedEvent event,
                         @Header(name = "correlationId", required = false) String correlationId,
@@ -106,7 +108,9 @@ public class ApplyCvSaga {
                 .build(), correlationId, causationId);
     }
 
-    @KafkaListener(topics = Constant.KAFKA_TOPIC_CV_EVENT,
+    @KafkaListener(
+            id = "saga.cv-processed-event",
+            topics = Constant.KAFKA_TOPIC_CV_EVENT,
             groupId = Constant.KAFKA_GROUP_ORCHESTRATION)
     public void consume(CvProcessedEvent event,
                         @Header(name = "correlationId", required = false) String correlationId,
@@ -118,7 +122,9 @@ public class ApplyCvSaga {
                 .build(), correlationId, causationId);
     }
 
-    @KafkaListener(topics = Constant.KAFKA_TOPIC_CV_EVENT,
+    @KafkaListener(
+            id = "saga.cv-deleted-event",
+            topics = Constant.KAFKA_TOPIC_CV_EVENT,
             groupId = Constant.KAFKA_GROUP_ORCHESTRATION)
     public void consume(CvDeletedEvent event,
                         @Header(name = "correlationId", required = false) String correlationId,
@@ -130,7 +136,9 @@ public class ApplyCvSaga {
                 .build(), correlationId, causationId);
     }
 
-    @KafkaListener(topics = Constant.KAFKA_TOPIC_CV_EVENT,
+    @KafkaListener(
+            id = "saga.cv-file-deleted-event",
+            topics = Constant.KAFKA_TOPIC_CV_EVENT,
             groupId = Constant.KAFKA_GROUP_ORCHESTRATION)
     public void consume(CvFileDeletedEvent event,
                         @Header(name = "correlationId", required = false) String correlationId,
@@ -150,6 +158,16 @@ public class ApplyCvSaga {
     @ExceptionHandler(resultType = Exception.class, payloadType = CvEvent.CvProcessed.class)
     public void handleExceptionCvProcessedEvent(Exception exception) {
         log.error("Unexpected Exception occurred when processed cv: {}", exception.getMessage());
+    }
+
+    @ExceptionHandler(resultType = Exception.class, payloadType = CvEvent.CvDeleted.class)
+    public void handleExceptionCvDeletedEvent(Exception exception) {
+        log.error("Unexpected Exception occurred when deleted cv: {}", exception.getMessage());
+    }
+
+    @ExceptionHandler(resultType = Exception.class, payloadType = CvEvent.CvFileDeleted.class)
+    public void handleExceptionCvFileDeletedEvent(Exception exception) {
+        log.error("Unexpected Exception occurred when deleted cv file: {}", exception.getMessage());
     }
 
 }

@@ -1,6 +1,7 @@
-package com.ben.smartcv.job.infrastructure.elasticsearch;
+package com.ben.smartcv.job.infrastructure.repository;
 
 import com.ben.smartcv.job.domain.entity.SlaveJob;
+import io.micrometer.observation.annotation.Observed;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Range;
 import org.springframework.data.elasticsearch.core.SearchPage;
@@ -8,8 +9,9 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Observed
 @Repository
-public interface ICustomJobRepository {
+public interface IAdvancedSearchRepository {
 
     SearchPage<SlaveJob> findAll(
             String organizationName,

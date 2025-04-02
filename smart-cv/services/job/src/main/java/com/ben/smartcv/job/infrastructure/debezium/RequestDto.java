@@ -4,17 +4,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
-@NoArgsConstructor
-@AllArgsConstructor
-@Getter
-@Setter
-@Builder
-@FieldDefaults(level = AccessLevel.PRIVATE)
-public class ConnectionRequest {
 
-    String name;
-
-    Config config;
+public class RequestDto {
 
     @NoArgsConstructor
     @AllArgsConstructor
@@ -22,7 +13,21 @@ public class ConnectionRequest {
     @Setter
     @Builder
     @FieldDefaults(level = AccessLevel.PRIVATE)
-    public static class Config {
+    public static class ConnectionRequest<TConfigType> {
+
+        String name;
+
+        TConfigType config;
+
+    }
+
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Getter
+    @Setter
+    @Builder
+    @FieldDefaults(level = AccessLevel.PRIVATE)
+    public static class ConfigForPostgres {
 
         @JsonProperty("connector.class")
         String connectorClass;

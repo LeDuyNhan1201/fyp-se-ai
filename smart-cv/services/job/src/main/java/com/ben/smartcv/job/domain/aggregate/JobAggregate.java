@@ -50,7 +50,6 @@ public class JobAggregate {
         LogHelper.logMessage(log, "CreateJob", command.getId(), causationId, command);
         apply(JobEvent.JobCreated.builder()
                 .id(command.getId())
-                .jobId(command.getJobId())
                 .organizationName(command.getOrganizationName())
                 .position(command.getPosition())
                 .fromSalary(command.getFromSalary())
@@ -61,16 +60,7 @@ public class JobAggregate {
     }
 
     @CommandHandler
-    public JobAggregate(JobCommand.ProcessJob command, @MetaDataValue("causationId") String causationId) {
-        LogHelper.logMessage(log, "ProcessJob", command.getId(), causationId, command);
-        apply(JobEvent.JobProcessed.builder()
-                .id(command.getId())
-                .jobId(command.getJobId())
-                .build());
-    }
-
-    @CommandHandler
-    public JobAggregate(JobCommand.RollbackProcessJob command, @MetaDataValue("causationId") String causationId) {
+    public JobAggregate(JobCommand.RollbackCreateJob command, @MetaDataValue("causationId") String causationId) {
         LogHelper.logMessage(log, "RollbackProcessJob", command.getId(), causationId, command);
         apply(JobEvent.JobDeleted.builder()
                 .id(command.getId())
@@ -81,19 +71,12 @@ public class JobAggregate {
     @EventSourcingHandler
     public void on(JobEvent.JobCreated event) {
         this.id = event.getId();
-        this.jobId = event.getJobId();
         this.organizationName = event.getOrganizationName();
         this.position = event.getPosition();
         this.fromSalary = event.getFromSalary();
         this.toSalary = event.getToSalary();
         this.expiredAt = event.getExpiredAt();
         this.requirements = event.getRequirements();
-    }
-
-    @EventSourcingHandler
-    public void on(JobEvent.JobProcessed event) {
-        this.id = event.getId();
-        this.jobId = event.getJobId();
     }
 
     @EventSourcingHandler
@@ -107,12 +90,7 @@ public class JobAggregate {
         log.error("Unexpected exception occurred when creating job: {}", exception.getMessage());
     }
 
-    @ExceptionHandler(resultType = Exception.class, payloadType = JobCommand.ProcessJob.class)
-    public void handleExceptionForProcessJobCommand(Exception exception) {
-        log.error("Unexpected exception occurred when processing job: {}", exception.getMessage());
-    }
-
-    @ExceptionHandler(resultType = Exception.class, payloadType = JobCommand.RollbackProcessJob.class)
+    @ExceptionHandler(resultType = Exception.class, payloadType = JobCommand.RollbackCreateJob.class)
     public void handleExceptionForRollbackProcessJobCommand(Exception exception) {
         log.error("Unexpected exception occurred when rolling back process job: {}", exception.getMessage());
     }

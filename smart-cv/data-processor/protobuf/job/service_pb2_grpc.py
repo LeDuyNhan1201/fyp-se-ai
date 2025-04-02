@@ -3,7 +3,7 @@
 import grpc
 import warnings
 
-from protobuf.job import command_pb2 as job_dot_command__pb2
+from protobuf.job import event_pb2 as job_dot_event__pb2
 from protobuf.job import service_pb2 as job_dot_service__pb2
 
 GRPC_GENERATED_VERSION = '1.71.0'
@@ -37,7 +37,7 @@ class JobProcessorStub(object):
         """
         self.ExtractData = channel.unary_unary(
                 '/com.ben.smartcv.common.JobProcessor/ExtractData',
-                request_serializer=job_dot_command__pb2.ProcessJobCommand.SerializeToString,
+                request_serializer=job_dot_event__pb2.JobCreatedEvent.SerializeToString,
                 response_deserializer=job_dot_service__pb2.ExtractedJobData.FromString,
                 _registered_method=True)
 
@@ -56,7 +56,7 @@ def add_JobProcessorServicer_to_server(servicer, server):
     rpc_method_handlers = {
             'ExtractData': grpc.unary_unary_rpc_method_handler(
                     servicer.ExtractData,
-                    request_deserializer=job_dot_command__pb2.ProcessJobCommand.FromString,
+                    request_deserializer=job_dot_event__pb2.JobCreatedEvent.FromString,
                     response_serializer=job_dot_service__pb2.ExtractedJobData.SerializeToString,
             ),
     }
@@ -85,7 +85,7 @@ class JobProcessor(object):
             request,
             target,
             '/com.ben.smartcv.common.JobProcessor/ExtractData',
-            job_dot_command__pb2.ProcessJobCommand.SerializeToString,
+            job_dot_event__pb2.JobCreatedEvent.SerializeToString,
             job_dot_service__pb2.ExtractedJobData.FromString,
             options,
             channel_credentials,

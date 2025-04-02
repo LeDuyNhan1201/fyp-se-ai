@@ -4,7 +4,6 @@ import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.springframework.data.annotation.*;
-import org.springframework.data.domain.Persistable;
 import org.springframework.data.domain.Range;
 import org.springframework.data.elasticsearch.annotations.*;
 
@@ -19,25 +18,21 @@ import java.util.List;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Document(indexName = "job")
 @Setting(settingPath = "es-settings/analysis-config.json")
-public class SlaveJob implements Persistable<String> {
+public class SlaveJob {
 
     @Id
     String id;
 
-    @CreatedBy
     @Field(name = "created_by", type = FieldType.Keyword)
     String createdBy;
 
-    @CreatedDate
     @Field(name = "created_at", type = FieldType.Date,
             format = DateFormat.basic_date_time)
     Instant createdAt;
 
-    @LastModifiedBy
     @Field(name = "updated_by", type = FieldType.Keyword)
     String updatedBy;
 
-    @LastModifiedDate
     @Field(name = "updated_at", type = FieldType.Date,
             format = DateFormat.basic_date_time)
     Instant updatedAt;
@@ -96,14 +91,27 @@ public class SlaveJob implements Persistable<String> {
     @Field(name = "raw_text", type = FieldType.Text)
     String rawText;
 
-    public void delete() {
-        deletedAt = Instant.now();
-        isDeleted = true;
-    }
-
-    @Override
-    public boolean isNew() {
-        return id == null || (createdAt == null && createdBy == null);
+    public static SlaveJob sync(MasterJob masterJob) {
+        SlaveJob slaveJob = new SlaveJob();
+        slaveJob.setId(masterJob.getId());
+        slaveJob.setCreatedBy(masterJob.getCreatedBy());
+        slaveJob.setCreatedAt(masterJob.getCreatedAt());
+        slaveJob.setUpdatedBy(masterJob.getUpdatedBy());
+        slaveJob.setUpdatedAt(masterJob.getUpdatedAt());
+        slaveJob.setIsDeleted(masterJob.isDeleted());
+        slaveJob.setDeletedBy(masterJob.getDeletedBy());
+        slaveJob.setDeletedAt(masterJob.getDeletedAt());
+        slaveJob.setOrganizationName(masterJob.getOrganizationName());
+        slaveJob.setEmail(masterJob.getEmail());
+        slaveJob.setPhone(masterJob.getPhone());
+        slaveJob.setPosition(masterJob.getPosition());
+        slaveJob.setEducations(masterJob.getEducations());
+        slaveJob.setSkills(masterJob.getSkills());
+        slaveJob.setExperiences(masterJob.getExperiences());
+        slaveJob.setSalary(Range.closed(masterJob.getFromSalary(), masterJob.getToSalary()));
+        slaveJob.setExpiredAt(masterJob.getExpiredAt());
+        slaveJob.setRawText(masterJob.getRawText());
+        return slaveJob;
     }
 
 }

@@ -1,6 +1,5 @@
-package com.ben.smartcv.job.infrastructure;
+package com.ben.smartcv.job.infrastructure.debezium;
 
-import com.ben.smartcv.job.infrastructure.debezium.ConnectionRequest;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +12,7 @@ public interface DebeziumRestClient {
     List<String> getConnections();
 
     @PostMapping(value = "/connectors", produces = MediaType.APPLICATION_JSON_VALUE)
-    void createConnection(@RequestBody ConnectionRequest request);
+    void createConnection(@RequestBody RequestDto.ConnectionRequest<RequestDto.ConfigForPostgres> request);
 
     @DeleteMapping(value = "/connectors/{name}", produces = MediaType.APPLICATION_JSON_VALUE)
     void deleteConnection(@PathVariable String name);
