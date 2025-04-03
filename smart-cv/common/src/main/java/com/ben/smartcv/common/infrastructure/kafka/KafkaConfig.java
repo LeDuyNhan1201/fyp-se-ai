@@ -41,12 +41,6 @@ public class KafkaConfig {
                 Constant.KAFKA_TOPIC_JOB_EVENT, 3, 1);
     }
 
-    @Bean
-    public NewTopic createJobCdcTopic() {
-        return KafkaHelper.createTopic(
-                Constant.KAFKA_TOPIC_JOB_CDC, 3, 1);
-    }
-
 //    @Bean
 //    public NewTopic createJobCommandTopic() {
 //        return KafkaHelper.createTopic(

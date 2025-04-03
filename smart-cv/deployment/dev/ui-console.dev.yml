@@ -73,7 +73,6 @@ services:
       - smartcv-network
     environment:
       ELASTICSEARCH_HOSTS: http://smartcv-elasticsearch:9200
-      ELASTICSEARCH_USERNAME: ${ELASTIC_USERNAME}
-      ELASTICSEARCH_PASSWORD: ${ELASTIC_PASSWORD}
-      xpack.security.enabled: true
+      xpack.security.enabled: false
+      xpack.reporting.roles.enabled: false
 

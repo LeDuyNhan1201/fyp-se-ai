@@ -28,7 +28,7 @@ public abstract class AuditingEntity {
     @JsonProperty(value = "created_at")
     @CreatedDate
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "created_at", nullable = false)
+    @Column(name = "created_at")
     Instant createdAt;
 
     @JsonProperty(value = "updated_by")

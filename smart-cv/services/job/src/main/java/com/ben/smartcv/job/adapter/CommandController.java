@@ -67,7 +67,7 @@ public class CommandController {
         }
     }
 
-    @GetMapping
+    @GetMapping("/seed")
     @ResponseStatus(OK)
     public ResponseEntity<BaseResponse<?, ?>> seedJobs() {
         try {

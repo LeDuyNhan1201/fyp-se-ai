@@ -19,8 +19,6 @@ public final class Constant {
 
     public static final String KAFKA_TOPIC_JOB_EVENT = "job.events";
 
-    public static final String KAFKA_TOPIC_JOB_CDC = "job.cdc";
-
     public static final String KAFKA_TOPIC_NOTIFICATION_EVENT = "notification.events";
 
     public static final String KAFKA_GROUP_ORCHESTRATION = "orchestration-service";

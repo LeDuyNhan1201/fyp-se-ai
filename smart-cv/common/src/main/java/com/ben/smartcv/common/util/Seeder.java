@@ -1,11 +1,11 @@
 package com.ben.smartcv.common.util;
 
 import com.ben.smartcv.common.contract.command.JobCommand;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.core.io.ClassPathResource;
 
 import java.io.InputStream;
@@ -21,7 +21,7 @@ public final class Seeder {
         ClassPathResource resource = new ClassPathResource("fake-jobs/" + fileName);
         try {
             InputStream inputStream = resource.getInputStream();
-            Workbook workbook = new HSSFWorkbook(inputStream);
+            Workbook workbook = new XSSFWorkbook(inputStream);
             Sheet sheet = workbook.getSheetAt(0);
             Iterator<Row> rowIterator = sheet.iterator();
 
@@ -38,6 +38,7 @@ public final class Seeder {
                         .position(getCellValue(row, 1))
                         .fromSalary(Double.parseDouble(getCellValue(row, 2)))
                         .toSalary(Double.parseDouble(getCellValue(row, 3)))
+                        .expiredAt(TimeHelper.generateRandomInstant())
                         .requirements(getCellValue(row, 4))
                         .build();
                 jobDescriptions.add(job);

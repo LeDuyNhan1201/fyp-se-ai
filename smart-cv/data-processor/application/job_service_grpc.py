@@ -17,7 +17,7 @@ logging.basicConfig(
 
 def job_processor_serve():
     server = grpc.server(futures.ThreadPoolExecutor(max_workers = 10))
-    grpc_service.add_JobProcessorServicer_to_server(JobServiceImpl, server)
+    grpc_service.add_JobProcessorServicer_to_server(JobServiceImpl(), server)
     load_dotenv()
     port = os.getenv("JOB_PROCESSOR_PORT")
     server.add_insecure_port("[::]:" + port)
@@ -27,26 +27,23 @@ def job_processor_serve():
 
 class JobServiceImpl(grpc_service.JobProcessorServicer):
 
-    def __init__(self):
-        super().__init__()
-
     def ExtractData(self, request, context):
         print(f"Received job data for processing: {request}")
 
         print(request)
         job = request
-        data = extract_job_info(job["raw_text"])
+        data = extract_job_info(job.requirements)
         logger.info(data)
 
         extracted_data = ExtractedJobData(
             email = data["email"],
             phone = data["phone"],
-            education = data["educations"],
+            educations = data["educations"],
             skills = data["skills"],
-            experience = data["experiences"],
+            experiences = data["experiences"],
         )
 
-        if extracted_data["skills"].length < 3:
+        if len(extracted_data.skills) < 3:
             context.set_code(grpc.StatusCode.INVALID_ARGUMENT)
             context.set_details("Invalid requirements")
             return ExtractedJobData()

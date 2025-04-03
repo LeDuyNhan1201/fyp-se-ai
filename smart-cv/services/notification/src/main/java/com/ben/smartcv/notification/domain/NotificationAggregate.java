@@ -43,7 +43,7 @@ public class NotificationAggregate {
                 .title(command.getTitle())
                 .content(command.getContent())
                 .associationProperty(command.getAssociationProperty())
-                .build(), MetaData.with("causationId", causationId));
+                .build()/*, MetaData.with("causationId", causationId)*/);
     }
 
     @EventSourcingHandler

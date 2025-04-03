@@ -19,10 +19,12 @@ import org.axonframework.eventhandling.tokenstore.TokenStore;
 import org.axonframework.eventsourcing.eventstore.EmbeddedEventStore;
 import org.axonframework.eventsourcing.eventstore.EventStorageEngine;
 import org.axonframework.eventsourcing.eventstore.EventStore;
+import org.axonframework.extensions.mongo.eventhandling.saga.repository.MongoSagaStore;
 import org.axonframework.extensions.mongo.eventsourcing.eventstore.MongoEventStorageEngine;
 import org.axonframework.extensions.mongo.eventsourcing.tokenstore.MongoTokenStore;
 import org.axonframework.extensions.mongo.spring.SpringMongoTemplate;
 import org.axonframework.micrometer.*;
+import org.axonframework.modelling.saga.repository.SagaStore;
 import org.axonframework.monitoring.MultiMessageMonitor;
 import org.axonframework.queryhandling.QueryBus;
 import org.axonframework.serialization.Serializer;
@@ -90,11 +92,11 @@ public class AxonConfig {
 
     @Bean
     @Primary
-    public EventStore smartCvEventStore(EventStorageEngine storageEngine,
+    public EventStore smartCvEventStore(EventStorageEngine smartCvStorageEngine,
                                  GlobalMetricRegistry metricRegistry,
                                  @Value("axon.event-bus-name") String eventBusName) {
         return EmbeddedEventStore.builder()
-                .storageEngine(storageEngine)
+                .storageEngine(smartCvStorageEngine)
                 .messageMonitor(metricRegistry.registerEventBus(eventBusName))
                 .spanFactory(spanFactory())
                 .build();
@@ -149,14 +151,14 @@ public class AxonConfig {
 //        return queryBus;
 //    }
 
-    @Bean
-    public EventBus configureEventBus(EventStorageEngine eventStorageEngine) {
-        EventBus eventBus = EmbeddedEventStore.builder()
-                .storageEngine(eventStorageEngine)
-                .build();
-        eventBus.registerDispatchInterceptor(new EventLoggingInterceptor());
-        return eventBus;
-    }
+//    @Bean
+//    public EventBus configureEventBus(EventStorageEngine eventStorageEngine) {
+//        EventBus eventBus = EmbeddedEventStore.builder()
+//                .storageEngine(eventStorageEngine)
+//                .build();
+//        eventBus.registerDispatchInterceptor(new EventLoggingInterceptor());
+//        return eventBus;
+//    }
 
     @Bean
     public ConfigurerModule metricConfigurer(MeterRegistry meterRegistry) {

@@ -1,6 +1,7 @@
 package com.ben.smartcv.job.domain.entity;
 
 import com.ben.smartcv.common.domain.AuditingEntity;
+import com.ben.smartcv.common.infrastructure.database.CustomAuditingEntityListener;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;

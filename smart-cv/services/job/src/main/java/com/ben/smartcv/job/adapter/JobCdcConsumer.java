@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.kafka.support.Acknowledgment;
 import org.springframework.kafka.support.KafkaHeaders;
 import org.springframework.messaging.MessageHeaders;
 import org.springframework.messaging.handler.annotation.Header;
@@ -32,7 +33,7 @@ public class JobCdcConsumer extends BaseCdcConsumer<JobCdcMessage.Key, JobCdcMes
     @KafkaListener(
         id = "job-postgres-sync-elastic",
         groupId = Constant.KAFKA_GROUP_JOB_CDC,
-        topics = Constant.KAFKA_TOPIC_JOB_CDC,
+        topics = "${debezium.connectors[0].topic}",
         containerFactory = Constant.JOB_CDC_LISTENER_CONTAINER_FACTORY
     )
     @RetrySupportDql(listenerContainerFactory = Constant.JOB_CDC_LISTENER_CONTAINER_FACTORY)
@@ -41,6 +42,7 @@ public class JobCdcConsumer extends BaseCdcConsumer<JobCdcMessage.Key, JobCdcMes
         @Payload(required = false) @Valid JobCdcMessage jobCdcMessage,
         @Headers MessageHeaders headers
     ) {
+        log.info("||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| {}", jobCdcMessage.getAfter().getOrganizationName());
         processMessage(key, jobCdcMessage, headers, this::sync);
     }
 
