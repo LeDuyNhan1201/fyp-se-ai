@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.eventsourcing.EventSourcingHandler;
 import org.axonframework.messaging.MetaData;
+import org.axonframework.messaging.annotation.MetaDataValue;
 import org.axonframework.messaging.interceptors.ExceptionHandler;
 import org.axonframework.modelling.command.AggregateIdentifier;
 import org.axonframework.spring.stereotype.Aggregate;
@@ -35,13 +36,14 @@ public class NotificationAggregate {
     String associationProperty;
 
     @CommandHandler
-    public NotificationAggregate(NotificationCommand.SendNotification command) {
+    public NotificationAggregate(NotificationCommand.SendNotification command,
+                                 @MetaDataValue("causationId") String causationId) {
         apply(NotificationEvent.NotificationSent.builder()
                 .id(command.getId())
                 .title(command.getTitle())
                 .content(command.getContent())
                 .associationProperty(command.getAssociationProperty())
-                .build(), MetaData.with("key", "123"));
+                .build(), MetaData.with("causationId", causationId));
     }
 
     @EventSourcingHandler

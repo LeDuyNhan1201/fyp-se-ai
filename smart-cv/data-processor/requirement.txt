@@ -7,8 +7,3 @@ minio
 elasticsearch
 scikit-learn
 sentence-transformers
-transformers
-datasets
-seqeval
-torch
-accelerate

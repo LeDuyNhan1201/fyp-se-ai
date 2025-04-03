@@ -6,6 +6,8 @@ import com.ben.smartcv.common.job.JobCreatedEvent;
 import com.ben.smartcv.common.job.JobProcessorGrpc;
 import com.ben.smartcv.common.util.TimeHelper;
 import io.grpc.ManagedChannel;
+import io.grpc.Status;
+import io.grpc.StatusRuntimeException;
 import jakarta.annotation.PreDestroy;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;

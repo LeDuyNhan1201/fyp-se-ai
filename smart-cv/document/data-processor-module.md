@@ -13,9 +13,6 @@ pip install minio
 
 sudo pacman -S tesseract tesseract-data-eng poppler
 pip install pytesseract pdf2image pillow
-
-pip install -U spacy
-python -m spacy download en_core_web_sm
 pip install scikit-learn sentence-transformers
 
 mkdir protobuf

@@ -7,6 +7,8 @@ import com.ben.smartcv.job.application.usecase.IMasterJobWriteSideUseCase;
 import com.ben.smartcv.job.domain.entity.MasterJob;
 import com.ben.smartcv.job.infrastructure.kafka.EventPublisher;
 import com.ben.smartcv.job.infrastructure.grpc.GrpcClientJobProcessor;
+import io.grpc.Status;
+import io.grpc.StatusRuntimeException;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
@@ -56,16 +58,26 @@ public class JobEventHandler {
 
         } catch (Exception e) {
             log.error("Job processing failed: {}", e.getMessage());
-            sendFailureNotification();
+            String reason = "ErrorMsg.CreateFailed";
+            if (e instanceof StatusRuntimeException) {
+                Status status = ((StatusRuntimeException) e).getStatus();
+                if (status.getCode() == Status.Code.INVALID_ARGUMENT) {
+                    log.error("Invalid argument: {}", status.getDescription());
+                    reason = "ErrorMsg.InvalidRequirements";
+                } else {
+                    log.error("Unexpected error: {}", status.getDescription());
+                }
+            }
+            sendFailureNotification(reason);
         }
         eventPublisher.send(event);
     }
 
-    private void sendFailureNotification() {
+    private void sendFailureNotification(String reason) {
         commandGateway.sendAndWait(NotificationCommand.SendNotification.builder()
                 .id(UUID.randomUUID().toString())
                 .title("Create job failed")
-                .content("Job creating failed")
+                .content(reason)
                 .build());
     }
 

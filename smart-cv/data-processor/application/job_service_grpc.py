@@ -45,4 +45,10 @@ class JobServiceImpl(grpc_service.JobProcessorServicer):
             skills = data["skills"],
             experience = data["experiences"],
         )
+
+        if extracted_data["skills"].length < 3:
+            context.set_code(grpc.StatusCode.INVALID_ARGUMENT)
+            context.set_details("Invalid requirements")
+            return ExtractedJobData()
+
         return extracted_data
