@@ -33,7 +33,7 @@ public class UserAggregate {
     String fullName;
 
     @CommandHandler
-    public UserAggregate(UserCommand.RegisterUser command) {
+    public UserAggregate(UserCommand.CreateUser command) {
         if (command.getEmail().isEmpty()) {
             throw new IllegalStateException("Email cannot be empty");
         }
@@ -51,7 +51,7 @@ public class UserAggregate {
         this.fullName = event.getFullName();
     }
 
-    @ExceptionHandler(resultType = IllegalStateException.class, payloadType = UserCommand.RegisterUser.class)
+    @ExceptionHandler(resultType = IllegalStateException.class, payloadType = UserCommand.CreateUser.class)
     public void handleIllegalStateExceptionsFromIssueCard(Exception exception) {
         log.error("IllegalStateException occurred: {}", exception.getMessage());
     }

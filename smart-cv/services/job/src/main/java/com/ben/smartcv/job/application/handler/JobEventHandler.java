@@ -58,12 +58,12 @@ public class JobEventHandler {
 
         } catch (Exception e) {
             log.error("Job processing failed: {}", e.getMessage());
-            String reason = "ErrorMsg.CreateFailed";
+            String reason = "Notify.Content.CreateFailed";
             if (e instanceof StatusRuntimeException) {
                 Status status = ((StatusRuntimeException) e).getStatus();
                 if (status.getCode() == Status.Code.INVALID_ARGUMENT) {
                     log.error("Invalid argument: {}", status.getDescription());
-                    reason = "ErrorMsg.InvalidRequirements";
+                    reason = "Notify.Content.InvalidRequirements";
                 } else {
                     log.error("Unexpected error: {}", status.getDescription());
                 }
@@ -76,15 +76,19 @@ public class JobEventHandler {
     private void sendFailureNotification(String reason) {
         commandGateway.sendAndWait(NotificationCommand.SendNotification.builder()
                 .id(UUID.randomUUID().toString())
-                .title("Create job failed")
+                .title("Notify.Title.CreateFailed")
                 .content(reason)
                 .build());
     }
 
     @EventHandler
     public void on(JobEvent.JobDeleted event) {
-        useCase.delete(event.getJobId());
-        eventPublisher.send(event);
+        try {
+            useCase.delete(event.getJobId());
+            eventPublisher.send(event);
+        } catch (Exception e){
+            log.error("Cannot delete job {}: {}", event.getJobId(), e.getMessage());
+        }
     }
 
     @ExceptionHandler(payloadType = JobEvent.JobCreated.class)

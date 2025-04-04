@@ -61,7 +61,7 @@ public class JobAggregate {
 
     @CommandHandler
     public JobAggregate(JobCommand.RollbackCreateJob command, @MetaDataValue("causationId") String causationId) {
-        LogHelper.logMessage(log, "RollbackProcessJob", command.getId(), causationId, command);
+        LogHelper.logMessage(log, "RollbackCreateJob", command.getId(), causationId, command);
         apply(JobEvent.JobDeleted.builder()
                 .id(command.getId())
                 .jobId(command.getJobId())

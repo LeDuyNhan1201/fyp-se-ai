@@ -14,16 +14,18 @@ public class UserCommand {
     @AllArgsConstructor
     @NoArgsConstructor
     @FieldDefaults(level = PRIVATE)
-    public static class RegisterUser {
+    public static class CreateUser {
 
         @TargetAggregateIdentifier
         String id;
 
-        String userId;
-
         String email;
 
-        String fullName;
+        String password;
+
+        String firstName;
+
+        String lastName;
 
     }
 

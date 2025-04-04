@@ -1,4 +1,4 @@
-FROM debezium/postgres:17-alpine
+FROM debezium/postgres:16-alpine
 
 ENV  WAL2JSON_TAG=wal2json_2_6
 

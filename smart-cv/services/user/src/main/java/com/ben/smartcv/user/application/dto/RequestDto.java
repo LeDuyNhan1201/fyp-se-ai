@@ -13,11 +13,16 @@ public class RequestDto {
     @AllArgsConstructor
     @NoArgsConstructor
     @FieldDefaults(level = PRIVATE)
-    public static class CreateUser {
+    public static class SignUp {
 
         String email;
 
-        String fullName;
+        String password;
+
+        String firstName;
+
+        String lastName;
+
     }
 
 }

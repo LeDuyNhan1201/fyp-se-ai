@@ -68,10 +68,10 @@ openapi:
 logging:
   pattern:
     correlation: "[${spring.application.name:}, %X{traceId:-}, %X{spanId:-}]"
-  level:
-    com:
-      zaxxer:
-        hikari: DEBUG
+#  level:
+#    com:
+#      zaxxer:
+#        hikari: DEBUG
 
 #  level:
 #    org:
@@ -168,23 +168,23 @@ spring:
     url: ${JOB_POSTGRES_URL:jdbc:postgresql://localhost:5432/job_service_db}
     username: ${POSTGRES_USERNAME}
     password: ${POSTGRES_PASSWORD}
-    testWhileIdle: true
-    test-on-borrow: true
-    hikari:
-      driver-class-name: org.postgresql.Driver
-      maximum-pool-size: 10
-      minimum-idle: 2
-      idle-timeout: 600000  # Đóng connection nhàn rỗi sau 10 phút
-      max-lifetime: 900000  # Tạo connection mới sau 15 phút để tránh bị đóng bất ngờ
-      keepalive-time: 180000  # Ping connection sau 3 phút để giữ connection sống
-      connection-timeout: 30000  # Timeout nếu không lấy được connection sau 30 giây
-      validation-timeout: 5000  # Timeout kiểm tra connection còn sống sau 5 giây
-      leak-detection-threshold: 60000  # Cảnh báo nếu connection bị giữ quá 60 giây
+#    testWhileIdle: true
+#    test-on-borrow: true
+#    hikari:
+#      driver-class-name: org.postgresql.Driver
+#      maximum-pool-size: 10
+#      minimum-idle: 2
+#      idle-timeout: 600000  # Đóng connection nhàn rỗi sau 10 phút
+#      max-lifetime: 900000  # Tạo connection mới sau 15 phút để tránh bị đóng bất ngờ
+#      keepalive-time: 180000  # Ping connection sau 3 phút để giữ connection sống
+#      connection-timeout: 30000  # Timeout nếu không lấy được connection sau 30 giây
+#      validation-timeout: 5000  # Timeout kiểm tra connection còn sống sau 5 giây
+#      leak-detection-threshold: 60000  # Cảnh báo nếu connection bị giữ quá 60 giây
 
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: none
     show-sql: true
     properties:
       hibernate:
@@ -193,7 +193,7 @@ spring:
 
   data:
     mongodb:
-      uri: ${MONGODB_URI:mongodb://smartcv:SmArTcV123%23@localhost:27017/axon-framework?authSource=admin}
+      uri: ${MONGODB_URI}
 
     elasticsearch:
       repositories:

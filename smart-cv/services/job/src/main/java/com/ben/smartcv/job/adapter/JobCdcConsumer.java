@@ -1,5 +1,6 @@
 package com.ben.smartcv.job.adapter;
 
+import com.ben.smartcv.common.contract.command.NotificationCommand;
 import com.ben.smartcv.common.infrastructure.kafka.BaseCdcConsumer;
 import com.ben.smartcv.common.infrastructure.kafka.RetrySupportDql;
 import com.ben.smartcv.common.util.Constant;
@@ -11,14 +12,16 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
+import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.springframework.kafka.annotation.KafkaListener;
-import org.springframework.kafka.support.Acknowledgment;
 import org.springframework.kafka.support.KafkaHeaders;
 import org.springframework.messaging.MessageHeaders;
 import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.messaging.handler.annotation.Headers;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Service;
+
+import java.util.UUID;
 
 import static lombok.AccessLevel.PRIVATE;
 
@@ -29,6 +32,8 @@ import static lombok.AccessLevel.PRIVATE;
 public class JobCdcConsumer extends BaseCdcConsumer<JobCdcMessage.Key, JobCdcMessage> {
 
     ISlaveJobWriteSideUseCase useCase;
+
+    CommandGateway commandGateway;
 
     @KafkaListener(
         id = "job-postgres-sync-elastic",
@@ -42,8 +47,14 @@ public class JobCdcConsumer extends BaseCdcConsumer<JobCdcMessage.Key, JobCdcMes
         @Payload(required = false) @Valid JobCdcMessage jobCdcMessage,
         @Headers MessageHeaders headers
     ) {
-        log.info("||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| {}", jobCdcMessage.getAfter().getOrganizationName());
+        log.info("Cdc job {}", jobCdcMessage.getAfter().getOrganizationName());
         processMessage(key, jobCdcMessage, headers, this::sync);
+
+        commandGateway.sendAndWait(NotificationCommand.SendNotification.builder()
+                .id(UUID.randomUUID().toString())
+                .title("Notify.Title.ItemAvailable")
+                .content("Notify.Content.ItemAvailable")
+                .build());
     }
 
     public void sync(JobCdcMessage.Key key, JobCdcMessage jobCdcMessage) {

@@ -1,6 +1,7 @@
 package com.ben.smartcv.job.application.usecase;
 
 import com.ben.smartcv.common.contract.command.JobCommand;
+import com.ben.smartcv.common.contract.command.NotificationCommand;
 import com.ben.smartcv.job.domain.entity.SlaveJob;
 import com.ben.smartcv.job.infrastructure.repository.ISlaveJobRepository;
 import lombok.RequiredArgsConstructor;
@@ -49,6 +50,12 @@ public class SlaveJobWriteSideUseCase implements ISlaveJobWriteSideUseCase {
         commandGateway.send(JobCommand.RollbackCreateJob.builder()
                 .id(UUID.randomUUID().toString())
                 .jobId(jobId)
+                .build());
+
+        commandGateway.sendAndWait(NotificationCommand.SendNotification.builder()
+                .id(UUID.randomUUID().toString())
+                .title("Notify.Title.CreateFailed")
+                .content("Notify.Content.CreateFailed")
                 .build());
     }
 
