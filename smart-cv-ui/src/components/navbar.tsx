@@ -8,7 +8,7 @@ const Navbar = async () => {
   // const session = await auth();
   const session = {
     id: "abc",
-    user: {
+    securityUser: {
       name: "abc",
       image: "abc"
     }
@@ -22,7 +22,7 @@ const Navbar = async () => {
         </Link>
 
         <div className="flex items-center gap-5 text-black">
-          {session && session?.user ? (
+          {session && session?.securityUser ? (
             <>
               <Link href="/startup/create">
                 <span className="max-sm:hidden">Create</span>
@@ -42,11 +42,11 @@ const Navbar = async () => {
                 </button>
               </form>
 
-              <Link href={`/user/${session?.id}`}>
+              <Link href={`/securityUser/${session?.id}`}>
                 <Avatar className="size-10">
                   <AvatarImage
-                    src={session?.user?.image || ""}
-                    alt={session?.user?.name || ""}
+                    src={session?.securityUser?.image || ""}
+                    alt={session?.securityUser?.name || ""}
                   />
                   <AvatarFallback>AV</AvatarFallback>
                 </Avatar>

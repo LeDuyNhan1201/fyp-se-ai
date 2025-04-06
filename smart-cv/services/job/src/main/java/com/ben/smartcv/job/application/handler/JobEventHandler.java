@@ -3,6 +3,7 @@ package com.ben.smartcv.job.application.handler;
 import com.ben.smartcv.common.contract.command.NotificationCommand;
 import com.ben.smartcv.common.contract.event.JobEvent;
 import com.ben.smartcv.common.job.ExtractedJobData;
+import com.ben.smartcv.common.util.LogHelper;
 import com.ben.smartcv.job.application.usecase.IMasterJobWriteSideUseCase;
 import com.ben.smartcv.job.domain.entity.MasterJob;
 import com.ben.smartcv.job.infrastructure.kafka.EventPublisher;
@@ -86,8 +87,8 @@ public class JobEventHandler {
         try {
             useCase.delete(event.getJobId());
             eventPublisher.send(event);
-        } catch (Exception e){
-            log.error("Cannot delete job {}: {}", event.getJobId(), e.getMessage());
+        } catch (Exception exception){
+            log.error("Cannot delete job {}: {}", event.getJobId(), exception.getMessage());
         }
     }
 

@@ -1,6 +1,7 @@
-package com.ben.smartcv.job.infrastructure.repository;
+package com.ben.smartcv.job.infrastructure.repository.impl;
 
 import com.ben.smartcv.job.domain.entity.SlaveJob;
+import com.ben.smartcv.job.infrastructure.repository.IAdvancedSearchRepository;
 import com.ben.smartcv.job.util.ElasticsearchHelper;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;

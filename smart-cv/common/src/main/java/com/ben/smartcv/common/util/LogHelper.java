@@ -5,16 +5,6 @@ import java.time.Instant;
 
 public final class LogHelper {
 
-    public static String logEvent(String eventName, String correlationId, String causationId, Object payload) {
-        String logMessage = String.format(
-            "{ \"event\": \"%s\", \"timestamp\": \"%s\", \"payload\": %s }",
-            eventName, Instant.now(), payload
-        );
-
-
-        return logMessage;
-    }
-
     public static void logMessage(Logger log, String messageType, String correlationId, String causationId, Object payload) {
         log.info("[{}]: Command: {} | correlationId: {} | causationId: {} | payload: {}",
                 log.getName(), messageType, correlationId, causationId, payload);

@@ -1,4 +1,4 @@
-package com.ben.smartcv.user.domain;
+package com.ben.smartcv.user.domain.aggregate;
 
 import com.ben.smartcv.common.contract.command.UserCommand;
 import com.ben.smartcv.common.contract.event.UserEvent;
@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.eventsourcing.EventSourcingHandler;
 import org.axonframework.messaging.MetaData;
+import org.axonframework.messaging.annotation.MetaDataValue;
 import org.axonframework.messaging.interceptors.ExceptionHandler;
 import org.axonframework.modelling.command.AggregateIdentifier;
 import org.axonframework.spring.stereotype.Aggregate;
@@ -30,25 +31,30 @@ public class UserAggregate {
 
     String email;
 
-    String fullName;
+    String password;
+
+    String firstName;
+
+    String lastName;
 
     @CommandHandler
-    public UserAggregate(UserCommand.CreateUser command) {
-        if (command.getEmail().isEmpty()) {
-            throw new IllegalStateException("Email cannot be empty");
-        }
+    public UserAggregate(UserCommand.CreateUser command,
+                         @MetaDataValue("correlationId") String correlationId,
+                         @MetaDataValue("causationId") String causationId) {
         apply(UserEvent.UserRegistered.builder()
-                .userId(command.getUserId())
                 .email(command.getEmail())
-                .fullName(command.getFullName())
-                .build(), MetaData.with("key", "123"));
+                .password(command.getPassword())
+                .firstName(command.getFirstName())
+                .lastName(command.getLastName())
+                .build(), MetaData.with("correlationId", correlationId).and("causationId", causationId));
     }
 
     @EventSourcingHandler
     public void on(UserEvent.UserRegistered event) {
-        this.userId = event.getUserId();
         this.email = event.getEmail();
-        this.fullName = event.getFullName();
+        this.password = event.getPassword();
+        this.firstName = event.getFirstName();
+        this.lastName = event.getLastName();
     }
 
     @ExceptionHandler(resultType = IllegalStateException.class, payloadType = UserCommand.CreateUser.class)

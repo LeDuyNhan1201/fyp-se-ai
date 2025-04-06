@@ -40,7 +40,8 @@ public class CommandController {
                 .firstName(request.getFirstName())
                 .lastName(request.getLastName())
                 .build();
-        commandGateway.sendAndWait(command, MetaData.with("correlationId", identifier));
+        commandGateway.sendAndWait(command,
+                MetaData.with("correlationId", identifier).and("causationId", identifier));
         return ResponseEntity.ok(BaseResponse.builder()
                 .message(Translator.getMessage("SuccessMsg.Created", "New User"))
                 .build());

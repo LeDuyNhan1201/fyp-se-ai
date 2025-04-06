@@ -16,11 +16,13 @@ public class UserEvent {
     @FieldDefaults(level = PRIVATE)
     public static class UserRegistered extends BaseEvent<String> {
 
-        String userId;
-
         String email;
 
-        String fullName;
+        String password;
+
+        String firstName;
+
+        String lastName;
 
     }
 

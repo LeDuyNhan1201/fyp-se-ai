@@ -3,9 +3,11 @@ package com.ben.smartcv.user.infrastructure;
 import com.ben.smartcv.common.user.UserRegisteredEvent;
 import com.ben.smartcv.common.util.Constant;
 import com.ben.smartcv.common.contract.event.UserEvent;
+import com.ben.smartcv.common.util.KafkaHelper;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.kafka.clients.producer.ProducerRecord;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
@@ -19,18 +21,20 @@ public class EventPublisher {
 
     KafkaTemplate<String, UserRegisteredEvent> userRegisteredTemplate;
 
-    public void sendUserRegisteredEvent(UserEvent.UserRegistered event) {
+    public void sendUserRegisteredEvent(UserEvent.UserRegistered event, String correlationId, String causationId) {
+
         UserRegisteredEvent protoEvent = UserRegisteredEvent.newBuilder()
-                .setUserId(event.getUserId())
                 .setEmail(event.getEmail())
-                .setFullName(event.getFullName())
+                .setPassword(event.getPassword())
+                .setFirstName(event.getFirstName())
+                .setLastName(event.getLastName())
                 .build();
 
-        userRegisteredTemplate.send(
-                Constant.KAFKA_TOPIC_USER_EVENT,
-                event.getUserId(),
-                protoEvent
-        );
+        ProducerRecord<String, UserRegisteredEvent> record = new ProducerRecord<>(
+                Constant.KAFKA_TOPIC_USER_EVENT, null, event.getId(), protoEvent,
+                KafkaHelper.createHeaders(correlationId, causationId));
+
+        userRegisteredTemplate.send(record);
     }
 
 }

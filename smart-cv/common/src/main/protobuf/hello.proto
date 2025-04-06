@@ -12,7 +12,7 @@ service Simple {
   rpc StreamHello(HelloRequest) returns (stream HelloReply) {}
 }
 
-// The request message containing the user's name.
+// The request message containing the securityUser's name.
 message HelloRequest {
   string name = 1;
 }

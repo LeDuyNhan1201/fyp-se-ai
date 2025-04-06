@@ -8,10 +8,12 @@ option java_multiple_files = true;
 
 message UserRegisteredEvent {
 
-  string user_id = 1;
+    string email = 1;
 
-  string email = 2;
+    string password = 2;
 
-  string full_name = 3;
+    string first_name = 3;
+
+    string last_name = 4;
 
 }
