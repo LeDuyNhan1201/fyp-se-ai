@@ -4,6 +4,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.experimental.FieldDefaults;
 
+import java.io.Serializable;
 import java.time.OffsetDateTime;
 import java.util.List;
 
@@ -14,7 +15,7 @@ public class ResponseDto {
     @Getter
     @Builder
     @FieldDefaults(level = PRIVATE)
-    public static class JobDescription {
+    public static class JobDescription implements Serializable {
 
         String id;
 

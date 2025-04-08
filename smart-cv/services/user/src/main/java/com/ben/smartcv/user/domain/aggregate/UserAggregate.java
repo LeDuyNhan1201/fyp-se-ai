@@ -27,21 +27,28 @@ import static org.axonframework.modelling.command.AggregateLifecycle.apply;
 public class UserAggregate {
 
     @AggregateIdentifier
+    String id;
+
     String userId;
 
     String email;
 
     String password;
 
+    String confirmPassword;
+
     String firstName;
 
     String lastName;
 
+    boolean acceptTerms;
+
     @CommandHandler
-    public UserAggregate(UserCommand.CreateUser command,
+    public UserAggregate(UserCommand.SignUpUser command,
                          @MetaDataValue("correlationId") String correlationId,
                          @MetaDataValue("causationId") String causationId) {
-        apply(UserEvent.UserRegistered.builder()
+        apply(UserEvent.UserSignedUp.builder()
+                .id(command.getId())
                 .email(command.getEmail())
                 .password(command.getPassword())
                 .firstName(command.getFirstName())
@@ -50,14 +57,15 @@ public class UserAggregate {
     }
 
     @EventSourcingHandler
-    public void on(UserEvent.UserRegistered event) {
+    public void on(UserEvent.UserSignedUp event) {
+        this.id = event.getId();
         this.email = event.getEmail();
         this.password = event.getPassword();
         this.firstName = event.getFirstName();
         this.lastName = event.getLastName();
     }
 
-    @ExceptionHandler(resultType = IllegalStateException.class, payloadType = UserCommand.CreateUser.class)
+    @ExceptionHandler(resultType = IllegalStateException.class, payloadType = UserCommand.SignUpUser.class)
     public void handleIllegalStateExceptionsFromIssueCard(Exception exception) {
         log.error("IllegalStateException occurred: {}", exception.getMessage());
     }

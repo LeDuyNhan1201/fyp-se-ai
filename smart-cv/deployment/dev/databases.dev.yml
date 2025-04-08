@@ -33,16 +33,17 @@ services:
       MONGO_INITDB_ROOT_USERNAME: ${MONGODB_USERNAME}
       MONGO_INITDB_ROOT_PASSWORD: ${MONGODB_PASSWORD}
 
-#  smartcv-redis:
-#    image: redis:latest
-#    container_name: smartcv-redis
-#    restart: always
-#    volumes:
-#      - smartcv-redis-data:/data
-#    ports:
-#      - "6379:6379"
-#    networks:
-#      - smartcv-network
+  # --------- Redis ---------
+  smartcv-redis:
+    image: redis:latest
+    container_name: smartcv-redis
+    restart: always
+    volumes:
+      - smartcv-redis-data:/data
+    ports:
+      - 6379:6379
+    networks:
+      - smartcv-network
 
   # --------- Elasticsearch ---------
   smartcv-elasticsearch:

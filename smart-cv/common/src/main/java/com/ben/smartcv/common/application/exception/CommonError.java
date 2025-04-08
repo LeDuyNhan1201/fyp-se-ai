@@ -17,6 +17,9 @@ public enum CommonError {
     //Rate Limiting Errors
     TOO_MANY_REQUESTS("common/too-many-requests", "ErrorMsg.TooManyRequests"),
     RATE_LIMIT_EXCEEDED("common/rate-limit-exceeded", "ErrorMsg.RateLimitExceeded"),
+
+    RESOURCE_NOT_FOUND("common/resource-not-found", "ErrorMsg.ResourceNotFound"),
+    CREATE_FAILED("common/create-failed", "ErrorMsg.CreateFailed"),
     ;
 
     CommonError(String code, String message) {

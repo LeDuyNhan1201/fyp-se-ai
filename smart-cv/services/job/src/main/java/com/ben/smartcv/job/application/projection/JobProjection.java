@@ -2,7 +2,7 @@ package com.ben.smartcv.job.application.projection;
 
 import com.ben.smartcv.common.contract.query.JobQuery;
 import com.ben.smartcv.job.application.dto.ResponseDto;
-import com.ben.smartcv.job.application.usecase.SlaveJobReadSideUseCase;
+import com.ben.smartcv.job.application.usecase.ISlaveJobReadSideUseCase;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
@@ -19,7 +19,7 @@ import static lombok.AccessLevel.PRIVATE;
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 public class JobProjection {
 
-    SlaveJobReadSideUseCase useCase;
+    ISlaveJobReadSideUseCase useCase;
 
     @QueryHandler
     public List<ResponseDto.JobDescription> handle(JobQuery.GetAllJobs query) {

@@ -3,6 +3,7 @@ package com.ben.smartcv.common.domain;
 import com.ben.smartcv.common.infrastructure.database.CustomAuditingEntityListener;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
+import jakarta.persistence.Version;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.SuperBuilder;
@@ -54,6 +55,11 @@ public abstract class AuditingEntity {
     @Column(name = "deleted_at")
     @Temporal(TemporalType.TIMESTAMP)
     Instant deletedAt;
+
+    @JsonProperty(value = "version")
+    @Version
+    @Column(name = "version")
+    Long version;
 
     public void softDelete() {
         isDeleted = true;

@@ -61,6 +61,7 @@ def extract_cv_info(text):
     email = extract_email(text)
     educations = extract_educations(text)
     skills = extract_skills(text)
+    experiences = extract_experiences(text)
 
     return {
         "name": name,
@@ -68,6 +69,7 @@ def extract_cv_info(text):
         "phone": phone,
         "skills": skills,
         "educations": educations,
+        "experiences": experiences
     }
 
 def extract_job_info(text):
@@ -228,29 +230,11 @@ SKILLS
 """
 
 job_description = """
-Organization Name: NexIoT Solutions
-Email: hiring@nexiot.com
-Phone: +49 30 1234 5678
-Position: Embedded IoT Engineer
-Education: Bachelor's or Master's in Embedded Systems, Electrical Engineering, or related fields
-Skills: C/C++, RTOS, ARM Cortex, IoT connectivity (Bluetooth, Zigbee, LoRa, NB-IoT), firmware development, power optimization
-Languages: English, Spanish (preferred)
-Experience: 4+ years in embedded IoT development
-
-Job Description:
-We are hiring an Embedded IoT Engineer to design and develop low-power embedded systems for smart devices and industrial IoT applications.
-
-Key Responsibilities:
-
-Develop firmware for embedded IoT devices using C/C++
-Optimize power consumption and memory usage in IoT devices
-Work with wireless communication protocols (Bluetooth, LoRa, NB-IoT)
-Ensure security and reliability of embedded systems
-Perform testing and debugging of hardware-software interactions
+Organization Name: Intel CorporationEmail: careers@intel.comPhone: +1 (408) 765-8080Position: Embedded Software EngineerEducation: Bachelor's or Master's in Computer Engineering, Electrical Engineering, or related fieldsSkills: C, C++, Embedded Linux, RTOS, Microcontrollers, ARM Cortex, UART, SPI, I2C, Git, YoctoExperience: 3+ years in embedded software development, experience with Linux kernel programmingSalary: $80,000 - $120,000 per year
 """
 
-# cv_data = extract_cv_info(cv_text)
-# print(cv_data)
+cv_data = extract_cv_info(cv_text)
+print(cv_data)
 # job_data = extract_job_info(job_description)
 # print(job_data)
 # score = match_cv_with_jd(cv_data, job_description)

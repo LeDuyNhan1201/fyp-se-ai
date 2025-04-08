@@ -1,16 +1,22 @@
 package com.ben.smartcv.file.application.handler;
 
+import com.ben.smartcv.common.contract.command.NotificationCommand;
 import com.ben.smartcv.common.contract.event.CvEvent;
+import com.ben.smartcv.common.util.LogHelper;
 import com.ben.smartcv.file.infrastructure.EventPublisher;
-import com.ben.smartcv.file.infrastructure.IMinioClient;
+import com.ben.smartcv.file.infrastructure.minio.IMinioClient;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.NonFinal;
 import lombok.extern.slf4j.Slf4j;
+import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.axonframework.eventhandling.EventHandler;
+import org.axonframework.messaging.annotation.MetaDataValue;
 import org.axonframework.messaging.interceptors.ExceptionHandler;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+
+import java.util.UUID;
 
 import static lombok.AccessLevel.PRIVATE;
 
@@ -20,30 +26,53 @@ import static lombok.AccessLevel.PRIVATE;
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 public class FileEventHandler {
 
-    EventPublisher kafkaProducer;
+    EventPublisher eventPublisher;
 
     IMinioClient minioClient;
+
+    CommandGateway commandGateway;
 
     @Value("${minio.bucket-name}")
     @NonFinal
     String bucketName;
 
     @EventHandler
-    public void on(CvEvent.CvApplied event) {
+    public void on(CvEvent.CvApplied event,
+                   @MetaDataValue("correlationId") String correlationId,
+                   @MetaDataValue("causationId") String causationId) {
         // 3
-        kafkaProducer.send(event);
+        LogHelper.logMessage(log, "3|CvApplied", correlationId, causationId, event);
+        eventPublisher.send(event, correlationId, causationId);
     }
 
     @EventHandler
-    public void on(CvEvent.CvFileDeleted event) {
+    public void on(CvEvent.CvFileDeleted event,
+                   @MetaDataValue("correlationId") String correlationId,
+                   @MetaDataValue("causationId") String causationId) {
         // 9
-        minioClient.deleteObject(event.getObjectKey(), bucketName);
-        kafkaProducer.send(event);
+        LogHelper.logMessage(log, "9|CvApplied", correlationId, causationId, event);
+        try {
+            minioClient.deleteObject(event.getObjectKey(), bucketName);
+        } catch (Exception e) {
+            log.error("Error when deleting file: ", e);
+            String reason = "Notify.Content.DeleteFailed|File";
+            sendFailureNotification(reason);
+        }
+        eventPublisher.send(event, correlationId, causationId);
     }
 
     @ExceptionHandler(payloadType = CvEvent.CvFileDeleted.class)
-    public void handleExceptionForCvFileDeletedEvent(Exception exception) {
-        log.error("Unexpected exception occurred when deleting cv file: {}", exception.getMessage());
+    public void handleExceptionForCvFileDeletedEvent(CvEvent.CvFileDeleted event, Exception exception) {
+        log.error("Unexpected exception occurred when deleting cv file {}: {}",
+                event.getObjectKey(), exception.getMessage());
+    }
+
+    private void sendFailureNotification(String reason) {
+        commandGateway.sendAndWait(NotificationCommand.SendNotification.builder()
+                .id(UUID.randomUUID().toString())
+                .title("Notify.Title.DeleteFailed|File")
+                .content(reason)
+                .build());
     }
 
 }

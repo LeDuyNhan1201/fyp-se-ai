@@ -8,8 +8,8 @@ import org.springframework.context.annotation.Configuration;
 
 import static com.ben.smartcv.common.util.GrpcHelper.createChannelForService;
 
-@Configuration
 @Slf4j
+@Configuration
 public class GrpcClientConfig {
 
     @Bean

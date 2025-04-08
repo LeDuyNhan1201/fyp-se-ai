@@ -16,9 +16,9 @@ message ExtractedJobData {
 
     repeated string educations = 3;
 
-    repeated string skills = 5;
+    repeated string skills = 4;
 
-    repeated string experiences = 6;
+    repeated string experiences = 5;
 
 }
 

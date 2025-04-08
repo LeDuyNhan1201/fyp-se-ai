@@ -15,6 +15,7 @@ import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.axonframework.eventhandling.EventHandler;
+import org.axonframework.messaging.annotation.MetaDataValue;
 import org.axonframework.messaging.interceptors.ExceptionHandler;
 import org.springframework.stereotype.Component;
 
@@ -37,7 +38,10 @@ public class JobEventHandler {
     IMasterJobWriteSideUseCase useCase;
 
     @EventHandler
-    public void on(JobEvent.JobCreated event) {
+    public void on(JobEvent.JobCreated event,
+                   @MetaDataValue("correlationId") String correlationId,
+                   @MetaDataValue("causationId") String causationId) {
+        LogHelper.logMessage(log, "JobCreated", correlationId, causationId, event);
         try {
             ExtractedJobData extractedJobData = grpcClient.callExtractData(event);
 
@@ -59,34 +63,29 @@ public class JobEventHandler {
 
         } catch (Exception e) {
             log.error("Job processing failed: {}", e.getMessage());
-            String reason = "Notify.Content.CreateFailed";
+            String reason = "Notify.Content.CreateFailed|CV";
             if (e instanceof StatusRuntimeException) {
                 Status status = ((StatusRuntimeException) e).getStatus();
                 if (status.getCode() == Status.Code.INVALID_ARGUMENT) {
                     log.error("Invalid argument: {}", status.getDescription());
-                    reason = "Notify.Content.InvalidRequirements";
+                    reason = "Notify.Content.InvalidRequirements|CV";
                 } else {
                     log.error("Unexpected error: {}", status.getDescription());
                 }
             }
             sendFailureNotification(reason);
         }
-        eventPublisher.send(event);
-    }
-
-    private void sendFailureNotification(String reason) {
-        commandGateway.sendAndWait(NotificationCommand.SendNotification.builder()
-                .id(UUID.randomUUID().toString())
-                .title("Notify.Title.CreateFailed")
-                .content(reason)
-                .build());
+        eventPublisher.send(event, correlationId, causationId);
     }
 
     @EventHandler
-    public void on(JobEvent.JobDeleted event) {
+    public void on(JobEvent.JobDeleted event,
+                   @MetaDataValue("correlationId") String correlationId,
+                   @MetaDataValue("causationId") String causationId) {
+        LogHelper.logMessage(log, "JobDeleted", correlationId, causationId, event);
         try {
             useCase.delete(event.getJobId());
-            eventPublisher.send(event);
+            eventPublisher.send(event, correlationId, causationId);
         } catch (Exception exception){
             log.error("Cannot delete job {}: {}", event.getJobId(), exception.getMessage());
         }
@@ -100,6 +99,14 @@ public class JobEventHandler {
     @ExceptionHandler
     public void handleExceptionForJobDeletedEvent(JobEvent.JobDeleted event, Exception exception) {
         log.error("Unexpected exception occurred when deleting job {}: {}", event.getJobId(), exception.getMessage());
+    }
+
+    private void sendFailureNotification(String reason) {
+        commandGateway.sendAndWait(NotificationCommand.SendNotification.builder()
+                .id(UUID.randomUUID().toString())
+                .title("Notify.Title.CreateFailed|CV")
+                .content(reason)
+                .build());
     }
 
 }

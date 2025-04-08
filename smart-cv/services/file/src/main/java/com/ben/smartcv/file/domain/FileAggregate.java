@@ -10,6 +10,7 @@ import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.eventsourcing.EventSourcingHandler;
+import org.axonframework.messaging.MetaData;
 import org.axonframework.messaging.annotation.MetaDataValue;
 import org.axonframework.messaging.interceptors.ExceptionHandler;
 import org.axonframework.modelling.command.AggregateIdentifier;
@@ -34,25 +35,29 @@ public class FileAggregate {
     String objectKey;
 
     @CommandHandler
-    public FileAggregate(CvCommand.ApplyCv command, @MetaDataValue("causationId") String causationId) {
+    public FileAggregate(CvCommand.ApplyCv command,
+                         @MetaDataValue("correlationId") String correlationId,
+                         @MetaDataValue("causationId") String causationId) {
         // 1
-        LogHelper.logMessage(log, "ApplyCv", command.getId(), causationId, command);
+        LogHelper.logMessage(log, "1|ApplyCv", correlationId, causationId, command);
         apply(CvEvent.CvApplied.builder()
                 .id(command.getId())
                 .cvId(command.getCvId())
                 .fileName(command.getFileName())
-                .build());
+                .build(), MetaData.with("correlationId", command.getId()).and("causationId", correlationId));
     }
 
     @CommandHandler
-    public FileAggregate(CvCommand.DeleteCvFile command, @MetaDataValue("causationId") String causationId) {
+    public FileAggregate(CvCommand.DeleteCvFile command,
+                         @MetaDataValue("correlationId") String correlationId,
+                         @MetaDataValue("causationId") String causationId) {
         // 7
-        LogHelper.logMessage(log, "DeleteCvFile", command.getId(), causationId, command);
+        LogHelper.logMessage(log, "7|DeleteCvFile", command.getId(), causationId, command);
         apply(CvEvent.CvFileDeleted.builder()
                 .id(command.getId())
                 .cvId(command.getCvId())
                 .objectKey(command.getObjectKey())
-                .build());
+                .build(), MetaData.with("correlationId", command.getId()).and("causationId", correlationId));
     }
 
     @EventSourcingHandler

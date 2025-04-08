@@ -24,7 +24,7 @@ public class EventPublisher {
 
     KafkaTemplate<String, CvDeletedEvent> cvDeletedEventTemplate;
 
-    public void send(CvEvent.CvProcessed event) {
+    public void send(CvEvent.CvProcessed event, String correlationId, String causationId) {
         CvProcessedEvent protoEvent = CvProcessedEvent.newBuilder()
                 .setCvId(event.getCvId())
                 .setObjectKey(event.getObjectKey())
@@ -32,18 +32,18 @@ public class EventPublisher {
 
         ProducerRecord<String, CvProcessedEvent> record = new ProducerRecord<>(
                 Constant.KAFKA_TOPIC_CV_EVENT, null, event.getCvId(), protoEvent,
-                KafkaHelper.createHeaders(event.getId(), event.getId()));
+                KafkaHelper.createHeaders(correlationId, causationId));
         cvProcessedEventTemplate.send(record);
     }
 
-    public void send(CvEvent.CvDeleted event) {
+    public void send(CvEvent.CvDeleted event, String correlationId, String causationId) {
         CvDeletedEvent protoEvent = CvDeletedEvent.newBuilder()
                 .setCvId(event.getCvId())
                 .build();
 
         ProducerRecord<String, CvDeletedEvent> record = new ProducerRecord<>(
                 Constant.KAFKA_TOPIC_CV_EVENT, null, event.getCvId(), protoEvent,
-                KafkaHelper.createHeaders(event.getId(), event.getId()));
+                KafkaHelper.createHeaders(correlationId, causationId));
         cvDeletedEventTemplate.send(record);
     }
 }

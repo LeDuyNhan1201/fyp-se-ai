@@ -1,28 +1,61 @@
 package com.ben.smartcv.user.application.dto;
 
-import lombok.*;
-import lombok.experimental.FieldDefaults;
-
-import static lombok.AccessLevel.PRIVATE;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 public class RequestDto {
 
-    @Getter
-    @Setter
-    @Builder
-    @AllArgsConstructor
-    @NoArgsConstructor
-    @FieldDefaults(level = PRIVATE)
-    public static class SignUp {
+    public record SignUp (
 
-        String email;
+        @NotNull(message = "Validation.Null")
+        @NotBlank(message = "Validation.Blank")
+        @Email(message = "Validation.Email")
+        String email,
 
-        String password;
+        @NotNull(message = "Validation.Null")
+        @NotBlank(message = "Validation.Blank")
+        @Size(min = 6, max = 20, message = "Validation.Size")
+        String password,
 
-        String firstName;
+        @NotNull(message = "Validation.Null")
+        @NotBlank(message = "Validation.Blank")
+        @Size(min = 6, max = 20, message = "Validation.Size")
+        String confirmationPassword,
 
-        String lastName;
+        @NotNull(message = "Validation.Null")
+        @NotBlank(message = "Validation.Blank")
+        String firstName,
 
-    }
+        @NotNull(message = "Validation.Null")
+        @NotBlank(message = "Validation.Blank")
+        String lastName,
+
+        boolean acceptTerms
+
+    ) { }
+
+    public record SignIn (
+
+        @NotNull(message = "Validation.Null")
+        @NotBlank(message = "Validation.Blank")
+        @Email(message = "Validation.Email")
+        String email,
+
+        @NotNull(message = "Validation.Null")
+        @NotBlank(message = "Validation.Blank")
+        @Size(min = 6, max = 20, message = "Validation.Size")
+        String password
+
+    ) { }
+
+    public record Refresh (
+
+            @NotNull(message = "Validation.Null")
+            @NotBlank(message = "Validation.Blank")
+            String refreshToken
+
+    ) { }
 
 }

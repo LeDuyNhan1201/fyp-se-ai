@@ -1,6 +1,6 @@
 package com.ben.smartcv.user.infrastructure;
 
-import com.ben.smartcv.common.user.UserRegisteredEvent;
+import com.ben.smartcv.common.user.UserSignedUpEvent;
 import com.ben.smartcv.common.util.Constant;
 import com.ben.smartcv.common.contract.event.UserEvent;
 import com.ben.smartcv.common.util.KafkaHelper;
@@ -19,18 +19,18 @@ import static lombok.AccessLevel.PRIVATE;
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 public class EventPublisher {
 
-    KafkaTemplate<String, UserRegisteredEvent> userRegisteredTemplate;
+    KafkaTemplate<String, UserSignedUpEvent> userRegisteredTemplate;
 
-    public void sendUserRegisteredEvent(UserEvent.UserRegistered event, String correlationId, String causationId) {
+    public void send(UserEvent.UserSignedUp event, String correlationId, String causationId) {
 
-        UserRegisteredEvent protoEvent = UserRegisteredEvent.newBuilder()
+        UserSignedUpEvent protoEvent = UserSignedUpEvent.newBuilder()
                 .setEmail(event.getEmail())
                 .setPassword(event.getPassword())
                 .setFirstName(event.getFirstName())
                 .setLastName(event.getLastName())
                 .build();
 
-        ProducerRecord<String, UserRegisteredEvent> record = new ProducerRecord<>(
+        ProducerRecord<String, UserSignedUpEvent> record = new ProducerRecord<>(
                 Constant.KAFKA_TOPIC_USER_EVENT, null, event.getId(), protoEvent,
                 KafkaHelper.createHeaders(correlationId, causationId));
 

@@ -13,6 +13,7 @@ import com.ben.smartcv.orchestration.publisher.CommandPublisher;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.axonframework.commandhandling.gateway.CommandGateway;
+import org.axonframework.messaging.MetaData;
 import org.axonframework.messaging.annotation.MetaDataValue;
 import org.axonframework.messaging.interceptors.ExceptionHandler;
 import org.axonframework.modelling.saga.EndSaga;
@@ -46,11 +47,12 @@ public class ApplyCvSaga {
                    @MetaDataValue("correlationId") String correlationId,
                    @MetaDataValue("causationId") String causationId) {
         // 5
-        LogHelper.logMessage(log, "CvApplied", correlationId, causationId, event);
+        LogHelper.logMessage(log, "5|CvApplied", correlationId, causationId, event);
+        String identifier = UUID.randomUUID().toString();
         commandGateway.sendAndWait(CvCommand.ProcessCv.builder()
-                .id(UUID.randomUUID().toString())
+                .id(identifier)
                 .cvId(event.getCvId())
-                .build());
+                .build(), MetaData.with("correlationId", identifier).and("causationId", correlationId));
     }
 
     @EndSaga
@@ -59,12 +61,13 @@ public class ApplyCvSaga {
                    @MetaDataValue("correlationId") String correlationId,
                    @MetaDataValue("causationId") String causationId) {
         // 10
-        LogHelper.logMessage(log, "CvProcessed", correlationId, causationId, event);
+        LogHelper.logMessage(log, "10|CvProcessed", correlationId, causationId, event);
+        String identifier = UUID.randomUUID().toString();
         commandGateway.sendAndWait(NotificationCommand.SendNotification.builder()
-                .id(UUID.randomUUID().toString())
-                .title("CV process successfully")
-                .content("CV processing successfully for cvId: " + event.getCvId())
-                .build());
+                .id(identifier)
+                .title("Notify.Title.ProcessSuccessfully|CV")
+                .content("Notify.Content.ProcessSuccessfully|CV: " + event.getCvId())
+                .build(), MetaData.with("correlationId", identifier).and("causationId", correlationId));
     }
 
     @SagaEventHandler(associationProperty = ASSOCIATION_PROPERTY)
@@ -72,12 +75,13 @@ public class ApplyCvSaga {
                    @MetaDataValue("correlationId") String correlationId,
                    @MetaDataValue("causationId") String causationId) {
         // 6
-        LogHelper.logMessage(log, "CvDeleted", correlationId, causationId, event);
+        LogHelper.logMessage(log, "6|CvDeleted", correlationId, causationId, event);
+        String identifier = UUID.randomUUID().toString();
         commandGateway.sendAndWait(CvCommand.DeleteCvFile.builder()
-                .id(UUID.randomUUID().toString())
+                .id(identifier)
                 .cvId(event.getCvId())
                 .objectKey(event.getObjectKey())
-                .build());
+                .build(), MetaData.with("correlationId", identifier).and("causationId", correlationId));
     }
 
     @EndSaga
@@ -86,12 +90,13 @@ public class ApplyCvSaga {
                    @MetaDataValue("correlationId") String correlationId,
                    @MetaDataValue("causationId") String causationId) {
         // 11
-        LogHelper.logMessage(log, "CvFileDeleted", correlationId, causationId, event);
+        LogHelper.logMessage(log, "11|CvFileDeleted", correlationId, causationId, event);
+        String identifier = UUID.randomUUID().toString();
         commandGateway.sendAndWait(NotificationCommand.SendNotification.builder()
-                .id(UUID.randomUUID().toString())
-                .title("CV Process Failed")
-                .content("CV processing failed for cvId: " + event.getCvId() + "please try again")
-                .build());
+                .id(identifier)
+                .title("Notify.Title.ProcessFailed|CV")
+                .content("Notify.Content.ProcessFailed|CV: " + event.getCvId())
+                .build(), MetaData.with("correlationId", identifier).and("causationId", correlationId));
     }
 
     @KafkaListener(

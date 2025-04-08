@@ -10,6 +10,7 @@ import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.eventsourcing.EventSourcingHandler;
+import org.axonframework.messaging.MetaData;
 import org.axonframework.messaging.annotation.MetaDataValue;
 import org.axonframework.messaging.interceptors.ExceptionHandler;
 import org.axonframework.modelling.command.AggregateIdentifier;
@@ -34,23 +35,27 @@ public class CvAggregate {
     String objectKey;
 
     @CommandHandler
-    public CvAggregate(CvCommand.ProcessCv command, @MetaDataValue("causationId") String causationId) {
+    public CvAggregate(CvCommand.ProcessCv command,
+                       @MetaDataValue("correlationId") String correlationId,
+                       @MetaDataValue("causationId") String causationId) {
         // 6
-        LogHelper.logMessage(log, "ProcessCv", command.getId(), causationId, command);
+        LogHelper.logMessage(log, "6|ProcessCv", correlationId, causationId, command);
         apply(CvEvent.CvProcessed.builder()
                 .id(command.getId())
                 .cvId(command.getCvId())
-                .build());
+                .build(), MetaData.with("correlationId", command.getId()).and("causationId", correlationId));
     }
 
     @CommandHandler
-    public CvAggregate(CvCommand.RollbackProcessCv command, @MetaDataValue("causationId") String causationId) {
+    public CvAggregate(CvCommand.RollbackProcessCv command,
+                       @MetaDataValue("correlationId") String correlationId,
+                       @MetaDataValue("causationId") String causationId) {
         // 2
-        LogHelper.logMessage(log, "RollbackProcessCv", command.getId(), causationId, command);
+        LogHelper.logMessage(log, "2|RollbackProcessCv", correlationId, causationId, command);
         apply(CvEvent.CvDeleted.builder()
                 .id(command.getId())
                 .cvId(command.getCvId())
-                .build());
+                .build(), MetaData.with("correlationId", command.getId()).and("causationId", correlationId));
     }
 
     @EventSourcingHandler

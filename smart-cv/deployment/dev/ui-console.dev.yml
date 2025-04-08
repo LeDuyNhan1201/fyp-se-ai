@@ -50,15 +50,15 @@ services:
       ME_CONFIG_MONGODB_URL: mongodb://${MONGODB_USERNAME}:${MONGODB_PASSWORD_ENCODED}@smartcv-mongodb:27017/
 
   # --------- Redis Insight ---------
-#  smartcv-redis-insight:
-#    image: redis/redisinsight:latest
-#    container_name: smartcv-redis-insight
-#    restart: always
-#    depends_on: [ smartcv-redis ]
-#    ports:
-#      - 5540:5540
-#    networks:
-#      - smartcv-network
+  smartcv-redis-insight:
+    image: redis/redisinsight:latest
+    container_name: smartcv-redis-insight
+    restart: always
+    depends_on: [ smartcv-redis ]
+    ports:
+      - 5540:5540
+    networks:
+      - smartcv-network
 
   # --------- Kibana ---------
   smartcv-kibana:

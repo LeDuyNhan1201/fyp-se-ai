@@ -7,6 +7,9 @@ import lombok.experimental.FieldDefaults;
 import lombok.experimental.SuperBuilder;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
+import org.springframework.data.mongodb.core.mapping.FieldType;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -18,33 +21,33 @@ import org.springframework.data.mongodb.core.mapping.Field;
 public class CurriculumVitae extends MongoAuditingDocument {
 
     @NotNull
-    @Field("name")
+    @Field(value = "name", targetType = FieldType.STRING)
     String name;
 
     @NotNull
-    @Field("email")
+    @Field(value = "email", targetType = FieldType.STRING)
     String email;
 
-    @Field("phone")
+    @Field(value = "phone", targetType = FieldType.STRING)
     String phone;
 
     @NotNull
-    @Field("education")
-    String education;
+    @Field(value = "educations", targetType = FieldType.ARRAY)
+    List<String> educations;
 
     @NotNull
-    @Field("skills")
-    String skills;
+    @Field(value = "skills", targetType = FieldType.ARRAY)
+    List<String> skills;
 
-    @Field("experience")
-    String experience;
+    @Field(value = "experiences", targetType = FieldType.ARRAY)
+    List<String> experiences;
 
     @NotNull
-    @Field("cv_file_name")
+    @Field(value = "cv_file_name", targetType = FieldType.STRING)
     String cvFileName;
 
     @NotNull
-    @Field("raw_text")
+    @Field(value = "raw_text", targetType = FieldType.STRING)
     String rawText;
 
 }

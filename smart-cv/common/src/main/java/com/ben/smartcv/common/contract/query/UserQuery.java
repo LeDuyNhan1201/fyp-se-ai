@@ -13,11 +13,23 @@ public class UserQuery {
     @AllArgsConstructor
     @NoArgsConstructor
     @FieldDefaults(level = PRIVATE)
-    public static class GetUser {
-
-        String userId;
+    public static class SignIn {
 
         String email;
+
+        String password;
+
+    }
+
+    @Getter
+    @Setter
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @FieldDefaults(level = PRIVATE)
+    public static class Refresh {
+
+        String refreshToken;
 
     }
 

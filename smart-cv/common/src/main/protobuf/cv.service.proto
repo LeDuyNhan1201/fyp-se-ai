@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+package com.ben.smartcv.common;
+
+option java_package = "com.ben.smartcv.common.cv";
+option java_outer_classname = "CvServiceProto";
+option java_multiple_files = true;
+
+import "cv.event.proto";
+
+message ExtractedCvData {
+
+    string name = 1;
+
+    string email = 2;
+
+    string phone = 3;
+
+    repeated string educations = 4;
+
+    repeated string skills = 5;
+
+    repeated string experiences = 6;
+
+}
+
+service CvProcessor {
+
+    rpc ExtractData (CvProcessedEvent) returns (ExtractedCvData) {
+    }
+
+}

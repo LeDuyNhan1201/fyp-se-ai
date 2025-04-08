@@ -15,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.axonframework.commandhandling.gateway.CommandGateway;
+import org.axonframework.messaging.MetaData;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -46,8 +47,9 @@ public class CommandController {
     public ResponseEntity<BaseResponse<?, ?>> createJob(@RequestBody @Valid RequestDto.CreateJobDescription request) {
         ValidationHelper.validateSalaryRange(request.fromSalary(), request.toSalary());
         try {
+            String identifier = UUID.randomUUID().toString();
             JobCommand.CreateJob command = JobCommand.CreateJob.builder()
-                    .id(UUID.randomUUID().toString())
+                    .id(identifier)
                     .organizationName(request.organizationName())
                     .position(request.position())
                     .requirements(request.requirements())
@@ -56,7 +58,8 @@ public class CommandController {
                     .toSalary(request.toSalary())
                     .build();
 
-            commandGateway.sendAndWait(command);
+            commandGateway.sendAndWait(command,
+                    MetaData.with("correlationId", identifier).and("causationId", identifier));
 
             return ResponseEntity.ok(BaseResponse.builder()
                     .message(Translator.getMessage("SuccessMsg.Created", "New job"))

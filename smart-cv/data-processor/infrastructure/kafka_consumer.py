@@ -68,7 +68,7 @@ class KafkaConsumer:
                 break  # Thoát vòng lặp nếu có lỗi Kafka nghiêm trọng
 
             except KeyboardInterrupt:
-                logger.info("Consumer interrupted by securityUser")
+                logger.info("Consumer interrupted by user")
                 break
 
         # Đóng consumer khi thoát

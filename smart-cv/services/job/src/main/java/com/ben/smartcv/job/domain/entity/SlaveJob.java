@@ -47,6 +47,9 @@ public class SlaveJob {
             format = DateFormat.basic_date_time)
     Instant deletedAt;
 
+    @Field(name = "version", type = FieldType.Version)
+    Long version;
+
     @NotNull
     @MultiField(
             mainField = @Field(name = "organization_name", type = FieldType.Text, fielddata = true,
@@ -101,6 +104,7 @@ public class SlaveJob {
         slaveJob.setIsDeleted(masterJob.isDeleted());
         slaveJob.setDeletedBy(masterJob.getDeletedBy());
         slaveJob.setDeletedAt(masterJob.getDeletedAt());
+        slaveJob.setVersion(masterJob.getVersion());
         slaveJob.setOrganizationName(masterJob.getOrganizationName());
         slaveJob.setEmail(masterJob.getEmail());
         slaveJob.setPhone(masterJob.getPhone());

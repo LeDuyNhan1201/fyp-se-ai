@@ -22,7 +22,7 @@ export async function searchJobsByUserApi(
   query?: SearchJobsSchema,
 ): Promise<SearchJobsResponseSchema> {
   const response = await restClient.get<SearchJobsResponseSchema>(
-    `/job/${params.userId}/securityUser`,
+    `/job/${params.userId}/user`,
     query,
   );
   return response.data;

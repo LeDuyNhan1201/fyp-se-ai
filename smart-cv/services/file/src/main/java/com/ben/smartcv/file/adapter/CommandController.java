@@ -1,10 +1,12 @@
 package com.ben.smartcv.file.adapter;
 
 import com.ben.smartcv.common.contract.command.CvCommand;
+import com.ben.smartcv.common.contract.dto.BaseResponse;
 import com.ben.smartcv.common.util.FileHelper;
+import com.ben.smartcv.common.util.Translator;
 import com.ben.smartcv.file.application.exception.FileError;
 import com.ben.smartcv.file.application.exception.FileHttpException;
-import com.ben.smartcv.file.infrastructure.IMinioClient;
+import com.ben.smartcv.file.infrastructure.minio.IMinioClient;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -26,7 +28,7 @@ import static lombok.AccessLevel.PRIVATE;
 import static org.springframework.http.HttpStatus.OK;
 
 @RestController
-@RequestMapping("/file")
+@RequestMapping("/command")
 @Tag(name = "File APIs")
 @Slf4j
 @RequiredArgsConstructor
@@ -44,7 +46,8 @@ public class CommandController {
     @Operation(summary = "Upload", description = "API to upload file")
     @PostMapping("/upload")
     @ResponseStatus(OK)
-    public ResponseEntity<?> upload(@RequestPart MultipartFile curriculumVitae) {
+    public ResponseEntity<BaseResponse<?,?>> upload(@RequestParam("file") MultipartFile curriculumVitae) {
+        String identifier = UUID.randomUUID().toString();
         String cvId = UUID.randomUUID().toString();
         String contentType = curriculumVitae.getContentType();
         assert contentType != null;
@@ -58,23 +61,18 @@ public class CommandController {
         }
 
         CvCommand.ApplyCv command = CvCommand.ApplyCv.builder()
+                .id(identifier)
                 .cvId(cvId)
                 .fileMetadataType(contentType.split("/")[1])
+                .fileSize(curriculumVitae.getSize())
                 .fileName(fileName)
                 .build();
-        commandGateway.send(command, MetaData.with("key", "123"));
-        return ResponseEntity.status(OK).body("ok");
+        commandGateway.sendAndWait(command, MetaData.with("correlationId", identifier).and("causationId", identifier));
+        return ResponseEntity.status(OK).body(
+                BaseResponse.builder()
+                        .message(Translator.getMessage("SuccessMsg.Created"))
+                        .build()
+        );
     }
-
-//    @Operation(summary = "Upload", description = "API to upload file")
-//    @PostMapping
-//    @ResponseStatus(OK)
-//    public CompletableFuture<String> upload(@RequestBody RequestDto.CreateCv requestDto) {
-//        CvCommand.ApplyCv command = CvCommand.ApplyCv.builder()
-//                .id(UUID.randomUUID().toString())
-//                .cvId(UUID.randomUUID().toString())
-//                .build();
-//        return commandGateway.send(command, MetaData.with("key", "123"));
-//    }
 
 }

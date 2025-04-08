@@ -23,7 +23,7 @@ public class CvCommand {
 
         String fileMetadataType;
 
-        String fileSize;
+        Long fileSize;
 
         MultipartFile file;
 

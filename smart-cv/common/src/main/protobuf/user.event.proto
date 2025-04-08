@@ -6,7 +6,7 @@ option java_package = "com.ben.smartcv.common.user";
 option java_outer_classname = "UserEventProto";
 option java_multiple_files = true;
 
-message UserRegisteredEvent {
+message UserSignedUpEvent {
 
     string email = 1;
 

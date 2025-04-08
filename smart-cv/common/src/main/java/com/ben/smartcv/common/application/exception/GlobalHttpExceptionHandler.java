@@ -1,5 +1,6 @@
 package com.ben.smartcv.common.application.exception;
 
+import com.ben.smartcv.common.util.LogHelper;
 import com.ben.smartcv.common.util.Translator;
 import com.ben.smartcv.common.contract.dto.BaseResponse;
 import com.ben.smartcv.common.util.StringHelper;
@@ -27,6 +28,18 @@ public class GlobalHttpExceptionHandler {
         log.error("Exception: ", exception);
         return ResponseEntity.badRequest().body(BaseResponse.builder()
                 .message(Translator.getMessage("ErrorMsg.UnclassifiedError"))
+                .build());
+    }
+
+    @ExceptionHandler(value = CommonHttpException.class)
+    public ResponseEntity<?> handle(CommonHttpException exception) {
+        LogHelper.logError(log, exception.getMessage(), exception);
+        CommonError error = exception.getError();
+        return ResponseEntity.status(exception.getHttpStatus()).body(BaseResponse.builder()
+                .errorCode(error.getCode())
+                .message((exception.getMoreInfo() != null)
+                        ? Translator.getMessage(error.getMessage(), exception.getMoreInfo())
+                        : Translator.getMessage(error.getMessage()))
                 .build());
     }
 

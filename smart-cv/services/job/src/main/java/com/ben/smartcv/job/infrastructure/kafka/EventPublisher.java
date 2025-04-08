@@ -25,7 +25,7 @@ public class EventPublisher {
 
     KafkaTemplate<String, JobDeletedEvent> jobDeletedEventTemplate;
 
-    public void send(JobEvent.JobCreated event) {
+    public void send(JobEvent.JobCreated event, String correlationId, String causationId) {
         JobCreatedEvent protoEvent = JobCreatedEvent.newBuilder()
                 .setOrganizationName(event.getOrganizationName())
                 .setPosition(event.getPosition())
@@ -37,18 +37,18 @@ public class EventPublisher {
 
         ProducerRecord<String, JobCreatedEvent> record = new ProducerRecord<>(
                 Constant.KAFKA_TOPIC_JOB_EVENT, null, event.getId(), protoEvent,
-                KafkaHelper.createHeaders(event.getId(), event.getId()));
+                KafkaHelper.createHeaders(correlationId, causationId));
         jobCreatedEventTemplate.send(record);
     }
 
-    public void send(JobEvent.JobDeleted event) {
+    public void send(JobEvent.JobDeleted event, String correlationId, String causationId) {
         JobDeletedEvent protoEvent = JobDeletedEvent.newBuilder()
                 .setJobId(event.getJobId())
                 .build();
 
         ProducerRecord<String, JobDeletedEvent> record = new ProducerRecord<>(
                 Constant.KAFKA_TOPIC_JOB_EVENT, null, event.getJobId(), protoEvent,
-                KafkaHelper.createHeaders(event.getId(), event.getId()));
+                KafkaHelper.createHeaders(correlationId, causationId));
         jobDeletedEventTemplate.send(record);
     }
 }

@@ -11,20 +11,6 @@ import java.util.List;
 @Configuration
 public class CorsConfig {
 
-//    @Value("${cors.allowed-origins}")
-//    private String allowedOrigins;
-
-//    @Bean
-//    public WebMvcConfigurer corsConfigure() {
-//        return new WebMvcConfigurer() {
-//            @Override
-//            public void addCorsMappings(@NotNull CorsRegistry registry) {
-//                registry.addMapping("/**").allowedMethods(allowedOrigins)
-//                    .allowedOrigins(allowedOrigins).allowedHeaders(allowedOrigins);
-//            }
-//        };
-//    }
-
     @Bean
     public CorsFilter corsFilter() {
         CorsConfiguration config = new CorsConfiguration();

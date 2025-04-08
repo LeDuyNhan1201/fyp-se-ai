@@ -2,7 +2,7 @@ package com.ben.smartcv.common.contract.command;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-import org.axonframework.modelling.command.TargetAggregateIdentifier;
+import lombok.experimental.SuperBuilder;
 
 import static lombok.AccessLevel.PRIVATE;
 
@@ -10,22 +10,23 @@ public class UserCommand {
 
     @Getter
     @Setter
-    @Builder
+    @SuperBuilder
     @AllArgsConstructor
     @NoArgsConstructor
     @FieldDefaults(level = PRIVATE)
-    public static class CreateUser {
-
-        @TargetAggregateIdentifier
-        String id;
+    public static class SignUpUser extends BaseCommand<String> {
 
         String email;
 
         String password;
 
+        String confirmPassword;
+
         String firstName;
 
         String lastName;
+
+        boolean acceptTerms;
 
     }
 

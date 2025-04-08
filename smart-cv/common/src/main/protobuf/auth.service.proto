@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package com.ben.smartcv.common;
+
+option java_package = "com.ben.smartcv.common.auth";
+option java_outer_classname = "AuthServiceProto";
+option java_multiple_files = true;
+
+import "job.event.proto";
+
+message IntrospectRequest {
+
+    string token = 1;
+
+}
+
+message IntrospectResponse {
+
+    bool valid = 1;
+
+}
+
+service AuthService {
+
+    rpc introspect(IntrospectRequest) returns (IntrospectResponse) {}
+
+}

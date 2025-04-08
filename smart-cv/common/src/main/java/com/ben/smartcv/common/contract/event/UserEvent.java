@@ -14,15 +14,19 @@ public class UserEvent {
     @AllArgsConstructor
     @NoArgsConstructor
     @FieldDefaults(level = PRIVATE)
-    public static class UserRegistered extends BaseEvent<String> {
+    public static class UserSignedUp extends BaseEvent<String> {
 
         String email;
 
         String password;
 
+        String confirmPassword;
+
         String firstName;
 
         String lastName;
+
+        boolean acceptTerms;
 
     }
 

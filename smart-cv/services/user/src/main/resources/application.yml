@@ -9,6 +9,13 @@ server:
       force-request: true
       force-response: true
 
+# --------- JWT ---------
+jwt:
+  access-signer-key: ${ACCESS_SIGNER_KEY}
+  refresh-signer-key: ${REFRESH_SIGNER_KEY}
+  valid-duration: 1800 # in seconds = 30 minutes
+  refreshable-duration: 2592000 # in seconds = 30 days
+
 # --------- Gateway ---------
 gateway:
   domain: localhost
@@ -129,7 +136,7 @@ spring:
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
     show-sql: true
     properties:
       hibernate:
@@ -140,9 +147,10 @@ spring:
     mongodb:
       uri: ${MONGODB_URI}
 
-    elasticsearch:
-      repositories:
-        enabled: true
+    redis:
+      port: ${REDIS_PORT:6379}
+      host: ${REDIS_HOST:localhost}
+      database: 0
 
   kafka:
     bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9091}
