@@ -62,7 +62,10 @@ public class OpenApiConfig {
             String contextPath
     ) {
         return new OpenAPI()
-                .servers(List.of(new Server().url(serverUrl).description(serverDescription)))
+                .servers(List.of(
+                        new Server().url(serverUrl).description(serverDescription),
+                        new Server().url(String.format("http://%s:%s%s", gatewayDomain, gatewayPort, contextPath))
+                ))
                 .info(new Info()
                         .title(title)
                         .description(description)
@@ -81,7 +84,6 @@ public class OpenApiConfig {
                         .description("Find out more about this service")
                         .url("http://abc.com")
                 )
-                //.servers(List.of(new Server().url(String.format("http://%s:%s%s", gatewayDomain, gatewayPort, contextPath))))
                 .components(
                         new Components()
                                 .addSecuritySchemes(

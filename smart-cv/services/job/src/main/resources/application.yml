@@ -9,13 +9,20 @@ server:
       force-request: true
       force-response: true
 
-cors:
-  allowed-origins: "*"
+# --------- Eureka ---------
+eureka:
+  instance:
+    prefer-ip-address: true
+    hostname: ${DISCOVERY_DOMAIN:localhost}
+
+  client:
+    service-url:
+      defaultZone: http://${eureka.instance.hostname}:${DISCOVERY_PORT:31000}/eureka/
 
 # --------- Gateway ---------
 gateway:
-  domain: localhost
-  port: 30000
+  domain: ${GATEWAY_DOMAIN:localhost}
+  port: ${GATEWAY_PORT:30000}
 
 # --------- Axon ---------
 axon:
@@ -132,7 +139,7 @@ spring:
     import: file:env.properties
 
   application:
-    name: job
+    name: job-service
 
   servlet:
     multipart:

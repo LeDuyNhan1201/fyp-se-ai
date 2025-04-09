@@ -9,6 +9,15 @@ server:
       force-request: true
       force-response: true
 
+# --------- Eureka ---------
+eureka:
+  instance:
+    hostname: ${DISCOVERY_DOMAIN:localhost}
+
+  client:
+    service-url:
+      defaultZone: http://${eureka.instance.hostname}:${DISCOVERY_PORT:31000}/eureka/
+
 # --------- JWT ---------
 jwt:
   access-signer-key: ${ACCESS_SIGNER_KEY}
@@ -46,6 +55,20 @@ openapi:
     version: 1.0.0
     server-url: http://localhost:${server.port}${server.servlet.context-path}
     server-description: Smart CV User Service APIs For Development
+
+# --------- Logging ---------
+logging:
+  pattern:
+    correlation: "[${spring.application.name:}, %X{traceId:-}, %X{spanId:-}]"
+#  level:
+#    com:
+#      zaxxer:
+#        hikari: DEBUG
+
+#  level:
+#    org:
+#      springframework:
+#        security: DEBUG
 
 # --------- Metrics & Monitoring ---------
 management:

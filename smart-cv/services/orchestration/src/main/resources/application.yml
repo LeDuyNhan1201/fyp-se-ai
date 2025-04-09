@@ -2,12 +2,6 @@ server:
   port: 30005
   servlet:
     context-path: /orchestration
-    encoding:
-      charset: UTF-8
-      enabled: true
-      force: true
-      force-request: true
-      force-response: true
 
 # --------- Axon ---------
 axon:
@@ -16,6 +10,15 @@ axon:
       enabled: true
     micrometer:
       dimensional: true
+
+# --------- Eureka ---------
+eureka:
+  instance:
+    hostname: ${DISCOVERY_DOMAIN:localhost}
+
+  client:
+    service-url:
+      defaultZone: http://${eureka.instance.hostname}:${DISCOVERY_PORT:31000}/eureka/
 
 # --------- Metrics & Monitoring ---------
 management:
@@ -64,19 +67,27 @@ management:
     sampling:
       probability: 1.0
 
+# --------- Logging ---------
+logging:
+  pattern:
+    correlation: "[${spring.application.name:}, %X{traceId:-}, %X{spanId:-}]"
+
 # --------- Spring configs ---------
 spring:
+  config:
+    import: file:env.properties
+
   application:
     name: orchestration
 
   data:
     mongodb:
-      uri: mongodb://smartcv:SmArTcV123%23@localhost:27017/axon-framework?authSource=admin
+      uri: ${MONGODB_URI}
 
   kafka:
-    bootstrap-servers: localhost:9091
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9091}
     properties:
-      schema.registry.url: http://localhost:8085
+      schema.registry.url: ${SCHEMA_REGISTRY_URL:http://localhost:8085}
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: io.confluent.kafka.serializers.protobuf.KafkaProtobufSerializer

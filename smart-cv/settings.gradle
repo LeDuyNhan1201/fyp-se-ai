@@ -1,6 +1,7 @@
 rootProject.name = 'smart-cv'
 
-// Include modules
+include 'gateway'
+include 'discovery'
 include 'common'
 include 'curriculum-vitae'
 include 'file'
@@ -9,6 +10,8 @@ include 'notification'
 include 'orchestration'
 include 'user'
 
+project(':gateway').projectDir = file('cloud/gateway')
+project(':discovery').projectDir = file('cloud/discovery')
 project(':curriculum-vitae').projectDir = file('services/curriculum-vitae')
 project(':file').projectDir = file('services/file')
 project(':job').projectDir = file('services/job')

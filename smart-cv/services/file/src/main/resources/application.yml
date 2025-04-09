@@ -9,6 +9,15 @@ server:
       force-request: true
       force-response: true
 
+# --------- Eureka ---------
+eureka:
+  instance:
+    hostname: ${DISCOVERY_DOMAIN:localhost}
+
+  client:
+    service-url:
+      defaultZone: http://${eureka.instance.hostname}:${DISCOVERY_PORT:31000}/eureka/
+
 # --------- Gateway ---------
 gateway:
   domain: localhost
@@ -24,9 +33,9 @@ axon:
 
 # --------- Minio ---------
 minio:
-  endpoint: http://localhost:9000
-  access-key: smartcv
-  secret-key: SmArTcV123#
+  endpoint: ${MINIO_ENDPOINT:http://localhost:9000}
+  access-key: ${MINIO_USERNAME}
+  secret-key: ${MINIO_PASSWORD}
   bucket-name: smartcv-bucket
 
 # --------- API document ---------
@@ -46,6 +55,16 @@ openapi:
     version: 1.0.0
     server-url: http://localhost:${server.port}${server.servlet.context-path}
     server-description: Smart CV File Service APIs For Development
+
+# --------- Logging ---------
+logging:
+  pattern:
+    correlation: "[${spring.application.name:}, %X{traceId:-}, %X{spanId:-}]"
+
+#  level:
+#    org:
+#      springframework:
+#        security: DEBUG
 
 # --------- Metrics & Monitoring ---------
 management:
@@ -96,6 +115,9 @@ management:
 
 # --------- Spring configs ---------
 spring:
+  config:
+    import: file:env.properties
+
   application:
     name: file
 

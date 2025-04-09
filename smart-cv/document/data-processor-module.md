@@ -1,17 +1,15 @@
 ````shell
 rm -rf .venv
 python -m venv .venv
+source .venv/bin/activate.fish
+
+sudo pacman -S tesseract tesseract-data-eng poppler
 
 pip install --upgrade pip
 pip install -U pip setuptools wheel
 pip install grpcio-tools
 pip install python-dotenv
-
-pip install confluent_kafka
-pip install confluent-kafka[avro,json,protobuf]
 pip install minio
-
-sudo pacman -S tesseract tesseract-data-eng poppler
 pip install pytesseract pdf2image pillow
 pip install scikit-learn sentence-transformers
 
@@ -20,15 +18,16 @@ rm -rf protobuf/*
 
 python -m grpc_tools.protoc --proto_path=./../common/src/main/protobuf \
 --python_out=./protobuf \
-notification.command.proto
+cv.event.proto
 
 python -m grpc_tools.protoc --proto_path=./../common/src/main/protobuf \
 --python_out=./protobuf \
-cv.command.proto
+--grpc_python_out=./protobuf \
+cv.service.proto
 
 python -m grpc_tools.protoc --proto_path=./../common/src/main/protobuf \
 --python_out=./protobuf \
-job.command.proto
+job.event.proto
 
 python -m grpc_tools.protoc --proto_path=./../common/src/main/protobuf \
 --python_out=./protobuf \

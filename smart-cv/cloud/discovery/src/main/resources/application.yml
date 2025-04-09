@@ -1,0 +1,70 @@
+server:
+  port: 31000
+
+# --------- Eureka ---------
+eureka:
+  instance:
+    hostname: ${DISCOVERY_DOMAIN:localhost}
+
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+
+# --------- Logging ---------
+logging:
+  pattern:
+    correlation: "[${spring.application.name:}, %X{traceId:-}, %X{spanId:-}]"
+
+# --------- Metrics & Monitoring ---------
+management:
+  info:
+    git:
+      enabled: true
+      mode: full
+
+  endpoint:
+    metrics:
+      access: read_only
+    prometheus:
+      access: read_only
+    health:
+      show-details: always
+
+  endpoints:
+    web:
+      base-path: /actuator
+      exposure:
+        include:
+          - health
+          - info
+          - metrics
+          - prometheus
+
+  prometheus:
+    metrics:
+      export:
+        enabled: true
+
+  metrics:
+    distribution:
+      percentiles-histogram:
+        http:
+          server:
+            requests: true
+    tags:
+      application: ${spring.application.name}
+
+  observations:
+    key-values:
+      application: ${spring.application.name}
+
+  tracing:
+    sampling:
+      probability: 1.0
+
+# --------- Spring configs ---------
+spring:
+  application:
+    name: discovery

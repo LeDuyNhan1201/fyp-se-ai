@@ -1,0 +1,297 @@
+server:
+  port: 30000
+
+# --------- Eureka ---------
+eureka:
+  instance:
+    prefer-ip-address: true
+    hostname: ${DISCOVERY_DOMAIN:localhost}
+
+  client:
+    service-url:
+      defaultZone: http://${eureka.instance.hostname}:${DISCOVERY_PORT:31000}/eureka/
+
+# --------- API document ---------
+springdoc:
+  swagger-ui:
+    path: /swagger-ui
+
+# --------- Logging ---------
+logging:
+  level:
+    root: INFO
+#    org.springframework.cloud.gateway.route.RouteDefinitionLocator: INFO
+#    org.springframework.cloud.gateway: TRACE
+  pattern:
+    correlation: "[${spring.application.name:}, %X{traceId:-}, %X{spanId:-}]"
+
+# --------- Metrics & Monitoring ---------
+management:
+  info:
+    git:
+      enabled: true
+      mode: full
+
+  endpoint:
+    metrics:
+      access: read_only
+    prometheus:
+      access: read_only
+    health:
+      show-details: always
+
+  endpoints:
+    web:
+      base-path: /actuator
+      exposure:
+        include:
+          - health
+          - info
+          - metrics
+          - prometheus
+
+  prometheus:
+    metrics:
+      export:
+        enabled: true
+
+  metrics:
+    distribution:
+      percentiles-histogram:
+        http:
+          server:
+            requests: true
+    tags:
+      application: ${spring.application.name}
+
+  observations:
+    key-values:
+      application: ${spring.application.name}
+
+  tracing:
+    sampling:
+      probability: 1.0
+
+# --------- Spring configs ---------
+spring:
+  config:
+    import: file:env.properties
+
+  application:
+    name: gateway
+
+  messages:
+    basename: i18n/messages
+    encoding: UTF-8
+    default-locale: en
+    cache-duration: 3600
+
+  main:
+    web-application-type: reactive
+
+  mvc:
+    problemdetails:
+      enabled: true
+
+  data:
+    redis:
+      port: ${REDIS_PORT:6379}
+      host: ${REDIS_HOST:localhost}
+      database: 0
+
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedMethods: "*"
+            allowedHeaders: "*"
+            allowCredentials: false
+
+      routes:
+        - id: cv-service
+          uri: lb:http://CV-SERVICE
+          predicates:
+            - Path=/cv/**
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: cvService
+                fallbackUri: forward:/cv/fallback
+
+            - name: Retry
+              args:
+                name: cvService
+                retries: 3
+                backoff:
+                  firstBackoff: 1s
+                  maxBackoff: 5s
+                  factor: 2
+
+        - id: file-service
+          uri: lb:http://FILE-SERVICE
+          predicates:
+            - Path=/file/**
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: fileService
+                fallbackUri: forward:/file/fallback
+
+            - name: Retry
+              args:
+                name: fileService
+                retries: 3
+                backoff:
+                  firstBackoff: 1s
+                  maxBackoff: 5s
+                  factor: 2
+
+        - id: job-service
+          uri: lb:http://JOB-SERVICE
+          predicates:
+            - Path=/job/**
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: jobService
+                fallbackUri: forward:/job/fallback
+
+            - name: Retry
+              args:
+                name: jobService
+                retries: 3
+                backoff:
+                  firstBackoff: 1s
+                  maxBackoff: 5s
+                  factor: 2
+
+        - id: user-service
+          uri: lb:http://USER-SERVICE
+          predicates:
+            - Path=/user/**
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: userService
+                fallbackUri: forward:/user/fallback
+
+            - name: Retry
+              args:
+                name: userService
+                retries: 3
+                backoff:
+                  firstBackoff: 1s
+                  maxBackoff: 5s
+                  factor: 2
+
+        - id: notification-service
+          uri: lb:http://NOTIFICATION-SERVICE
+          predicates:
+            - Path=/notification/**
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: notificationService
+                fallbackUri: forward:/notification/fallback
+
+            - name: Retry
+              args:
+                name: notificationService
+                retries: 3
+                backoff:
+                  firstBackoff: 1s
+                  maxBackoff: 5s
+                  factor: 2
+
+  resilience4j:
+    circuitbreaker:
+      instances:
+        cvService:
+          registerHealthIndicator: true  # Đăng ký health indicator cho Actuator
+          slidingWindowSize: 10          # Kích thước cửa sổ trượt
+          failureRateThreshold: 50       # Ngưỡng phần trăm lỗi để mở Circuit Breaker
+          waitDurationInOpenState: 10000 # Thời gian đợi khi Circuit Breaker ở trạng thái mở (mili giây)
+          permittedNumberOfCallsInHalfOpenState: 3 # Số cuộc gọi được phép khi ở trạng thái half-open
+          minimumNumberOfCalls: 5        # Số lượng tối thiểu các cuộc gọi trước khi tính toán lỗi
+          automaticTransitionFromOpenToHalfOpenEnabled: true # Tự động chuyển từ trạng thái open sang half-open
+
+        fileService:
+          registerHealthIndicator: true
+          slidingWindowSize: 10
+          failureRateThreshold: 50
+          waitDurationInOpenState: 10000
+          permittedNumberOfCallsInHalfOpenState: 3
+          minimumNumberOfCalls: 5
+          automaticTransitionFromOpenToHalfOpenEnabled: true
+
+        jobService:
+          registerHealthIndicator: true
+          slidingWindowSize: 10
+          failureRateThreshold: 50
+          waitDurationInOpenState: 10000
+          permittedNumberOfCallsInHalfOpenState: 3
+          minimumNumberOfCalls: 5
+          automaticTransitionFromOpenToHalfOpenEnabled: true
+
+        userService:
+          registerHealthIndicator: true
+          slidingWindowSize: 10
+          failureRateThreshold: 50
+          waitDurationInOpenState: 10000
+          permittedNumberOfCallsInHalfOpenState: 3
+          minimumNumberOfCalls: 5
+          automaticTransitionFromOpenToHalfOpenEnabled: true
+
+        notificationService:
+          registerHealthIndicator: true
+          slidingWindowSize: 10
+          failureRateThreshold: 50
+          waitDurationInOpenState: 10000
+          permittedNumberOfCallsInHalfOpenState: 3
+          minimumNumberOfCalls: 5
+          automaticTransitionFromOpenToHalfOpenEnabled: true
+
+    timelimiter:
+      instances:
+        cvService:
+          timeoutDuration: 1s
+
+        fileService:
+          timeoutDuration: 1s
+
+        jobService:
+          timeoutDuration: 1s
+
+        userService:
+          timeoutDuration: 1s
+
+        notificationService:
+          timeoutDuration: 1s
+
+    retry:
+      instances:
+        cvService:
+          maxAttempts: 3
+          waitDuration: 1s
+
+        fileService:
+          maxAttempts: 3
+          waitDuration: 1s
+
+        jobService:
+          maxAttempts: 3
+          waitDuration: 1s
+
+        userService:
+          maxAttempts: 3
+          waitDuration: 1s
+
+        notificationService:
+          maxAttempts: 3
+          waitDuration: 1s
