@@ -10,6 +10,7 @@ import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.eventsourcing.EventSourcingHandler;
+import org.axonframework.messaging.MetaData;
 import org.axonframework.messaging.annotation.MetaDataValue;
 import org.axonframework.messaging.interceptors.ExceptionHandler;
 import org.axonframework.modelling.command.AggregateIdentifier;
@@ -46,8 +47,10 @@ public class JobAggregate {
     String requirements;
 
     @CommandHandler
-    public JobAggregate(JobCommand.CreateJob command, @MetaDataValue("causationId") String causationId) {
-        LogHelper.logMessage(log, "CreateJob", command.getId(), causationId, command);
+    public JobAggregate(JobCommand.CreateJob command,
+                        @MetaDataValue("correlationId") String correlationId,
+                        @MetaDataValue("causationId") String causationId) {
+        LogHelper.logMessage(log, "CreateJob", correlationId, causationId, command);
         apply(JobEvent.JobCreated.builder()
                 .id(command.getId())
                 .organizationName(command.getOrganizationName())
@@ -56,16 +59,18 @@ public class JobAggregate {
                 .toSalary(command.getToSalary())
                 .expiredAt(command.getExpiredAt())
                 .requirements(command.getRequirements())
-                .build());
+                .build(), MetaData.with("correlationId", command.getId()).and("causationId", correlationId));
     }
 
     @CommandHandler
-    public JobAggregate(JobCommand.RollbackCreateJob command, @MetaDataValue("causationId") String causationId) {
-        LogHelper.logMessage(log, "RollbackCreateJob", command.getId(), causationId, command);
+    public JobAggregate(JobCommand.RollbackCreateJob command,
+                        @MetaDataValue("correlationId") String correlationId,
+                        @MetaDataValue("causationId") String causationId) {
+        LogHelper.logMessage(log, "RollbackCreateJob", correlationId, causationId, command);
         apply(JobEvent.JobDeleted.builder()
                 .id(command.getId())
                 .jobId(command.getJobId())
-                .build());
+                .build(), MetaData.with("correlationId", command.getId()).and("causationId", correlationId));
     }
 
     @EventSourcingHandler

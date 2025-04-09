@@ -39,7 +39,7 @@ public class  QueryController {
             @Argument Integer page,
             @Argument Integer size) {
 
-        ValidationHelper.validateSalaryRange(fromSalary, toSalary);
+        ValidationHelper.validateSalaryRangeQuery(fromSalary, toSalary);
 
         JobQuery.GetAllJobs query = JobQuery.GetAllJobs.builder()
                 .organizationName(organizationName)

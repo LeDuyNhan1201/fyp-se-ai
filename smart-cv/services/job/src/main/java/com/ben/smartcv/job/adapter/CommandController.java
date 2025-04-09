@@ -45,7 +45,7 @@ public class CommandController {
     @PostMapping
     @ResponseStatus(OK)
     public ResponseEntity<BaseResponse<?, ?>> createJob(@RequestBody @Valid RequestDto.CreateJobDescription request) {
-        ValidationHelper.validateSalaryRange(request.fromSalary(), request.toSalary());
+        ValidationHelper.validateSalaryRangeCommand(request.fromSalary(), request.toSalary());
         try {
             String identifier = UUID.randomUUID().toString();
             JobCommand.CreateJob command = JobCommand.CreateJob.builder()

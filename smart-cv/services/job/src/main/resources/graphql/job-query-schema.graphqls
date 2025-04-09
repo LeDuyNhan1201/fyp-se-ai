@@ -7,9 +7,9 @@ type JobDescription {
     email: String
     phone: String
     position: String!
-    education: [String!]
+    educations: [String!]
     skills: [String!]!
-    experience: [String!]
+    experiences: [String!]
     fromSalary: Float!
     toSalary: Float!
     createdAt: DateTime!
@@ -27,9 +27,9 @@ type Query {
     searchJobs(
         organizationName: String
         position: String
-        education: [String!]
+        educations: [String!]
         skills: [String!]
-        experience: [String!]
+        experiences: [String!]
         fromSalary: Float
         toSalary: Float
         page: Int
