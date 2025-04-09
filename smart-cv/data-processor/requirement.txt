@@ -2,8 +2,5 @@ grpcio-tools
 python-dotenv
 pytesseract
 pdf2image
-confluent-kafka[avro,json,protobuf]
 minio
-elasticsearch
-scikit-learn
-sentence-transformers
+google-genai
