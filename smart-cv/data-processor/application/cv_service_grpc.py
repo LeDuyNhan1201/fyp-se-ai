@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 
 import protobuf.cv.service_pb2_grpc as grpc_service
 from application.proto_message import ExtractedJobData
-from cv_parser import extract_cv_info
+from infrastructure.data_parser import DataParser
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(
@@ -29,10 +29,11 @@ class CvServiceImpl(grpc_service.CvProcessorServicer):
 
     def ExtractData(self, request, context):
         print(f"Received cv data for processing: {request}")
-
         print(request)
         cv = request
-        data = extract_cv_info(cv.requirements)
+
+        data_parser = DataParser()
+        data = data_parser.parse(cv.requirements, False)
         logger.info(data)
 
         extracted_data = ExtractedJobData(

@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 
 import protobuf.job.service_pb2_grpc as grpc_service
 from application.proto_message import ExtractedJobData
-from cv_parser import extract_job_info
+from infrastructure.data_parser import DataParser
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(
@@ -29,10 +29,11 @@ class JobServiceImpl(grpc_service.JobProcessorServicer):
 
     def ExtractData(self, request, context):
         print(f"Received job data for processing: {request}")
-
         print(request)
         job = request
-        data = extract_job_info(job.requirements)
+
+        data_parser = DataParser()
+        data = data_parser.parse(job.requirements)
         logger.info(data)
 
         extracted_data = ExtractedJobData(
