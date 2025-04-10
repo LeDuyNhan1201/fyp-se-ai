@@ -8,23 +8,25 @@ option java_multiple_files = true;
 
 import "job.event.proto";
 
-message ExtractedJobData {
+message PreviewJobDescription {
 
-    string email = 1;
+    repeated string educations = 1;
 
-    string phone = 2;
+    repeated string skills = 2;
 
-    repeated string educations = 3;
-
-    repeated string skills = 4;
-
-    repeated string experiences = 5;
+    repeated string experiences = 3;
 
 }
 
-service JobProcessor {
+message JobId {
 
-    rpc ExtractData (JobCreatedEvent) returns (ExtractedJobData) {
+    string id = 1;
+
+}
+
+service JobService {
+
+    rpc getById(JobId) returns (PreviewJobDescription) {
     }
 
 }

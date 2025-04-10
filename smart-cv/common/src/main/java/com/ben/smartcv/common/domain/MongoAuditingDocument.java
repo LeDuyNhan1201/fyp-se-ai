@@ -3,6 +3,7 @@ package com.ben.smartcv.common.domain;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.SuperBuilder;
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.*;
 import org.springframework.data.mongodb.core.mapping.Field;
 import org.springframework.data.mongodb.core.mapping.FieldType;
@@ -19,7 +20,7 @@ public abstract class MongoAuditingDocument {
 
     @Id
     @Field(name = "_id", targetType = FieldType.OBJECT_ID)
-    String id;
+    ObjectId id;
 
     @CreatedBy
     @Field(name = "created_by", targetType = FieldType.STRING)

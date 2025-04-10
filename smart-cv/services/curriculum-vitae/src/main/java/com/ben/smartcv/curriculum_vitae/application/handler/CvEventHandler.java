@@ -1,13 +1,12 @@
-package com.ben.smartcv.curriculum_vitae.application;
+package com.ben.smartcv.curriculum_vitae.application.handler;
 
 import com.ben.smartcv.common.contract.command.CvCommand;
-import com.ben.smartcv.common.contract.command.NotificationCommand;
 import com.ben.smartcv.common.contract.event.CvEvent;
 import com.ben.smartcv.common.cv.ExtractedCvData;
 import com.ben.smartcv.common.util.LogHelper;
 import com.ben.smartcv.curriculum_vitae.domain.entity.CurriculumVitae;
 import com.ben.smartcv.curriculum_vitae.infrastructure.EventPublisher;
-import com.ben.smartcv.curriculum_vitae.infrastructure.ICurriculumVitaeRepository;
+import com.ben.smartcv.curriculum_vitae.infrastructure.repository.ICurriculumVitaeRepository;
 import com.ben.smartcv.curriculum_vitae.infrastructure.grpc.GrpcClientCvProcessor;
 import io.grpc.Status;
 import io.grpc.StatusRuntimeException;
@@ -16,6 +15,7 @@ import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.axonframework.eventhandling.EventHandler;
+import org.axonframework.messaging.MetaData;
 import org.axonframework.messaging.annotation.MetaDataValue;
 import org.springframework.stereotype.Component;
 
@@ -47,8 +47,7 @@ public class CvEventHandler {
             ExtractedCvData extractedCvData = grpcClientCvProcessor.callExtractData(event);
 
             CurriculumVitae curriculumVitae = CurriculumVitae.builder()
-                    .id(event.getCvId())
-                    .cvFileName(event.getObjectKey())
+                    .objectKey(event.getObjectKey())
 
                     .name(extractedCvData.getName())
                     .email(extractedCvData.getEmail())
@@ -61,17 +60,15 @@ public class CvEventHandler {
 
         } catch (Exception e) {
             log.error("Cv processing failed: {}", e.getMessage());
-            String reason = "Notify.Content.CreateFailed|CV";
             if (e instanceof StatusRuntimeException) {
                 Status status = ((StatusRuntimeException) e).getStatus();
                 if (status.getCode() == Status.Code.INVALID_ARGUMENT) {
                     log.error("Invalid argument: {}", status.getDescription());
-                    reason = "Notify.Content.InvalidRequirements|CV";
                 } else {
                     log.error("Unexpected error: {}", status.getDescription());
                 }
             }
-            rollback(event, reason);
+            rollback(event);
         }
         eventPublisher.send(event, correlationId, causationId);
     }
@@ -82,31 +79,15 @@ public class CvEventHandler {
                    @MetaDataValue("causationId") String causationId) {
         // 4
         LogHelper.logMessage(log, "4|CvDeleted", correlationId, causationId, event);
-        try {
-            repository.deleteById(event.getCvId());
-            eventPublisher.send(event, correlationId, causationId);
-
-        } catch (Exception exception){
-            log.error("Cannot delete cv {}: {}", event.getCvId(), exception.getMessage());
-        }
+        eventPublisher.send(event, correlationId, causationId);
     }
 
-    private void sendFailureNotification(String reason) {
-        commandGateway.sendAndWait(NotificationCommand.SendNotification.builder()
-                .id(UUID.randomUUID().toString())
-                .title("Notify.Title.CreateFailed|CV")
-                .content(reason)
-                .build());
-    }
-
-    private void rollback(CvEvent.CvProcessed event, String reason) {
+    private void rollback(CvEvent.CvProcessed event) {
+        String identifier = UUID.randomUUID().toString();
         commandGateway.send(CvCommand.RollbackProcessCv.builder()
-                .id(UUID.randomUUID().toString())
-                .cvId(event.getCvId())
+                .id(identifier)
                 .objectKey(event.getObjectKey())
-                .build());
-
-        sendFailureNotification(reason);
+                .build(), MetaData.with("correlationId", identifier).and("causationId", event.getId()));
     }
 
 }

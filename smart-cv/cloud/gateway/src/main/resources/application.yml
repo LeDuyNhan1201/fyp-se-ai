@@ -108,10 +108,10 @@ spring:
       globalcors:
         cors-configurations:
           '[/**]':
-            allowedOrigins: "*"
-            allowedMethods: "*"
-            allowedHeaders: "*"
-            allowCredentials: false
+            allowedOrigins: "http://localhost:3000" # Next.js frontend
+            allowedMethods: "GET, POST, PUT, DELETE, OPTIONS"
+            allowedHeaders: "Authorization, Content-Type, Accept-Language"
+            allowCredentials: true
 
       routes:
         - id: cv-service

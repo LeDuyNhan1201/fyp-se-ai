@@ -30,8 +30,6 @@ public class FileAggregate {
     @AggregateIdentifier
     String id;
 
-    String cvId;
-
     String objectKey;
 
     @CommandHandler
@@ -42,8 +40,7 @@ public class FileAggregate {
         LogHelper.logMessage(log, "1|ApplyCv", correlationId, causationId, command);
         apply(CvEvent.CvApplied.builder()
                 .id(command.getId())
-                .cvId(command.getCvId())
-                .fileName(command.getFileName())
+                .objectKey(command.getObjectKey())
                 .build(), MetaData.with("correlationId", command.getId()).and("causationId", correlationId));
     }
 
@@ -55,7 +52,6 @@ public class FileAggregate {
         LogHelper.logMessage(log, "7|DeleteCvFile", command.getId(), causationId, command);
         apply(CvEvent.CvFileDeleted.builder()
                 .id(command.getId())
-                .cvId(command.getCvId())
                 .objectKey(command.getObjectKey())
                 .build(), MetaData.with("correlationId", command.getId()).and("causationId", correlationId));
     }
@@ -64,8 +60,7 @@ public class FileAggregate {
     public void on(CvEvent.CvApplied event) {
         // 2
         this.id = event.getId();
-        this.objectKey = event.getFileName();
-        this.cvId = event.getCvId();
+        this.objectKey = event.getObjectKey();
     }
 
     @EventSourcingHandler
@@ -73,7 +68,6 @@ public class FileAggregate {
         // 8
         this.id = event.getId();
         this.objectKey = event.getObjectKey();
-        this.cvId = event.getCvId();
     }
 
     @ExceptionHandler(resultType = Exception.class, payloadType = CvCommand.ApplyCv.class)

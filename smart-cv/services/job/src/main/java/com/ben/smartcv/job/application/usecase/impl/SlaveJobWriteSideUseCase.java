@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.axonframework.commandhandling.gateway.CommandGateway;
+import org.axonframework.messaging.MetaData;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -48,16 +49,18 @@ public class SlaveJobWriteSideUseCase implements ISlaveJobWriteSideUseCase {
     }
 
     private void rollback(String jobId) {
+        String identifier = UUID.randomUUID().toString();
         commandGateway.send(JobCommand.RollbackCreateJob.builder()
-                .id(UUID.randomUUID().toString())
+                .id(identifier)
                 .jobId(jobId)
-                .build());
+                .build(), MetaData.with("correlationId", identifier).and("causationId", jobId));
 
+        identifier = UUID.randomUUID().toString();
         commandGateway.sendAndWait(NotificationCommand.SendNotification.builder()
-                .id(UUID.randomUUID().toString())
-                .title("Notify.Title.CreateFailed")
-                .content("Notify.Content.CreateFailed")
-                .build());
+                .id(identifier)
+                .title("Notify.Title.CreateFailed|Job")
+                .content("Notify.Content.CreateFailed|Job")
+                .build(), MetaData.with("correlationId", identifier).and("causationId", jobId));
     }
 
 }

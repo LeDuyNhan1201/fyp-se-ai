@@ -22,19 +22,23 @@ def job_processor_serve():
     port = os.getenv("JOB_PROCESSOR_PORT")
     server.add_insecure_port("[::]:" + port)
     server.start()
-    print("gRPC Server started on port " + port + " ...")
+    logger.info("gRPC Server started on port " + port + " ...")
     server.wait_for_termination()
 
 class JobServiceImpl(grpc_service.JobProcessorServicer):
 
     def ExtractData(self, request, context):
-        print(f"Received job data for processing: {request}")
-        print(request)
+        logger.info(f"Received job data for processing: {request}")
         job = request
 
         data_parser = DataParser()
         data = data_parser.parse(job.requirements)
         logger.info(data)
+
+        if not data:
+            context.set_code(grpc.StatusCode.INVALID_ARGUMENT)
+            context.set_details("Null data of Job description.")
+            return ExtractedJobData()
 
         extracted_data = ExtractedJobData(
             email = data["email"],

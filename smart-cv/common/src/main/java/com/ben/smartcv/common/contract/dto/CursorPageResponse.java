@@ -13,14 +13,12 @@ import java.util.List;
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class CursorPageResponse<TCursor, TData> {
+public class CursorPageResponse<TData> {
 
     List<TData> items;
 
-    TCursor cursor;
+    String nextCursor;
 
-    Integer limit;
-
-    Boolean hasNextPage;
+    boolean hasNextPage;
 
 }

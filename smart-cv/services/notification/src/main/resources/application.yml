@@ -18,6 +18,11 @@ eureka:
     service-url:
       defaultZone: http://${eureka.instance.hostname}:${DISCOVERY_PORT:31000}/eureka/
 
+# --------- Gateway ---------
+gateway:
+  domain: ${GATEWAY_DOMAIN:localhost}
+  port: ${GATEWAY_PORT:30000}
+
 # --------- Axon ---------
 axon:
   metrics:

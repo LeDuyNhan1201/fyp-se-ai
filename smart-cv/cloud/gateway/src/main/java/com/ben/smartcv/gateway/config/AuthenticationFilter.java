@@ -46,11 +46,17 @@ public class AuthenticationFilter implements GlobalFilter, Ordered {
             "/user/query/refresh",
             "/user/command/sign-up",
             "/user/command/sign-out",
+
+            "/job/graphiql",
+            "/job/graphql",
+            "/job/**",
+            "/cv/graphiql",
+            "/cv/graphql",
+            "/cv/**",
+
             "/cv/api-docs/**",
             "/file/api-docs/**",
             "/job/api-docs/**",
-            "/job/graphiql",
-            "/job/graphql",
             "/user/api-docs/**",
             "/notification/api-docs/**",
     };

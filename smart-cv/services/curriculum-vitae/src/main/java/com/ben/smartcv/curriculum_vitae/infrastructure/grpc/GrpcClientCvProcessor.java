@@ -25,7 +25,6 @@ public class GrpcClientCvProcessor {
 
     public ExtractedCvData callExtractData(CvEvent.CvProcessed event) {
         CvProcessedEvent protoEvent = CvProcessedEvent.newBuilder()
-                .setCvId(event.getCvId())
                 .setObjectKey(event.getObjectKey())
                 .build();
         ExtractedCvData response = cvProcessorClient.extractData(protoEvent);

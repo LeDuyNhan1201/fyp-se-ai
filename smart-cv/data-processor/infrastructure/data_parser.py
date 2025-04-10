@@ -12,9 +12,11 @@ def _build_prompt(text: str, is_job_description: bool) -> str:
     if is_job_description:
         return f"""
         Extract JSON with only (email[string], phone[string], educations[string-array], experiences[string-array], skills[string-array]) from: {text}
+        if content of input is wrong format for Job description or empty return null, mustn't generate any other random json
         """
     return f"""
     Extract JSON with only (name[string], email[string], phone[string], educations[string-array], experiences[string-array], skills[string-array]) from: {text}
+    if content of input is wrong format for Resume or empty return null, mustn't generate any other random json
     """
 
 

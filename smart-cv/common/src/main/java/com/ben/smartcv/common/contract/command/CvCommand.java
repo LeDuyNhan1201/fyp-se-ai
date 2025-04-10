@@ -3,7 +3,6 @@ package com.ben.smartcv.common.contract.command;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.SuperBuilder;
-import org.springframework.web.multipart.MultipartFile;
 
 import static lombok.AccessLevel.PRIVATE;
 
@@ -17,15 +16,7 @@ public class CvCommand {
     @FieldDefaults(level = PRIVATE)
     public static class ApplyCv extends BaseCommand<String> {
 
-        String cvId;
-
-        String fileName;
-
-        String fileMetadataType;
-
-        Long fileSize;
-
-        MultipartFile file;
+        String objectKey;
 
     }
 
@@ -36,8 +27,6 @@ public class CvCommand {
     @NoArgsConstructor
     @FieldDefaults(level = PRIVATE)
     public static class ProcessCv extends BaseCommand<String> {
-
-        String cvId;
 
         String objectKey;
 
@@ -51,8 +40,6 @@ public class CvCommand {
     @FieldDefaults(level = PRIVATE)
     public static class RollbackProcessCv extends BaseCommand<String> {
 
-        String cvId;
-
         String objectKey;
 
     }
@@ -64,8 +51,6 @@ public class CvCommand {
     @NoArgsConstructor
     @FieldDefaults(level = PRIVATE)
     public static class DeleteCvFile extends BaseCommand<String> {
-
-        String cvId;
 
         String objectKey;
 

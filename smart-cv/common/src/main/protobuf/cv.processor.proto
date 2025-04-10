@@ -3,7 +3,7 @@ syntax = "proto3";
 package com.ben.smartcv.common;
 
 option java_package = "com.ben.smartcv.common.cv";
-option java_outer_classname = "CvServiceProto";
+option java_outer_classname = "CvProcessorProto";
 option java_multiple_files = true;
 
 import "cv.event.proto";
@@ -26,7 +26,7 @@ message ExtractedCvData {
 
 service CvProcessor {
 
-    rpc ExtractData (CvProcessedEvent) returns (ExtractedCvData) {
+    rpc extractData (CvProcessedEvent) returns (ExtractedCvData) {
     }
 
 }

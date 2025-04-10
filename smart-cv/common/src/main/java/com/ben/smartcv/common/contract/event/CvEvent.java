@@ -16,9 +16,7 @@ public class CvEvent {
     @FieldDefaults(level = PRIVATE)
     public static class CvApplied extends BaseEvent<String> {
 
-        String cvId;
-
-        String fileName;
+        String objectKey;
 
     }
 
@@ -29,8 +27,6 @@ public class CvEvent {
     @NoArgsConstructor
     @FieldDefaults(level = PRIVATE)
     public static class CvProcessed extends BaseEvent<String> {
-
-        String cvId;
 
         String objectKey;
 
@@ -44,8 +40,6 @@ public class CvEvent {
     @FieldDefaults(level = PRIVATE)
     public static class CvDeleted extends BaseEvent<String> {
 
-        String cvId;
-
         String objectKey;
 
     }
@@ -57,8 +51,6 @@ public class CvEvent {
     @NoArgsConstructor
     @FieldDefaults(level = PRIVATE)
     public static class CvFileDeleted extends BaseEvent<String> {
-
-        String cvId;
 
         String objectKey;
 

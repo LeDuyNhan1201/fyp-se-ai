@@ -24,7 +24,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0e\x63v.event.proto\x12\x16\x63om.ben.smartcv.common\"2\n\x0e\x43vAppliedEvent\x12\r\n\x05\x63v_id\x18\x01 \x01(\t\x12\x11\n\tfile_name\x18\x02 \x01(\t\"5\n\x10\x43vProcessedEvent\x12\r\n\x05\x63v_id\x18\x01 \x01(\t\x12\x12\n\nobject_key\x18\x02 \x01(\t\"3\n\x0e\x43vDeletedEvent\x12\r\n\x05\x63v_id\x18\x01 \x01(\t\x12\x12\n\nobject_key\x18\x02 \x01(\t\"7\n\x12\x43vFileDeletedEvent\x12\r\n\x05\x63v_id\x18\x01 \x01(\t\x12\x12\n\nobject_key\x18\x02 \x01(\tB+\n\x19\x63om.ben.smartcv.common.cvB\x0c\x43vEventProtoP\x01\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0e\x63v.event.proto\x12\x16\x63om.ben.smartcv.common\"$\n\x0e\x43vAppliedEvent\x12\x12\n\nobject_key\x18\x01 \x01(\t\"&\n\x10\x43vProcessedEvent\x12\x12\n\nobject_key\x18\x01 \x01(\t\"$\n\x0e\x43vDeletedEvent\x12\x12\n\nobject_key\x18\x02 \x01(\t\"(\n\x12\x43vFileDeletedEvent\x12\x12\n\nobject_key\x18\x01 \x01(\tB+\n\x19\x63om.ben.smartcv.common.cvB\x0c\x43vEventProtoP\x01\x62\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -33,11 +33,11 @@ if not _descriptor._USE_C_DESCRIPTORS:
   _globals['DESCRIPTOR']._loaded_options = None
   _globals['DESCRIPTOR']._serialized_options = b'\n\031com.ben.smartcv.common.cvB\014CvEventProtoP\001'
   _globals['_CVAPPLIEDEVENT']._serialized_start=42
-  _globals['_CVAPPLIEDEVENT']._serialized_end=92
-  _globals['_CVPROCESSEDEVENT']._serialized_start=94
-  _globals['_CVPROCESSEDEVENT']._serialized_end=147
-  _globals['_CVDELETEDEVENT']._serialized_start=149
-  _globals['_CVDELETEDEVENT']._serialized_end=200
-  _globals['_CVFILEDELETEDEVENT']._serialized_start=202
-  _globals['_CVFILEDELETEDEVENT']._serialized_end=257
+  _globals['_CVAPPLIEDEVENT']._serialized_end=78
+  _globals['_CVPROCESSEDEVENT']._serialized_start=80
+  _globals['_CVPROCESSEDEVENT']._serialized_end=118
+  _globals['_CVDELETEDEVENT']._serialized_start=120
+  _globals['_CVDELETEDEVENT']._serialized_end=156
+  _globals['_CVFILEDELETEDEVENT']._serialized_start=158
+  _globals['_CVFILEDELETEDEVENT']._serialized_end=198
 # @@protoc_insertion_point(module_scope)

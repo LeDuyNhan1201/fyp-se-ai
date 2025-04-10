@@ -2,12 +2,6 @@ server:
   port: 30002
   servlet:
     context-path: /file
-    encoding:
-      charset: UTF-8
-      enabled: true
-      force: true
-      force-request: true
-      force-response: true
 
 # --------- Eureka ---------
 eureka:
@@ -20,8 +14,8 @@ eureka:
 
 # --------- Gateway ---------
 gateway:
-  domain: localhost
-  port: 30000
+  domain: ${GATEWAY_DOMAIN:localhost}
+  port: ${GATEWAY_PORT:30000}
 
 # --------- Axon ---------
 axon:
@@ -119,7 +113,7 @@ spring:
     import: file:env.properties
 
   application:
-    name: file
+    name: file-service
 
   servlet:
     multipart:

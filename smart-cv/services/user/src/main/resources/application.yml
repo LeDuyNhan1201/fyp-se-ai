@@ -27,8 +27,8 @@ jwt:
 
 # --------- Gateway ---------
 gateway:
-  domain: localhost
-  port: 30000
+  domain: ${GATEWAY_DOMAIN:localhost}
+  port: ${GATEWAY_PORT:30000}
 
 # --------- Axon ---------
 axon:

@@ -30,8 +30,6 @@ public class CvAggregate {
     @AggregateIdentifier
     String id;
 
-    String cvId;
-
     String objectKey;
 
     @CommandHandler
@@ -42,7 +40,7 @@ public class CvAggregate {
         LogHelper.logMessage(log, "6|ProcessCv", correlationId, causationId, command);
         apply(CvEvent.CvProcessed.builder()
                 .id(command.getId())
-                .cvId(command.getCvId())
+                .objectKey(command.getObjectKey())
                 .build(), MetaData.with("correlationId", command.getId()).and("causationId", correlationId));
     }
 
@@ -54,7 +52,7 @@ public class CvAggregate {
         LogHelper.logMessage(log, "2|RollbackProcessCv", correlationId, causationId, command);
         apply(CvEvent.CvDeleted.builder()
                 .id(command.getId())
-                .cvId(command.getCvId())
+                .objectKey(command.getObjectKey())
                 .build(), MetaData.with("correlationId", command.getId()).and("causationId", correlationId));
     }
 
@@ -62,7 +60,6 @@ public class CvAggregate {
     public void on(CvEvent.CvProcessed event) {
         // 7
         this.id = event.getId();
-        this.cvId = event.getCvId();
         this.objectKey = event.getObjectKey();
     }
 
@@ -70,7 +67,7 @@ public class CvAggregate {
     public void on(CvEvent.CvDeleted event) {
         // 3
         this.id = event.getId();
-        this.cvId = event.getCvId();
+        this.objectKey = event.getObjectKey();
     }
 
     @ExceptionHandler(resultType = Exception.class, payloadType = CvCommand.ApplyCv.class)

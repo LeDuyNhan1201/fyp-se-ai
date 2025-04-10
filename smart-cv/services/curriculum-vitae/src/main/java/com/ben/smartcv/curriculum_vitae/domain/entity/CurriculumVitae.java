@@ -32,22 +32,18 @@ public class CurriculumVitae extends MongoAuditingDocument {
     String phone;
 
     @NotNull
-    @Field(value = "educations", targetType = FieldType.ARRAY)
+    @Field(value = "educations")
     List<String> educations;
 
     @NotNull
-    @Field(value = "skills", targetType = FieldType.ARRAY)
+    @Field(value = "skills")
     List<String> skills;
 
-    @Field(value = "experiences", targetType = FieldType.ARRAY)
+    @Field(value = "experiences")
     List<String> experiences;
 
     @NotNull
-    @Field(value = "cv_file_name", targetType = FieldType.STRING)
-    String cvFileName;
-
-    @NotNull
-    @Field(value = "raw_text", targetType = FieldType.STRING)
-    String rawText;
+    @Field(value = "object_key", targetType = FieldType.STRING)
+    String objectKey;
 
 }

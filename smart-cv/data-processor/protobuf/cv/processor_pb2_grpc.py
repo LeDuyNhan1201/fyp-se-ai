@@ -3,8 +3,8 @@
 import grpc
 import warnings
 
-from protobuf.job import event_pb2 as job_dot_event__pb2
-from protobuf.job import service_pb2 as job_dot_service__pb2
+from protobuf.cv import event_pb2 as cv_dot_event__pb2
+from protobuf.cv import processor_pb2 as cv_dot_processor__pb2
 
 GRPC_GENERATED_VERSION = '1.71.0'
 GRPC_VERSION = grpc.__version__
@@ -19,14 +19,14 @@ except ImportError:
 if _version_not_supported:
     raise RuntimeError(
         f'The grpc package installed is at version {GRPC_VERSION},'
-        + f' but the generated code in job.service_pb2_grpc.py depends on'
+        + f' but the generated code in cv.processor_pb2_grpc.py depends on'
         + f' grpcio>={GRPC_GENERATED_VERSION}.'
         + f' Please upgrade your grpc module to grpcio>={GRPC_GENERATED_VERSION}'
         + f' or downgrade your generated code using grpcio-tools<={GRPC_VERSION}.'
     )
 
 
-class JobProcessorStub(object):
+class CvProcessorStub(object):
     """Missing associated documentation comment in .proto file."""
 
     def __init__(self, channel):
@@ -35,43 +35,43 @@ class JobProcessorStub(object):
         Args:
             channel: A grpc.Channel.
         """
-        self.ExtractData = channel.unary_unary(
-                '/com.ben.smartcv.common.JobProcessor/ExtractData',
-                request_serializer=job_dot_event__pb2.JobCreatedEvent.SerializeToString,
-                response_deserializer=job_dot_service__pb2.ExtractedJobData.FromString,
+        self.extractData = channel.unary_unary(
+                '/com.ben.smartcv.common.CvProcessor/extractData',
+                request_serializer=cv_dot_event__pb2.CvProcessedEvent.SerializeToString,
+                response_deserializer=cv_dot_processor__pb2.ExtractedCvData.FromString,
                 _registered_method=True)
 
 
-class JobProcessorServicer(object):
+class CvProcessorServicer(object):
     """Missing associated documentation comment in .proto file."""
 
-    def ExtractData(self, request, context):
+    def extractData(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
 
-def add_JobProcessorServicer_to_server(servicer, server):
+def add_CvProcessorServicer_to_server(servicer, server):
     rpc_method_handlers = {
-            'ExtractData': grpc.unary_unary_rpc_method_handler(
-                    servicer.ExtractData,
-                    request_deserializer=job_dot_event__pb2.JobCreatedEvent.FromString,
-                    response_serializer=job_dot_service__pb2.ExtractedJobData.SerializeToString,
+            'extractData': grpc.unary_unary_rpc_method_handler(
+                    servicer.extractData,
+                    request_deserializer=cv_dot_event__pb2.CvProcessedEvent.FromString,
+                    response_serializer=cv_dot_processor__pb2.ExtractedCvData.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-            'com.ben.smartcv.common.JobProcessor', rpc_method_handlers)
+            'com.ben.smartcv.common.CvProcessor', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
-    server.add_registered_method_handlers('com.ben.smartcv.common.JobProcessor', rpc_method_handlers)
+    server.add_registered_method_handlers('com.ben.smartcv.common.CvProcessor', rpc_method_handlers)
 
 
  # This class is part of an EXPERIMENTAL API.
-class JobProcessor(object):
+class CvProcessor(object):
     """Missing associated documentation comment in .proto file."""
 
     @staticmethod
-    def ExtractData(request,
+    def extractData(request,
             target,
             options=(),
             channel_credentials=None,
@@ -84,9 +84,9 @@ class JobProcessor(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/com.ben.smartcv.common.JobProcessor/ExtractData',
-            job_dot_event__pb2.JobCreatedEvent.SerializeToString,
-            job_dot_service__pb2.ExtractedJobData.FromString,
+            '/com.ben.smartcv.common.CvProcessor/extractData',
+            cv_dot_event__pb2.CvProcessedEvent.SerializeToString,
+            cv_dot_processor__pb2.ExtractedCvData.FromString,
             options,
             channel_credentials,
             insecure,

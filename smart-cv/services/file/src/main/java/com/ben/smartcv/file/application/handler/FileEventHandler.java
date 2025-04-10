@@ -42,7 +42,7 @@ public class FileEventHandler {
                    @MetaDataValue("causationId") String causationId) {
         // 3
         LogHelper.logMessage(log, "3|CvApplied", correlationId, causationId, event);
-        eventPublisher.send(event, correlationId, causationId);
+        eventPublisher.send(event, correlationId, event.getId());
     }
 
     @EventHandler
@@ -58,7 +58,7 @@ public class FileEventHandler {
             String reason = "Notify.Content.DeleteFailed|File";
             sendFailureNotification(reason);
         }
-        eventPublisher.send(event, correlationId, causationId);
+        eventPublisher.send(event, correlationId, event.getId());
     }
 
     @ExceptionHandler(payloadType = CvEvent.CvFileDeleted.class)

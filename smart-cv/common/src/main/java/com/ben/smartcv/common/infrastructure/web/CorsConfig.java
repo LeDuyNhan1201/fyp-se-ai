@@ -18,12 +18,9 @@ public class CorsConfig {
     public CorsFilter corsFilter(@Value("${gateway.domain}") String gatewayDomain,
                                  @Value("${gateway.port}") String gatewayPort) {
         CorsConfiguration corsConfiguration = new CorsConfiguration();
-//        corsConfiguration.setAllowedOrigins(List.of("http://localhost:30000")); // Chỉ cho phép frontend Next.js
-//        corsConfiguration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-//        corsConfiguration.setAllowedHeaders(List.of("Authorization", "Content-Type", "Accept-Language"));
         corsConfiguration.setAllowedOrigins(List.of(String.format("http://%s:%s", gatewayDomain, gatewayPort)));
-        corsConfiguration.addAllowedMethod("*");
-        corsConfiguration.addAllowedHeader("*");
+        corsConfiguration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        corsConfiguration.setAllowedHeaders(List.of("Authorization", "Content-Type", "Accept-Language"));
         corsConfiguration.setAllowCredentials(true);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();

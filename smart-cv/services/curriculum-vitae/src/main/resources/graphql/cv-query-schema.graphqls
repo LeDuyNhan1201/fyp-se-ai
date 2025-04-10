@@ -1,0 +1,18 @@
+type CvTag {
+    id: String!
+    objectKey: String!
+    downloadUrl: String!
+}
+
+type Page {
+    items: [CvTag]!
+    nextCursor: String!
+    hasNextPage: Boolean!
+}
+
+type Query {
+    findAll(
+        cursor: String
+        limit: Int
+    ): Page!
+}

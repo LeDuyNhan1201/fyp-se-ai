@@ -20,8 +20,8 @@ eureka:
 
 # --------- Gateway ---------
 gateway:
-  domain: localhost
-  port: 30000
+  domain: ${GATEWAY_DOMAIN:localhost}
+  port: ${GATEWAY_PORT:30000}
 
 # --------- Axon ---------
 axon:
@@ -112,13 +112,26 @@ spring:
     import: file:env.properties
 
   application:
-    name: curriculum-vitae
+    name: cv-service
 
   servlet:
     multipart:
       enabled: true
       max-file-size: 50MB
       max-request-size: 50MB
+
+  graphql:
+    path: /graphql
+
+    cors:
+      allowed-headers: "*"
+      allowed-methods: "*"
+      allowed-origin-patterns: "*"
+      allowed-origins: "*"
+
+    graphiql:
+      enabled: true  # Bật GraphiQL UI để test API GraphQL
+      path: /graphiql
 
   messages:
     basename: i18n/messages

@@ -26,23 +26,22 @@ public class EventPublisher {
 
     public void send(CvEvent.CvApplied event, String correlationId, String causationId) {
         CvAppliedEvent protoEvent = CvAppliedEvent.newBuilder()
-                .setFileName(event.getFileName())
-                .setCvId(event.getCvId())
+                .setObjectKey(event.getObjectKey())
                 .build();
 
         ProducerRecord<String, CvAppliedEvent> record = new ProducerRecord<>(
-                Constant.KAFKA_TOPIC_CV_EVENT, null, event.getCvId(), protoEvent,
+                Constant.KAFKA_TOPIC_CV_EVENT, null, event.getObjectKey(), protoEvent,
                 KafkaHelper.createHeaders(correlationId, causationId));
         cvAppliedEventTemplate.send(record);
     }
 
     public void send(CvEvent.CvFileDeleted event, String correlationId, String causationId) {
         CvFileDeletedEvent protoEvent = CvFileDeletedEvent.newBuilder()
-                .setCvId(event.getCvId())
+                .setObjectKey(event.getObjectKey())
                 .build();
 
         ProducerRecord<String, CvFileDeletedEvent> record = new ProducerRecord<>(
-                Constant.KAFKA_TOPIC_CV_EVENT, null, event.getCvId(), protoEvent,
+                Constant.KAFKA_TOPIC_CV_EVENT, null, event.getObjectKey(), protoEvent,
                 KafkaHelper.createHeaders(correlationId, causationId));
         cvFileDeletedEventTemplate.send(record);
     }

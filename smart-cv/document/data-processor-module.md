@@ -23,7 +23,7 @@ cv.event.proto
 python -m grpc_tools.protoc --proto_path=./../common/src/main/protobuf \
 --python_out=./protobuf \
 --grpc_python_out=./protobuf \
-cv.service.proto
+cv.processor.proto
 
 python -m grpc_tools.protoc --proto_path=./../common/src/main/protobuf \
 --python_out=./protobuf \
@@ -32,5 +32,5 @@ job.event.proto
 python -m grpc_tools.protoc --proto_path=./../common/src/main/protobuf \
 --python_out=./protobuf \
 --grpc_python_out=./protobuf \
-job.service.proto
+job.processor.proto
 ````
