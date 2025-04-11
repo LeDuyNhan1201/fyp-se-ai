@@ -13,8 +13,8 @@ logging.basicConfig(
 class MinioClient:
     def __init__(self):
         self.endpoint = os.getenv("MINIO_ENDPOINT")
-        self.access_key = os.getenv("MINIO_ACCESS_KEY")
-        self.secret_key = os.getenv("MINIO_SECRET_KEY")
+        self.access_key = os.getenv("MINIO_USERNAME")
+        self.secret_key = os.getenv("MINIO_PASSWORD")
         self.bucket_name = os.getenv("MINIO_BUCKET_NAME")
         self.download_folder = os.getenv("DOWNLOAD_FOLDER")
 
