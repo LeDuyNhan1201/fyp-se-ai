@@ -48,6 +48,7 @@ public class CvEventHandler {
 
             CurriculumVitae curriculumVitae = CurriculumVitae.builder()
                     .objectKey(event.getObjectKey())
+                    .jobId(event.getJobId())
 
                     .name(extractedCvData.getName())
                     .email(extractedCvData.getEmail())
@@ -55,6 +56,7 @@ public class CvEventHandler {
                     .educations(extractedCvData.getEducationsList())
                     .skills(extractedCvData.getSkillsList())
                     .experiences(extractedCvData.getExperiencesList())
+                    .score(extractedCvData.getScore())
                     .build();
             repository.save(curriculumVitae);
 

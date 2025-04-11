@@ -4,6 +4,8 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.SuperBuilder;
 
+import java.util.List;
+
 import static lombok.AccessLevel.PRIVATE;
 
 public class CvEvent {
@@ -18,6 +20,8 @@ public class CvEvent {
 
         String objectKey;
 
+        String jobId;
+
     }
 
     @Getter
@@ -29,6 +33,8 @@ public class CvEvent {
     public static class CvProcessed extends BaseEvent<String> {
 
         String objectKey;
+
+        String jobId;
 
     }
 

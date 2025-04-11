@@ -32,6 +32,8 @@ public class CvAggregate {
 
     String objectKey;
 
+    String jobId;
+
     @CommandHandler
     public CvAggregate(CvCommand.ProcessCv command,
                        @MetaDataValue("correlationId") String correlationId,
@@ -41,6 +43,7 @@ public class CvAggregate {
         apply(CvEvent.CvProcessed.builder()
                 .id(command.getId())
                 .objectKey(command.getObjectKey())
+                .jobId(command.getJobId())
                 .build(), MetaData.with("correlationId", command.getId()).and("causationId", correlationId));
     }
 
@@ -61,6 +64,7 @@ public class CvAggregate {
         // 7
         this.id = event.getId();
         this.objectKey = event.getObjectKey();
+        this.jobId = event.getJobId();
     }
 
     @EventSourcingHandler

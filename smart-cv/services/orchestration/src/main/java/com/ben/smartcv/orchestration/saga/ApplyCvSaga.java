@@ -46,6 +46,7 @@ public class ApplyCvSaga {
         commandGateway.sendAndWait(CvCommand.ProcessCv.builder()
                 .id(identifier)
                 .objectKey(event.getObjectKey())
+                .jobId(event.getJobId())
                 .build(), MetaData.with("correlationId", identifier).and("causationId", event.getId()));
     }
 
@@ -74,6 +75,7 @@ public class ApplyCvSaga {
         // 4
         on(CvEvent.CvApplied.builder()
                 .objectKey(event.getObjectKey())
+                .jobId(event.getJobId())
                 .build(), correlationId, causationId);
     }
 
@@ -87,6 +89,7 @@ public class ApplyCvSaga {
         // 9
         on(CvEvent.CvProcessed.builder()
                 .objectKey(event.getObjectKey())
+                .jobId(event.getJobId())
                 .build(), correlationId, causationId);
     }
 

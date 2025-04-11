@@ -1,7 +1,8 @@
-package com.ben.smartcv.curriculum_vitae.infrastructure.repository;
+package com.ben.smartcv.curriculum_vitae.application.usecase;
 
 import com.ben.smartcv.curriculum_vitae.application.dto.ResponseDto;
 import com.ben.smartcv.curriculum_vitae.domain.entity.CurriculumVitae;
+import com.ben.smartcv.curriculum_vitae.infrastructure.repository.CvQueryRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
@@ -32,6 +33,7 @@ public class CvQueryUseCase {
                         .id(cv.getId().toHexString())
                         .objectKey(cv.getObjectKey())
                         .downloadUrl("sdjfhjhsjkfhsjhfdsjkfhskjhfksj")
+                        .score(cv.getScore())
                         .nextCursor(nextCursor)
                         .hasNextPage(hasNextPage)
                         .build()

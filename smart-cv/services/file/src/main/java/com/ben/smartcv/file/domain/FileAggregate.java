@@ -32,6 +32,8 @@ public class FileAggregate {
 
     String objectKey;
 
+    String jobId;
+
     @CommandHandler
     public FileAggregate(CvCommand.ApplyCv command,
                          @MetaDataValue("correlationId") String correlationId,
@@ -41,6 +43,7 @@ public class FileAggregate {
         apply(CvEvent.CvApplied.builder()
                 .id(command.getId())
                 .objectKey(command.getObjectKey())
+                .jobId(command.getJobId())
                 .build(), MetaData.with("correlationId", command.getId()).and("causationId", correlationId));
     }
 
@@ -61,6 +64,7 @@ public class FileAggregate {
         // 2
         this.id = event.getId();
         this.objectKey = event.getObjectKey();
+        this.jobId = event.getJobId();
     }
 
     @EventSourcingHandler

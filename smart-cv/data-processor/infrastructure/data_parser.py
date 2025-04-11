@@ -62,14 +62,49 @@ class DataParser:
 
         return _convert_to_python_dict(result)
 
+    def calculate_score(self, cv_data: dict, job_data: dict) -> float:
+        prompt = f"""
+        Calculate score of CV json with Job description json, the score is a float number from 0.0 to 1.0:
+        CV json: {json.dumps(cv_data)}
+        Job description json: {json.dumps(job_data)}
+        return only a float number, mustn't generate any other random json
+        """
+        contents = [
+            types.Content(
+                role="user",
+                parts=[types.Part.from_text(text=prompt)],
+            )
+        ]
+
+        config = types.GenerateContentConfig(
+            temperature=1,
+            max_output_tokens=5000,
+            response_mime_type="text/plain",
+        )
+
+        result = ""
+        for chunk in self.client.models.generate_content_stream(
+            model=self.model,
+            contents=contents,
+            config=config,
+        ):
+            result += chunk.text
+
+        return float(result)
+
 
 # if __name__ == "__main__":
-#     resume = """Paste your resume text here"""
-#     job_description = """Paste job description here"""
+#     cv_data = {
+#         "educations": ["University A", "University B"],
+#         "skills": ["Python", "Java", "C++"],
+#         "experiences": ["Company A", "Company B"],
+#     }
 #
-#     parser = ResumeJobParser()
-#     resume_data = parser.parse(resume, is_job_description=False)
-#     job_data = parser.parse(job_description)
-#
-#     print("Parsed Resume:", resume_data)
-#     print("Parsed Job Description:", job_data)
+#     job_data = {
+#         "educations": ["University A"],
+#         "skills": ["Python", "Java"],
+#         "experiences": ["Company A"],
+#     }
+#     data_parser = DataParser()
+#     score = data_parser.calculate_score(cv_data, job_data)
+#     print(score)

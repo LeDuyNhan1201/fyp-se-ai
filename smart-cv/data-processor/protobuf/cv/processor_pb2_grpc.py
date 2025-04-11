@@ -3,7 +3,6 @@
 import grpc
 import warnings
 
-from protobuf.cv import event_pb2 as cv_dot_event__pb2
 from protobuf.cv import processor_pb2 as cv_dot_processor__pb2
 
 GRPC_GENERATED_VERSION = '1.71.0'
@@ -37,7 +36,7 @@ class CvProcessorStub(object):
         """
         self.extractData = channel.unary_unary(
                 '/com.ben.smartcv.common.CvProcessor/extractData',
-                request_serializer=cv_dot_event__pb2.CvProcessedEvent.SerializeToString,
+                request_serializer=cv_dot_processor__pb2.RawCvInfo.SerializeToString,
                 response_deserializer=cv_dot_processor__pb2.ExtractedCvData.FromString,
                 _registered_method=True)
 
@@ -56,7 +55,7 @@ def add_CvProcessorServicer_to_server(servicer, server):
     rpc_method_handlers = {
             'extractData': grpc.unary_unary_rpc_method_handler(
                     servicer.extractData,
-                    request_deserializer=cv_dot_event__pb2.CvProcessedEvent.FromString,
+                    request_deserializer=cv_dot_processor__pb2.RawCvInfo.FromString,
                     response_serializer=cv_dot_processor__pb2.ExtractedCvData.SerializeToString,
             ),
     }
@@ -85,7 +84,7 @@ class CvProcessor(object):
             request,
             target,
             '/com.ben.smartcv.common.CvProcessor/extractData',
-            cv_dot_event__pb2.CvProcessedEvent.SerializeToString,
+            cv_dot_processor__pb2.RawCvInfo.SerializeToString,
             cv_dot_processor__pb2.ExtractedCvData.FromString,
             options,
             channel_credentials,

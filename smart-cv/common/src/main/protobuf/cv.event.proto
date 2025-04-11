@@ -8,24 +8,28 @@ option java_multiple_files = true;
 
 message CvAppliedEvent {
 
-  string object_key = 1;
+    string object_key = 1;
+
+    string jobId = 2;
 
 }
 
 message CvProcessedEvent {
 
-  string object_key = 1;
+    string object_key = 1;
+
+    string jobId = 2;
 
 }
 
 message CvDeletedEvent {
 
-  string object_key = 2;
+    string object_key = 2;
 
 }
 
 message CvFileDeletedEvent {
 
-  string object_key = 1;
+    string object_key = 1;
 
 }

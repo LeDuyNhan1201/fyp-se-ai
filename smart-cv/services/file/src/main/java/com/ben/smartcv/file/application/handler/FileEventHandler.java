@@ -4,6 +4,7 @@ import com.ben.smartcv.common.contract.command.NotificationCommand;
 import com.ben.smartcv.common.contract.event.CvEvent;
 import com.ben.smartcv.common.util.LogHelper;
 import com.ben.smartcv.file.infrastructure.EventPublisher;
+import com.ben.smartcv.file.infrastructure.grpc.GrpcClientJobService;
 import com.ben.smartcv.file.infrastructure.minio.IMinioClient;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -31,6 +32,8 @@ public class FileEventHandler {
     IMinioClient minioClient;
 
     CommandGateway commandGateway;
+
+    GrpcClientJobService jobServiceClient;
 
     @Value("${minio.bucket-name}")
     @NonFinal

@@ -147,6 +147,21 @@ spring:
       max-file-size: 50MB
       max-request-size: 50MB
 
+  grpc:
+    server:
+      host: ${JOB_SERVICE_HOST:localhost}
+      port: ${JOB_SERVICE_GRPC_PORT:31003}
+      servlet:
+        enabled: false
+      reflection:
+        enabled: true
+      health:
+        enabled: true
+        actuator:
+          enabled: true
+        observations:
+          enabled: true
+
   graphql:
     path: /graphql
 

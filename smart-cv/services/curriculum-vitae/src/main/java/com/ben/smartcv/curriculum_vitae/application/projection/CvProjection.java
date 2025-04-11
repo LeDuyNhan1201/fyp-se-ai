@@ -2,7 +2,7 @@ package com.ben.smartcv.curriculum_vitae.application.projection;
 
 import com.ben.smartcv.common.contract.query.CvQuery;
 import com.ben.smartcv.curriculum_vitae.application.dto.ResponseDto;
-import com.ben.smartcv.curriculum_vitae.infrastructure.repository.CvQueryUseCase;
+import com.ben.smartcv.curriculum_vitae.application.usecase.CvQueryUseCase;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;

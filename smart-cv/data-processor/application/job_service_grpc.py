@@ -5,7 +5,7 @@ from concurrent import futures
 import grpc
 from dotenv import load_dotenv
 
-import protobuf.job.service_pb2_grpc as grpc_service
+import protobuf.job.processor_pb2_grpc as grpc_processor
 from application.proto_message import ExtractedJobData
 from infrastructure.data_parser import DataParser
 
@@ -17,7 +17,7 @@ logging.basicConfig(
 
 def job_processor_serve():
     server = grpc.server(futures.ThreadPoolExecutor(max_workers = 10))
-    grpc_service.add_JobProcessorServicer_to_server(JobServiceImpl(), server)
+    grpc_processor.add_JobProcessorServicer_to_server(JobServiceImpl(), server)
     load_dotenv()
     port = os.getenv("JOB_PROCESSOR_PORT")
     server.add_insecure_port("[::]:" + port)
@@ -25,7 +25,7 @@ def job_processor_serve():
     logger.info("gRPC Server started on port " + port + " ...")
     server.wait_for_termination()
 
-class JobServiceImpl(grpc_service.JobProcessorServicer):
+class JobServiceImpl(grpc_processor.JobProcessorServicer):
 
     def ExtractData(self, request, context):
         logger.info(f"Received job data for processing: {request}")

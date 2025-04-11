@@ -22,10 +22,10 @@ _runtime_version.ValidateProtobufRuntimeVersion(
 _sym_db = _symbol_database.Default()
 
 
-from protobuf.cv import event_pb2 as cv_dot_event__pb2
+from protobuf.job import service_pb2 as job_dot_service__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x12\x63v.processor.proto\x12\x16\x63om.ben.smartcv.common\x1a\x0e\x63v.event.proto\"v\n\x0f\x45xtractedCvData\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\r\n\x05\x65mail\x18\x02 \x01(\t\x12\r\n\x05phone\x18\x03 \x01(\t\x12\x12\n\neducations\x18\x04 \x03(\t\x12\x0e\n\x06skills\x18\x05 \x03(\t\x12\x13\n\x0b\x65xperiences\x18\x06 \x03(\t2q\n\x0b\x43vProcessor\x12\x62\n\x0b\x65xtractData\x12(.com.ben.smartcv.common.CvProcessedEvent\x1a\'.com.ben.smartcv.common.ExtractedCvData\"\x00\x42/\n\x19\x63om.ben.smartcv.common.cvB\x10\x43vProcessorProtoP\x01\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x12\x63v.processor.proto\x12\x16\x63om.ben.smartcv.common\x1a\x11job.service.proto\"c\n\tRawCvInfo\x12\x12\n\nobject_key\x18\x01 \x01(\t\x12\x42\n\x0bpreview_job\x18\x02 \x01(\x0b\x32-.com.ben.smartcv.common.PreviewJobDescription\"\x85\x01\n\x0f\x45xtractedCvData\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\r\n\x05\x65mail\x18\x02 \x01(\t\x12\r\n\x05phone\x18\x03 \x01(\t\x12\x12\n\neducations\x18\x04 \x03(\t\x12\x0e\n\x06skills\x18\x05 \x03(\t\x12\x13\n\x0b\x65xperiences\x18\x06 \x03(\t\x12\r\n\x05score\x18\x07 \x01(\x01\x32j\n\x0b\x43vProcessor\x12[\n\x0b\x65xtractData\x12!.com.ben.smartcv.common.RawCvInfo\x1a\'.com.ben.smartcv.common.ExtractedCvData\"\x00\x42/\n\x19\x63om.ben.smartcv.common.cvB\x10\x43vProcessorProtoP\x01\x62\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -33,8 +33,10 @@ _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'cv.processor_pb2', _globals
 if not _descriptor._USE_C_DESCRIPTORS:
   _globals['DESCRIPTOR']._loaded_options = None
   _globals['DESCRIPTOR']._serialized_options = b'\n\031com.ben.smartcv.common.cvB\020CvProcessorProtoP\001'
-  _globals['_EXTRACTEDCVDATA']._serialized_start=62
-  _globals['_EXTRACTEDCVDATA']._serialized_end=180
-  _globals['_CVPROCESSOR']._serialized_start=182
-  _globals['_CVPROCESSOR']._serialized_end=295
+  _globals['_RAWCVINFO']._serialized_start=65
+  _globals['_RAWCVINFO']._serialized_end=164
+  _globals['_EXTRACTEDCVDATA']._serialized_start=167
+  _globals['_EXTRACTEDCVDATA']._serialized_end=300
+  _globals['_CVPROCESSOR']._serialized_start=302
+  _globals['_CVPROCESSOR']._serialized_end=408
 # @@protoc_insertion_point(module_scope)

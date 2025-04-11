@@ -77,6 +77,7 @@ public class CommandController {
         CvCommand.ApplyCv command = CvCommand.ApplyCv.builder()
                 .id(identifier)
                 .objectKey(fileName)
+                .jobId(jobId)
                 .build();
         commandGateway.sendAndWait(command, MetaData.with("correlationId", identifier).and("causationId", identifier));
         return ResponseEntity.status(OK).body(

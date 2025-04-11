@@ -2,6 +2,7 @@ type CvTag {
     id: String!
     objectKey: String!
     downloadUrl: String!
+    score: Float!
 }
 
 type Page {

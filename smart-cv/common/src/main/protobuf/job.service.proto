@@ -6,8 +6,6 @@ option java_package = "com.ben.smartcv.common.job";
 option java_outer_classname = "JobServiceProto";
 option java_multiple_files = true;
 
-import "job.event.proto";
-
 message PreviewJobDescription {
 
     repeated string educations = 1;

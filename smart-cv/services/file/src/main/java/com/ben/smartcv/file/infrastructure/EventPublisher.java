@@ -27,6 +27,7 @@ public class EventPublisher {
     public void send(CvEvent.CvApplied event, String correlationId, String causationId) {
         CvAppliedEvent protoEvent = CvAppliedEvent.newBuilder()
                 .setObjectKey(event.getObjectKey())
+                .setJobId(event.getJobId())
                 .build();
 
         ProducerRecord<String, CvAppliedEvent> record = new ProducerRecord<>(

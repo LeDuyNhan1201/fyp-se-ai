@@ -18,6 +18,8 @@ public class CvCommand {
 
         String objectKey;
 
+        String jobId;
+
     }
 
     @Getter
@@ -29,6 +31,8 @@ public class CvCommand {
     public static class ProcessCv extends BaseCommand<String> {
 
         String objectKey;
+
+        String jobId;
 
     }
 

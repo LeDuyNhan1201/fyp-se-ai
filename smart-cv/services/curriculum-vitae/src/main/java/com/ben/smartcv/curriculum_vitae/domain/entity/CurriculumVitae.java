@@ -46,4 +46,12 @@ public class CurriculumVitae extends MongoAuditingDocument {
     @Field(value = "object_key", targetType = FieldType.STRING)
     String objectKey;
 
+    @NotNull
+    @Field(value = "job_id", targetType = FieldType.STRING)
+    String jobId;
+
+    @NotNull
+    @Field(value = "score", targetType = FieldType.DOUBLE)
+    Double score;
+
 }

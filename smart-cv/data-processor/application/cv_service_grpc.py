@@ -5,7 +5,7 @@ from concurrent import futures
 import grpc
 from dotenv import load_dotenv
 
-import protobuf.cv.service_pb2_grpc as grpc_service
+import protobuf.cv.processor_pb2_grpc as grpc_service
 from application.proto_message import ExtractedCvData
 from application.utils import get_file_extensions
 from infrastructure.data_parser import DataParser
@@ -35,14 +35,15 @@ class CvServiceImpl(grpc_service.CvProcessorServicer):
 
     def ExtractData(self, request, context):
         logger.info(f"Received cv data for processing: {request}")
-        cv_processed_event = request
+        object_key = request.object_key
+        preview_job = request.preview_job
         document_processor = DocumentProcessor()
-        file_path = self.file_storage_client.download_file(cv_processed_event.object_key)
-        logger.info(f"FILE EXTENSION: {get_file_extensions(cv_processed_event.object_key)}")
+        file_path = self.file_storage_client.download_file(object_key)
+        logger.info(f"FILE EXTENSION: {get_file_extensions(object_key)}")
 
         try:
             raw_text = document_processor.extract_text_from_pdf(file_path) \
-                if get_file_extensions(cv_processed_event.object_key) == "pdf" \
+                if get_file_extensions(object_key) == "pdf" \
                 else document_processor.extract_text_from_image(file_path)
 
         except Exception as e:
@@ -60,6 +61,14 @@ class CvServiceImpl(grpc_service.CvProcessorServicer):
             context.set_details("Null data of CV file.")
             return ExtractedCvData()
 
+        score = data_parser.calculate_score(
+            job_data = {
+                "educations": preview_job.educations,
+                "skills": preview_job.skills,
+                "experiences": preview_job.experiences,
+            },
+            cv_data = data,
+        )
         extracted_data = ExtractedCvData(
             name = data["name"],
             email = data["email"],
@@ -67,6 +76,7 @@ class CvServiceImpl(grpc_service.CvProcessorServicer):
             educations = data["educations"],
             skills = data["skills"],
             experiences = data["experiences"],
+            score = score,
         )
 
         if (len(extracted_data.skills) < 3

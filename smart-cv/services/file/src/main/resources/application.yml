@@ -121,6 +121,25 @@ spring:
       max-file-size: 50MB
       max-request-size: 50MB
 
+  grpc:
+    client:
+      channels:
+        auth-service:
+          address: static://${AUTH_SERVICE_ADDRESS:localhost:31006}
+          health:
+            enabled: true
+            service-name: com.ben.smartcv.common.AuthService
+          observations:
+            enabled: true
+
+        job-service:
+          address: static://${JOB_SERVICE_ADDRESS:localhost:31003}
+          health:
+            enabled: true
+            service-name: com.ben.smartcv.common.JobService
+          observations:
+            enabled: true
+
   messages:
     basename: i18n/messages
     encoding: UTF-8

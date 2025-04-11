@@ -6,7 +6,15 @@ option java_package = "com.ben.smartcv.common.cv";
 option java_outer_classname = "CvProcessorProto";
 option java_multiple_files = true;
 
-import "cv.event.proto";
+import "job.service.proto";
+
+message RawCvInfo {
+
+    string object_key = 1;
+
+    PreviewJobDescription preview_job = 2;
+
+}
 
 message ExtractedCvData {
 
@@ -22,11 +30,13 @@ message ExtractedCvData {
 
     repeated string experiences = 6;
 
+    double score = 7;
+
 }
 
 service CvProcessor {
 
-    rpc extractData (CvProcessedEvent) returns (ExtractedCvData) {
+    rpc extractData (RawCvInfo) returns (ExtractedCvData) {
     }
 
 }

@@ -21,6 +21,8 @@ public class ResponseDto {
 
         String downloadUrl;
 
+        Double score;
+
         String nextCursor;
 
         boolean hasNextPage;
