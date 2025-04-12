@@ -5,6 +5,7 @@ server:
 
 # --------- Axon ---------
 axon:
+  event-bus-name: smartcv-event-bus
   metrics:
     auto-configuration:
       enabled: true

@@ -1,12 +1,13 @@
-package com.ben.smartcv.curriculum_vitae.application.usecase;
+package com.ben.smartcv.curriculum_vitae.application.usecase.impl;
 
 import com.ben.smartcv.curriculum_vitae.application.dto.ResponseDto;
+import com.ben.smartcv.curriculum_vitae.application.usecase.ICvQueryUseCase;
 import com.ben.smartcv.curriculum_vitae.domain.entity.CurriculumVitae;
-import com.ben.smartcv.curriculum_vitae.infrastructure.repository.CvQueryRepository;
+import com.ben.smartcv.curriculum_vitae.infrastructure.repository.ICvQueryRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -15,11 +16,12 @@ import static lombok.AccessLevel.PRIVATE;
 @Slf4j
 @RequiredArgsConstructor
 @FieldDefaults(level = PRIVATE, makeFinal = true)
-@Repository
-public class CvQueryUseCase {
+@Service
+public class CvQueryUseCase implements ICvQueryUseCase {
 
-    CvQueryRepository cvQueryRepository;
+    ICvQueryRepository cvQueryRepository;
 
+    @Override
     public List<ResponseDto.CvTag> findAllAfter(String lastId, int limit) {
         int limitPlusOne = limit + 1;
         List<CurriculumVitae> cvs = cvQueryRepository.findAllAfter(lastId, limitPlusOne);

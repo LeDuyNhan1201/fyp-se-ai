@@ -27,7 +27,7 @@ def job_processor_serve():
 
 class JobServiceImpl(grpc_processor.JobProcessorServicer):
 
-    def ExtractData(self, request, context):
+    def extractData(self, request, context):
         logger.info(f"Received job data for processing: {request}")
         job = request
 

@@ -1,7 +1,5 @@
-package com.ben.smartcv.user.infrastructure.security;
+package com.ben.smartcv.common.infrastructure.security;
 
-import com.ben.smartcv.common.infrastructure.security.JwtAuthenticationEntryPoint;
-import com.ben.smartcv.common.infrastructure.security.SecurityProperties;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;

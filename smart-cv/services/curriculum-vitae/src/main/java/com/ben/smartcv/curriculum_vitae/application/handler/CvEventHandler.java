@@ -4,9 +4,9 @@ import com.ben.smartcv.common.contract.command.CvCommand;
 import com.ben.smartcv.common.contract.event.CvEvent;
 import com.ben.smartcv.common.cv.ExtractedCvData;
 import com.ben.smartcv.common.util.LogHelper;
+import com.ben.smartcv.curriculum_vitae.application.usecase.ICvCommandUseCase;
 import com.ben.smartcv.curriculum_vitae.domain.entity.CurriculumVitae;
 import com.ben.smartcv.curriculum_vitae.infrastructure.EventPublisher;
-import com.ben.smartcv.curriculum_vitae.infrastructure.repository.ICurriculumVitaeRepository;
 import com.ben.smartcv.curriculum_vitae.infrastructure.grpc.GrpcClientCvProcessor;
 import io.grpc.Status;
 import io.grpc.StatusRuntimeException;
@@ -33,7 +33,7 @@ public class CvEventHandler {
 
     CommandGateway commandGateway;
 
-    ICurriculumVitaeRepository repository;
+    ICvCommandUseCase commandUseCase;
 
     GrpcClientCvProcessor grpcClientCvProcessor;
 
@@ -58,7 +58,7 @@ public class CvEventHandler {
                     .experiences(extractedCvData.getExperiencesList())
                     .score(extractedCvData.getScore())
                     .build();
-            repository.save(curriculumVitae);
+            commandUseCase.create(curriculumVitae);
 
         } catch (Exception e) {
             log.error("Cv processing failed: {}", e.getMessage());

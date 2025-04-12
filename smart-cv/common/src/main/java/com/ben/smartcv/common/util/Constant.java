@@ -1,5 +1,6 @@
 package com.ben.smartcv.common.util;
 
+import com.nimbusds.jose.JWSAlgorithm;
 import io.grpc.Context;
 import io.grpc.Metadata;
 
@@ -38,6 +39,6 @@ public final class Constant {
 
     public static final ThreadLocal<String> REST_AUTHORIZATION_CONTEXT = new ThreadLocal<>();
 
-    //public static final JWSAlgorithm ACCESS_TOKEN_SIGNATURE_ALGORITHM = HS512;
+    public static final JWSAlgorithm ACCESS_TOKEN_SIGNATURE_ALGORITHM = JWSAlgorithm.HS256;
 
 }

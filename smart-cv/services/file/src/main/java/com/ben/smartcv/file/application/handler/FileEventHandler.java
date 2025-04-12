@@ -53,7 +53,7 @@ public class FileEventHandler {
                    @MetaDataValue("correlationId") String correlationId,
                    @MetaDataValue("causationId") String causationId) {
         // 9
-        LogHelper.logMessage(log, "9|CvApplied", correlationId, causationId, event);
+        LogHelper.logMessage(log, "9|CvFileDeleted", correlationId, causationId, event);
         try {
             minioClient.deleteObject(event.getObjectKey(), bucketName);
         } catch (Exception e) {

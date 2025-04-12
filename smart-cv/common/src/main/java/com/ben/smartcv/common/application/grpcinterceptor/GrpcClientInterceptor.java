@@ -32,7 +32,7 @@ public class GrpcClientInterceptor implements ClientInterceptor {
                 String token = (Constant.GRPC_AUTHORIZATION_CONTEXT.get() != null)
                         ? Constant.GRPC_AUTHORIZATION_CONTEXT.get() : Constant.REST_AUTHORIZATION_CONTEXT.get();
 
-                log.info("[{}]: Bearer Token: {}", microserviceName, token);
+                log.info("[{}]: ||||||||||||||||||||||||||||||||||||||||||||||||||||Bearer Token: {}", microserviceName, token);
                 if (token != null) headers.put(Constant.AUTHORIZATION_KEY, token);
 
                 super.start(responseListener, headers);

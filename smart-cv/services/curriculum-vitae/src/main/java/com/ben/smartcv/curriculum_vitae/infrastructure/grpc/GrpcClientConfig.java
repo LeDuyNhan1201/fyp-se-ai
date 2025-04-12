@@ -16,7 +16,12 @@ public class GrpcClientConfig {
 
     @Bean
     public ManagedChannel cvProcessorManagedChannel() {
-        return createChannelForService(31001);
+        return createChannelForService(32001);
+    }
+
+    @Bean
+    public ManagedChannel jobServiceManagedChannel() {
+        return createChannelForService(31003);
     }
 
     @Bean
@@ -24,9 +29,14 @@ public class GrpcClientConfig {
         return CvProcessorGrpc.newBlockingStub(cvProcessorManagedChannel);
     }
 
+//    @Bean
+//    public JobServiceGrpc.JobServiceBlockingStub jobServiceClient(GrpcChannelFactory channels) {
+//        return JobServiceGrpc.newBlockingStub(channels.createChannel("job-service"));
+//    }
+
     @Bean
-    public JobServiceGrpc.JobServiceBlockingStub jobServiceClient(GrpcChannelFactory channels) {
-        return JobServiceGrpc.newBlockingStub(channels.createChannel("job-service"));
+    public JobServiceGrpc.JobServiceBlockingStub jobServiceClient(ManagedChannel jobServiceManagedChannel) {
+        return JobServiceGrpc.newBlockingStub(jobServiceManagedChannel);
     }
 
 }

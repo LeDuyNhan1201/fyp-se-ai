@@ -33,7 +33,7 @@ class CvServiceImpl(grpc_service.CvProcessorServicer):
     def __init__(self, file_storage_client: MinioClient):
         self.file_storage_client = file_storage_client
 
-    def ExtractData(self, request, context):
+    def extractData(self, request, context):
         logger.info(f"Received cv data for processing: {request}")
         object_key = request.object_key
         preview_job = request.preview_job
@@ -62,11 +62,7 @@ class CvServiceImpl(grpc_service.CvProcessorServicer):
             return ExtractedCvData()
 
         score = data_parser.calculate_score(
-            job_data = {
-                "educations": preview_job.educations,
-                "skills": preview_job.skills,
-                "experiences": preview_job.experiences,
-            },
+            job_data = preview_job,
             cv_data = data,
         )
         extracted_data = ExtractedCvData(

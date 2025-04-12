@@ -7,7 +7,7 @@ type CvTag {
 
 type Page {
     items: [CvTag]!
-    nextCursor: String!
+    nextCursor: String
     hasNextPage: Boolean!
 }
 

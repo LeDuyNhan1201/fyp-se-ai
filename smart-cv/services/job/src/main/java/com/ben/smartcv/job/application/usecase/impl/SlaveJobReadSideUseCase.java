@@ -31,7 +31,7 @@ import static lombok.AccessLevel.PRIVATE;
 @Service
 @RequiredArgsConstructor
 @FieldDefaults(level = PRIVATE, makeFinal = true)
-public class SlaveJobReadSideUseCase extends JobServiceGrpc.JobServiceImplBase implements ISlaveJobReadSideUseCase {
+public class SlaveJobReadSideUseCase implements ISlaveJobReadSideUseCase {
 
     IAdvancedSearchRepository advancedSearchRepository;
 
@@ -75,25 +75,6 @@ public class SlaveJobReadSideUseCase extends JobServiceGrpc.JobServiceImplBase i
                 )
                 .toList();
         return jobDescriptions;
-    }
-
-    @Override
-    public void getById(JobId request, StreamObserver<PreviewJobDescription> responseObserver) {
-        Optional<SlaveJob> job = slaveJobRepository.findById(request.getId());
-
-        if (job.isEmpty()) {
-            responseObserver.onError(Status.NOT_FOUND.withDescription("Job not found.").asRuntimeException());
-            return;
-        }
-
-        PreviewJobDescription.Builder responseBuilder = PreviewJobDescription.newBuilder()
-                .addAllSkills(job.get().getSkills())
-                .addAllEducations(job.get().getEducations())
-                .addAllExperiences(job.get().getExperiences());
-
-        // Send the response
-        responseObserver.onNext(responseBuilder.build());
-        responseObserver.onCompleted();
     }
 
 }

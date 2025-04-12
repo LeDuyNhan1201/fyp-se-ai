@@ -23,8 +23,17 @@ gateway:
   domain: ${GATEWAY_DOMAIN:localhost}
   port: ${GATEWAY_PORT:30000}
 
+# --------- Security ---------
+security:
+  jwt:
+    access-signer-key: ${ACCESS_SIGNER_KEY}
+
+  public-endpoints:
+    - /example
+
 # --------- Axon ---------
 axon:
+  event-bus-name: smartcv-event-bus
   metrics:
     auto-configuration:
       enabled: true

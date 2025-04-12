@@ -22,6 +22,4 @@ public interface ISlaveJobReadSideUseCase {
             Integer page,
             Integer size);
 
-    void getById(JobId request, StreamObserver<PreviewJobDescription> responseObserver);
-
 }

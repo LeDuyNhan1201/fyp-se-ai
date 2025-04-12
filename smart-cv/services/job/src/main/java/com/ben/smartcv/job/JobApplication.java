@@ -2,6 +2,7 @@ package com.ben.smartcv.job;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.ComponentScan;
@@ -12,6 +13,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @SpringBootApplication
 @EnableDiscoveryClient
+@ConfigurationPropertiesScan
 @ComponentScan(basePackages = { "com.ben.smartcv.common", "com.ben.smartcv.job" })
 @EnableFeignClients
 public class JobApplication {

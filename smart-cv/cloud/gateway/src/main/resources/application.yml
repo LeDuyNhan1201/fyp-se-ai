@@ -74,9 +74,6 @@ management:
 
 # --------- Spring configs ---------
 spring:
-  config:
-    import: file:env.properties
-
   application:
     name: gateway
 

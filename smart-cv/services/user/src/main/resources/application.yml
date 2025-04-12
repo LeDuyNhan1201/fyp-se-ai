@@ -18,20 +18,28 @@ eureka:
     service-url:
       defaultZone: http://${eureka.instance.hostname}:${DISCOVERY_PORT:31000}/eureka/
 
-# --------- JWT ---------
-jwt:
-  access-signer-key: ${ACCESS_SIGNER_KEY}
-  refresh-signer-key: ${REFRESH_SIGNER_KEY}
-  valid-duration: 1800 # in seconds = 30 minutes
-  refreshable-duration: 2592000 # in seconds = 30 days
-
 # --------- Gateway ---------
 gateway:
   domain: ${GATEWAY_DOMAIN:localhost}
   port: ${GATEWAY_PORT:30000}
 
+# --------- Security ---------
+security:
+  jwt:
+    access-signer-key: ${ACCESS_SIGNER_KEY}
+    refresh-signer-key: ${REFRESH_SIGNER_KEY}
+    valid-duration: 1800 # in seconds = 30 minutes
+    refreshable-duration: 2592000 # in seconds = 30 days
+
+  public-endpoints:
+    - /command/sign-up
+    - /command/sign-out
+    - /query/sign-in
+    - /query/refresh
+
 # --------- Axon ---------
 axon:
+  event-bus-name: smartcv-event-bus
   metrics:
     auto-configuration:
       enabled: true
@@ -65,10 +73,10 @@ logging:
 #      zaxxer:
 #        hikari: DEBUG
 
-#  level:
-#    org:
-#      springframework:
-#        security: DEBUG
+  level:
+    org:
+      springframework:
+        security: DEBUG
 
 # --------- Metrics & Monitoring ---------
 management:
@@ -123,7 +131,7 @@ spring:
     import: file:env.properties
 
   application:
-    name: user
+    name: user-service
 
   servlet:
     multipart:

@@ -1,12 +1,9 @@
 package com.ben.smartcv.curriculum_vitae.infrastructure.grpc;
 
 import com.ben.smartcv.common.contract.event.CvEvent;
-import com.ben.smartcv.common.cv.CvProcessedEvent;
 import com.ben.smartcv.common.cv.CvProcessorGrpc;
 import com.ben.smartcv.common.cv.ExtractedCvData;
 import com.ben.smartcv.common.cv.RawCvInfo;
-import com.ben.smartcv.common.job.JobId;
-import com.ben.smartcv.common.job.JobServiceGrpc;
 import com.ben.smartcv.common.job.PreviewJobDescription;
 import io.grpc.ManagedChannel;
 import jakarta.annotation.PreDestroy;
@@ -23,15 +20,14 @@ import static lombok.AccessLevel.PRIVATE;
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 public class GrpcClientCvProcessor {
 
-    ManagedChannel cvProcessorManagedChannel;
+    ManagedChannel jobServiceManagedChannel;
 
     CvProcessorGrpc.CvProcessorBlockingStub cvProcessorClient;
 
-    JobServiceGrpc.JobServiceBlockingStub jobServiceClient;
+    GrpcClientJobService grpcClientJobService;
 
     public ExtractedCvData callExtractData(CvEvent.CvProcessed event) {
-        PreviewJobDescription previewJobDescription = jobServiceClient.getById(
-                JobId.newBuilder().setId(event.getJobId()).build());
+        PreviewJobDescription previewJobDescription = grpcClientJobService.callGetById(event.getJobId());
 
         RawCvInfo rawCvInfo = RawCvInfo.newBuilder()
                 .setObjectKey(event.getObjectKey())
@@ -48,7 +44,7 @@ public class GrpcClientCvProcessor {
 
     @PreDestroy
     public void shutdownGrpcChanel() {
-        cvProcessorManagedChannel.shutdown();
+        jobServiceManagedChannel.shutdown();
     }
 
 }

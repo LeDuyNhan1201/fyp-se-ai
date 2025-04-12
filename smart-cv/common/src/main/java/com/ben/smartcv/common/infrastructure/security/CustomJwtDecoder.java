@@ -1,10 +1,8 @@
-package com.ben.smartcv.user.infrastructure.security;
+package com.ben.smartcv.common.infrastructure.security;
 
 import com.ben.smartcv.common.application.exception.CommonError;
 import com.ben.smartcv.common.application.exception.CommonHttpException;
 import com.ben.smartcv.common.util.Constant;
-import com.ben.smartcv.user.application.usecase.IAuthenticationUseCase;
-import com.nimbusds.jose.JOSEException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -16,7 +14,6 @@ import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.spec.SecretKeySpec;
-import java.text.ParseException;
 import java.util.Objects;
 
 import static org.springframework.http.HttpStatus.UNAUTHORIZED;
@@ -29,18 +26,15 @@ public class CustomJwtDecoder implements JwtDecoder {
     @Value("${security.jwt.access-signer-key}")
     private String ACCESS_SIGNER_KEY;
 
-    private final IAuthenticationUseCase authenticationService;
-
     private NimbusJwtDecoder nimbusJwtDecoder = null;
 
     @Override
     public Jwt decode(String token) throws JwtException {
 
         try {
-            if (!authenticationService.introspect(token))
-                throw new CommonHttpException(CommonError.TOKEN_INVALID, UNAUTHORIZED);
+            log.info("Decoding JWT: {}", token);
 
-        } catch (JOSEException | ParseException e) {
+        } catch (Exception e) {
             log.error("Error decoding JWT:", e);
             throw new CommonHttpException(CommonError.TOKEN_INVALID, UNAUTHORIZED);
         }

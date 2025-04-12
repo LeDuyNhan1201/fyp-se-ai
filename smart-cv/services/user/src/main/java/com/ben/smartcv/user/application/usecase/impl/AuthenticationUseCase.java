@@ -5,7 +5,6 @@ import com.ben.smartcv.common.application.exception.CommonHttpException;
 import com.ben.smartcv.common.auth.AuthServiceGrpc;
 import com.ben.smartcv.common.auth.IntrospectRequest;
 import com.ben.smartcv.common.auth.IntrospectResponse;
-import com.ben.smartcv.common.contract.command.UserCommand;
 import com.ben.smartcv.common.contract.event.UserEvent;
 import com.ben.smartcv.common.contract.query.UserQuery;
 import com.ben.smartcv.common.util.Translator;
@@ -24,7 +23,6 @@ import com.nimbusds.jose.crypto.MACVerifier;
 import com.nimbusds.jwt.JWTClaimsSet;
 import com.nimbusds.jwt.SignedJWT;
 import io.grpc.stub.StreamObserver;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -62,19 +60,19 @@ public class AuthenticationUseCase extends AuthServiceGrpc.AuthServiceImplBase i
     CommandGateway commandGateway;
 
     @NonFinal
-    @Value("${jwt.access-signer-key}")
+    @Value("${security.jwt.access-signer-key}")
     String ACCESS_SIGNER_KEY;
 
     @NonFinal
-    @Value("${jwt.refresh-signer-key}")
+    @Value("${security.jwt.refresh-signer-key}")
     String REFRESH_SIGNER_KEY;
 
     @NonFinal
-    @Value("${jwt.valid-duration}")
+    @Value("${security.jwt.valid-duration}")
     long VALID_DURATION;
 
     @NonFinal
-    @Value("${jwt.refreshable-duration}")
+    @Value("${security.jwt.refreshable-duration}")
     long REFRESHABLE_DURATION;
 
     @Override
@@ -212,7 +210,7 @@ public class AuthenticationUseCase extends AuthServiceGrpc.AuthServiceImplBase i
     }
 
     private String generateToken(User user, boolean isRefresh) {
-        JWSHeader accessHeader = new JWSHeader(Constant.ACCESS_TOKEN_SIGNATURE_ALGORITHM);
+        JWSHeader accessHeader = new JWSHeader(com.ben.smartcv.common.util.Constant.ACCESS_TOKEN_SIGNATURE_ALGORITHM);
         JWSHeader refreshHeader = new JWSHeader(Constant.REFRESH_TOKEN_SIGNATURE_ALGORITHM);
 
         Date expiryTime = (isRefresh)

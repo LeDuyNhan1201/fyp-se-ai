@@ -1,6 +1,7 @@
-package com.ben.smartcv.curriculum_vitae.infrastructure.repository;
+package com.ben.smartcv.curriculum_vitae.infrastructure.repository.impl;
 
 import com.ben.smartcv.curriculum_vitae.domain.entity.CurriculumVitae;
+import com.ben.smartcv.curriculum_vitae.infrastructure.repository.ICvQueryRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
@@ -19,10 +20,11 @@ import static lombok.AccessLevel.PRIVATE;
 @RequiredArgsConstructor
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 @Repository
-public class CvQueryRepository {
+public class CvQueryRepository implements ICvQueryRepository {
 
     MongoTemplate mongoTemplate;
 
+    @Override
     public List<CurriculumVitae> findAllAfter(String lastId, int limit) {
         Query query = new Query();
         if (lastId != null) {

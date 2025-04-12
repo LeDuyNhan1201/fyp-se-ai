@@ -1,4 +1,4 @@
-plugins {
+ plugins {
 	id 'java-library'
 	id 'com.google.protobuf' version "${googleProtobufVersion}"  
 }
@@ -21,6 +21,7 @@ dependencies {
 	implementation "org.apache.poi:poi-ooxml:${apachePoiVersion}" // https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml
 
 	/* --------- APIs Dependencies --------- */
+	api 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
 	api 'org.springframework.boot:spring-boot-starter-validation'
 	api 'org.springframework.boot:spring-boot-starter-web'
 	api 'org.springframework.boot:spring-boot-starter-data-mongodb'

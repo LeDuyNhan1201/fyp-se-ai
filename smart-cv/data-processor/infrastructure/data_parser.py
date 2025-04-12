@@ -62,11 +62,11 @@ class DataParser:
 
         return _convert_to_python_dict(result)
 
-    def calculate_score(self, cv_data: dict, job_data: dict) -> float:
+    def calculate_score(self, cv_data: dict, job_data) -> float:
         prompt = f"""
         Calculate score of CV json with Job description json, the score is a float number from 0.0 to 1.0:
         CV json: {json.dumps(cv_data)}
-        Job description json: {json.dumps(job_data)}
+        Job description json: {job_data}
         return only a float number, mustn't generate any other random json
         """
         contents = [

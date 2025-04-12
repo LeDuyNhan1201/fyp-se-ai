@@ -1,4 +1,5 @@
 dependencies {
+
 	implementation project(':common')
 
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
@@ -8,8 +9,6 @@ dependencies {
 	implementation "redis.clients:jedis:${jedisVersion}" // https://mvnrepository.com/artifact/redis.clients/jedis
 
 	implementation 'org.springframework.boot:spring-boot-starter-oauth2-authorization-server'
-
-	implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
 
 	runtimeOnly 'org.postgresql:postgresql'
 

@@ -24,8 +24,18 @@ gateway:
   domain: ${GATEWAY_DOMAIN:localhost}
   port: ${GATEWAY_PORT:30000}
 
+# --------- Security ---------
+security:
+  jwt:
+    access-signer-key: ${ACCESS_SIGNER_KEY}
+
+  public-endpoints:
+    - /graphiql
+    - /graphql
+
 # --------- Axon ---------
 axon:
+  event-bus-name: smartcv-event-bus
   metrics:
     auto-configuration:
       enabled: true
@@ -172,8 +182,10 @@ spring:
       allowed-origins: "*"
 
     graphiql:
-      enabled: true  # Bật GraphiQL UI để test API GraphQL
+      enabled: true
       path: /graphiql
+      headers:
+        Authorization: "Bearer <token>"
 
   messages:
     basename: i18n/messages

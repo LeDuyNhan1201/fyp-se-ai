@@ -3,6 +3,8 @@ package com.ben.smartcv.curriculum_vitae.infrastructure.grpc;
 import com.ben.smartcv.common.job.JobId;
 import com.ben.smartcv.common.job.JobServiceGrpc;
 import com.ben.smartcv.common.job.PreviewJobDescription;
+import io.grpc.ManagedChannel;
+import jakarta.annotation.PreDestroy;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
@@ -16,12 +18,19 @@ import static lombok.AccessLevel.PRIVATE;
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 public class GrpcClientJobService {
 
+    ManagedChannel cvProcessorManagedChannel;
+
     JobServiceGrpc.JobServiceBlockingStub jobServiceClient;
 
     public PreviewJobDescription callGetById(String jobId) {
         PreviewJobDescription response = jobServiceClient.getById(JobId.newBuilder().setId(jobId).build());
         log.info("Preview job: {}", response);
         return response;
+    }
+
+    @PreDestroy
+    public void shutdownGrpcChanel() {
+        cvProcessorManagedChannel.shutdown();
     }
 
 }

@@ -1,4 +1,4 @@
-package com.ben.smartcv.user.infrastructure.security;
+package com.ben.smartcv.common.infrastructure.security;
 
 import com.ben.smartcv.common.application.exception.CommonError;
 import com.ben.smartcv.common.contract.dto.BaseResponse;
