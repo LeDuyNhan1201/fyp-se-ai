@@ -7,38 +7,20 @@ import {
 
 export const SEARCH_CVS_QUERY = gql`
   query SearchCvs(
-    $jobId: String!
-    $education: [String!]
-    $skills: [String!]
-    $experience: [String!]
-    $fromScore: Float
-    $toScore: Float
     $cursor: String
     $limit: Int
   ) {
-    searchJobs(
-      jobId: $jobId
-      education: $education
-      skills: $skills
-      experience: $experience
-      fromScore: $fromScore
-      toScore: $toScore
+    findAll(
       cursor: $cursor
       limit: $limit
     ) {
       items {
         id
-        jobId
-        email
-        phone
-        education
-        skills
-        experience
-        toSalary
-        createdAt
+        objectKey
+        downloadUrl
+        score
       }
       cursor
-      limit
       hasNextPage 
     }
   }

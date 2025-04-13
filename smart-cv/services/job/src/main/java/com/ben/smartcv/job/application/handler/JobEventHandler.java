@@ -51,7 +51,7 @@ public class JobEventHandler {
                     .expiredAt(event.getExpiredAt())
                     .fromSalary(event.getFromSalary())
                     .toSalary(event.getToSalary())
-                    .rawText(event.getRequirements())
+                    .requirements(event.getRequirements())
 
                     .email(extractedJobData.getEmail())
                     .phone(extractedJobData.getPhone())

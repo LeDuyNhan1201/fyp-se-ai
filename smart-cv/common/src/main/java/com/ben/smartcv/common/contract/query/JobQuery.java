@@ -13,7 +13,7 @@ public class JobQuery {
     @Getter
     @Builder
     @FieldDefaults(level = PRIVATE)
-    public static class GetAllJobs {
+    public static class search {
 
         String organizationName;
 

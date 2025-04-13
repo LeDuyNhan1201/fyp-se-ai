@@ -14,7 +14,7 @@ public class UserEvent {
     @AllArgsConstructor
     @NoArgsConstructor
     @FieldDefaults(level = PRIVATE)
-    public static class UserSignedUp extends BaseEvent<String> {
+    public static class SignedUp extends BaseEvent<String> {
 
         String email;
 

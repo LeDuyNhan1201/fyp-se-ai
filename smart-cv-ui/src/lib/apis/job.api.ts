@@ -28,9 +28,12 @@ export async function searchJobsByUserApi(
   return response.data;
 }
 
-export async function createJob(body: CreateJobSchema) {
+export async function createJob(
+    body: CreateJobSchema
+
+): Promise<CreateJobResponseSchema> {
   const response = await restClient.post<CreateJobResponseSchema>(
-    "/job",
+    "/job/command",
     body,
   );
   return response.data;

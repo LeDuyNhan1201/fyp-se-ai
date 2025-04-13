@@ -14,7 +14,7 @@ public class UserCommand {
     @AllArgsConstructor
     @NoArgsConstructor
     @FieldDefaults(level = PRIVATE)
-    public static class SignUpUser extends BaseCommand<String> {
+    public static class SignUp extends BaseCommand<String> {
 
         String email;
 
@@ -27,6 +27,32 @@ public class UserCommand {
         String lastName;
 
         boolean acceptTerms;
+
+    }
+
+    @Getter
+    @Setter
+    @SuperBuilder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @FieldDefaults(level = PRIVATE)
+    public static class SignIn extends BaseCommand<String> {
+
+        String email;
+
+        String password;
+
+    }
+
+    @Getter
+    @Setter
+    @SuperBuilder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @FieldDefaults(level = PRIVATE)
+    public static class Refresh extends BaseCommand<String> {
+
+        String refreshToken;
 
     }
 

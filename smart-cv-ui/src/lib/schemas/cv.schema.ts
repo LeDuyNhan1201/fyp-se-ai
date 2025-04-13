@@ -20,12 +20,12 @@ export const curriculumVitaeSchema = z.object({
 export type CurriculumVitaeSchema = z.infer<typeof curriculumVitaeSchema>;
 
 export const searchCvsSchema = z.object({
-  jobId: z.string().uuid(),
-  education: z.array(z.string()).optional().nullable().default([]),
-  skills: z.array(z.string()).optional().nullable().default([]),
-  experience: z.array(z.string()).optional().nullable().default([]),
-  fromScore: z.number().optional().nullable().default(null),
-  toScore: z.number().optional().nullable().default(null),
+//   jobId: z.string().uuid(),
+//   education: z.array(z.string()).optional().nullable().default([]),
+//   skills: z.array(z.string()).optional().nullable().default([]),
+//   experience: z.array(z.string()).optional().nullable().default([]),
+//   fromScore: z.number().optional().nullable().default(null),
+//   toScore: z.number().optional().nullable().default(null),
   cursor: z.string().optional().nullable().default(null),
   limit: z.number().int().positive().optional().nullable().default(3),
 });
@@ -39,7 +39,6 @@ export type SearchCvsByUserParamsSchema = z.infer<typeof searchCvsByUserParamsSc
 export const searchCvsResponseSchema = z.object({
   items: z.array(curriculumVitaeSchema).default([]),
   cursor: z.string().optional().nullable().default(null),
-  limit: z.number().int().positive().default(3),
   hasNextPage: z.boolean().default(false),
 
 });

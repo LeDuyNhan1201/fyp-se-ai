@@ -17,7 +17,7 @@ export const SEARCH_JOBS_QUERY = gql`
     $page: Int
     $size: Int
   ) {
-    searchJobs(
+    search(
       organizationName: $organizationName
       position: $position
       education: $education

@@ -112,11 +112,11 @@ export default function CreateJobForm() {
 
       <FormField
         control={control}
-        name="details"
+        name="requirements"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>Job Details</FormLabel>
-            <textarea {...field} placeholder="Enter job details (max 300 chars)" />
+            <FormLabel>Job Requirements</FormLabel>
+            <textarea {...field} placeholder="Enter requirements (max 300 chars)" />
             <FormMessage />
           </FormItem>
         )}

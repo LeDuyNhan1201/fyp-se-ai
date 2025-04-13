@@ -28,7 +28,7 @@ public class  QueryController {
     QueryGateway queryGateway;
 
     @QueryMapping
-    public OffsetPageResponse<ResponseDto.JobDescription> searchJobs(
+    public OffsetPageResponse<ResponseDto.JobDescription> search(
             @Argument String organizationName,
             @Argument String position,
             @Argument List<String> educations,
@@ -41,7 +41,7 @@ public class  QueryController {
 
         ValidationHelper.validateSalaryRangeQuery(fromSalary, toSalary);
 
-        JobQuery.GetAllJobs query = JobQuery.GetAllJobs.builder()
+        JobQuery.search query = JobQuery.search.builder()
                 .organizationName(organizationName)
                 .position(position)
                 .education(educations)

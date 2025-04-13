@@ -8,6 +8,8 @@ public enum AuthError {
     PASSWORD_MIS_MATCH("auth/password-mismatch", "ErrorMsg.PasswordMismatch"),
     TERMS_NOT_ACCEPTED("auth/terms-not-accepted", "ErrorMsg.TermsNotAccepted"),
     WRONG_PASSWORD("auth/wrong-password", "ErrorMsg.WrongPassword"),
+    SIGN_IN_FAILED("auth/sign-in-failed", "ErrorMsg.SignInFailed"),
+    REFRESH_FAILED("auth/refresh-failed", "ErrorMsg.RefreshFailed"),
     ACTIVATION_CODE_INVALID("auth/invalid-activation-code", "ErrorMsg.InvalidActivationCode"),
     CODE_INVALID("auth/code-invalid", "ErrorMsg.CodeInvalid"),
     ;

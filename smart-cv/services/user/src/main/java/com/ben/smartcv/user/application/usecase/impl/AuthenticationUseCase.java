@@ -5,6 +5,7 @@ import com.ben.smartcv.common.application.exception.CommonHttpException;
 import com.ben.smartcv.common.auth.AuthServiceGrpc;
 import com.ben.smartcv.common.auth.IntrospectRequest;
 import com.ben.smartcv.common.auth.IntrospectResponse;
+import com.ben.smartcv.common.contract.command.UserCommand;
 import com.ben.smartcv.common.contract.event.UserEvent;
 import com.ben.smartcv.common.contract.query.UserQuery;
 import com.ben.smartcv.common.util.Constant;
@@ -123,7 +124,7 @@ public class AuthenticationUseCase extends AuthServiceGrpc.AuthServiceImplBase i
     }
 
     @Override
-    public void signUp(UserEvent.UserSignedUp event) {
+    public void signUp(UserEvent.SignedUp event) {
         User user = User.builder()
                 .email(event.getEmail())
                 .password(passwordEncoder.encode(event.getPassword()))
@@ -134,24 +135,31 @@ public class AuthenticationUseCase extends AuthServiceGrpc.AuthServiceImplBase i
     }
 
     @Override
-    public ResponseDto.Tokens signIn(UserQuery.SignIn query) {
-        User user = userUseCase.findByEmail(query.getEmail());
+    public ResponseDto.SignIn signIn(UserCommand.SignIn command) {
+        User user = userUseCase.findByEmail(command.getEmail());
 
-//        if (!passwordEncoder.matches(query.getPassword(), user.getPassword()))
+//        if (!passwordEncoder.matches(command.getPassword(), user.getPassword()))
 //            throw new AuthHttpException(WRONG_PASSWORD, HttpStatus.UNAUTHORIZED);
 
-        boolean isValid = passwordEncoder.matches(query.getPassword(), user.getPassword());
+        boolean isValid = passwordEncoder.matches(command.getPassword(), user.getPassword());
         ResponseDto.Tokens tokens = ResponseDto.Tokens.builder()
                 .accessToken(isValid ? generateToken(user, false) : null)
                 .refreshToken(isValid ? generateToken(user, true) : null)
+                .build();
+        ResponseDto.PreviewUser previewUser = ResponseDto.PreviewUser.builder()
+                .email(user.getEmail())
+                .name(user.getFirstName() + " " + user.getLastName())
+                .build();
+        return ResponseDto.SignIn.builder()
+                .tokens(isValid ? tokens : null)
+                .user(isValid ? previewUser : null)
                 .message(!isValid ? Translator.getMessage(WRONG_PASSWORD.getMessage()) : null)
                 .build();
-        return tokens;
     }
 
     @Override
-    public ResponseDto.Tokens refresh(UserQuery.Refresh query) throws ParseException, JOSEException {
-        SignedJWT signedJWT = verifyToken(query.getRefreshToken(), true);
+    public ResponseDto.Tokens refresh(UserCommand.Refresh command) throws ParseException, JOSEException {
+        SignedJWT signedJWT = verifyToken(command.getRefreshToken(), true);
         String id = signedJWT.getJWTClaimsSet().getSubject();
         String jti = signedJWT.getJWTClaimsSet().getJWTID();
         String message = null;

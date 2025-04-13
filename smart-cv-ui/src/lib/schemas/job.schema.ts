@@ -43,7 +43,6 @@ export type SearchJobsByUserParamsSchema = z.infer<typeof searchJobsByUserParams
 export const searchJobsResponseSchema = z.object({
   items: z.array(jobDescriptionSchema).default([]),
   page: z.number().int().positive().default(1),
-  size: z.number().int().positive().default(3),
   totalPages: z.number().positive().default(1),
 
 });
@@ -55,7 +54,7 @@ export const createJobSchema = z.object({
   fromSalary: z.number(),
   toSalary: z.number(),
   expiredAt: z.string().datetime(),
-  details: z.string().max(300),
+  requirements: z.string().max(300),
 });
 export type CreateJobSchema = z.infer<typeof createJobSchema>;
 

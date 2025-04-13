@@ -31,10 +31,10 @@ public class UserEventHandler {
     CommandGateway commandGateway;
 
     @EventHandler
-    public void on(UserEvent.UserSignedUp event,
+    public void on(UserEvent.SignedUp event,
                    @MetaDataValue("correlationId") String correlationId,
                    @MetaDataValue("causationId") String causationId) {
-        LogHelper.logMessage(log, "UserSignedUp", correlationId, causationId, event);
+        LogHelper.logMessage(log, "SignedUp", correlationId, causationId, event);
         try {
             authenticationUseCase.signUp(event);
         } catch (Exception e) {
@@ -53,7 +53,7 @@ public class UserEventHandler {
                 .build());
     }
 
-    @ExceptionHandler(payloadType = UserEvent.UserSignedUp.class)
+    @ExceptionHandler(payloadType = UserEvent.SignedUp.class)
     public void handleExceptionForUserCreatedEvent(Exception exception) {
         log.error("Unexpected exception occurred when creating user: {}", exception.getMessage());
     }

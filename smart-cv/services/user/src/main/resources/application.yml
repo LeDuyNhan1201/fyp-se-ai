@@ -35,8 +35,8 @@ security:
     - /command/seed/*
     - /command/sign-up
     - /command/sign-out
-    - /query/sign-in
-    - /query/refresh
+    - /command/sign-in
+    - /command/refresh
 
 # --------- Axon ---------
 axon:
@@ -183,7 +183,7 @@ spring:
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
     show-sql: true
     properties:
       hibernate:

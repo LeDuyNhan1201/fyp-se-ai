@@ -4,7 +4,7 @@ import { COOKIE_KEY_ACCESS_TOKEN, COOKIE_KEY_REFRESH_TOKEN } from "@/constants";
 import { getCookie, setCookie } from "cookies-next";
 import { jwtDecode } from "jwt-decode";
 import { accessTokenPayloadSchema } from "./schemas/tokens.schema";
-import { refreshTokenApi } from "./apis/authentication.api";
+import { refreshTokenApi } from "./apis/auth.api";
 import { FieldValues, Path, UseFormSetError } from "react-hook-form";
 
 export function cn(...inputs: ClassValue[]) {

@@ -22,7 +22,7 @@ public class JobProjection {
     ISlaveJobReadSideUseCase useCase;
 
     @QueryHandler
-    public List<ResponseDto.JobDescription> handle(JobQuery.GetAllJobs query) {
+    public List<ResponseDto.JobDescription> handle(JobQuery.search query) {
         return useCase.advancedSearch(
                 query.getOrganizationName(),
                 query.getPosition(),

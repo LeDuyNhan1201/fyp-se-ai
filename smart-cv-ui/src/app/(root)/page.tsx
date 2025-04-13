@@ -7,7 +7,7 @@ import {
 import { ApolloProvider, InMemoryCache } from "@apollo/client";
 
 export default function Home() {
-  const client = createApolloClient("slaveJob", new InMemoryCache());
+  const client = createApolloClient("job", new InMemoryCache());
 
   return (
     <ApolloProvider client={client}>

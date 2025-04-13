@@ -2,6 +2,7 @@ package com.ben.smartcv.user.application.usecase;
 
 import com.ben.smartcv.common.auth.IntrospectRequest;
 import com.ben.smartcv.common.auth.IntrospectResponse;
+import com.ben.smartcv.common.contract.command.UserCommand;
 import com.ben.smartcv.common.contract.event.UserEvent;
 import com.ben.smartcv.common.contract.query.UserQuery;
 import com.ben.smartcv.user.application.dto.RequestDto;
@@ -21,11 +22,11 @@ public interface IAuthenticationUseCase {
 
     void validateSignUp(RequestDto.SignUp request);
 
-    void signUp(UserEvent.UserSignedUp event);
+    void signUp(UserEvent.SignedUp event);
 
-    ResponseDto.Tokens signIn(UserQuery.SignIn query);
+    ResponseDto.SignIn signIn(UserCommand.SignIn command);
 
-    ResponseDto.Tokens refresh(UserQuery.Refresh query) throws ParseException, JOSEException;
+    ResponseDto.Tokens refresh(UserCommand.Refresh command) throws ParseException, JOSEException;
 
     void signOut(String accessToken, String refreshToken) throws ParseException, JOSEException;
 

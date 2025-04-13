@@ -91,8 +91,8 @@ public class SlaveJob {
     Instant expiredAt;
 
     @NotNull
-    @Field(name = "raw_text", type = FieldType.Text)
-    String rawText;
+    @Field(name = "requirements", type = FieldType.Text)
+    String requirements;
 
     public static SlaveJob sync(MasterJob masterJob) {
         SlaveJob slaveJob = new SlaveJob();
@@ -114,7 +114,7 @@ public class SlaveJob {
         slaveJob.setExperiences(masterJob.getExperiences());
         slaveJob.setSalary(Range.closed(masterJob.getFromSalary(), masterJob.getToSalary()));
         slaveJob.setExpiredAt(masterJob.getExpiredAt());
-        slaveJob.setRawText(masterJob.getRawText());
+        slaveJob.setRequirements(masterJob.getRequirements());
         return slaveJob;
     }
 

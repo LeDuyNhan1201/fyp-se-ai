@@ -1,7 +1,6 @@
 package com.ben.smartcv.job.domain.entity;
 
 import com.ben.smartcv.common.domain.AuditingEntity;
-import com.ben.smartcv.common.infrastructure.database.CustomAuditingEntityListener;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;
@@ -66,8 +65,8 @@ public class MasterJob extends AuditingEntity {
     @Column(name = "expired_at")
     Instant expiredAt;
 
-    @JsonProperty(value = "raw_text")
-    @Column(name = "raw_text", nullable = false, columnDefinition = "TEXT")
-    String rawText;
+    @JsonProperty(value = "requirements")
+    @Column(name = "requirements", nullable = false, columnDefinition = "TEXT")
+    String requirements;
 
 }

@@ -25,4 +25,29 @@ public class ResponseDto {
 
     }
 
+    @Getter
+    @Builder
+    @FieldDefaults(level = PRIVATE)
+    public static class PreviewUser implements Serializable {
+
+        String email;
+
+        String name;
+
+    }
+
+    @Getter
+    @Builder
+    @FieldDefaults(level = PRIVATE)
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public static class SignIn implements Serializable {
+
+        Tokens tokens;
+
+        PreviewUser user;
+
+        String message;
+
+    }
+
 }

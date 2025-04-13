@@ -49,13 +49,10 @@ export default function CvsList({
       {items.map((cv: any) => (
         <Card key={cv.id} className="p-4">
           <CardHeader>
-            <h2 className="text-lg font-semibold">{cv.email}</h2>
+            <h2 className="text-lg font-semibold">{cv.objectKey}</h2>
           </CardHeader>
           <CardContent>
-            <p><strong>Phone:</strong> {cv.phone}</p>
-            <p><strong>Education:</strong> {cv.education.join(", ")}</p>
-            <p><strong>Skills:</strong> {cv.skills.join(", ")}</p>
-            <p><strong>Experience:</strong> {cv.experience}</p>
+            <p><strong>Score:</strong> {cv.score}</p>
           </CardContent>
         </Card>
       ))}
