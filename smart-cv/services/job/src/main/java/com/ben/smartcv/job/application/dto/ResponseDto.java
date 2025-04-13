@@ -43,8 +43,6 @@ public class ResponseDto {
 
         Integer page;
 
-        Integer size;
-
         Integer totalPages;
 
     }

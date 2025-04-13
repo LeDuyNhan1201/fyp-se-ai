@@ -9,6 +9,8 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
+import net.datafaker.Faker;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import static com.ben.smartcv.common.application.exception.CommonError.RESOURCE_NOT_FOUND;
@@ -21,6 +23,8 @@ import static org.springframework.http.HttpStatus.NOT_FOUND;
 public class UserUseCase implements IUserUseCase {
 
     IUserRepository userRepository;
+
+    PasswordEncoder passwordEncoder;
 
     @Override
     public User findByEmail(String email) {
@@ -43,6 +47,20 @@ public class UserUseCase implements IUserUseCase {
     @Transactional
     public void create(User item) {
         userRepository.save(item);
+    }
+
+    @Override
+    public void seed(int count) {
+        Faker faker = new Faker();
+        for (int i = 0; i < count; i++) {
+            User user = User.builder()
+                    .email(faker.internet().emailAddress())
+                    .firstName(faker.name().firstName())
+                    .lastName(faker.name().lastName())
+                    .password(passwordEncoder.encode("123456"))
+                    .build();
+            userRepository.save(user);
+        }
     }
 
 }

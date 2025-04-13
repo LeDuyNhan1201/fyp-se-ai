@@ -7,6 +7,7 @@ import com.ben.smartcv.common.contract.dto.BaseResponse;
 import com.ben.smartcv.common.util.Translator;
 import com.ben.smartcv.user.application.dto.RequestDto;
 import com.ben.smartcv.user.application.usecase.IAuthenticationUseCase;
+import com.ben.smartcv.user.application.usecase.IUserUseCase;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -36,6 +37,8 @@ public class CommandController {
 
     IAuthenticationUseCase authenticationUseCase;
 
+    IUserUseCase userUseCase;
+
     @Operation(summary = "Sign up", description = "Sign up a new user")
     @PostMapping("/sign-up")
     @ResponseStatus(OK)
@@ -61,6 +64,22 @@ public class CommandController {
         } catch (Exception exception) {
             log.error("Error creating user", exception);
             throw new CommonHttpException(CommonError.CREATE_FAILED, HttpStatus.CONFLICT, "User");
+        }
+    }
+
+    @Operation(summary = "Seed data", description = "Seed data for testing")
+    @GetMapping("/seed/{count}")
+    @ResponseStatus(OK)
+    public ResponseEntity<BaseResponse<?, ?>> seedData(@PathVariable int count) {
+        try {
+            userUseCase.seed(count);
+            return ResponseEntity.ok(BaseResponse.builder()
+                    .message(Translator.getMessage("SuccessMsg.Created", count + " user(s)"))
+                    .build());
+
+        } catch (Exception exception) {
+            log.error("Error seeding users", exception);
+            throw new CommonHttpException(CommonError.CREATE_FAILED, HttpStatus.CONFLICT, "User(s)");
         }
     }
 

@@ -33,6 +33,7 @@ dependencies {
 	api "org.axonframework:axon-spring-boot-starter:${axonVersion}" // https://mvnrepository.com/artifact/org.axonframework/axon-spring-boot-starter
 	api "io.confluent:kafka-schema-registry-client:${confluentVersion}" // https://mvnrepository.com/artifact/io.confluent/kafka-schema-registry-client
 	api "io.confluent:kafka-protobuf-serializer:${confluentVersion}" // https://mvnrepository.com/artifact/io.confluent/kafka-avro-serializer
+	api "net.datafaker:datafaker:${dataFakerVersion}" // https://mvnrepository.com/artifact/net.datafaker/datafaker
 
 }
 

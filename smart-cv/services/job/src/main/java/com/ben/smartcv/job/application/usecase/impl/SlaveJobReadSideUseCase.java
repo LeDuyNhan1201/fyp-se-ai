@@ -69,7 +69,6 @@ public class SlaveJobReadSideUseCase implements ISlaveJobReadSideUseCase {
                         .toSalary(job.getSalary().getUpperBound().getValue().get()) // Already checked
 
                         .page(searchPage.getNumber() + 1)
-                        .size(searchPage.getSize())
                         .totalPages(searchPage.getTotalPages())
                         .build()
                 )

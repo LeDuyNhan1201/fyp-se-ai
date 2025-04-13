@@ -32,6 +32,7 @@ security:
     refreshable-duration: 2592000 # in seconds = 30 days
 
   public-endpoints:
+    - /command/seed/*
     - /command/sign-up
     - /command/sign-out
     - /query/sign-in
@@ -182,7 +183,7 @@ spring:
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
-      ddl-auto: update
+      ddl-auto: create-drop
     show-sql: true
     properties:
       hibernate:

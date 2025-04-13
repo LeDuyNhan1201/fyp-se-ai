@@ -19,7 +19,6 @@ type JobDescription {
 type Page {
     items: [JobDescription]!
     page: Int!
-    size: Int!
     totalPages: Int!
 }
 

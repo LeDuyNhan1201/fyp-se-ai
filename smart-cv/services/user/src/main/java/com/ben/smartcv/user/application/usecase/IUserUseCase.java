@@ -12,4 +12,6 @@ public interface IUserUseCase {
 
     void create(User item);
 
+    void seed(int count);
+
 }

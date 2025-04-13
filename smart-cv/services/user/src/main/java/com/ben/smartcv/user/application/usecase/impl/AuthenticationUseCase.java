@@ -7,6 +7,7 @@ import com.ben.smartcv.common.auth.IntrospectRequest;
 import com.ben.smartcv.common.auth.IntrospectResponse;
 import com.ben.smartcv.common.contract.event.UserEvent;
 import com.ben.smartcv.common.contract.query.UserQuery;
+import com.ben.smartcv.common.util.Constant;
 import com.ben.smartcv.common.util.Translator;
 import com.ben.smartcv.user.application.dto.RequestDto;
 import com.ben.smartcv.user.application.dto.ResponseDto;
@@ -16,7 +17,6 @@ import com.ben.smartcv.user.application.usecase.IAuthenticationUseCase;
 import com.ben.smartcv.user.application.usecase.IBaseRedisUseCase;
 import com.ben.smartcv.user.application.usecase.IUserUseCase;
 import com.ben.smartcv.user.domain.entity.User;
-import com.ben.smartcv.user.util.Constant;
 import com.nimbusds.jose.*;
 import com.nimbusds.jose.crypto.MACSigner;
 import com.nimbusds.jose.crypto.MACVerifier;
@@ -28,7 +28,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.NonFinal;
 import lombok.extern.slf4j.Slf4j;
-import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -56,8 +55,6 @@ public class AuthenticationUseCase extends AuthServiceGrpc.AuthServiceImplBase i
     PasswordEncoder passwordEncoder;
 
     IBaseRedisUseCase<String, String, Object> redisUseCase;
-
-    CommandGateway commandGateway;
 
     @NonFinal
     @Value("${security.jwt.access-signer-key}")
@@ -171,7 +168,8 @@ public class AuthenticationUseCase extends AuthServiceGrpc.AuthServiceImplBase i
             message = Translator.getMessage(CommonError.RESOURCE_NOT_FOUND.getMessage(), "User");
 
         ResponseDto.Tokens tokens = ResponseDto.Tokens.builder()
-                .refreshToken(message == null ?  generateToken(user, true) : null)
+                .accessToken(message == null ?  generateToken(Objects.requireNonNull(user), false) : null)
+                .refreshToken(message == null ?  generateToken(Objects.requireNonNull(user), true) : null)
                 .message(message)
                 .build();
 
@@ -210,8 +208,7 @@ public class AuthenticationUseCase extends AuthServiceGrpc.AuthServiceImplBase i
     }
 
     private String generateToken(User user, boolean isRefresh) {
-        JWSHeader accessHeader = new JWSHeader(com.ben.smartcv.common.util.Constant.ACCESS_TOKEN_SIGNATURE_ALGORITHM);
-        JWSHeader refreshHeader = new JWSHeader(Constant.REFRESH_TOKEN_SIGNATURE_ALGORITHM);
+        JWSHeader jwsHeader = new JWSHeader(Constant.JWT_SIGNATURE_ALGORITHM);
 
         Date expiryTime = (isRefresh)
                 ? new Date(Instant.now().plus(REFRESHABLE_DURATION, SECONDS).toEpochMilli())
@@ -233,9 +230,7 @@ public class AuthenticationUseCase extends AuthServiceGrpc.AuthServiceImplBase i
 
         Payload payload = new Payload(jwtClaimsSet.toJSONObject());
 
-        JWSObject jwsObject = (isRefresh)
-                ? new JWSObject(refreshHeader, payload)
-                : new JWSObject(accessHeader, payload);
+        JWSObject jwsObject = new JWSObject(jwsHeader, payload);
 
         try {
             if (isRefresh)
@@ -271,11 +266,11 @@ public class AuthenticationUseCase extends AuthServiceGrpc.AuthServiceImplBase i
 
             SecretKeySpec secretKeySpec = new SecretKeySpec(
                     REFRESH_SIGNER_KEY.getBytes(),
-                    Constant.REFRESH_TOKEN_SIGNATURE_ALGORITHM.getName()
+                    Constant.JWT_SIGNATURE_ALGORITHM.getName()
             );
             try {
                 NimbusJwtDecoder nimbusJwtDecoder = NimbusJwtDecoder.withSecretKey(secretKeySpec)
-                        .macAlgorithm(MacAlgorithm.from(Constant.REFRESH_TOKEN_SIGNATURE_ALGORITHM.getName()))
+                        .macAlgorithm(MacAlgorithm.from(Constant.JWT_SIGNATURE_ALGORITHM.getName()))
                         .build();
                 nimbusJwtDecoder.decode(token);
 

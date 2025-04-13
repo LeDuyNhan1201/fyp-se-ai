@@ -39,6 +39,6 @@ public final class Constant {
 
     public static final ThreadLocal<String> REST_AUTHORIZATION_CONTEXT = new ThreadLocal<>();
 
-    public static final JWSAlgorithm ACCESS_TOKEN_SIGNATURE_ALGORITHM = JWSAlgorithm.HS256;
+    public static final JWSAlgorithm JWT_SIGNATURE_ALGORITHM = JWSAlgorithm.HS256;
 
 }

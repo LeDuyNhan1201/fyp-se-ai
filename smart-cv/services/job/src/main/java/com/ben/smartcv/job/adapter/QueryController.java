@@ -58,7 +58,6 @@ public class  QueryController {
         OffsetPageResponse<ResponseDto.JobDescription> offsetPageResponse = OffsetPageResponse.<ResponseDto.JobDescription>builder()
                 .items(result)
                 .page(!result.isEmpty() ? result.getFirst().getPage() : 1)
-                .size(!result.isEmpty() ? result.getFirst().getSize() : 10)
                 .totalPages(!result.isEmpty() ? result.getFirst().getTotalPages() : 1)
                 .build();
         return offsetPageResponse;
