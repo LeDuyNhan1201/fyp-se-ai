@@ -20,6 +20,8 @@ public class CvCommand {
 
         String jobId;
 
+        String createdBy;
+
     }
 
     @Getter
@@ -33,6 +35,8 @@ public class CvCommand {
         String objectKey;
 
         String jobId;
+
+        String createdBy;
 
     }
 

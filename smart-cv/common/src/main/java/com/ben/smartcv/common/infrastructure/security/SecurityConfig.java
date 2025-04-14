@@ -56,13 +56,11 @@ public class SecurityConfig {
             request.requestMatchers(publicEndpoints)
                     .permitAll()
                     .anyRequest()
-                    // .permitAll();
                     .authenticated();
 
             log.info("Request: {}", request);
         });
 
-        // Configure the JWT decoder and authentication converter
         httpSecurity.oauth2ResourceServer(oauth2 -> oauth2.jwt(
                                 jwtConfigurer -> jwtConfigurer
                                         .decoder(customJwtDecoder)

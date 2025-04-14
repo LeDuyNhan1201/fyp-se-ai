@@ -26,11 +26,15 @@ public class QueryController {
     QueryGateway queryGateway;
 
     @QueryMapping
-    public CursorPageResponse<ResponseDto.CvTag> findAll(
+    public CursorPageResponse<ResponseDto.CvTag> search(
+            @Argument String jobId,
+            @Argument String createdBy,
             @Argument String cursor,
             @Argument Integer limit) {
 
-        CvQuery.GetAllCvs query = CvQuery.GetAllCvs.builder()
+        CvQuery.Search query = CvQuery.Search.builder()
+                .jobId(jobId)
+                .createdBy(createdBy)
                 .cursor(cursor)
                 .limit(Optional.ofNullable(limit).orElse(10))
                 .build();

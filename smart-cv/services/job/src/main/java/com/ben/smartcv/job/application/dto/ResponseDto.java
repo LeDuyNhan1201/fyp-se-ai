@@ -19,6 +19,8 @@ public class ResponseDto {
 
         String id;
 
+        String createdBy;
+
         String organizationName;
 
         String email;

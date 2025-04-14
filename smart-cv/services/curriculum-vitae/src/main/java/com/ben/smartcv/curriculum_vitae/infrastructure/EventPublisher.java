@@ -28,6 +28,7 @@ public class EventPublisher {
         CvProcessedEvent protoEvent = CvProcessedEvent.newBuilder()
                 .setObjectKey(event.getObjectKey())
                 .setJobId(event.getJobId())
+                .setCreatedBy(event.getCreatedBy())
                 .build();
 
         ProducerRecord<String, CvProcessedEvent> record = new ProducerRecord<>(

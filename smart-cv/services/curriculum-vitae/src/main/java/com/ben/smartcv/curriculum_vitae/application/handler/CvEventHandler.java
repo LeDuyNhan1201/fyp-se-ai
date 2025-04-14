@@ -49,6 +49,7 @@ public class CvEventHandler {
             CurriculumVitae curriculumVitae = CurriculumVitae.builder()
                     .objectKey(event.getObjectKey())
                     .jobId(event.getJobId())
+                    .createdBy(event.getCreatedBy())
 
                     .name(extractedCvData.getName())
                     .email(extractedCvData.getEmail())

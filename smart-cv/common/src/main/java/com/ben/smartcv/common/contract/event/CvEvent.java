@@ -22,6 +22,8 @@ public class CvEvent {
 
         String jobId;
 
+        String createdBy;
+
     }
 
     @Getter
@@ -35,6 +37,8 @@ public class CvEvent {
         String objectKey;
 
         String jobId;
+
+        String createdBy;
 
     }
 

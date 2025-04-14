@@ -17,6 +17,10 @@ public class ResponseDto {
 
         String id;
 
+        String jobId;
+
+        String createdBy;
+
         String objectKey;
 
         String downloadUrl;

@@ -9,15 +9,26 @@ import {
 export const curriculumVitaeSchema = z.object({
   id: z.string().uuid(),
   jobId: z.string().uuid(),
+  createdBy: z.string().uuid(),
   email: z.string().email().nullable().optional(),
   phone: z.string().nullable().optional(),
-  education: z.array(z.string()).optional(),
+  educations: z.array(z.string()).optional(),
   skills: z.array(z.string()).optional(),
-  experience: z.array(z.string()).optional(),
+  experiences: z.array(z.string()).optional(),
   score: z.number().optional().nullable().default(null),
-  expiredAt: z.string().datetime().optional(),
 });
 export type CurriculumVitaeSchema = z.infer<typeof curriculumVitaeSchema>;
+
+export const cvTagSchema = z.object({
+  id: z.string().uuid(),
+  jobId: z.string().uuid(),
+  createdBy: z.string(),
+  objectKey: z.string(),
+  downloadUrl: z.string().url(),
+  score: z.number(),
+});
+export type CvTagSchema = z.infer<typeof cvTagSchema>;
+
 
 export const searchCvsQuerySchema = z.object({
 //   jobId: z.string().uuid(),
@@ -26,13 +37,15 @@ export const searchCvsQuerySchema = z.object({
 //   experience: z.array(z.string()).optional().nullable().default([]),
 //   fromScore: z.number().optional().nullable().default(null),
 //   toScore: z.number().optional().nullable().default(null),
+  jobId: z.string().uuid().optional().nullable().default(null),
+  createdBy: z.string().uuid().optional().nullable().default(null),
   cursor: z.string().optional().nullable().default(null),
   limit: z.number().int().positive().optional().nullable().default(3),
 });
 export type SearchCvsQuerySchema = z.infer<typeof searchCvsQuerySchema>;
 
 export const searchCvsResponseSchema = z.object({
-  items: z.array(curriculumVitaeSchema).default([]),
+  items: z.array(cvTagSchema).default([]),
   cursor: z.string().optional().nullable().default(null),
   hasNextPage: z.boolean().default(false),
 });

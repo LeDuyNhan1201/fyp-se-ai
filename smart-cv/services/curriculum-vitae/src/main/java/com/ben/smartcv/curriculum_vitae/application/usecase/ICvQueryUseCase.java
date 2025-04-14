@@ -8,6 +8,9 @@ import java.util.List;
 @Service
 public interface ICvQueryUseCase {
 
-    List<ResponseDto.CvTag> findAllAfter(String lastId, int limit);
+    List<ResponseDto.CvTag> search(String jobId,
+                                   String createdBy,
+                                   String lastId,
+                                   int limit);
 
 }

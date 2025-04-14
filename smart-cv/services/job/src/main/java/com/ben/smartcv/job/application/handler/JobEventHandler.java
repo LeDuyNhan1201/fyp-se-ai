@@ -2,6 +2,7 @@ package com.ben.smartcv.job.application.handler;
 
 import com.ben.smartcv.common.contract.command.NotificationCommand;
 import com.ben.smartcv.common.contract.event.JobEvent;
+import com.ben.smartcv.common.infrastructure.database.AuditorAwareConfig;
 import com.ben.smartcv.common.job.ExtractedJobData;
 import com.ben.smartcv.common.util.LogHelper;
 import com.ben.smartcv.job.application.usecase.IMasterJobWriteSideUseCase;
@@ -45,6 +46,7 @@ public class JobEventHandler {
         try {
             ExtractedJobData extractedJobData = grpcClient.callExtractData(event);
 
+            AuditorAwareConfig.set(event.getCreatedBy());
             MasterJob masterJob = MasterJob.builder()
                     .organizationName(event.getOrganizationName())
                     .position(event.getPosition())
@@ -62,7 +64,7 @@ public class JobEventHandler {
             useCase.create(masterJob);
 
         } catch (Exception e) {
-            log.error("Job processing failed: {}", e.getMessage());
+            log.error("Job processing failed: {}", e.toString());
             String reason = "Notify.Content.CreateFailed|CV";
             if (e instanceof StatusRuntimeException) {
                 Status status = ((StatusRuntimeException) e).getStatus();
@@ -74,6 +76,9 @@ public class JobEventHandler {
                 }
             }
             sendFailureNotification(reason);
+        }
+        finally {
+            AuditorAwareConfig.clear();
         }
         eventPublisher.send(event, correlationId, causationId);
     }

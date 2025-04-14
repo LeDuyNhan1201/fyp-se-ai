@@ -34,6 +34,8 @@ public class JobAggregate {
 
     String jobId;
 
+    String createdBy;
+
     String organizationName;
 
     String position;
@@ -53,6 +55,7 @@ public class JobAggregate {
         LogHelper.logMessage(log, "CreateJob", correlationId, causationId, command);
         apply(JobEvent.JobCreated.builder()
                 .id(command.getId())
+                .createdBy(command.getCreatedBy())
                 .organizationName(command.getOrganizationName())
                 .position(command.getPosition())
                 .fromSalary(command.getFromSalary())
@@ -76,6 +79,7 @@ public class JobAggregate {
     @EventSourcingHandler
     public void on(JobEvent.JobCreated event) {
         this.id = event.getId();
+        this.createdBy = event.getCreatedBy();
         this.organizationName = event.getOrganizationName();
         this.position = event.getPosition();
         this.fromSalary = event.getFromSalary();

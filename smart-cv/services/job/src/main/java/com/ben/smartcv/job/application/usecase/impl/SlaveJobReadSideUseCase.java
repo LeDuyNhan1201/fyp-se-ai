@@ -47,6 +47,7 @@ public class SlaveJobReadSideUseCase implements ISlaveJobReadSideUseCase {
                 .map(SearchHit::getContent)
                 .map(job -> ResponseDto.JobDescription.builder()
                         .id(job.getId())
+                        .createdBy(job.getCreatedBy())
                         .organizationName(job.getOrganizationName())
                         .email(job.getEmail())
                         .phone(job.getPhone())

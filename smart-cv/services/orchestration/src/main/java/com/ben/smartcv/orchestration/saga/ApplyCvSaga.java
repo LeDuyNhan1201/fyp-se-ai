@@ -47,6 +47,7 @@ public class ApplyCvSaga {
                 .id(identifier)
                 .objectKey(event.getObjectKey())
                 .jobId(event.getJobId())
+                .createdBy(event.getCreatedBy())
                 .build(), MetaData.with("correlationId", identifier).and("causationId", event.getId()));
     }
 
@@ -76,6 +77,7 @@ public class ApplyCvSaga {
         on(CvEvent.CvApplied.builder()
                 .objectKey(event.getObjectKey())
                 .jobId(event.getJobId())
+                .createdBy(event.getCreatedBy())
                 .build(), correlationId, causationId);
     }
 
@@ -90,6 +92,7 @@ public class ApplyCvSaga {
         on(CvEvent.CvProcessed.builder()
                 .objectKey(event.getObjectKey())
                 .jobId(event.getJobId())
+                .createdBy(event.getCreatedBy())
                 .build(), correlationId, causationId);
     }
 

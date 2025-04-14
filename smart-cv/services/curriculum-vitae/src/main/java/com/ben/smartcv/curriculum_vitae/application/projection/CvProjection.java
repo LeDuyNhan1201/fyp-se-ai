@@ -22,8 +22,10 @@ public class CvProjection {
     ICvQueryUseCase useCase;
 
     @QueryHandler
-    public List<ResponseDto.CvTag> handle(CvQuery.GetAllCvs query) {
-        return useCase.findAllAfter(
+    public List<ResponseDto.CvTag> handle(CvQuery.Search query) {
+        return useCase.search(
+                query.getJobId(),
+                query.getCreatedBy(),
                 query.getCursor(),
                 query.getLimit()
         );

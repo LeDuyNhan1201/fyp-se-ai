@@ -25,7 +25,7 @@ _sym_db = _symbol_database.Default()
 from google.protobuf import timestamp_pb2 as google_dot_protobuf_dot_timestamp__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0fjob.event.proto\x12\x16\x63om.ben.smartcv.common\x1a\x1fgoogle/protobuf/timestamp.proto\"\xab\x01\n\x0fJobCreatedEvent\x12\x18\n\x10organizationName\x18\x01 \x01(\t\x12\x10\n\x08position\x18\x02 \x01(\t\x12\x13\n\x0b\x66rom_salary\x18\x03 \x01(\x01\x12\x11\n\tto_salary\x18\x04 \x01(\x01\x12.\n\nexpired_at\x18\x05 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x14\n\x0crequirements\x18\x06 \x01(\t\"!\n\x0fJobDeletedEvent\x12\x0e\n\x06job_id\x18\x01 \x01(\tB-\n\x1a\x63om.ben.smartcv.common.jobB\rJobEventProtoP\x01\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0fjob.event.proto\x12\x16\x63om.ben.smartcv.common\x1a\x1fgoogle/protobuf/timestamp.proto\"\xbf\x01\n\x0fJobCreatedEvent\x12\x18\n\x10organizationName\x18\x01 \x01(\t\x12\x10\n\x08position\x18\x02 \x01(\t\x12\x13\n\x0b\x66rom_salary\x18\x03 \x01(\x01\x12\x11\n\tto_salary\x18\x04 \x01(\x01\x12.\n\nexpired_at\x18\x05 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x14\n\x0crequirements\x18\x06 \x01(\t\x12\x12\n\ncreated_by\x18\x07 \x01(\t\"!\n\x0fJobDeletedEvent\x12\x0e\n\x06job_id\x18\x01 \x01(\tB-\n\x1a\x63om.ben.smartcv.common.jobB\rJobEventProtoP\x01\x62\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -34,7 +34,7 @@ if not _descriptor._USE_C_DESCRIPTORS:
   _globals['DESCRIPTOR']._loaded_options = None
   _globals['DESCRIPTOR']._serialized_options = b'\n\032com.ben.smartcv.common.jobB\rJobEventProtoP\001'
   _globals['_JOBCREATEDEVENT']._serialized_start=77
-  _globals['_JOBCREATEDEVENT']._serialized_end=248
-  _globals['_JOBDELETEDEVENT']._serialized_start=250
-  _globals['_JOBDELETEDEVENT']._serialized_end=283
+  _globals['_JOBCREATEDEVENT']._serialized_end=268
+  _globals['_JOBDELETEDEVENT']._serialized_start=270
+  _globals['_JOBDELETEDEVENT']._serialized_end=303
 # @@protoc_insertion_point(module_scope)

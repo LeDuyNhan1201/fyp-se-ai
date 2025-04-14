@@ -7,15 +7,21 @@ import {
 
 export const SEARCH_CVS_QUERY = gql`
   query SearchCvs(
+    $createdBy: String
+    $jobId: String
     $cursor: String
     $limit: Int
   ) {
     findAll(
+      createdBy: $createdBy
+      jobId: $jobId
       cursor: $cursor
       limit: $limit
     ) {
       items {
         id
+        jobId
+        createdBy
         objectKey
         downloadUrl
         score

@@ -2,6 +2,7 @@ package com.ben.smartcv.file.adapter;
 
 import com.ben.smartcv.common.contract.command.CvCommand;
 import com.ben.smartcv.common.contract.dto.BaseResponse;
+import com.ben.smartcv.common.util.AuthenticationHelper;
 import com.ben.smartcv.common.util.FileHelper;
 import com.ben.smartcv.common.util.Translator;
 import com.ben.smartcv.file.application.exception.FileError;
@@ -51,7 +52,7 @@ public class CommandController {
     @PostMapping(value = "/{jobId}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @ResponseStatus(OK)
     public ResponseEntity<BaseResponse<?,?>> upload(@PathVariable String jobId,
-                                                    @RequestParam("file") MultipartFile file) {
+                                                    @RequestPart("file") MultipartFile file) {
         if (file == null || file.isEmpty()) {
             throw new FileHttpException(FileError.NO_FILE_PROVIDED, HttpStatus.BAD_REQUEST);
         }
@@ -78,6 +79,7 @@ public class CommandController {
                 .id(identifier)
                 .objectKey(fileName)
                 .jobId(jobId)
+                .createdBy(AuthenticationHelper.getUserId())
                 .build();
         commandGateway.sendAndWait(command, MetaData.with("correlationId", identifier).and("causationId", identifier));
         return ResponseEntity.status(OK).body(

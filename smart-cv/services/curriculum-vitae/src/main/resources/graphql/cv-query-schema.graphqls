@@ -1,5 +1,9 @@
+scalar UUID
+
 type CvTag {
-    id: String!
+    id: UUID!
+    jobId: String!
+    createdBy: String!
     objectKey: String!
     downloadUrl: String!
     score: Float!
@@ -12,7 +16,9 @@ type Page {
 }
 
 type Query {
-    findAll(
+    search(
+        jobId: String!
+        createdBy: String!
         cursor: String
         limit: Int
     ): Page!

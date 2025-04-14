@@ -12,6 +12,8 @@ message CvAppliedEvent {
 
     string jobId = 2;
 
+    string created_by = 3;
+
 }
 
 message CvProcessedEvent {
@@ -19,6 +21,8 @@ message CvProcessedEvent {
     string object_key = 1;
 
     string jobId = 2;
+
+    string created_by = 3;
 
 }
 

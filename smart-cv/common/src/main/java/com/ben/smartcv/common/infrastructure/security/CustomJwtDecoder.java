@@ -20,7 +20,6 @@ import static org.springframework.http.HttpStatus.UNAUTHORIZED;
 
 @Slf4j
 @Component
-@RequiredArgsConstructor
 public class CustomJwtDecoder implements JwtDecoder {
 
     @Value("${security.jwt.access-signer-key}")

@@ -8,6 +8,7 @@ import {
 
 export const jobDescriptionSchema = z.object({
   id: z.string().uuid(),
+  createdBy: z.string(),
   organizationName: z.string().optional(),
   email: z.string().email().nullable().optional(),
   phone: z.string().nullable().optional(),

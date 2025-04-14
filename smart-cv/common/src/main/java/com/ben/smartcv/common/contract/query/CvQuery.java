@@ -11,7 +11,11 @@ public class CvQuery {
     @Getter
     @Builder
     @FieldDefaults(level = PRIVATE)
-    public static class GetAllCvs {
+    public static class Search {
+
+        String jobId;
+
+        String createdBy;
 
         String cursor;
 

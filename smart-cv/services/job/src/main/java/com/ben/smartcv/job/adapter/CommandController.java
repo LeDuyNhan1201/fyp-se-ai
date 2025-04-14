@@ -1,5 +1,6 @@
 package com.ben.smartcv.job.adapter;
 
+import com.ben.smartcv.common.util.AuthenticationHelper;
 import com.ben.smartcv.common.util.Translator;
 import com.ben.smartcv.common.contract.command.JobCommand;
 import com.ben.smartcv.common.contract.dto.BaseResponse;
@@ -51,6 +52,7 @@ public class CommandController {
             String identifier = UUID.randomUUID().toString();
             JobCommand.CreateJob command = JobCommand.CreateJob.builder()
                     .id(identifier)
+                    .createdBy(AuthenticationHelper.getUserId())
                     .organizationName(request.organizationName())
                     .position(request.position())
                     .requirements(request.requirements())

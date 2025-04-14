@@ -41,7 +41,7 @@ public class  QueryController {
 
         ValidationHelper.validateSalaryRangeQuery(fromSalary, toSalary);
 
-        JobQuery.search query = JobQuery.search.builder()
+        JobQuery.Search query = JobQuery.Search.builder()
                 .organizationName(organizationName)
                 .position(position)
                 .education(educations)

@@ -21,6 +21,8 @@ public class JobEvent {
     @FieldDefaults(level = PRIVATE)
     public static class JobCreated extends BaseEvent<String> {
 
+        String createdBy;
+
         String organizationName;
 
         String position;

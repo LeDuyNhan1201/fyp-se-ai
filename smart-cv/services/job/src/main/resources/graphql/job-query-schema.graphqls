@@ -3,6 +3,7 @@ scalar DateTime
 
 type JobDescription {
     id: UUID!
+    createdBy: String!
     organizationName: String!
     email: String
     phone: String

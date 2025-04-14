@@ -16,6 +16,8 @@ public class JobCommand {
     @FieldDefaults(level = PRIVATE)
     public static class CreateJob extends BaseCommand<String> {
 
+        String createdBy;
+
         String organizationName;
 
         String position;

@@ -26,8 +26,7 @@ public class CvCommandUseCase implements ICvCommandUseCase {
         curriculumVitae.setCreatedAt(Instant.now());
         curriculumVitae.setUpdatedAt(Instant.now());
         curriculumVitae.setIsDeleted(false);
-        curriculumVitae.setCreatedBy(AuthenticationHelper.getUserId());
-        curriculumVitae.setUpdatedBy(AuthenticationHelper.getUserId());
+        curriculumVitae.setUpdatedBy(curriculumVitae.getCreatedBy());
 
         curriculumVitaeRepository.save(curriculumVitae);
     }

@@ -30,6 +30,7 @@ export const SEARCH_JOBS_QUERY = gql`
     ) {
       items {
         id
+        createdBy
         organizationName
         email
         phone
