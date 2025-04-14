@@ -42,8 +42,8 @@ public class AuthenticationFilter implements GlobalFilter, Ordered {
     ObjectMapper objectMapper;
 
     String[] publicEndpoints = {
-            "/user/query/sign-in",
-            "/user/query/refresh",
+            "/user/command/sign-in",
+            "/user/command/refresh",
             "/user/command/sign-up",
             "/user/command/sign-out",
 

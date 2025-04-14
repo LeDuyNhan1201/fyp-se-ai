@@ -12,9 +12,9 @@ export const jobDescriptionSchema = z.object({
   email: z.string().email().nullable().optional(),
   phone: z.string().nullable().optional(),
   position: z.string().optional(),
-  education: z.array(z.string()).optional(),
+  educations: z.array(z.string()).optional(),
   skills: z.array(z.string()).optional(),
-  experience: z.array(z.string()).optional(),
+  experiences: z.array(z.string()).optional(),
   fromSalary: z.number().optional(),
   toSalary: z.number().optional(),
   createdAt: z.string().datetime().optional(),
@@ -25,9 +25,9 @@ export type JobDescriptionSchema = z.infer<typeof jobDescriptionSchema>;
 export const searchJobsSchema = z.object({
   organizationName: z.string().optional().nullable().default(null),
   position: z.string().optional().nullable().default(null),
-  education: z.array(z.string()).optional().default([]),
+  educations: z.array(z.string()).optional().default([]),
   skills: z.array(z.string()).optional().default([]),
-  experience: z.array(z.string()).optional().default([]),
+  experiences: z.array(z.string()).optional().default([]),
   fromSalary: z.number().optional().nullable().default(null),
   toSalary: z.number().optional().nullable().default(null),
   page: z.number().int().positive().optional().nullable().default(1),
@@ -53,8 +53,8 @@ export const createJobSchema = z.object({
   position: z.string(),
   fromSalary: z.number(),
   toSalary: z.number(),
-  expiredAt: z.string().datetime(),
-  requirements: z.string().max(300),
+  expiredAt: z.coerce.date(),
+  requirements: z.string().max(500),
 });
 export type CreateJobSchema = z.infer<typeof createJobSchema>;
 
@@ -64,7 +64,7 @@ export const createJobResponseSchema = z.object({
 export type CreateJobResponseSchema = z.infer<typeof createJobResponseSchema>;
 
 export const jobErrorResponseSchema = z.discriminatedUnion(
-  "type",
+  "errorCode",
   [
     unauthorizedErrorResponseSchema,
     validationErrorResponseSchema,

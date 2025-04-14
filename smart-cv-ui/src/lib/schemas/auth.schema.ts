@@ -1,28 +1,66 @@
 import { z } from "zod";
-import { tokenSchema } from "./tokens.schema";
-import { validationErrorResponseSchema } from "./error.schema";
-import {baseProfileResponseSchema} from "@/lib/api/schemas/profile.schema";
+import { 
+  validationErrorResponseSchema,
+  unauthorizedErrorResponseSchema
+} from "./errors.schema";
 
-export const userSchema = z.object({
-  id: z.coerce.string().uuid(),
-  email: z.coerce.string(),
-  name: z.coerce.string(),
+export const jwtPayloadSchema = z.object({
+  sub: z.string(),
+  exp: z.number(),
+  iat: z.number(),
 });
-export type UserSchema = z.infer<typeof userSchema>;
+export type JwtPayloadSchema = z.infer<typeof jwtPayloadSchema>;
 
-export const signInRequestSchema = z.object({
-  email: z.coerce.string().email().min(1),
-  password: z.coerce.string().min(6).max(20),
+export const accessTokenPayloadSchema = jwtPayloadSchema;
+export type AccessTokenPayloadSchema = z.infer<typeof accessTokenPayloadSchema>;
+
+export const accessTokenSchema = z.string();
+export type AccessTokenSchema = z.infer<typeof accessTokenSchema>;
+
+export const refreshTokenPayloadSchema = jwtPayloadSchema;
+export type RefreshTokenPayloadSchema = z.infer<typeof refreshTokenPayloadSchema>;
+
+export const refreshTokenSchema = z.string();
+export type RefreshTokenSchema = z.infer<typeof refreshTokenSchema>;
+
+export const refreshBodySchema = z.object({
+  refreshToken: refreshTokenSchema,
 });
-export type SignInRequestSchema = z.infer<typeof signInRequestSchema>;
+export type RefreshBodySchema = z.infer<typeof refreshBodySchema>;
+
+export const tokensResponseSchema = z.object({
+  accessToken: accessTokenSchema,
+  refreshToken: refreshTokenSchema,
+});
+export type TokensResponseSchema = z.infer<typeof tokensResponseSchema>;
+
+export const previewUserResponseSchema = z.object({
+  id: z.string().uuid(),
+  email: z.string(),
+  name: z.string(),
+});
+export type PreviewUserResponseSchema = z.infer<typeof previewUserResponseSchema>;
+
+export const signInBodySchema = z.object({
+  email: z.string().email().min(1),
+  password: z.string().min(6).max(20),
+});
+export type SignInBodySchema = z.infer<typeof signInBodySchema>;
 
 export const signInResponseSchema = z.object({
-  tokens: z.lazy(() => tokenSchema),
-  user: z.lazy(() => userSchema),
+  tokens: z.lazy(() => tokensResponseSchema),
+  user: z.lazy(() => previewUserResponseSchema),
 });
 export type SignInResponseSchema = z.infer<typeof signInResponseSchema>;
 
-export const signInErrorResponseSchema = z.discriminatedUnion("type", [
+export const signInErrorResponseSchema = z.discriminatedUnion("errorCode", [
   validationErrorResponseSchema,
+  unauthorizedErrorResponseSchema,
 ]);
 export type SignInErrorResponseSchema = z.infer<typeof signInErrorResponseSchema>;
+
+export const refreshErrorResponseSchema = z.discriminatedUnion("errorCode", [
+  validationErrorResponseSchema,
+  unauthorizedErrorResponseSchema,
+]);
+export type RefreshErrorResponseSchema = z.infer<typeof refreshErrorResponseSchema>;

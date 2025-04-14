@@ -1,7 +1,9 @@
+"use client";
+
 import { useSearchCvs } from "@/hooks/queries/cv.query";
 import {
-  searchCvsSchema,
-  SearchCvsSchema
+  searchCvsQuerySchema,
+  SearchCvsQuerySchema
 } from "@/lib/schemas/cv.schema";
 import { useCallback, useRef, useState } from "react";
 import { Skeleton } from "./ui/skeleton";
@@ -14,7 +16,7 @@ type JobDetailsProps = {
 export default function CvsList({
   jobId,
 }: JobDetailsProps) {
-  const [filters, setFilters] = useState<SearchCvsSchema>(
+  const [filters, setFilters] = useState<SearchCvsQuerySchema>(
     searchCvsSchema.parse({
       jobId: jobId
     })

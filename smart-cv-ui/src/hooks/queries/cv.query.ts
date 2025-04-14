@@ -1,7 +1,7 @@
 import { gql, useQuery } from "@apollo/client";
 import {
-  searchCvsSchema,
-  SearchCvsSchema,
+  searchCvsQuerySchema,
+  SearchCvsQuerySchema,
   searchCvsResponseSchema
 } from "../../lib/schemas/cv.schema";
 
@@ -26,8 +26,8 @@ export const SEARCH_CVS_QUERY = gql`
   }
 `;
 
-export const useSearchCvs = (filters: SearchCvsSchema) => {
-  const validatedFilters = searchCvsSchema.parse(filters);
+export const useSearchCvs = (filters: SearchCvsQuerySchema) => {
+  const validatedFilters = searchCvsQuerySchema.parse(filters);
 
   const { loading, error, data, fetchMore } = useQuery(SEARCH_CVS_QUERY, {
     variables: {

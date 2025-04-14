@@ -106,8 +106,8 @@ spring:
         cors-configurations:
           '[/**]':
             allowedOrigins: "http://localhost:3000" # Next.js frontend
-            allowedMethods: "GET, POST, PUT, DELETE, OPTIONS"
-            allowedHeaders: "Authorization, Content-Type, Accept-Language"
+            allowedMethods: "GET,POST,PUT,DELETE,OPTIONS"
+            allowedHeaders: "Authorization,Content-Type,Accept-Language,No-Auth"
             allowCredentials: true
 
       routes:

@@ -1,18 +1,20 @@
 import {
-  RefreshTokenBodySchema,
-  RefreshTokenResponseSchema,
-} from "../schemas/tokens.schema";
+  SignInBodySchema,
+  SignInResponseSchema,
+  RefreshBodySchema,
+  TokensResponseSchema,
+} from "../schemas/auth.schema";
 import { restClient } from "../rest-client";
 
 export async function signIn(
-  data: SignInRequestSchema,
-  config?: AxiosRequestConfig<SignInRequestSchema>
+  data: SignInBodySchema,
+  config?: AxiosRequestConfig<SignInBodySchema>
 
 ): Promise<SignInResponseSchema> {
-  const response = await apiClient.post<
+  const response = await restClient.post<
     SignInResponseSchema,
-    SignInRequestSchema
-  >("/user/query/sign-in",
+    SignInBodySchema
+  >("/user/command/sign-in",
     data,
     {
         headers: {
@@ -24,12 +26,12 @@ export async function signIn(
   return response.data;
 }
 
-export async function refreshToken(
-  body: RefreshTokenBodySchema,
+export async function refresh(
+  body: RefreshBodySchema,
 
-): Promise<RefreshTokenResponseSchema> {
-  const response = await restClient.post<RefreshTokenResponseSchema>(
-    "/user/query/refresh",
+): Promise<TokensResponseSchema> {
+  const response = await restClient.post<TokensResponseSchema>(
+    "/user/command/refresh",
     body,
     {
       headers: {

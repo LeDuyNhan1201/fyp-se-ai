@@ -73,10 +73,10 @@ logging:
 #    com:
 #      zaxxer:
 #        hikari: DEBUG
-
   level:
     org:
       springframework:
+        web.cors: DEBUG
         security: DEBUG
 
 # --------- Metrics & Monitoring ---------

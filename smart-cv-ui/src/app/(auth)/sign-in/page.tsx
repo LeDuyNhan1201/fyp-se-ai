@@ -1,9 +1,9 @@
-import Image from "next/image";
+import SignInForm from '@/components/sign-in-form';
 
 export default function Page() {
   return (
-    <div>
-
-    </div>
+    <>
+      <SignInForm />
+    </>
   );
 }

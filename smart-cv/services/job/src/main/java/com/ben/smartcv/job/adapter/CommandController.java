@@ -27,6 +27,7 @@ import static lombok.AccessLevel.PRIVATE;
 import static org.springframework.http.HttpStatus.OK;
 
 @RestController
+@RequestMapping("/command")
 @Tag(name = "Job Command APIs")
 @Slf4j
 @RequiredArgsConstructor

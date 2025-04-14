@@ -93,11 +93,11 @@ public class AdvancedSearchRepositoryImpl implements IAdvancedSearchRepository {
 
         Criteria criteria = new Criteria();
 
-        if (organizationName != null) {
+        if (organizationName != null && !organizationName.isEmpty()) {
             criteria = criteria.and("organizationName").is(organizationName);
         }
 
-        if (position != null) {
+        if (position != null && !position.isEmpty()) {
             criteria = criteria.and("position").is(position);
         }
 

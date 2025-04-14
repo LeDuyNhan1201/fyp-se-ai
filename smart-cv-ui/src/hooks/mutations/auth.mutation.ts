@@ -1,29 +1,57 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import {
-  SignInRequestSchema,
+  RefreshBodySchema,
+  SignInBodySchema,
   SignInResponseSchema,
-  signInErrorResponseSchema
-} from "../../lib/schemas/auth.schema"
-import { signIn } from "@/lib/apis/auth.api";
+  SignInErrorResponseSchema,
+  RefreshErrorResponseSchema,
+  TokensResponseSchema
+} from "@/lib/schemas/auth.schema"
+import { 
+  signIn,
+  refresh
+} from "@/lib/apis/auth.api";
 import { isAxiosError } from "axios";
-import { useTokenActions } from "../use-token-store";
-import { useCurrentProfileActions } from "../use-current-profile-store";
+import { useTokenActions } from "../tokens-store";
+import { useCurrentUserActions } from "../current-user-store";
 
 export function useSignInMutation() {
+  const client = useQueryClient();
   const { setAccessToken, setRefreshToken } = useTokenActions();
-  const { setCurrentProfile } = useCurrentProfileActions();
+  const { setCurrentUser } = useCurrentUserActions();
 
   return useMutation<
     SignInResponseSchema,
-    signInErrorResponseSchema,
-    SignInRequestSchema
+    SignInErrorResponseSchema,
+    SignInBodychema
   >({
     mutationKey: ["auth", "sign-in"],
     mutationFn: (body) => signIn(body),
     onSuccess(data) {
           setAccessToken(data.tokens.accessToken);
           setRefreshToken(data.tokens.refreshToken);
-          setCurrentProfile(data.user);
+          setCurrentUser(data.user);
+          client.invalidateQueries({
+            queryKey: ["current-user"],
+          });
+    },
+    throwOnError: (error) => isAxiosError(error),
+  });
+}
+
+export function useRefreshMutation() {
+  const { setAccessToken, setRefreshToken } = useTokenActions();
+
+  return useMutation<
+    TokensResponseSchema,
+    RefreshErrorResponseSchema,
+    RefreshBodySchema
+  >({
+    mutationKey: ["auth", "refresh"],
+    mutationFn: (body) => refresh(body),
+    onSuccess(data) {
+          setAccessToken(data.tokens.accessToken);
+          setRefreshToken(data.tokens.refreshToken);
     },
     throwOnError: (error) => isAxiosError(error),
   });

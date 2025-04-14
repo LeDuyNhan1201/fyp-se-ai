@@ -1,10 +1,46 @@
-import axios, { AxiosRequestConfig, AxiosResponse, isAxiosError } from "axios";
+import axios, { 
+  AxiosRequestConfig, 
+  AxiosResponse, 
+  isAxiosError 
+} from "axios";
+import {
+  QueryClient,
+  defaultShouldDehydrateQuery,
+  isServer,
+} from "@tanstack/react-query";
 import qs from "qs";
 import { getAccessToken } from "./utils";
 
 const axiosClient = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
 });
+
+function makeQueryClient() {
+  return new QueryClient({
+    defaultOptions: {
+      queries: {
+        staleTime: 60 * 1000,
+        refetchOnWindowFocus: false,
+      },
+      dehydrate: {
+        shouldDehydrateQuery: (query) =>
+          defaultShouldDehydrateQuery(query) ||
+          query.state.status === "pending",
+      },
+    },
+  });
+}
+
+let browserQueryClient: QueryClient | undefined = undefined;
+
+export function getQueryClient() {
+  if (isServer) {
+    return makeQueryClient();
+  } else {
+    if (!browserQueryClient) browserQueryClient = makeQueryClient();
+    return browserQueryClient;
+  }
+}
 
 export const restClient = {
   post: <TResponse = unknown, RRequest = unknown>(

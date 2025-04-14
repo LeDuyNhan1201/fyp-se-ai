@@ -9,9 +9,9 @@ export const SEARCH_JOBS_QUERY = gql`
   query SearchJobs(
     $organizationName: String
     $position: String
-    $education: [String!]
+    $educations: [String!]
     $skills: [String!]
-    $experience: [String!]
+    $experiences: [String!]
     $fromSalary: Float
     $toSalary: Float
     $page: Int
@@ -20,9 +20,9 @@ export const SEARCH_JOBS_QUERY = gql`
     search(
       organizationName: $organizationName
       position: $position
-      education: $education
+      educations: $educations
       skills: $skills
-      experience: $experience
+      experiences: $experiences
       fromSalary: $fromSalary
       toSalary: $toSalary
       page: $page
@@ -34,16 +34,15 @@ export const SEARCH_JOBS_QUERY = gql`
         email
         phone
         position
-        education
+        educations
         skills
-        experience
+        experiences
         fromSalary
         toSalary
         createdAt
         expiredAt
       }
       page
-      size
       totalPages
     }
   }
@@ -56,12 +55,15 @@ export const useSearchJobs = (filters: SearchJobsSchema) => {
     notifyOnNetworkStatusChange: true,
   });
   console.log(validatedFilters);
-  if (error) return { loading, error, data: null, goToPage: () => { } };
-
-  if (!data || !data.searchJobs)
+  if (error) {
+    console.log(error);
+    return { loading, error, data: null, goToPage: () => { } };
+  }
+  console.log("Jobs data:", data);
+  if (!data || !data.search)
     return { loading, error: null, data: null, goToPage: () => { } };
 
-  const validatedData = searchJobsResponseSchema.parse(data.searchJobs);
+  const validatedData = searchJobsResponseSchema.parse(data.search);
 
   const goToPage = (page: number) => {
     if (page < 1 || page > validatedData.totalPages) return;

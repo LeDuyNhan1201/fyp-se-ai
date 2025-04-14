@@ -26,9 +26,9 @@ const JobSearchForm: React.FC<JobSearchFormProps> =
       },
     });
 
-    const educationArray = useFieldArray({ control, name: "education" });
+    const educationsArray = useFieldArray({ control, name: "educations" });
     const skillsArray = useFieldArray({ control, name: "skills" });
-    const experienceArray = useFieldArray({ control, name: "experience" });
+    const experiencesArray = useFieldArray({ control, name: "experiences" });
 
     const onSubmit = (values: SearchJobsSchema) => {
       setFilters((prev) => ({
@@ -51,16 +51,16 @@ const JobSearchForm: React.FC<JobSearchFormProps> =
           <Input {...register("position")} />
         </div>
 
-        {/* Education */}
+        {/* Educations */}
         <div>
-          <Label>Education</Label>
-          {educationArray.fields.map((field, index) => (
+          <Label>Educations</Label>
+          {educationsArray.fields.map((field, index) => (
             <div key={field.id} className="flex gap-2">
               <Input {...register(`education.${index}` as const)} />
-              <Button type="button" onClick={() => educationArray.remove(index)}>-</Button>
+              <Button type="button" onClick={() => educationsArray.remove(index)}>-</Button>
             </div>
           ))}
-          <Button type="button" onClick={() => educationArray.append("")}>+ Add Education</Button>
+          <Button type="button" onClick={() => educationsArray.append("")}>+ Add Education</Button>
         </div>
 
         {/* Skills */}
@@ -75,16 +75,16 @@ const JobSearchForm: React.FC<JobSearchFormProps> =
           <Button type="button" onClick={() => skillsArray.append("")}>+ Add Skill</Button>
         </div>
 
-        {/* Experience */}
+        {/* Experiences */}
         <div>
-          <Label>Experience</Label>
-          {experienceArray.fields.map((field, index) => (
+          <Label>Experiences</Label>
+          {experiencesArray.fields.map((field, index) => (
             <div key={field.id} className="flex gap-2">
               <Input {...register(`experience.${index}` as const)} />
-              <Button type="button" onClick={() => experienceArray.remove(index)}>-</Button>
+              <Button type="button" onClick={() => experiencesArray.remove(index)}>-</Button>
             </div>
           ))}
-          <Button type="button" onClick={() => experienceArray.append("")}>+ Add Experience</Button>
+          <Button type="button" onClick={() => experiencesArray.append("")}>+ Add Experience</Button>
         </div>
 
         <div>

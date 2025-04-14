@@ -175,11 +175,11 @@ spring:
   graphql:
     path: /graphql
 
-    cors:
-      allowed-headers: "*"
-      allowed-methods: "*"
-      allowed-origin-patterns: "*"
-      allowed-origins: "*"
+#    cors:
+#      allowed-headers: "*"
+#      allowed-methods: "*"
+#      allowed-origin-patterns: "*"
+#      allowed-origins: "*"
 
     graphiql:
       enabled: true
@@ -218,7 +218,7 @@ spring:
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
-      ddl-auto: none
+      ddl-auto: create-drop
     show-sql: true
     properties:
       hibernate:

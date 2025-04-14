@@ -55,8 +55,8 @@ const workSans = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "YC Directory",
-  description: "Pitch, Vote and Grow",
+  title: "Smart CV",
+  description: "Apply you resume to jobs with one click",
 };
 
 export default function RootLayout({

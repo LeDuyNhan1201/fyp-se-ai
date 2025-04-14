@@ -87,7 +87,9 @@ public class CommandController {
 
             CompletableFuture<ResponseDto.SignIn> response = commandGateway.send(command,
                     MetaData.with("correlationId", identifier).and("causationId", identifier));
-            return ResponseEntity.ok(response.get());
+            return response.get().getMessage() == null
+                    ? ResponseEntity.ok(response.get())
+                    : ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response.get());
 
         } catch (InterruptedException | ExecutionException exception) {
             log.error("Error signing in", exception);

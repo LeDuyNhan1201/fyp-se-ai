@@ -5,7 +5,7 @@ import lombok.Getter;
 @Getter
 public enum CommonError {
     // Validation Errors
-    VALIDATION_ERROR("common/validation-error", "ErrorMsg.ValidationError "),
+    VALIDATION_ERROR("common/validation-error", "ErrorMsg.ValidationError"),
 
     // Token Errors
     TOKEN_MISSING("common/token-missing", "ErrorMsg.TokenMissing"),

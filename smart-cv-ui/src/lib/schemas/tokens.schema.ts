@@ -24,22 +24,6 @@ export const refreshTokenBodySchema = z.object({
 });
 export type RefreshTokenBodySchema = z.infer<typeof refreshTokenBodySchema>;
 
-export const refreshTokenResponseSchema = z.object({
-  accessToken: accessTokenSchema,
-});
-export type RefreshTokenResponseSchema = z.infer<typeof refreshTokenResponseSchema>;
-
-export const refreshTokenErrorResponseSchema = z.object({
-  accessToken: accessTokenSchema,
-});
-export type RefreshTokenErrorResponseSchema = z.infer<typeof refreshTokenErrorResponseSchema>;
-
-export const tokenSchema = z.object({
-  accessToken: accessTokenSchema,
-  refreshToken: refreshTokenSchema,
-});
-export type TokenSchema = z.infer<typeof tokenSchema>;
-
 export const tokensResponseSchema = z.object({
   accessToken: accessTokenSchema,
   refreshToken: refreshTokenSchema,

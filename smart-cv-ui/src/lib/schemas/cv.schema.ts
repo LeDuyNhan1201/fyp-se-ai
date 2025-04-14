@@ -19,7 +19,7 @@ export const curriculumVitaeSchema = z.object({
 });
 export type CurriculumVitaeSchema = z.infer<typeof curriculumVitaeSchema>;
 
-export const searchCvsSchema = z.object({
+export const searchCvsQuerySchema = z.object({
 //   jobId: z.string().uuid(),
 //   education: z.array(z.string()).optional().nullable().default([]),
 //   skills: z.array(z.string()).optional().nullable().default([]),
@@ -29,18 +29,12 @@ export const searchCvsSchema = z.object({
   cursor: z.string().optional().nullable().default(null),
   limit: z.number().int().positive().optional().nullable().default(3),
 });
-export type SearchCvsSchema = z.infer<typeof searchCvsSchema>;
-
-export const searchCvsByUserParamsSchema = z.object({
-  userId: z.string().uuid(),
-});
-export type SearchCvsByUserParamsSchema = z.infer<typeof searchCvsByUserParamsSchema>;
+export type SearchCvsQuerySchema = z.infer<typeof searchCvsQuerySchema>;
 
 export const searchCvsResponseSchema = z.object({
   items: z.array(curriculumVitaeSchema).default([]),
   cursor: z.string().optional().nullable().default(null),
   hasNextPage: z.boolean().default(false),
-
 });
 export type SearchCvsResponseSchema = z.infer<typeof searchCvsResponseSchema>;
 
@@ -50,7 +44,7 @@ export const createCvResponseSchema = z.object({
 export type CreateCvResponseSchema = z.infer<typeof createCvResponseSchema>;
 
 export const cvErrorResponseSchema = z.discriminatedUnion(
-  "type",
+  "errorCode",
   [
     unauthorizedErrorResponseSchema,
     validationErrorResponseSchema,

@@ -3,8 +3,8 @@ import { twMerge } from "tailwind-merge"
 import { COOKIE_KEY_ACCESS_TOKEN, COOKIE_KEY_REFRESH_TOKEN } from "@/constants";
 import { getCookie, setCookie } from "cookies-next";
 import { jwtDecode } from "jwt-decode";
-import { accessTokenPayloadSchema } from "./schemas/tokens.schema";
-import { refreshTokenApi } from "./apis/auth.api";
+import { accessTokenPayloadSchema } from "./schemas/auth.schema";
+import { refresh } from "./apis/auth.api";
 import { FieldValues, Path, UseFormSetError } from "react-hook-form";
 
 export function cn(...inputs: ClassValue[]) {
@@ -67,10 +67,14 @@ export async function getAccessToken(): Promise<string | null> {
 
   if (!isRefreshing) {
     isRefreshing = true;
-    refreshPromise = refreshTokenApi({ refreshToken })
+    refreshPromise = refresh({ refreshToken })
       .then((response) => {
-        const { accessToken: newAccessToken } = response;
+        const { 
+          accessToken: newAccessToken,
+          refreshToken: newRefreshToken
+        } = response;
         setCookie(COOKIE_KEY_ACCESS_TOKEN, newAccessToken);
+        setCookie(COOKIE_KEY_REFRESH_TOKEN, newRefreshToken);
         return newAccessToken;
       })
       .catch((error) => {
