@@ -7,7 +7,7 @@ import {
 } from "./errors.schema";
 
 export const curriculumVitaeSchema = z.object({
-  id: z.string().uuid(),
+  id: z.string(),
   jobId: z.string().uuid(),
   createdBy: z.string().uuid(),
   email: z.string().email().nullable().optional(),
@@ -20,7 +20,7 @@ export const curriculumVitaeSchema = z.object({
 export type CurriculumVitaeSchema = z.infer<typeof curriculumVitaeSchema>;
 
 export const cvTagSchema = z.object({
-  id: z.string().uuid(),
+  id: z.string(),
   jobId: z.string().uuid(),
   createdBy: z.string(),
   objectKey: z.string(),

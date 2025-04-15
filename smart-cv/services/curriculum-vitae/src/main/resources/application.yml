@@ -29,7 +29,8 @@ security:
     access-signer-key: ${ACCESS_SIGNER_KEY}
 
   public-endpoints:
-    - /example
+    - /graphiql
+    - /graphql
 
 # --------- Axon ---------
 axon:
@@ -151,14 +152,14 @@ spring:
   graphql:
     path: /graphql
 
-    cors:
-      allowed-headers: "*"
-      allowed-methods: "*"
-      allowed-origin-patterns: "*"
-      allowed-origins: "*"
+#    cors:
+#      allowed-headers: "*"
+#      allowed-methods: "*"
+#      allowed-origin-patterns: "*"
+#      allowed-origins: "*"
 
     graphiql:
-      enabled: true  # Bật GraphiQL UI để test API GraphQL
+      enabled: true
       path: /graphiql
 
   messages:

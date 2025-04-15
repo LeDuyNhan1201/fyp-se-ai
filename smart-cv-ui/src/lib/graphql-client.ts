@@ -7,11 +7,30 @@ import { relayStylePagination } from "@apollo/client/utilities";
 import { setContext } from "@apollo/client/link/context";
 import { getAccessToken } from "./utils";
 
+const cvCache = new InMemoryCache({
+  typePolicies: {
+    Query: {
+      fields: {
+        searchCVs: relayStylePagination(),
+      },
+    },
+  },
+});
 
 export const createApolloClient = (
   serviceName: string,
-  cacheType: InMemoryCache,
-) => {
+): ApolloClient<any> => {
+  let cache: InMemoryCache;
+
+  switch (serviceName) {
+    case "cv":
+      cache = cvCache;
+      break;
+    default:
+      cache = new InMemoryCache();       
+    break;
+  }
+
   const authLink = setContext((_, { headers }) => {
     return getAccessToken().then((token) => ({
       headers: {
@@ -28,16 +47,6 @@ export const createApolloClient = (
 
   return new ApolloClient({
     link: authLink.concat(httpLink),
-    cache: cacheType,
+    cache,
   });
 };
-
-export const searchCVsCache = new InMemoryCache({
-  typePolicies: {
-    Query: {
-      fields: {
-        searchCVs: relayStylePagination(),
-      },
-    },
-  },
-});

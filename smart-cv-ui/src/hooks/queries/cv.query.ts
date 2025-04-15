@@ -12,7 +12,7 @@ export const SEARCH_CVS_QUERY = gql`
     $cursor: String
     $limit: Int
   ) {
-    findAll(
+    search(
       createdBy: $createdBy
       jobId: $jobId
       cursor: $cursor
@@ -26,7 +26,7 @@ export const SEARCH_CVS_QUERY = gql`
         downloadUrl
         score
       }
-      cursor
+      nextCursor
       hasNextPage 
     }
   }
@@ -46,26 +46,26 @@ export const useSearchCvs = (filters: SearchCvsQuerySchema) => {
 
   if (error) return { loading, error, data: null, loadMore: () => { } };
 
-  if (!data || !data.searchCvs)
+  if (!data || !data.search)
     return { loading, error: null, data: null, loadMore: () => { } };
 
-  const validatedData = searchCvsResponseSchema.parse(data.searchCvs);
+  const validatedData = searchCvsResponseSchema.parse(data.search);
 
-  const cursor = validatedData.cursor;
+  const nextCursor = validatedData.nextCursor;
   const hasNextPage = validatedData.hasNextPage;
 
   const loadMore = () => {
     if (!hasNextPage) return;
     fetchMore({
-      variables: { ...validatedFilters, cursor },
+      variables: { ...validatedFilters, nextCursor },
       updateQuery: (prevResult, { fetchMoreResult }) => {
         if (!fetchMoreResult) return prevResult;
         return {
-          searchCvs: {
-            ...fetchMoreResult.searchCvs,
+          search: {
+            ...fetchMoreResult.search,
             items: [
-              ...prevResult.searchCvs.items,
-              ...fetchMoreResult.searchCvs.items
+              ...prevResult.search.items,
+              ...fetchMoreResult.search.items
             ],
           },
         };
@@ -73,5 +73,5 @@ export const useSearchCvs = (filters: SearchCvsQuerySchema) => {
     });
   };
 
-  return { loading, error, data: validatedData, loadMore, cursor, hasNextPage };
+  return { loading, error, data: validatedData, loadMore, nextCursor, hasNextPage };
 };

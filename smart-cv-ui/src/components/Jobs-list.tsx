@@ -29,14 +29,13 @@ const JobList = () => {
   return (
     <>
       <JobSearchForm initValues={filters} setFilters={setFilters} />
+
       <ul className="mt-7 card_grid">
         {data?.items && data.items.length > 0 ? (
           data.items.map(
             (job) => <JobDescriptionCard key={job.id} job={job} />
-          )
-        ) : (
-          <p className="no-results">No startups found</p>
-        )}
+          )) 
+          : (<p className="no-results">No startups found</p>)}
       </ul>
 
       <div className="flex justify-center mt-6">
@@ -57,10 +56,10 @@ const JobList = () => {
               (_, i) => i + 1).map((page) => (
                 <PaginationItem key={page}>
                   <span
-                    className={`cursor-pointer px-3 py-1 rounded 
-                    ${data?.page === page
-                        ? "bg-gray-300"
-                        : "hover:bg-gray-200"}`
+                    className={
+                      `cursor-pointer px-3 py-1 rounded 
+                      ${data?.page === page 
+                        ? "bg-gray-300" : "hover:bg-gray-200"}`
                     }
                     onClick={() => goToPage(page)}
                   >

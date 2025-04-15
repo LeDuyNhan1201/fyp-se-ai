@@ -44,8 +44,8 @@ public class QueryController {
 
         CursorPageResponse<ResponseDto.CvTag> cursorPageResponse = CursorPageResponse.<ResponseDto.CvTag>builder()
                 .items(result)
-                .nextCursor(result.getFirst().getNextCursor())
-                .hasNextPage(result.getFirst().isHasNextPage())
+                .nextCursor(!result.isEmpty() ? result.getFirst().getNextCursor() : null)
+                .hasNextPage(!result.isEmpty() && result.getFirst().isHasNextPage())
                 .build();
         return cursorPageResponse;
     }

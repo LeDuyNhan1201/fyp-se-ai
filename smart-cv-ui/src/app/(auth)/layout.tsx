@@ -2,10 +2,10 @@ import { RestClientProvider } from "@/app/rest-client-provider";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen">
+    <main className="font-work-sans">
       <RestClientProvider>
         {children}
       </RestClientProvider>
-    </div>
+    </main>
   );
 }

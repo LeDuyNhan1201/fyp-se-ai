@@ -39,7 +39,7 @@ public class CvQueryUseCase implements ICvQueryUseCase {
                         .jobId(cv.getJobId())
                         .createdBy(cv.getCreatedBy())
                         .objectKey(cv.getObjectKey())
-                        .downloadUrl("sdjfhjhsjkfhsjhfdsjkfhskjhfksj")
+                        .downloadUrl("https://cv.smartcv.com/" + cv.getObjectKey())
                         .score(cv.getScore())
                         .nextCursor(nextCursor)
                         .hasNextPage(hasNextPage)

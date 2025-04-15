@@ -17,7 +17,7 @@ export default function CvsList({
   jobId,
 }: JobDetailsProps) {
   const [filters, setFilters] = useState<SearchCvsQuerySchema>(
-    searchCvsSchema.parse({
+    searchCvsQuerySchema.parse({
       jobId: jobId
     })
   );

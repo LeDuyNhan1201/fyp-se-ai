@@ -1,7 +1,5 @@
-scalar UUID
-
 type CvTag {
-    id: UUID!
+    id: String!
     jobId: String!
     createdBy: String!
     objectKey: String!
@@ -17,8 +15,8 @@ type Page {
 
 type Query {
     search(
-        jobId: String!
-        createdBy: String!
+        jobId: String
+        createdBy: String
         cursor: String
         limit: Int
     ): Page!
