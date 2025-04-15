@@ -69,10 +69,7 @@ openapi:
 logging:
   pattern:
     correlation: "[${spring.application.name:}, %X{traceId:-}, %X{spanId:-}]"
-#  level:
-#    com:
-#      zaxxer:
-#        hikari: DEBUG
+
   level:
     org:
       springframework:

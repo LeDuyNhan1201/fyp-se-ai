@@ -1,4 +1,4 @@
-package com.ben.smartcv.user.domain.entity;
+package com.ben.smartcv.user.domain.model;
 
 import com.ben.smartcv.common.domain.AuditingEntity;
 import jakarta.persistence.*;

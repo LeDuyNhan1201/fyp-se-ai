@@ -86,10 +86,6 @@ spring:
   main:
     web-application-type: reactive
 
-  mvc:
-    problemdetails:
-      enabled: true
-
   data:
     redis:
       port: ${REDIS_PORT:6379}

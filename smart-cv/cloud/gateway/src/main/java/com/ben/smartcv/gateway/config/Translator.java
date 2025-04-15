@@ -12,10 +12,10 @@ import org.springframework.stereotype.Component;
 
 import java.util.Locale;
 
-@RequiredArgsConstructor
-@Component
-@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @Slf4j
+@Component
+@RequiredArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class Translator {
 
     static ResourceBundleMessageSource messageSource;

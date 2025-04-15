@@ -2,6 +2,7 @@ package com.ben.smartcv.notification.domain;
 
 import com.ben.smartcv.common.contract.command.NotificationCommand;
 import com.ben.smartcv.common.contract.event.NotificationEvent;
+import com.ben.smartcv.common.util.LogHelper;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -33,17 +34,16 @@ public class NotificationAggregate {
 
     String content;
 
-    String associationProperty;
-
     @CommandHandler
     public NotificationAggregate(NotificationCommand.SendNotification command,
+                                 @MetaDataValue("correlationId") String correlationId,
                                  @MetaDataValue("causationId") String causationId) {
+        LogHelper.logMessage(log, "SendNotification", correlationId, causationId, command);
         apply(NotificationEvent.NotificationSent.builder()
                 .id(command.getId())
                 .title(command.getTitle())
                 .content(command.getContent())
-                .associationProperty(command.getAssociationProperty())
-                .build()/*, MetaData.with("causationId", causationId)*/);
+                .build(), MetaData.with("correlationId", command.getId()).and("causationId", correlationId));
     }
 
     @EventSourcingHandler
@@ -51,11 +51,10 @@ public class NotificationAggregate {
         this.id = event.getId();
         this.content = event.getContent();
         this.title = event.getTitle();
-        this.associationProperty = event.getAssociationProperty();
     }
 
     @ExceptionHandler(resultType = Exception.class, payloadType = NotificationCommand.SendNotification.class)
-    public void handleNotificationSentException(Exception exception) {
+    public void handleExceptionForNotificationSentEvent(Exception exception) {
         log.error("Unexpected Exception occurred when send notification: {}", exception.getMessage());
     }
 

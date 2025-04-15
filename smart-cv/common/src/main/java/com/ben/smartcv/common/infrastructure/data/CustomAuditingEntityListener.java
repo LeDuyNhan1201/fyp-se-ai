@@ -1,4 +1,4 @@
-package com.ben.smartcv.common.infrastructure.database;
+package com.ben.smartcv.common.infrastructure.data;
 
 import com.ben.smartcv.common.domain.AuditingEntity;
 import jakarta.persistence.PrePersist;

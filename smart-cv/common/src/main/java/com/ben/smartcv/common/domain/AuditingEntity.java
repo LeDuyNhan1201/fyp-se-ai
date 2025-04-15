@@ -1,6 +1,6 @@
 package com.ben.smartcv.common.domain;
 
-import com.ben.smartcv.common.infrastructure.database.CustomAuditingEntityListener;
+import com.ben.smartcv.common.infrastructure.data.CustomAuditingEntityListener;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.persistence.Version;

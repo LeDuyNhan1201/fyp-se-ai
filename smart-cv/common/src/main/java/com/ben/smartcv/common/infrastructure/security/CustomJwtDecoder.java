@@ -3,7 +3,6 @@ package com.ben.smartcv.common.infrastructure.security;
 import com.ben.smartcv.common.application.exception.CommonError;
 import com.ben.smartcv.common.application.exception.CommonHttpException;
 import com.ben.smartcv.common.util.Constant;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.oauth2.jose.jws.MacAlgorithm;
@@ -23,7 +22,7 @@ import static org.springframework.http.HttpStatus.UNAUTHORIZED;
 public class CustomJwtDecoder implements JwtDecoder {
 
     @Value("${security.jwt.access-signer-key}")
-    private String ACCESS_SIGNER_KEY;
+    private String accessSignerKey;
 
     private NimbusJwtDecoder nimbusJwtDecoder = null;
 
@@ -39,7 +38,7 @@ public class CustomJwtDecoder implements JwtDecoder {
         }
 
         if (Objects.isNull(nimbusJwtDecoder)) {
-            SecretKeySpec secretKeySpec = new SecretKeySpec(ACCESS_SIGNER_KEY.getBytes(),
+            SecretKeySpec secretKeySpec = new SecretKeySpec(accessSignerKey.getBytes(),
                     Constant.JWT_SIGNATURE_ALGORITHM.getName());
             nimbusJwtDecoder = NimbusJwtDecoder.withSecretKey(secretKeySpec)
                     .macAlgorithm(MacAlgorithm.from(Constant.JWT_SIGNATURE_ALGORITHM.getName()))

@@ -1,6 +1,6 @@
 package com.ben.smartcv.user.infrastructure.repository;
 
-import com.ben.smartcv.user.domain.entity.User;
+import com.ben.smartcv.user.domain.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

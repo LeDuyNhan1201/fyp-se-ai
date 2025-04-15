@@ -3,7 +3,7 @@ package com.ben.smartcv.job.application.usecase.impl;
 import com.ben.smartcv.common.contract.command.JobCommand;
 import com.ben.smartcv.common.contract.command.NotificationCommand;
 import com.ben.smartcv.job.application.usecase.ISlaveJobWriteSideUseCase;
-import com.ben.smartcv.job.domain.entity.SlaveJob;
+import com.ben.smartcv.job.domain.model.SlaveJob;
 import com.ben.smartcv.job.infrastructure.repository.ISlaveJobRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;

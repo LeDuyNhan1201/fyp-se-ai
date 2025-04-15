@@ -1,6 +1,6 @@
-package com.ben.smartcv.user.application.usecase.impl;
+package com.ben.smartcv.common.application.usecase.impl;
 
-import com.ben.smartcv.user.application.usecase.IBaseRedisUseCase;
+import com.ben.smartcv.common.application.usecase.IBaseRedisUseCase;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;

@@ -12,6 +12,6 @@ message NotificationSentEvent {
 
   string content = 2;
 
-  string association_property = 3;
+  string locale = 3;
 
 }

@@ -1,8 +1,7 @@
 package com.ben.smartcv.curriculum_vitae.application.usecase.impl;
 
-import com.ben.smartcv.common.util.AuthenticationHelper;
 import com.ben.smartcv.curriculum_vitae.application.usecase.ICvCommandUseCase;
-import com.ben.smartcv.curriculum_vitae.domain.entity.CurriculumVitae;
+import com.ben.smartcv.curriculum_vitae.domain.model.CurriculumVitae;
 import com.ben.smartcv.curriculum_vitae.infrastructure.repository.ICurriculumVitaeRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;

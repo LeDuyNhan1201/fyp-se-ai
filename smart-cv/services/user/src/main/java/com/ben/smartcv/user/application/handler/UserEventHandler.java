@@ -4,7 +4,7 @@ import com.ben.smartcv.common.contract.command.NotificationCommand;
 import com.ben.smartcv.common.contract.event.UserEvent;
 import com.ben.smartcv.common.util.LogHelper;
 import com.ben.smartcv.user.application.usecase.IAuthenticationUseCase;
-import com.ben.smartcv.user.infrastructure.EventPublisher;
+import com.ben.smartcv.user.infrastructure.kafka.EventPublisher;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
@@ -39,7 +39,7 @@ public class UserEventHandler {
             authenticationUseCase.signUp(event);
         } catch (Exception e) {
             log.error("User creating failed: {}", e.getMessage());
-            String reason = "Notify.Content.CreateFailed";
+            String reason = "Notify.Content.CreateFailed|User";
             sendFailureNotification(reason);
         }
         kafkaProducer.send(event, correlationId, causationId);
@@ -48,7 +48,7 @@ public class UserEventHandler {
     private void sendFailureNotification(String reason) {
         commandGateway.sendAndWait(NotificationCommand.SendNotification.builder()
                 .id(UUID.randomUUID().toString())
-                .title("Notify.Title.CreateFailed")
+                .title("Notify.Title.CreateFailed|User")
                 .content(reason)
                 .build());
     }

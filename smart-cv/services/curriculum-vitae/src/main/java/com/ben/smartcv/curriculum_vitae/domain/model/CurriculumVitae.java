@@ -1,4 +1,4 @@
-package com.ben.smartcv.curriculum_vitae.domain.entity;
+package com.ben.smartcv.curriculum_vitae.domain.model;
 
 import com.ben.smartcv.common.domain.MongoAuditingDocument;
 import jakarta.validation.constraints.NotNull;

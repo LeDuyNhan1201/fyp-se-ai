@@ -1,6 +1,6 @@
 package com.ben.smartcv.user.application.usecase;
 
-import com.ben.smartcv.user.domain.entity.User;
+import com.ben.smartcv.user.domain.model.User;
 
 public interface IUserUseCase {
 

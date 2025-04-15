@@ -1,6 +1,6 @@
 package com.ben.smartcv.job.infrastructure.debezium;
 
-import com.ben.smartcv.job.domain.entity.MasterJob;
+import com.ben.smartcv.job.domain.model.MasterJob;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 

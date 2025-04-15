@@ -2,7 +2,7 @@ package com.ben.smartcv.user.application.usecase.impl;
 
 import com.ben.smartcv.common.application.exception.CommonHttpException;
 import com.ben.smartcv.user.application.usecase.IUserUseCase;
-import com.ben.smartcv.user.domain.entity.User;
+import com.ben.smartcv.user.domain.model.User;
 import com.ben.smartcv.user.infrastructure.repository.IUserRepository;
 import jakarta.transaction.Transactional;
 import lombok.AccessLevel;

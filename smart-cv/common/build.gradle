@@ -25,10 +25,12 @@ dependencies {
 	api 'org.springframework.boot:spring-boot-starter-validation'
 	api 'org.springframework.boot:spring-boot-starter-web'
 	api 'org.springframework.boot:spring-boot-starter-data-mongodb'
+	api 'org.springframework.boot:spring-boot-starter-data-redis'
 	api 'org.springframework.grpc:spring-grpc-spring-boot-starter'
 	api 'org.springframework.boot:spring-boot-starter-graphql'
 	api 'org.springframework.kafka:spring-kafka'
 	api 'io.grpc:grpc-services'
+	api "redis.clients:jedis:${jedisVersion}" // https://mvnrepository.com/artifact/redis.clients/jedis
 	api "org.springdoc:springdoc-openapi-starter-webmvc-ui:${springdocOpenApiVersion}" // https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-starter-webmvc-ui
 	api "org.axonframework:axon-spring-boot-starter:${axonVersion}" // https://mvnrepository.com/artifact/org.axonframework/axon-spring-boot-starter
 	api "io.confluent:kafka-schema-registry-client:${confluentVersion}" // https://mvnrepository.com/artifact/io.confluent/kafka-schema-registry-client

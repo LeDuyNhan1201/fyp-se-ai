@@ -1,6 +1,6 @@
-package com.ben.smartcv.user.infrastructure;
+package com.ben.smartcv.user.infrastructure.data;
 
-import com.ben.smartcv.common.infrastructure.database.AuditorAwareConfig;
+import com.ben.smartcv.common.infrastructure.data.ThreadLocalAuditorAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.domain.AuditorAware;
@@ -14,7 +14,7 @@ public class JpaAuditingConfig {
 
     @Bean
     public AuditorAware<String> auditorProvider() {
-        return new AuditorAwareConfig();
+        return new ThreadLocalAuditorAware();
     }
 
 }

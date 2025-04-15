@@ -23,7 +23,7 @@ public class NotificationCommand {
 
         String content;
 
-        String associationProperty;
+        String locale;
 
     }
 

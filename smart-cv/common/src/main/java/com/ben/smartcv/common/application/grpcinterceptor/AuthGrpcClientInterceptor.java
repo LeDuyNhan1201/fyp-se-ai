@@ -7,9 +7,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.grpc.client.GlobalClientInterceptor;
 
-@GlobalClientInterceptor
 @Slf4j
-public class GrpcClientInterceptor implements ClientInterceptor {
+@GlobalClientInterceptor
+public class AuthGrpcClientInterceptor implements ClientInterceptor {
 
     @Value("${spring.application.name}")
     private String microserviceName;

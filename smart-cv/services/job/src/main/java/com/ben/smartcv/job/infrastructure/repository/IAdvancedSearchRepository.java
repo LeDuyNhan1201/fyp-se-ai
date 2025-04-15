@@ -1,6 +1,6 @@
 package com.ben.smartcv.job.infrastructure.repository;
 
-import com.ben.smartcv.job.domain.entity.SlaveJob;
+import com.ben.smartcv.job.domain.model.SlaveJob;
 import io.micrometer.observation.annotation.Observed;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Range;

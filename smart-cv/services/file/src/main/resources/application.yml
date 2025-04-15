@@ -64,10 +64,10 @@ logging:
   pattern:
     correlation: "[${spring.application.name:}, %X{traceId:-}, %X{spanId:-}]"
 
-#  level:
-#    org:
-#      springframework:
-#        security: DEBUG
+  level:
+    org:
+      springframework:
+        security: DEBUG
 
 # --------- Metrics & Monitoring ---------
 management:
@@ -157,12 +157,17 @@ spring:
 
   data:
     mongodb:
-      uri: mongodb://smartcv:SmArTcV123%23@localhost:27017/axon-framework?authSource=admin
+      uri: ${MONGODB_URI}
+
+    redis:
+      port: ${REDIS_PORT:6379}
+      host: ${REDIS_HOST:localhost}
+      database: 0
 
   kafka:
-    bootstrap-servers: localhost:9091
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9091}
     properties:
-      schema.registry.url: http://localhost:8085
+      schema.registry.url: ${SCHEMA_REGISTRY_URL:http://localhost:8085}
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: io.confluent.kafka.serializers.protobuf.KafkaProtobufSerializer

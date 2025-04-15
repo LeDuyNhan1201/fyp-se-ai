@@ -24,7 +24,7 @@ public class NotificationEvent {
 
         String content;
 
-        String associationProperty;
+        String locale;
 
     }
 

@@ -3,7 +3,7 @@ package com.ben.smartcv.job.application.usecase.impl;
 import com.ben.smartcv.common.util.TimeHelper;
 import com.ben.smartcv.job.application.dto.ResponseDto;
 import com.ben.smartcv.job.application.usecase.ISlaveJobReadSideUseCase;
-import com.ben.smartcv.job.domain.entity.SlaveJob;
+import com.ben.smartcv.job.domain.model.SlaveJob;
 import com.ben.smartcv.job.infrastructure.repository.IAdvancedSearchRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;

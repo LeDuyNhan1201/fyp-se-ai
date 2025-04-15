@@ -1,4 +1,4 @@
-package com.ben.smartcv.job.domain.entity;
+package com.ben.smartcv.job.domain.model;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.*;

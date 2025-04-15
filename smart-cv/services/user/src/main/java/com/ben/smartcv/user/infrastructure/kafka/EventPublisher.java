@@ -1,4 +1,4 @@
-package com.ben.smartcv.user.infrastructure;
+package com.ben.smartcv.user.infrastructure.kafka;
 
 import com.ben.smartcv.common.user.SignedUpEvent;
 import com.ben.smartcv.common.util.Constant;

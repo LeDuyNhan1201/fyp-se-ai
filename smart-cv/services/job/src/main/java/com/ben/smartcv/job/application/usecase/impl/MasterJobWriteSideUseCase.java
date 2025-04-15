@@ -1,7 +1,7 @@
 package com.ben.smartcv.job.application.usecase.impl;
 
 import com.ben.smartcv.job.application.usecase.IMasterJobWriteSideUseCase;
-import com.ben.smartcv.job.domain.entity.MasterJob;
+import com.ben.smartcv.job.domain.model.MasterJob;
 import com.ben.smartcv.job.infrastructure.repository.IMasterJobRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;

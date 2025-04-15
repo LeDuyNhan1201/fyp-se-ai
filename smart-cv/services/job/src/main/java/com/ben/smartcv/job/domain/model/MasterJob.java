@@ -1,4 +1,4 @@
-package com.ben.smartcv.job.domain.entity;
+package com.ben.smartcv.job.domain.model;
 
 import com.ben.smartcv.common.domain.AuditingEntity;
 import com.fasterxml.jackson.annotation.JsonProperty;

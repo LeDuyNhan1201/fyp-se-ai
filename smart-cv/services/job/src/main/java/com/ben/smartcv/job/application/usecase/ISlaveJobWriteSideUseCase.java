@@ -1,6 +1,6 @@
 package com.ben.smartcv.job.application.usecase;
 
-import com.ben.smartcv.job.domain.entity.SlaveJob;
+import com.ben.smartcv.job.domain.model.SlaveJob;
 import org.springframework.stereotype.Service;
 
 @Service

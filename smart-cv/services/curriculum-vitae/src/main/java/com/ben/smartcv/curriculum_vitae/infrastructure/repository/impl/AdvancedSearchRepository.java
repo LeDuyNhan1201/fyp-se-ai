@@ -1,6 +1,6 @@
 package com.ben.smartcv.curriculum_vitae.infrastructure.repository.impl;
 
-import com.ben.smartcv.curriculum_vitae.domain.entity.CurriculumVitae;
+import com.ben.smartcv.curriculum_vitae.domain.model.CurriculumVitae;
 import com.ben.smartcv.curriculum_vitae.infrastructure.repository.IAdvancedSearchRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;

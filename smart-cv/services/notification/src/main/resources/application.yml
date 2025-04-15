@@ -110,6 +110,11 @@ spring:
     mongodb:
       uri: ${MONGODB_URI}
 
+    redis:
+      port: ${REDIS_PORT:6379}
+      host: ${REDIS_HOST:localhost}
+      database: 0
+
   kafka:
     bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9091}
     properties:

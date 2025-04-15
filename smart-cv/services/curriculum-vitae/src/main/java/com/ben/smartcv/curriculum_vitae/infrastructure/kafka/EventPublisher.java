@@ -1,8 +1,8 @@
-package com.ben.smartcv.file.infrastructure;
+package com.ben.smartcv.curriculum_vitae.infrastructure.kafka;
 
 import com.ben.smartcv.common.contract.event.CvEvent;
-import com.ben.smartcv.common.cv.CvAppliedEvent;
-import com.ben.smartcv.common.cv.CvFileDeletedEvent;
+import com.ben.smartcv.common.cv.CvDeletedEvent;
+import com.ben.smartcv.common.cv.CvProcessedEvent;
 import com.ben.smartcv.common.util.Constant;
 import com.ben.smartcv.common.util.KafkaHelper;
 import lombok.RequiredArgsConstructor;
@@ -20,32 +20,31 @@ import static lombok.AccessLevel.PRIVATE;
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 public class EventPublisher {
 
-    KafkaTemplate<String, CvAppliedEvent> cvAppliedEventTemplate;
+    KafkaTemplate<String, CvProcessedEvent> cvProcessedEventTemplate;
 
-    KafkaTemplate<String, CvFileDeletedEvent> cvFileDeletedEventTemplate;
+    KafkaTemplate<String, CvDeletedEvent> cvDeletedEventTemplate;
 
-    public void send(CvEvent.CvApplied event, String correlationId, String causationId) {
-        CvAppliedEvent protoEvent = CvAppliedEvent.newBuilder()
+    public void send(CvEvent.CvProcessed event, String correlationId, String causationId) {
+        CvProcessedEvent protoEvent = CvProcessedEvent.newBuilder()
                 .setObjectKey(event.getObjectKey())
                 .setJobId(event.getJobId())
                 .setCreatedBy(event.getCreatedBy())
                 .build();
 
-        ProducerRecord<String, CvAppliedEvent> record = new ProducerRecord<>(
+        ProducerRecord<String, CvProcessedEvent> record = new ProducerRecord<>(
                 Constant.KAFKA_TOPIC_CV_EVENT, null, event.getObjectKey(), protoEvent,
                 KafkaHelper.createHeaders(correlationId, causationId));
-        cvAppliedEventTemplate.send(record);
+        cvProcessedEventTemplate.send(record);
     }
 
-    public void send(CvEvent.CvFileDeleted event, String correlationId, String causationId) {
-        CvFileDeletedEvent protoEvent = CvFileDeletedEvent.newBuilder()
+    public void send(CvEvent.CvDeleted event, String correlationId, String causationId) {
+        CvDeletedEvent protoEvent = CvDeletedEvent.newBuilder()
                 .setObjectKey(event.getObjectKey())
                 .build();
 
-        ProducerRecord<String, CvFileDeletedEvent> record = new ProducerRecord<>(
+        ProducerRecord<String, CvDeletedEvent> record = new ProducerRecord<>(
                 Constant.KAFKA_TOPIC_CV_EVENT, null, event.getObjectKey(), protoEvent,
                 KafkaHelper.createHeaders(correlationId, causationId));
-        cvFileDeletedEventTemplate.send(record);
+        cvDeletedEventTemplate.send(record);
     }
-
 }

@@ -1,19 +1,13 @@
 package com.ben.smartcv.common.infrastructure.web;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.web.filter.CorsFilter;
-
-import java.util.List;
 
 @Slf4j
 @Configuration
-public class CorsConfig {
+public class AppConfig {
 
 //    @Bean
 //    public CorsFilter corsFilter(@Value("${gateway.domain}") String gatewayDomain,

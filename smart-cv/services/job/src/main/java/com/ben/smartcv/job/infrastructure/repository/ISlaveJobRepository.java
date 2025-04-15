@@ -1,6 +1,6 @@
 package com.ben.smartcv.job.infrastructure.repository;
 
-import com.ben.smartcv.job.domain.entity.SlaveJob;
+import com.ben.smartcv.job.domain.model.SlaveJob;
 import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
 import org.springframework.stereotype.Repository;
 

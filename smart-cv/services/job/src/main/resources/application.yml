@@ -85,15 +85,14 @@ openapi:
 logging:
   pattern:
     correlation: "[${spring.application.name:}, %X{traceId:-}, %X{spanId:-}]"
-#  level:
+
+  level:
 #    com:
 #      zaxxer:
 #        hikari: DEBUG
-
-#  level:
-#    org:
-#      springframework:
-#        security: DEBUG
+    org:
+      springframework:
+        security: DEBUG
 
 # --------- Metrics & Monitoring ---------
 management:
@@ -228,6 +227,11 @@ spring:
   data:
     mongodb:
       uri: ${MONGODB_URI}
+
+    redis:
+      port: ${REDIS_PORT:6379}
+      host: ${REDIS_HOST:localhost}
+      database: 0
 
     elasticsearch:
       repositories:

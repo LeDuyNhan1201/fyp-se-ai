@@ -3,7 +3,7 @@ package com.ben.smartcv.file.application.handler;
 import com.ben.smartcv.common.contract.command.NotificationCommand;
 import com.ben.smartcv.common.contract.event.CvEvent;
 import com.ben.smartcv.common.util.LogHelper;
-import com.ben.smartcv.file.infrastructure.EventPublisher;
+import com.ben.smartcv.file.infrastructure.kafka.EventPublisher;
 import com.ben.smartcv.file.infrastructure.grpc.GrpcClientJobService;
 import com.ben.smartcv.file.infrastructure.minio.IMinioClient;
 import lombok.RequiredArgsConstructor;

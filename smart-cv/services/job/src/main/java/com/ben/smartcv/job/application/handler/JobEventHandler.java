@@ -2,11 +2,11 @@ package com.ben.smartcv.job.application.handler;
 
 import com.ben.smartcv.common.contract.command.NotificationCommand;
 import com.ben.smartcv.common.contract.event.JobEvent;
-import com.ben.smartcv.common.infrastructure.database.AuditorAwareConfig;
+import com.ben.smartcv.common.infrastructure.data.ThreadLocalAuditorAware;
 import com.ben.smartcv.common.job.ExtractedJobData;
 import com.ben.smartcv.common.util.LogHelper;
 import com.ben.smartcv.job.application.usecase.IMasterJobWriteSideUseCase;
-import com.ben.smartcv.job.domain.entity.MasterJob;
+import com.ben.smartcv.job.domain.model.MasterJob;
 import com.ben.smartcv.job.infrastructure.kafka.EventPublisher;
 import com.ben.smartcv.job.infrastructure.grpc.GrpcClientJobProcessor;
 import io.grpc.Status;
@@ -46,7 +46,7 @@ public class JobEventHandler {
         try {
             ExtractedJobData extractedJobData = grpcClient.callExtractData(event);
 
-            AuditorAwareConfig.set(event.getCreatedBy());
+            ThreadLocalAuditorAware.set(event.getCreatedBy());
             MasterJob masterJob = MasterJob.builder()
                     .organizationName(event.getOrganizationName())
                     .position(event.getPosition())
@@ -78,7 +78,7 @@ public class JobEventHandler {
             sendFailureNotification(reason);
         }
         finally {
-            AuditorAwareConfig.clear();
+            ThreadLocalAuditorAware.clear();
         }
         eventPublisher.send(event, correlationId, causationId);
     }

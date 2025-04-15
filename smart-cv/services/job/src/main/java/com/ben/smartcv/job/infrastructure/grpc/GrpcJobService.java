@@ -3,7 +3,7 @@ package com.ben.smartcv.job.infrastructure.grpc;
 import com.ben.smartcv.common.job.JobId;
 import com.ben.smartcv.common.job.JobServiceGrpc;
 import com.ben.smartcv.common.job.PreviewJobDescription;
-import com.ben.smartcv.job.domain.entity.SlaveJob;
+import com.ben.smartcv.job.domain.model.SlaveJob;
 import com.ben.smartcv.job.infrastructure.repository.ISlaveJobRepository;
 import io.grpc.Status;
 import io.grpc.stub.StreamObserver;

@@ -1,4 +1,4 @@
-package com.ben.smartcv.user.application.usecase;
+package com.ben.smartcv.common.application.usecase;
 
 import org.springframework.stereotype.Service;
 

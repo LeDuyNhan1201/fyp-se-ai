@@ -1,4 +1,4 @@
-package com.ben.smartcv.user.infrastructure;
+package com.ben.smartcv.common.infrastructure.data;
 
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;

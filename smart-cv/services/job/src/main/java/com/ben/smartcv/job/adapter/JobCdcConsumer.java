@@ -5,7 +5,7 @@ import com.ben.smartcv.common.infrastructure.kafka.BaseCdcConsumer;
 import com.ben.smartcv.common.infrastructure.kafka.RetrySupportDql;
 import com.ben.smartcv.common.util.Constant;
 import com.ben.smartcv.job.application.usecase.ISlaveJobWriteSideUseCase;
-import com.ben.smartcv.job.domain.entity.SlaveJob;
+import com.ben.smartcv.job.domain.model.SlaveJob;
 import com.ben.smartcv.job.infrastructure.debezium.CdcOperation;
 import com.ben.smartcv.job.infrastructure.debezium.JobCdcMessage;
 import jakarta.validation.Valid;
@@ -52,8 +52,8 @@ public class JobCdcConsumer extends BaseCdcConsumer<JobCdcMessage.Key, JobCdcMes
 
         commandGateway.sendAndWait(NotificationCommand.SendNotification.builder()
                 .id(UUID.randomUUID().toString())
-                .title("Notify.Title.ItemAvailable")
-                .content("Notify.Content.ItemAvailable")
+                .title("Notify.Title.ItemAvailable|Job")
+                .content("Notify.Content.ItemAvailable|Job")
                 .build());
     }
 
