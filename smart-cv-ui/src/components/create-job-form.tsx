@@ -1,18 +1,23 @@
 "use client";
 
 import { useCreateJobMutation } from "@/hooks/mutations/job.mutation";
-import { createJobSchema, CreateJobSchema } from "@/lib/schemas/job.schema";
+import { createJobBodySchema, CreateJobBodySchema } from "@/lib/schemas/job.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { format } from "date-fns"
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
-import { Form, FormField, FormItem, FormLabel, FormMessage } from "./ui/form";
+import { Form, FormField, FormItem, FormLabel, FormMessage, FormControl } from "./ui/form";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
-import { mapFieldErrorToFormError } from "@/lib/utils";
+import { Textarea } from "./ui/textarea";
+import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
+import { Calendar } from "./ui/calendar";
+import { CalendarIcon } from "lucide-react"
+import { cn, mapFieldErrorToFormError } from "@/lib/utils";
 
 export default function CreateJobForm() {
-  const createJobForm = useForm<CreateJobSchema>({
-    resolver: zodResolver(createJobSchema),
+  const createJobForm = useForm<CreateJobBodySchema>({
+    resolver: zodResolver(createJobBodySchema),
     defaultValues: {
       organizationName: "",
       position: "",
@@ -35,10 +40,10 @@ export default function CreateJobForm() {
 
   const mutation = useCreateJobMutation();
 
-  const onSubmit = (data: CreateJobSchema) => {
+  const onSubmit = (data: CreateJobBodySchema) => {
     mutation.mutate(data, {
       onSuccess: (response) => {
-        toast.success(response.message);
+        toast.success(ressponse.message);
       },
       onError: (error) => {
         console.log(error);
@@ -53,7 +58,7 @@ export default function CreateJobForm() {
 
   return (
     <Form {...createJobForm}>
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+      <form onSubmit={handleSubmit(onSubmit)} className="w-2/3 space-y-6">
         <FormField
           control={control}
           name="organizationName"
@@ -87,7 +92,7 @@ export default function CreateJobForm() {
               <Input
                 type="number"
                 {...field}
-                onChange={(e) => field.onChange(+e.target.value)} // ép kiểu về number
+                onChange={(e) => field.onChange(+e.target.value)} 
               />
               <FormMessage />
             </FormItem>
@@ -103,7 +108,7 @@ export default function CreateJobForm() {
               <Input
                 type="number"
                 {...field}
-                onChange={(e) => field.onChange(+e.target.value)} // ép kiểu về number
+                onChange={(e) => field.onChange(+e.target.value)} 
               />
               <FormMessage />
             </FormItem>
@@ -116,7 +121,37 @@ export default function CreateJobForm() {
           render={({ field }) => (
             <FormItem>
               <FormLabel>Expiration Date</FormLabel>
-              <Input type="datetime-local" {...field} />
+              <Popover>
+                <PopoverTrigger asChild>
+                  <FormControl>
+                    <Button
+                      variant={"outline"}
+                      className={cn(
+                        "w-[240px] pl-3 text-left font-normal",
+                        !field.value && "text-muted-foreground"
+                      )}
+                    >
+                      {field.value ? (
+                        format(field.value, "PPP")
+                      ) : (
+                        <span>Pick a date</span>
+                      )}
+                      <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                    </Button>
+                  </FormControl>
+                </PopoverTrigger>
+                <PopoverContent className="w-auto p-0" align="start">
+                  <Calendar className="bg-white"
+                    mode="single"
+                    selected={field.value}
+                    onSelect={field.onChange}
+                    disabled={(date) =>
+                      date < new Date("1900-01-01")
+                    }
+                    initialFocus
+                  />
+                </PopoverContent>
+              </Popover>
               <FormMessage />
             </FormItem>
           )}
@@ -128,11 +163,11 @@ export default function CreateJobForm() {
           render={({ field }) => (
             <FormItem>
               <FormLabel>Job Requirements</FormLabel>
-              <textarea
+              <Textarea
                 {...field}
                 maxLength={500}
                 placeholder="Enter requirements (max 500 chars)"
-                className="border rounded p-2 w-full"
+                className="resize-none"
               />
               <FormMessage />
             </FormItem>

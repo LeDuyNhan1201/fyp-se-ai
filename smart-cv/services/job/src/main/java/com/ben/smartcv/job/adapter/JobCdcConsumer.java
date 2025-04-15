@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.axonframework.commandhandling.gateway.CommandGateway;
+import org.axonframework.messaging.MetaData;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.support.KafkaHeaders;
 import org.springframework.messaging.MessageHeaders;
@@ -50,11 +51,12 @@ public class JobCdcConsumer extends BaseCdcConsumer<JobCdcMessage.Key, JobCdcMes
         log.info("Cdc job {}", jobCdcMessage.getAfter().getOrganizationName());
         processMessage(key, jobCdcMessage, headers, this::sync);
 
+        String identifier = UUID.randomUUID().toString();
         commandGateway.sendAndWait(NotificationCommand.SendNotification.builder()
-                .id(UUID.randomUUID().toString())
+                .id(identifier)
                 .title("Notify.Title.ItemAvailable|Job")
                 .content("Notify.Content.ItemAvailable|Job")
-                .build());
+                .build(), MetaData.with("correlationId", identifier).and("causationId", key.getId()));
     }
 
     public void sync(JobCdcMessage.Key key, JobCdcMessage jobCdcMessage) {

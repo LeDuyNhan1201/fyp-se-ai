@@ -1,5 +1,6 @@
 package com.ben.smartcv.common.application.grpcinterceptor;
 
+import com.ben.smartcv.common.infrastructure.security.SecurityGrpcProperties;
 import com.ben.smartcv.common.util.Constant;
 import io.grpc.*;
 import lombok.experimental.FieldDefaults;
@@ -11,6 +12,8 @@ import org.springframework.security.oauth2.jose.jws.MacAlgorithm;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import javax.crypto.spec.SecretKeySpec;
+import java.util.List;
+
 import static io.grpc.Status.UNAUTHENTICATED;
 import static lombok.AccessLevel.PRIVATE;
 
@@ -27,9 +30,7 @@ public class AuthGrpcServerInterceptor implements ServerInterceptor {
 
     NimbusJwtDecoder nimbusJwtDecoder = null;
 
-    static final String[] PUBLIC_METHODS = new String[] {
-//            "FileService/uploadFile"
-    };
+    SecurityGrpcProperties securityGrpcProperties;
 
     @Override
     public <ReqT, RespT> ServerCall.Listener<ReqT> interceptCall(
@@ -38,7 +39,8 @@ public class AuthGrpcServerInterceptor implements ServerInterceptor {
         String[] methodNameRaw = call.getMethodDescriptor().getFullMethodName().split("\\.");
         String methodName = methodNameRaw[methodNameRaw.length - 1];
 
-        for (String method : PUBLIC_METHODS) if (methodName.contains(method)) return next.startCall(call, headers);
+        for (String method : securityGrpcProperties.getPublicMethods())
+            if (methodName.contains(method)) return next.startCall(call, headers);
 
         String token = headers.get(Constant.AUTHORIZATION_KEY);
         log.info("[{}]: token: {}", microserviceName, token);

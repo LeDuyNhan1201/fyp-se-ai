@@ -8,18 +8,18 @@ import {
 
 export const jobDescriptionSchema = z.object({
   id: z.string().uuid(),
-  createdBy: z.string(),
-  organizationName: z.string().optional(),
+  createdBy: z.string().uuid(),
+  organizationName: z.string(),
   email: z.string().email().nullable().optional(),
   phone: z.string().nullable().optional(),
-  position: z.string().optional(),
-  educations: z.array(z.string()).optional(),
-  skills: z.array(z.string()).optional(),
+  position: z.string(),
+  educations: z.array(z.string()),
+  skills: z.array(z.string()),
   experiences: z.array(z.string()).optional(),
-  fromSalary: z.number().optional(),
-  toSalary: z.number().optional(),
-  createdAt: z.string().datetime().optional(),
-  expiredAt: z.string().datetime().optional(),
+  fromSalary: z.number(),
+  toSalary: z.number(),
+  createdAt: z.string().datetime(),
+  expiredAt: z.string().datetime(),
 });
 export type JobDescriptionSchema = z.infer<typeof jobDescriptionSchema>;
 
@@ -29,17 +29,17 @@ export const searchJobsSchema = z.object({
   educations: z.array(z.string()).optional().default([]),
   skills: z.array(z.string()).optional().default([]),
   experiences: z.array(z.string()).optional().default([]),
-  fromSalary: z.number().optional().nullable().default(null),
-  toSalary: z.number().optional().nullable().default(null),
-  page: z.number().int().positive().optional().nullable().default(1),
-  size: z.number().int().positive().optional().nullable().default(3),
+  fromSalary: z.number().positive().optional().nullable().default(null),
+  toSalary: z.number().positive().optional().nullable().default(null),
+  page: z.number().int().positive().min(1).optional().nullable().default(1),
+  size: z.number().int().positive().max(10).optional().nullable().default(3),
 });
 export type SearchJobsSchema = z.infer<typeof searchJobsSchema>;
 
-export const searchJobsByUserParamsSchema = z.object({
-  userId: z.string().uuid(),
+export const getJobDetailsParamsSchema = z.object({
+  id: z.string().uuid(),
 });
-export type SearchJobsByUserParamsSchema = z.infer<typeof searchJobsByUserParamsSchema>;
+export type GetJobDetailsParamsSchema = z.infer<typeof getJobDetailsParamsSchema>;
 
 export const searchJobsResponseSchema = z.object({
   items: z.array(jobDescriptionSchema).default([]),
@@ -49,15 +49,15 @@ export const searchJobsResponseSchema = z.object({
 });
 export type SearchJobsResponseSchema = z.infer<typeof searchJobsResponseSchema>;
 
-export const createJobSchema = z.object({
+export const createJobBodySchema = z.object({
   organizationName: z.string(),
   position: z.string(),
   fromSalary: z.number(),
   toSalary: z.number(),
-  expiredAt: z.coerce.date(),
+  expiredAt: z.date(),
   requirements: z.string().max(500),
 });
-export type CreateJobSchema = z.infer<typeof createJobSchema>;
+export type CreateJobBodySchema = z.infer<typeof createJobSchema>;
 
 export const createJobResponseSchema = z.object({
   message: z.string(),

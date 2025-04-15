@@ -146,6 +146,7 @@ public class AuthenticationUseCase extends AuthServiceGrpc.AuthServiceImplBase i
                 .refreshToken(isValid ? generateToken(user, true) : null)
                 .build();
         ResponseDto.PreviewUser previewUser = ResponseDto.PreviewUser.builder()
+                .id(user.getId())
                 .email(user.getEmail())
                 .name(user.getFirstName() + " " + user.getLastName())
                 .build();

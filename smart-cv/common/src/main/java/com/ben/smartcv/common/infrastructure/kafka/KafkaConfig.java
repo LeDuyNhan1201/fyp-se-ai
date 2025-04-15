@@ -13,11 +13,6 @@ import org.springframework.context.annotation.Configuration;
 public class KafkaConfig {
 
     @Bean
-    public ObjectMapper objectMapper() {
-        return new ObjectMapper();
-    }
-
-    @Bean
     public NewTopic createUserEventTopic() {
         return KafkaHelper.createTopic(
                 Constant.KAFKA_TOPIC_USER_EVENT, 3, 1);

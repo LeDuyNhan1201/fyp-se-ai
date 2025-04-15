@@ -33,6 +33,10 @@ security:
     - /graphiql
     - /graphql
 
+  grpc:
+    public-methods:
+      - JobService/getById
+
 # --------- Axon ---------
 axon:
   event-bus-name: smartcv-event-bus
@@ -217,7 +221,7 @@ spring:
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
     show-sql: true
     properties:
       hibernate:
@@ -226,7 +230,8 @@ spring:
 
   data:
     mongodb:
-      uri: ${MONGODB_URI}
+      axon:
+        uri: ${MONGODB_URI}
 
     redis:
       port: ${REDIS_PORT:6379}

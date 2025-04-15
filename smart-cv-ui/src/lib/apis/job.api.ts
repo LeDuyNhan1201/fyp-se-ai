@@ -1,35 +1,22 @@
 import {
-  SearchJobsSchema,
-  SearchJobsByUserParamsSchema,
-  SearchJobsResponseSchema,
-  CreateJobSchema,
+  GetJobDetailsParamsSchema,
+  JobDescriptionSchema,
+  CreateJobBodySchema,
   CreateJobResponseSchema
 } from "../schemas/job.schema"
 import { restClient } from "../rest-client";
 
-export async function searchJobsApi(
-  query?: SearchJobsSchema,
-): Promise<SearchJobsResponseSchema> {
-  const response = await restClient.get<SearchJobsResponseSchema>(
-    "/job/graphql",
-    query,
-  );
-  return response.data;
-}
-
-export async function searchJobsByUserApi(
-  params: SearchJobsByUserParamsSchema,
-  query?: SearchJobsSchema,
-): Promise<SearchJobsResponseSchema> {
-  const response = await restClient.get<SearchJobsResponseSchema>(
-    `/job/${params.userId}/user`,
-    query,
+export async function getJobDetailsApi(
+  params: GetJobDetailsParamsSchema,
+): Promise<JobDescriptionSchema> {
+  const response = await restClient.get<JobDescriptionSchema>(
+    `/job/query/${params.id}`
   );
   return response.data;
 }
 
 export async function createJob(
-    body: CreateJobSchema
+    body: CreateJobBodySchema
 
 ): Promise<CreateJobResponseSchema> {
   const response = await restClient.post<CreateJobResponseSchema>(

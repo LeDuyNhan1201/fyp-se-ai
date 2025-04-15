@@ -42,14 +42,14 @@ export const previewUserResponseSchema = z.object({
 export type PreviewUserResponseSchema = z.infer<typeof previewUserResponseSchema>;
 
 export const signInBodySchema = z.object({
-  email: z.string().email().min(1),
+  email: z.string().email(),
   password: z.string().min(6).max(20),
 });
 export type SignInBodySchema = z.infer<typeof signInBodySchema>;
 
 export const signInResponseSchema = z.object({
-  tokens: z.lazy(() => tokensResponseSchema),
-  user: z.lazy(() => previewUserResponseSchema),
+  tokens: tokensResponseSchema,
+  user: previewUserResponseSchema,
 });
 export type SignInResponseSchema = z.infer<typeof signInResponseSchema>;
 

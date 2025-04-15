@@ -23,16 +23,12 @@ public class JobProjection {
 
     @QueryHandler
     public List<ResponseDto.JobDescription> handle(JobQuery.Search query) {
-        return useCase.advancedSearch(
-                query.getOrganizationName(),
-                query.getPosition(),
-                query.getEducation(),
-                query.getSkills(),
-                query.getExperience(),
-                query.getSalary(),
-                query.getPage(),
-                query.getSize()
-        );
+        return useCase.search(query);
+    }
+
+    @QueryHandler
+    public ResponseDto.JobDescription handle(JobQuery.GetById query) {
+        return useCase.getById(query);
     }
 
 }

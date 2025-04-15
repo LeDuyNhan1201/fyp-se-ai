@@ -1,6 +1,5 @@
 package com.ben.smartcv.common.infrastructure;
 
-import com.ben.smartcv.common.application.axoninterceptor.EventLoggingInterceptor;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.thoughtworks.xstream.XStream;
@@ -13,18 +12,16 @@ import org.axonframework.common.transaction.TransactionManager;
 import org.axonframework.config.Configurer;
 import org.axonframework.config.ConfigurerModule;
 import org.axonframework.config.MessageMonitorFactory;
-import org.axonframework.eventhandling.EventBus;
 import org.axonframework.eventhandling.TrackingEventProcessor;
 import org.axonframework.eventhandling.tokenstore.TokenStore;
 import org.axonframework.eventsourcing.eventstore.EmbeddedEventStore;
 import org.axonframework.eventsourcing.eventstore.EventStorageEngine;
 import org.axonframework.eventsourcing.eventstore.EventStore;
-import org.axonframework.extensions.mongo.eventhandling.saga.repository.MongoSagaStore;
+import org.axonframework.extensions.mongo.MongoTemplate;
 import org.axonframework.extensions.mongo.eventsourcing.eventstore.MongoEventStorageEngine;
 import org.axonframework.extensions.mongo.eventsourcing.tokenstore.MongoTokenStore;
 import org.axonframework.extensions.mongo.spring.SpringMongoTemplate;
 import org.axonframework.micrometer.*;
-import org.axonframework.modelling.saga.repository.SagaStore;
 import org.axonframework.monitoring.MultiMessageMonitor;
 import org.axonframework.queryhandling.QueryBus;
 import org.axonframework.serialization.Serializer;
@@ -35,11 +32,13 @@ import org.axonframework.tracing.MultiSpanFactory;
 import org.axonframework.tracing.SpanFactory;
 import org.axonframework.tracing.attributes.*;
 import org.axonframework.tracing.opentelemetry.OpenTelemetrySpanFactory;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.data.mongodb.MongoDatabaseFactory;
+import org.springframework.data.mongodb.core.SimpleMongoClientDatabaseFactory;
 
 import java.util.Arrays;
 import java.util.List;
@@ -90,47 +89,45 @@ public class AxonConfig {
         );
     }
 
+    @Bean(name = "axonMongoDbFactory")
+    public MongoDatabaseFactory axonMongoDbFactory(@Value("${spring.data.mongodb.axon.uri}") String uri) {
+        return new SimpleMongoClientDatabaseFactory(uri);
+    }
+
+    @Bean(name = "axonMongoTemplate")
+    public MongoTemplate axonMongoTemplate(@Qualifier("axonMongoDbFactory") MongoDatabaseFactory factory) {
+        return SpringMongoTemplate.builder()
+                .factory(factory)
+                .build();
+    }
+
     @Bean
     @Primary
-    public EventStore smartCvEventStore(EventStorageEngine smartCvStorageEngine,
-                                 GlobalMetricRegistry metricRegistry,
-                                 @Value("axon.event-bus-name") String eventBusName) {
+    public EventStore axonEventStore(EventStorageEngine axonStorageEngine,
+                                     GlobalMetricRegistry metricRegistry,
+                                     @Value("axon.event-bus-name") String eventBusName) {
         return EmbeddedEventStore.builder()
-                .storageEngine(smartCvStorageEngine)
+                .storageEngine(axonStorageEngine)
                 .messageMonitor(metricRegistry.registerEventBus(eventBusName))
                 .spanFactory(spanFactory())
                 .build();
     }
 
     @Bean
-    public TokenStore smartCvTokenStore(MongoDatabaseFactory factory,
-                                   TransactionManager transactionManager) {
+    public TokenStore axonTokenStore(MongoTemplate axonMongoTemplate,
+                                     TransactionManager transactionManager) {
         return MongoTokenStore.builder()
-                .mongoTemplate(SpringMongoTemplate.builder()
-                        .factory(factory)
-                        .build())
+                .mongoTemplate(axonMongoTemplate)
                 .serializer(jacksonSerializer())
                 .transactionManager(transactionManager)
                 .build();
     }
 
-//    @Bean
-//    public EventStorageEngine storageEngine(MongoClient client) {
-//        return MongoEventStorageEngine
-//                .builder()
-//                .mongoTemplate(DefaultMongoTemplate.builder()
-//                        .mongoDatabase(client)
-//                        .build())
-//                .build();
-//    }
-
     @Bean
-    public EventStorageEngine smartCvStorageEngine(MongoDatabaseFactory factory,
+    public EventStorageEngine axonStorageEngine(MongoTemplate axonMongoTemplate,
                                             TransactionManager transactionManager) {
         return MongoEventStorageEngine.builder()
-                .mongoTemplate(SpringMongoTemplate.builder()
-                        .factory(factory)
-                        .build())
+                .mongoTemplate(axonMongoTemplate)
                 .transactionManager(transactionManager)
                 .build();
     }

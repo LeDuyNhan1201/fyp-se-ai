@@ -31,6 +31,10 @@ security:
   public-endpoints:
     - /example
 
+  grpc:
+    public-methods:
+      - FileService/getDownloadUrl
+
 # --------- Axon ---------
 axon:
   event-bus-name: smartcv-event-bus
@@ -108,7 +112,8 @@ spring:
 
   data:
     mongodb:
-      uri: ${MONGODB_URI}
+      axon:
+        uri: ${MONGODB_URI}
 
     redis:
       port: ${REDIS_PORT:6379}

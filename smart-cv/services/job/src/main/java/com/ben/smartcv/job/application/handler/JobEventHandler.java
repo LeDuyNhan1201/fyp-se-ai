@@ -16,6 +16,7 @@ import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.axonframework.eventhandling.EventHandler;
+import org.axonframework.messaging.MetaData;
 import org.axonframework.messaging.annotation.MetaDataValue;
 import org.axonframework.messaging.interceptors.ExceptionHandler;
 import org.springframework.stereotype.Component;
@@ -75,7 +76,7 @@ public class JobEventHandler {
                     log.error("Unexpected error: {}", status.getDescription());
                 }
             }
-            sendFailureNotification(reason);
+            sendFailureNotification(event.getId(), reason);
         }
         finally {
             ThreadLocalAuditorAware.clear();
@@ -106,12 +107,13 @@ public class JobEventHandler {
         log.error("Unexpected exception occurred when deleting job {}: {}", event.getJobId(), exception.getMessage());
     }
 
-    private void sendFailureNotification(String reason) {
+    private void sendFailureNotification(String causationId, String reason) {
+        String identifier = UUID.randomUUID().toString();
         commandGateway.sendAndWait(NotificationCommand.SendNotification.builder()
-                .id(UUID.randomUUID().toString())
+                .id(identifier)
                 .title("Notify.Title.CreateFailed|CV")
                 .content(reason)
-                .build());
+                .build(), MetaData.with("correlationId", identifier).and("causationId", causationId));
     }
 
 }

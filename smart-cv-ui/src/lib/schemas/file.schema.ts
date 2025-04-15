@@ -1,14 +1,14 @@
 import { z } from "zod";
 
-const UPLOAD_PHOTO_MAX_SIZE_MB = 10;
+const UPLOAD_FILE_MAX_SIZE_MB = 20;
 
-export const uploadFileSchema = z.object({
+export const uploadFileBodySchema = z.object({
   file: z
     .instanceof(File)
-    .refine((mFile) => mFile.size < UPLOAD_PHOTO_MAX_SIZE_MB * 1024 * 1024, {
-      message: `File size should be less than ${UPLOAD_PHOTO_MAX_SIZE_MB} MB`,
+    .refine((mFile) => mFile.size < UPLOAD_FILE_MAX_SIZE_MB * 2 * 1024 * 1024, {
+      message: `File size should be less than ${UPLOAD_FILE_MAX_SIZE_MB} MB`,
     }),
 });
-export type UploadFileSchema = z.infer<typeof uploadFileSchema>;
+export type UploadFileBodySchema = z.infer<typeof uploadFileBodySchema>;
 
 

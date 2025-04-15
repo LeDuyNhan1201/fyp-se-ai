@@ -30,6 +30,8 @@ public class ResponseDto {
     @FieldDefaults(level = PRIVATE)
     public static class PreviewUser implements Serializable {
 
+        String id;
+
         String email;
 
         String name;

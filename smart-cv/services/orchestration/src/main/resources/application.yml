@@ -83,7 +83,8 @@ spring:
 
   data:
     mongodb:
-      uri: ${MONGODB_URI}
+      axon:
+        uri: ${MONGODB_URI}
 
   kafka:
     bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9091}

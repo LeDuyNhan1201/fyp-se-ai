@@ -1,5 +1,6 @@
 package com.ben.smartcv.job.application.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.experimental.FieldDefaults;
@@ -15,6 +16,7 @@ public class ResponseDto {
     @Getter
     @Builder
     @FieldDefaults(level = PRIVATE)
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public static class JobDescription implements Serializable {
 
         String id;

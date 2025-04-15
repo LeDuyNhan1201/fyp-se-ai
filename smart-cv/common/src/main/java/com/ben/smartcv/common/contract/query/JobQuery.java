@@ -19,17 +19,26 @@ public class JobQuery {
 
         String position;
 
-        List<String> education;
+        List<String> educations;
 
         List<String> skills;
 
-        List<String> experience;
+        List<String> experiences;
 
         Range<Double> salary;
 
         Integer page;
 
         Integer size;
+
+    }
+
+    @Getter
+    @Builder
+    @FieldDefaults(level = PRIVATE)
+    public static class GetById {
+
+        String id;
 
     }
 

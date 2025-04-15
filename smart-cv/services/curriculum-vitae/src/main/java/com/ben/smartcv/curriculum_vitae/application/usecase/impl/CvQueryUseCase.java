@@ -1,5 +1,6 @@
 package com.ben.smartcv.curriculum_vitae.application.usecase.impl;
 
+import com.ben.smartcv.common.contract.query.CvQuery;
 import com.ben.smartcv.curriculum_vitae.application.dto.ResponseDto;
 import com.ben.smartcv.curriculum_vitae.application.usecase.ICvQueryUseCase;
 import com.ben.smartcv.curriculum_vitae.domain.model.CurriculumVitae;
@@ -22,15 +23,16 @@ public class CvQueryUseCase implements ICvQueryUseCase {
     IAdvancedSearchRepository advancedSearchRepository;
 
     @Override
-    public List<ResponseDto.CvTag> search(String jobId,
-                                          String createdBy,
-                                          String lastId,
-                                          int limit) {
-        int limitPlusOne = limit + 1;
-        List<CurriculumVitae> cvs = advancedSearchRepository.search(jobId, createdBy, lastId, limitPlusOne);
+    public List<ResponseDto.CvTag> search(CvQuery.Search query) {
+        int limitPlusOne = query.getLimit() + 1;
+        List<CurriculumVitae> cvs = advancedSearchRepository.search(
+                query.getJobId(),
+                query.getCreatedBy(),
+                query.getCursor(),
+                limitPlusOne);
 
-        boolean hasNextPage = cvs.size() > limit;
-        List<CurriculumVitae> result = hasNextPage ? cvs.subList(0, limit) : cvs;
+        boolean hasNextPage = cvs.size() > query.getLimit();
+        List<CurriculumVitae> result = hasNextPage ? cvs.subList(0, query.getLimit()) : cvs;
         String nextCursor = hasNextPage ? result.getLast().getId().toHexString() : null;
 
         return result.stream().map(

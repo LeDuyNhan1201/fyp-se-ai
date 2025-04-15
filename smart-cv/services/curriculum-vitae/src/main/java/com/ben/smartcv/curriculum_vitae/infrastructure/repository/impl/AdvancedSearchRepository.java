@@ -37,9 +37,9 @@ public class AdvancedSearchRepository implements IAdvancedSearchRepository {
             query.addCriteria(Criteria.where("createdBy").is(createdBy));
         }
         if (lastId != null) {
-            query.addCriteria(Criteria.where("_id").lt(new ObjectId(lastId)));
+            query.addCriteria(Criteria.where("_id").gt(new ObjectId(lastId)));
         }
-        query.with(Sort.by(Sort.Direction.DESC, "_id"));
+        query.with(Sort.by(Sort.Direction.ASC, "_id"));
         query.limit(limit);
         return mongoTemplate.find(query, CurriculumVitae.class);
     }

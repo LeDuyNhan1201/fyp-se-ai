@@ -46,6 +46,7 @@ public class AuthenticationFilter implements GlobalFilter, Ordered {
             "/user/command/refresh",
             "/user/command/sign-up",
             "/user/command/sign-out",
+            "/user/command/seed/**",
 
             "/job/graphiql",
             "/job/graphql",

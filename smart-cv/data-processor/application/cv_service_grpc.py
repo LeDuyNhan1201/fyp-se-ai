@@ -75,7 +75,10 @@ class CvServiceImpl(grpc_service.CvProcessorServicer):
             score = score,
         )
 
-        if (len(extracted_data.skills) < 3
+        logger.info(len(extracted_data.skills) == 0)
+        logger.info(len(extracted_data.educations) == 0)
+        logger.info(not extracted_data.email and not extracted_data.phone)
+        if (len(extracted_data.skills) == 0
                 or len(extracted_data.educations) == 0
                 or (not extracted_data.email and not extracted_data.phone)):
             context.set_code(grpc.StatusCode.INVALID_ARGUMENT)

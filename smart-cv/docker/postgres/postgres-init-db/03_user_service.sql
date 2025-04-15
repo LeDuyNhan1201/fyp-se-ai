@@ -15,4 +15,4 @@ create table "user" (
     id varchar(255) not null,
     updated_by varchar(255),
     primary key (id)
-)
+);

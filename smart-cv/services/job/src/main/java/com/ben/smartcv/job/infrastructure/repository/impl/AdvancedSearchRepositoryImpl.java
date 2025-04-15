@@ -32,7 +32,7 @@ public class AdvancedSearchRepositoryImpl implements IAdvancedSearchRepository {
     ElasticsearchOperations elasticsearchOperations;
 
     @Override
-    public SearchPage<SlaveJob> findAll(
+    public SearchPage<SlaveJob> search(
             String organizationName,
             String position,
             List<String> educations,

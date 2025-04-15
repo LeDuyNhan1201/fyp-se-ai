@@ -23,7 +23,7 @@ import static lombok.AccessLevel.PRIVATE;
 @Slf4j
 @RequiredArgsConstructor
 @FieldDefaults(level = PRIVATE, makeFinal = true)
-public class  QueryController {
+public class GraphQLQueryController {
 
     QueryGateway queryGateway;
 
@@ -44,9 +44,9 @@ public class  QueryController {
         JobQuery.Search query = JobQuery.Search.builder()
                 .organizationName(organizationName)
                 .position(position)
-                .education(educations)
+                .educations(educations)
                 .skills(skills)
-                .experience(experiences)
+                .experiences(experiences)
                 .salary(fromSalary == null ? null : Range.closed(fromSalary, toSalary))
                 .page(Optional.ofNullable(page).orElse(1))
                 .size(Optional.ofNullable(size).orElse(10))

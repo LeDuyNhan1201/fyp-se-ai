@@ -1,6 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 import {
-  CreateJobSchema,
+  CreateJobBodySchema,
   CreateJobResponseSchema,
   JobErrorResponseSchema
 } from "../../lib/schemas/job.schema"
@@ -11,7 +11,7 @@ export function useCreateJobMutation() {
   return useMutation<
     CreateJobResponseSchema,
     JobErrorResponseSchema,
-    CreateJobSchema
+    CreateJobBodySchema
   >({
     mutationKey: ["job", "create"],
     mutationFn: (body) => createJob(body),

@@ -16,10 +16,10 @@ create table job (
     organization_name varchar(255) not null,
     phone varchar(255),
     position varchar(255) not null,
-    raw_text TEXT not null,
+    requirements TEXT not null,
     updated_by varchar(255),
     educations varchar(255) array,
     experiences varchar(255) array,
     skills varchar(255) array not null,
     primary key (id)
-)
+);

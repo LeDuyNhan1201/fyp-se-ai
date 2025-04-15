@@ -31,16 +31,10 @@ export type CvTagSchema = z.infer<typeof cvTagSchema>;
 
 
 export const searchCvsQuerySchema = z.object({
-//   jobId: z.string().uuid(),
-//   education: z.array(z.string()).optional().nullable().default([]),
-//   skills: z.array(z.string()).optional().nullable().default([]),
-//   experience: z.array(z.string()).optional().nullable().default([]),
-//   fromScore: z.number().optional().nullable().default(null),
-//   toScore: z.number().optional().nullable().default(null),
   jobId: z.string().uuid().optional().nullable().default(null),
   createdBy: z.string().uuid().optional().nullable().default(null),
   cursor: z.string().optional().nullable().default(null),
-  limit: z.number().int().positive().optional().nullable().default(3),
+  limit: z.number().int().positive().max(10).optional().nullable().default(5),
 });
 export type SearchCvsQuerySchema = z.infer<typeof searchCvsQuerySchema>;
 
@@ -51,10 +45,15 @@ export const searchCvsResponseSchema = z.object({
 });
 export type SearchCvsResponseSchema = z.infer<typeof searchCvsResponseSchema>;
 
-export const createCvResponseSchema = z.object({
+export const applyCvRequestParamsSchema = z.object({
+  jobId: z.string().uuid(),
+});
+export type ApplyCvRequestParamsSchema = z.infer<typeof applyCvRequestParamsSchema>;
+
+export const applyCvResponseSchema = z.object({
   message: z.string(),
 });
-export type CreateCvResponseSchema = z.infer<typeof createCvResponseSchema>;
+export type ApplyCvResponseSchema = z.infer<typeof applyCvResponseSchema>;
 
 export const cvErrorResponseSchema = z.discriminatedUnion(
   "errorCode",

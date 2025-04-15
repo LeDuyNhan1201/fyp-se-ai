@@ -23,12 +23,7 @@ public class CvProjection {
 
     @QueryHandler
     public List<ResponseDto.CvTag> handle(CvQuery.Search query) {
-        return useCase.search(
-                query.getJobId(),
-                query.getCreatedBy(),
-                query.getCursor(),
-                query.getLimit()
-        );
+        return useCase.search(query);
     }
 
 }

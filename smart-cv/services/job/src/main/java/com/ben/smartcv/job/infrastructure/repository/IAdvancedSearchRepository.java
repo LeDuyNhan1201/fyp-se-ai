@@ -13,7 +13,7 @@ import java.util.List;
 @Repository
 public interface IAdvancedSearchRepository {
 
-    SearchPage<SlaveJob> findAll(
+    SearchPage<SlaveJob> search(
             String organizationName,
             String position,
             List<String> education,

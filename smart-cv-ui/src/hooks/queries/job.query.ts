@@ -2,8 +2,13 @@ import { gql, useQuery } from "@apollo/client";
 import {
   searchJobsSchema,
   SearchJobsSchema,
-  searchJobsResponseSchema
+  searchJobsResponseSchema,
+  GetJobDetailsParamsSchema,
+  JobDescriptionSchema
 } from "../../lib/schemas/job.schema";
+import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
+import { isAxiosError } from "axios";
+import { getJobDetailsApi} from "@/lib/apis/job.api";
 
 export const SEARCH_JOBS_QUERY = gql`
   query SearchJobs(
@@ -74,3 +79,21 @@ export const useSearchJobs = (filters: SearchJobsSchema) => {
   return { loading, error, data: validatedData, goToPage };
 };
 
+export function createJobDetailsQueryOptions(
+  params: GetJobDetailsParamsSchema,
+) {
+  return queryOptions<
+    JobDescriptionSchema
+  >({
+    queryKey: ["job", "get-by-id"],
+    queryFn: () => getJobDetailsApi(params),
+    throwOnError: (error) => isAxiosError(error),
+    retry: 1,
+  });
+}
+
+export function useGetJobDetailsQuery(
+  params: GetJobDetailsParamsSchema,
+) {
+  return useSuspenseQuery(createJobDetailsQueryOptions(params));
+}

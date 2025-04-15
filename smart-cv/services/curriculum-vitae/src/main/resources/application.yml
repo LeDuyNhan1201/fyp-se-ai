@@ -32,6 +32,10 @@ security:
     - /graphiql
     - /graphql
 
+  grpc:
+    public-methods:
+      - ExampleService/exampleMethod
+
 # --------- Axon ---------
 axon:
   event-bus-name: smartcv-event-bus
@@ -170,7 +174,10 @@ spring:
 
   data:
     mongodb:
-      uri: ${MONGODB_URI}
+      axon:
+        uri: ${AXON_MONGODB_URI}
+      smart-cv:
+        uri: ${SMART_CV_MONGODB_URI}
 
     redis:
       port: ${REDIS_PORT:6379}
