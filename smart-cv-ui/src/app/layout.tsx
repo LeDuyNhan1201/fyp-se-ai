@@ -68,7 +68,14 @@ export default function RootLayout({
     <html lang="en">
       <body className={workSans.variable}>
         {children}
-        <Toaster />
+        <Toaster
+          position="bottom-right"
+          toastOptions={{
+            style: {
+              background: 'white',
+            },          
+          }}
+        />      
       </body>
     </html>
   );

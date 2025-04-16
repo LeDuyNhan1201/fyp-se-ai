@@ -60,16 +60,20 @@ export default function CreateJobForm() {
     <Form {...createJobForm}>
       <form 
         onSubmit={handleSubmit(onSubmit)} 
-        className="w-full max-w-2xl space-y-6 bg-white p-8"
+        className="startup-form"
       >
         <FormField
           control={control}
           name="organizationName"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Organization Name</FormLabel>
-              <Input {...field} placeholder="Enter organization name" />
-              <FormMessage />
+              <FormLabel 
+                className="startup-form_label"
+              >Organization Name</FormLabel>
+              <Input 
+                className="startup-form_input"
+                {...field} placeholder="Enter organization name" />
+              <FormMessage className="startup-form_error"/>
             </FormItem>
           )}
         />
@@ -79,9 +83,13 @@ export default function CreateJobForm() {
           name="position"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Position</FormLabel>
-              <Input {...field} placeholder="Enter job position" />
-              <FormMessage />
+              <FormLabel 
+                className="startup-form_label"
+              >Position</FormLabel>
+              <Input 
+                className="startup-form_input"
+                {...field} placeholder="Enter job position" />
+              <FormMessage className="startup-form_error"/>
             </FormItem>
           )}
         />
@@ -91,13 +99,16 @@ export default function CreateJobForm() {
           name="fromSalary"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>From Salary</FormLabel>
+              <FormLabel
+                className="startup-form_label"
+              >From Salary</FormLabel>
               <Input
+                className="startup-form_input"
                 type="number"
                 {...field}
                 onChange={(e) => field.onChange(+e.target.value)} 
               />
-              <FormMessage />
+              <FormMessage className="startup-form_error"/>
             </FormItem>
           )}
         />
@@ -107,13 +118,16 @@ export default function CreateJobForm() {
           name="toSalary"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>To Salary</FormLabel>
+              <FormLabel 
+                className="startup-form_label"
+              >To Salary</FormLabel>
               <Input
+                className="startup-form_input"
                 type="number"
                 {...field}
                 onChange={(e) => field.onChange(+e.target.value)} 
               />
-              <FormMessage />
+              <FormMessage className="startup-form_error"/>
             </FormItem>
           )}
         />
@@ -123,15 +137,17 @@ export default function CreateJobForm() {
           name="expiredAt"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Expiration Date</FormLabel>
+              <FormLabel 
+                className="startup-form_label"
+              >Expiration Date</FormLabel>
               <Popover>
                 <PopoverTrigger asChild>
                   <FormControl>
                     <Button
                       variant={"outline"}
                       className={cn(
-                        "w-[240px] pl-3 text-left font-normal",
-                        !field.value && "text-muted-foreground"
+                        "startup-form_input w-[300px] pl-3 text-left font-normal",
+                        !field.value && "startup-form_input text-muted-foreground"
                       )}
                     >
                       {field.value ? (
@@ -144,7 +160,8 @@ export default function CreateJobForm() {
                   </FormControl>
                 </PopoverTrigger>
                 <PopoverContent className="w-auto p-0" align="start">
-                  <Calendar className="bg-white"
+                  <Calendar 
+                    className="bg-white"
                     mode="single"
                     selected={field.value}
                     onSelect={field.onChange}
@@ -155,7 +172,7 @@ export default function CreateJobForm() {
                   />
                 </PopoverContent>
               </Popover>
-              <FormMessage />
+              <FormMessage className="startup-form_error"/>
             </FormItem>
           )}
         />
@@ -165,23 +182,27 @@ export default function CreateJobForm() {
           name="requirements"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Job Requirements</FormLabel>
+              <FormLabel 
+                className="startup-form_label"
+              >Job Requirements</FormLabel>
               <Textarea
                 {...field}
                 maxLength={500}
                 placeholder="Enter requirements (max 500 chars)"
-                className="resize-none h-40"
+                className="startup-form_textarea resize-none h-40"
               />
               <p className="text-right text-sm text-muted-foreground">
                 {field.value?.length || 0}/500
               </p>
-              <FormMessage />
+              <FormMessage className="startup-form_error"/>
             </FormItem>
           )}
         />
 
         <div className="flex justify-center mt-4">
-          <Button type="submit" disabled={mutation.isPending}>
+          <Button type="submit" 
+            className="startup-form_btn"
+            disabled={mutation.isPending}>
             {mutation.isPending ? "Creating..." : "Create Job"}
           </Button>
         </div>

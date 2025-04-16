@@ -26,7 +26,7 @@ export function useSignUpMutation() {
     SignUpBodychema
   >({
     mutationKey: ["auth", "sign-up"],
-    mutationFn: (body) => signIn(body),
+    mutationFn: (body) => signUp(body),
     throwOnError: (error) => isAxiosError(error),
   });
 }

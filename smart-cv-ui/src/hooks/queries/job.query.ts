@@ -85,7 +85,7 @@ export function createJobDetailsQueryOptions(
   return queryOptions<
     JobDescriptionSchema
   >({
-    queryKey: ["job", "get-by-id"],
+    queryKey: ["job", params],
     queryFn: () => getJobDetailsApi(params),
     throwOnError: (error) => isAxiosError(error),
     retry: 1,

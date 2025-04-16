@@ -14,6 +14,14 @@ import {
   PaginationNext,
   PaginationPrevious
 } from "@/components/ui/pagination";
+import {
+  Dialog,
+  DialogTrigger,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
 import JobSearchForm from "./search-jobs-form";
 
 const JobList = () => {
@@ -24,18 +32,32 @@ const JobList = () => {
   const { loading, error, data, goToPage } = useSearchJobs(filters);
 
   if (loading && !data) return <p>Loading jobs...</p>;
-  if (error) return <p>Error loading jobs: {error.message}</p>;
+  if (error) console.log("Error loading jobs: {}", error.message);
 
   return (
     <>
-      <JobSearchForm initValues={filters} setFilters={setFilters} />
+      <div className="flex justify-end">
+        <Dialog>
+          <DialogTrigger asChild>
+            <Button variant="outline">🔍 Search Jobs</Button>
+          </DialogTrigger>
+
+          <DialogContent className="bg-white max-w-xl">
+            <DialogHeader>
+              <DialogTitle>Search Filters</DialogTitle>
+            </DialogHeader>
+
+            <JobSearchForm initValues={filters} setFilters={setFilters} />
+          </DialogContent>
+        </Dialog>
+      </div>
 
       <ul className="mt-7 card_grid">
         {data?.items && data.items.length > 0 ? (
           data.items.map(
             (job) => <JobDescriptionCard key={job.id} job={job} />
           )) 
-          : (<p className="no-results">No startups found</p>)}
+          : (<p className="no-results">No jobs found</p>)}
       </ul>
 
       <div className="flex justify-center mt-6">

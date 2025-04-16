@@ -9,13 +9,14 @@ import {
   FormMessage,
   FormControl
 } from "@/components/ui/form";
-import { toast } from "sonner";
+import { Toaster, toast } from "sonner";
 import { useFieldArray, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   searchJobsSchema,
   SearchJobsSchema
 } from "@/lib/schemas/job.schema";
+import { DynamicFieldArray } from "@/components/dynamic-field-array";
 
 interface JobSearchFormProps {
   initValues: SearchJobsSchema;
@@ -47,13 +48,17 @@ const JobSearchForm: React.FC<JobSearchFormProps> = ({ initValues, setFilters })
       page: 1,
     }));
     reset(values);
-    toast("Filters updated!", { description: "Job search filters have been applied." });
+    toast("Filters updated!", { 
+      description: "Job search filters have been applied." 
+    });
   };
 
   return (
     <Form {...searchForm}>
-      <form onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-2 gap-4 mb-6">
-        
+      <form 
+          onSubmit={handleSubmit(onSubmit)} 
+          className="grid gap-6 sm:grid-cols-1 md:grid-cols-2"
+      >
         {/* Organization */}
         <FormField
           control={control}
@@ -84,9 +89,48 @@ const JobSearchForm: React.FC<JobSearchFormProps> = ({ initValues, setFilters })
           )}
         />
 
+        {/* Salary Range */}
+        <div className="md:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <FormField
+            control={control}
+            name="fromSalary"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>From Salary</FormLabel>
+                <FormControl>
+                  <Input
+                    type="number"
+                    value={field.value ?? ""}
+                    onChange={(e) => field.onChange(e.target.value === "" ? undefined : Number(e.target.value))}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={control}
+            name="toSalary"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>To Salary</FormLabel>
+                <FormControl>
+                  <Input
+                    type="number"
+                    value={field.value ?? ""}
+                    onChange={(e) => field.onChange(e.target.value === "" ? undefined : Number(e.target.value))}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+
         {/* Educations */}
-        <div className="col-span-2">
-          <Label>Educations</Label>
+        <div className="md:col-span-2 space-y-2">
+          <Label className="block">Educations</Label>
           {educationsArray.fields.map((field, index) => (
             <FormField
               key={field.id}
@@ -107,8 +151,8 @@ const JobSearchForm: React.FC<JobSearchFormProps> = ({ initValues, setFilters })
         </div>
 
         {/* Skills */}
-        <div className="col-span-2">
-          <Label>Skills</Label>
+        <div className="md:col-span-2 space-y-2">
+          <Label className="block">Skills</Label>
           {skillsArray.fields.map((field, index) => (
             <FormField
               key={field.id}
@@ -129,8 +173,8 @@ const JobSearchForm: React.FC<JobSearchFormProps> = ({ initValues, setFilters })
         </div>
 
         {/* Experiences */}
-        <div className="col-span-2">
-          <Label>Experiences</Label>
+        <div className="md:col-span-2 space-y-2">
+          <Label className="block">Experiences</Label>
           {experiencesArray.fields.map((field, index) => (
             <FormField
               key={field.id}
@@ -150,44 +194,8 @@ const JobSearchForm: React.FC<JobSearchFormProps> = ({ initValues, setFilters })
           <Button type="button" onClick={() => experiencesArray.append("")}>+ Add Experience</Button>
         </div>
 
-        {/* Salary Range */}
-        <FormField
-          control={control}
-          name="fromSalary"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>From Salary</FormLabel>
-              <FormControl>
-                <Input
-                  type="number"
-                  value={field.value ?? ""}
-                  onChange={(e) => field.onChange(e.target.value === "" ? undefined : Number(e.target.value))}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={control}
-          name="toSalary"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>To Salary</FormLabel>
-              <FormControl>
-                <Input
-                  type="number"
-                  value={field.value ?? ""}
-                  onChange={(e) => field.onChange(e.target.value === "" ? undefined : Number(e.target.value))}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <div className="col-span-2 flex justify-end">
+        {/* Submit */}
+        <div className="md:col-span-2 flex justify-end">
           <Button type="submit">Search</Button>
         </div>
       </form>

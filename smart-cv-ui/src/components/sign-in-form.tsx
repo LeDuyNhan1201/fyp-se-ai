@@ -17,6 +17,7 @@ import {
   Form,
   FormField,
   FormItem,
+  FormControl,
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
@@ -83,7 +84,9 @@ export default function SignInForm() {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Email</FormLabel>
-                  <Input type="email" placeholder="Enter your email" {...field} />
+                  <FormControl>
+                    <Input type="email" placeholder="Enter your email" {...field} />
+                  </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
@@ -95,7 +98,9 @@ export default function SignInForm() {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Password</FormLabel>
-                  <Input type="password" placeholder="Enter your password" {...field} />
+                  <FormControl>
+                    <Input type="password" placeholder="Enter your password" {...field} />
+                  </FormControl>
                   <FormMessage />
                 </FormItem>
               )}

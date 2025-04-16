@@ -1,6 +1,7 @@
 import { GraphqlClientProvider } from "@/app/graphql-client-provider";
 import JobList from "@/components/Jobs-list";
 import { InMemoryCache } from "@apollo/client";
+import { Toaster } from "@/components/ui/sonner";
 
 export default function Home() {
   return (

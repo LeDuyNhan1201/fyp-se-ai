@@ -2,6 +2,15 @@
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import {
+  Dialog,
+  DialogTrigger,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogClose,
+} from "@/components/ui/dialog"
+import JobDetailsCard from "@/components/job-details-card";
 import { GraphqlClientProvider } from "@/app/graphql-client-provider";
 import CvsList from "@/components/cvs-list";
 import { createApolloClient, searchCVsCache } from "@/lib/graphql-client";
@@ -19,9 +28,10 @@ type JobDetailsProps = {
 };
 
 export default function JobDetailsSection({ id }: JobDetailsProps) {
+  const { data: jobDetails } = useGetJobDetailsQuery(getJobDetailsParamsSchema.parse({ id }));
+
   const { getCurrentUser } = useCurrentUserActions();
   const currentUser = getCurrentUser();
-  const { data: jobDetails } = useGetJobDetailsQuery(getJobDetailsParamsSchema.parse({ id }));
   const isOwner = currentUser?.id === jobDetails?.createdBy;
 
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -56,25 +66,44 @@ export default function JobDetailsSection({ id }: JobDetailsProps) {
   };
 
   return (
-    <section className="container mx-auto py-6">
-      <h1 className="text-2xl font-bold mb-4">Job Details</h1>
-      <pre className="mb-6">{JSON.stringify(jobDetails, null, 2)}</pre>
+    <section className="container mx-auto py-10 space-y-8">
+      <JobDetailsCard jobDetails={jobDetails} />
 
-      {!isOwner &&
-      <div>
-        <div className="mb-4">
-          <Input type="file" ref={fileInputRef} onChange={handleFileChange} />
-        </div>    
+      <div className="flex flex-col items-center justify-center">
+        {!isOwner && (
+          <div className="w-full max-w-md space-y-4">
+            <Input type="file" ref={fileInputRef} onChange={handleFileChange} />
+            <Button
+              type="button"
+              onClick={handleApplyClick}
+              disabled={isLoading}
+              className="w-full"
+            >
+              {isLoading ? "Uploading..." : "Apply"}
+            </Button>
+          </div>
+        )}
 
-        <Button type="button" onClick={handleApplyClick} disabled={isLoading}>
-          {isLoading ? "Uploading..." : "Apply"}
-        </Button>
+        {isOwner && (
+          <GraphqlClientProvider serviceName="cv">
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button variant="outline" className="w-full max-w-md">
+                  Show CV List
+                </Button>
+              </DialogTrigger>
+
+              <DialogContent className="bg-white max-w-5xl max-h-[90vh] overflow-y-auto">
+                <DialogHeader>
+                  <DialogTitle>CV Submissions</DialogTitle>
+                </DialogHeader>
+
+                <CvsList jobId={id} />
+              </DialogContent>
+            </Dialog>
+          </GraphqlClientProvider>
+        )}
       </div>
-      }
-      
-      <GraphqlClientProvider serviceName="cv">
-        {isOwner && <CvsList jobId={id} />}        
-      </GraphqlClientProvider>
     </section>
   );
 };

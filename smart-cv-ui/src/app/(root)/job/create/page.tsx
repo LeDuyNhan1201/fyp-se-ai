@@ -8,9 +8,7 @@ const Page = async () => {
         <h1 className="heading">Submit Your Job Description</h1>
       </section>
 
-      <section className="flex justify-center items-center py-10">
-        <CreateJobForm />
-      </section>    
+      <CreateJobForm />
     </RestClientProvider>
   );
 };

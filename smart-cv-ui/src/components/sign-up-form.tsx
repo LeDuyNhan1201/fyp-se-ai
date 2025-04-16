@@ -18,8 +18,10 @@ import {
   FormField,
   FormItem,
   FormLabel,
+  FormControl,
   FormMessage,
 } from "@/components/ui/form";
+import { Checkbox } from "@/components/ui/checkbox";
 import { 
   Card,
   CardContent,
@@ -87,7 +89,9 @@ export default function SignUpForm() {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>First name</FormLabel>
-                  <Input type="text" placeholder="Enter your first name" {...field} />
+                  <FormControl>
+                    <Input type="text" placeholder="Enter your first name" {...field} />
+                  </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
@@ -99,7 +103,9 @@ export default function SignUpForm() {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Last name</FormLabel>
-                  <Input type="text" placeholder="Enter your last name" {...field} />
+                  <FormControl>
+                    <Input type="text" placeholder="Enter your last name" {...field} />
+                  </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
@@ -111,7 +117,9 @@ export default function SignUpForm() {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Email</FormLabel>
-                  <Input type="email" placeholder="Enter your email" {...field} />
+                  <FormControl>
+                    <Input type="email" placeholder="Enter your email" {...field} />
+                  </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
@@ -123,7 +131,9 @@ export default function SignUpForm() {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Password</FormLabel>
-                  <Input type="password" placeholder="Enter your password" {...field} />
+                  <FormControl>
+                    <Input type="password" placeholder="Enter your password" {...field} />
+                  </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
@@ -135,7 +145,31 @@ export default function SignUpForm() {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Confirmation password</FormLabel>
-                  <Input type="password" placeholder="Enter your password" {...field} />
+                  <FormControl>
+                    <Input type="password" placeholder="Enter your password" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={control}
+              name="acceptTerms"
+              render={({ field }) => (
+                <FormItem className="flex items-center space-x-3">
+                  <FormControl>
+                    <Checkbox
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
+                    />
+                  </FormControl>
+                  <FormLabel className="text-sm">
+                    I accept the{" "}
+                    <Link href="/terms" className="underline text-blue-600">
+                      Terms and Conditions
+                    </Link>
+                  </FormLabel>
                   <FormMessage />
                 </FormItem>
               )}

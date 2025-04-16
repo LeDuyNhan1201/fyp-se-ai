@@ -1,4 +1,5 @@
 import { clsx, type ClassValue } from "clsx"
+import { format } from "date-fns";
 import { twMerge } from "tailwind-merge"
 import { COOKIE_KEY_ACCESS_TOKEN, COOKIE_KEY_REFRESH_TOKEN } from "@/constants";
 import { getCookie, setCookie } from "cookies-next";
@@ -11,12 +12,24 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
+export function isImage(url: string) {
+  return /\.(jpg|jpeg|png|gif|webp)$/i.test(url);
+}
+
+export function isPdf(url: string) {
+  return /\.pdf$/i.test(url);
+}
+
 export function formatDate(date: string) {
   return new Date(date).toLocaleDateString("en-US", {
     month: "long",
     day: "numeric",
     year: "numeric",
   });
+}
+
+export function formatDateFromInstant(instant: number) {
+  return format(new Date(instant * 1000), "PPP"); 
 }
 
 export function mapFieldErrorToFormError<T extends FieldValues>(
