@@ -4,16 +4,32 @@ import {
   SignInBodySchema,
   SignInResponseSchema,
   SignInErrorResponseSchema,
+  SignUpBodySchema,
+  SignUpResponseSchema,
+  SignUpErrorResponseSchema,
   RefreshErrorResponseSchema,
   TokensResponseSchema
 } from "@/lib/schemas/auth.schema"
 import { 
+  signUp,
   signIn,
   refresh
 } from "@/lib/apis/auth.api";
 import { isAxiosError } from "axios";
 import { useTokenActions } from "../tokens-store";
 import { useCurrentUserActions } from "../current-user-store";
+
+export function useSignUpMutation() {
+  return useMutation<
+    SignUpResponseSchema,
+    SignUpErrorResponseSchema,
+    SignUpBodychema
+  >({
+    mutationKey: ["auth", "sign-up"],
+    mutationFn: (body) => signIn(body),
+    throwOnError: (error) => isAxiosError(error),
+  });
+}
 
 export function useSignInMutation() {
   const client = useQueryClient();

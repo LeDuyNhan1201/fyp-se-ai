@@ -14,10 +14,10 @@ const config: Config = {
       },
       colors: {
         primary: {
-          "100": "#FFE8F0",
-          DEFAULT: "#EE2B69",
+          "100": "#E0F2FE",      // xanh nhạt
+          DEFAULT: "#3B82F6",     // blue-500 (xanh chuẩn)
         },
-        secondary: "#FBE843",
+        secondary: "#93C5FD",     // blue-300 (làm màu phụ nhẹ hơn)
         black: {
           "100": "#333333",
           "200": "#141413",

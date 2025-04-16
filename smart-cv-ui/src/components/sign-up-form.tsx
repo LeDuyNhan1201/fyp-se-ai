@@ -7,9 +7,9 @@ import { toast } from "sonner";
 import { z } from "zod";
 import { useRouter } from "next/navigation";
 import {
-  signInBodySchema,
-  SignInBodySchema,
-  signInErrorResponseSchema,
+  signUpBodySchema,
+  SignUpBodySchema,
+  signUpErrorResponseSchema,
 } from "@/lib/schemas/auth.schema";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -28,14 +28,18 @@ import {
   CardDescription,
 } from "@/components/ui/card";
 import { useMutation } from "@tanstack/react-query";
-import { useSignInMutation } from "@/hooks/mutations/auth.mutation";
+import { useSignUpMutation } from "@/hooks/mutations/auth.mutation";
 
-export default function SignInForm() {
-  const signInForm = useForm<SignInBodySchema>({
-    resolver: zodResolver(signInBodySchema),
+export default function SignUpForm() {
+  const signUpForm = useForm<SignUpBodySchema>({
+    resolver: zodResolver(signUpBodySchema),
     defaultValues: {
+      firstName: "",
+      lastName: "",
       email: "",
       password: "",
+      confirmationPassword: "",
+      acceptTerms: false,
     },
   });
 
@@ -47,14 +51,14 @@ export default function SignInForm() {
     watch,
     reset,
     formState: { errors },
-  } = signInForm;
+  } = signUpForm;
 
   const router = useRouter();
-  const mutation = useSignInMutation();
-  const onSubmit = (data: SignInBodySchema) => {
+  const mutation = useSignUpMutation();
+  const onSubmit = (data: SignUpBodySchema) => {
     mutation.mutate(data, {
       onSuccess: (response) => {
-        router.push("/");
+        router.push("/sign-in");
       },
       onError: (error) => {
         console.log(error);
@@ -75,8 +79,32 @@ export default function SignInForm() {
       </CardHeader>
       <CardContent>
         <div className="grid w-full items-center gap-4">
-        <Form {...signInForm}>
+        <Form {...signUpForm}>
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+            <FormField
+              control={control}
+              name="firstName"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>First name</FormLabel>
+                  <Input type="text" placeholder="Enter your first name" {...field} />
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={control}
+              name="lastName"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Last name</FormLabel>
+                  <Input type="text" placeholder="Enter your last name" {...field} />
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
             <FormField
               control={control}
               name="email"
@@ -101,13 +129,26 @@ export default function SignInForm() {
               )}
             />
 
+            <FormField
+              control={control}
+              name="confirmationPassword"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Confirmation password</FormLabel>
+                  <Input type="password" placeholder="Enter your password" {...field} />
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
             <Button type="submit" disabled={mutation.isPending} className="w-40 mx-auto block">
-              {mutation.isPending ? "Signing in..." : "Sign In"}
+              {mutation.isPending ? "Signing up..." : "Sign Up"}
             </Button>
 
-            <Link href="/sign-up" className="mx-auto block text-center text-xs">
-              Don't have an account? Sign up
+            <Link href="/sign-in" className="mx-auto block text-center text-xs">
+              Already have an account? Sign in
             </Link>
+
           </form>
         </Form>
         </div>

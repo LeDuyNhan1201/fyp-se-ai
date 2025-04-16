@@ -58,7 +58,10 @@ export default function CreateJobForm() {
 
   return (
     <Form {...createJobForm}>
-      <form onSubmit={handleSubmit(onSubmit)} className="w-2/3 space-y-6">
+      <form 
+        onSubmit={handleSubmit(onSubmit)} 
+        className="w-full max-w-2xl space-y-6 bg-white p-8"
+      >
         <FormField
           control={control}
           name="organizationName"
@@ -167,16 +170,21 @@ export default function CreateJobForm() {
                 {...field}
                 maxLength={500}
                 placeholder="Enter requirements (max 500 chars)"
-                className="resize-none"
+                className="resize-none h-40"
               />
+              <p className="text-right text-sm text-muted-foreground">
+                {field.value?.length || 0}/500
+              </p>
               <FormMessage />
             </FormItem>
           )}
         />
 
-        <Button type="submit" disabled={mutation.isPending}>
-          {mutation.isPending ? "Creating..." : "Create Job"}
-        </Button>
+        <div className="flex justify-center mt-4">
+          <Button type="submit" disabled={mutation.isPending}>
+            {mutation.isPending ? "Creating..." : "Create Job"}
+          </Button>
+        </div>
       </form>
     </Form>
   );

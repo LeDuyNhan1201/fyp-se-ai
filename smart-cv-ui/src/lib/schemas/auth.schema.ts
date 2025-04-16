@@ -59,6 +59,27 @@ export const signInErrorResponseSchema = z.discriminatedUnion("errorCode", [
 ]);
 export type SignInErrorResponseSchema = z.infer<typeof signInErrorResponseSchema>;
 
+export const signUpBodySchema = z.object({
+  firstName: z.string().min(2).max(50),
+  lastName: z.string().min(2).max(50),
+  email: z.string().email(),
+  password: z.string().min(6).max(20),
+  confirmationPassword: z.string().min(6).max(20),
+  acceptTerms: z.boolean().default(false),
+});
+export type SignUpBodySchema = z.infer<typeof signUpBodySchema>;
+
+export const signUpResponseSchema = z.object({
+  message: z.string(),
+});
+export type SignUpResponseSchema = z.infer<typeof signUpResponseSchema>;
+
+export const signUpErrorResponseSchema = z.discriminatedUnion("errorCode", [
+  validationErrorResponseSchema,
+  unauthorizedErrorResponseSchema,
+]);
+export type SignUpErrorResponseSchema = z.infer<typeof signUpErrorResponseSchema>;
+
 export const refreshErrorResponseSchema = z.discriminatedUnion("errorCode", [
   validationErrorResponseSchema,
   unauthorizedErrorResponseSchema,

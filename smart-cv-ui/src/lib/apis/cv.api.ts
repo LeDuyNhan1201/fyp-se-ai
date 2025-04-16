@@ -14,7 +14,9 @@ export async function applyCvApi<ApplyCvResponseSchema>(
   const formData = new FormData();
   formData.append("file", body.file);
 
-  const response = await restClient.post<TResponse>(
+  const response = await restClient.post<
+    ApplyCvResponseSchema
+  >(
     `/file/command/${params.jobId}`,
     formData, {
     headers: {

@@ -1,17 +1,23 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
-//import { auth, signOut, signIn } from "@/auth";
-import { BadgePlus, LogOut } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { useCurrentUserActions } from "@/hooks/current-user-store";
+import { useTokenActions } from "@/hooks/tokens-store";
+import { BadgePlus } from "lucide-react";
 
-const Navbar = async () => {
-  // const session = await auth();
-  const session = {
-    id: "abc",
-    user: {
-      name: "abc",
-      image: "abc"
-    }
+const Navbar = () => {
+  const router = useRouter();
+  const { getCurrentUser, clearCurrentUser } = useCurrentUserActions();
+  const { clearTokens } = useTokenActions();
+  const currentUser = getCurrentUser();
+
+  const handleSignOut = () => {
+    clearCurrentUser();
+    clearTokens();
+    router.push("/sign-in");
   };
 
   return (
@@ -22,46 +28,35 @@ const Navbar = async () => {
         </Link>
 
         <div className="flex items-center gap-5 text-black">
-          {session && session?.user ? (
+          {currentUser && currentUser?.name ? (
             <>
               <Link href="/job/create">
-                <span className="max-sm:hidden">Create</span>
+                <span className="max-sm:hidden">New job</span>
                 <BadgePlus className="size-6 sm:hidden" />
               </Link>
 
-              <form
-                action={async () => {
-                  "use server";
-
-                  //await signOut({ redirectTo: "/" });
-                }}
-              >
-                <button type="submit">
-                  <span className="max-sm:hidden">Logout</span>
-                  <LogOut className="size-6 sm:hidden text-red-500" />
-                </button>
-              </form>
-
-              <Link href={`/user/${session?.id}`}>
-                <Avatar className="size-10">
-                  <AvatarImage
-                    src={session?.user?.image || ""}
-                    alt={session?.user?.name || ""}
-                  />
-                  <AvatarFallback>AV</AvatarFallback>
-                </Avatar>
+              <Link href={`/user/${currentUser?.id}`}>
+                <div className="flex items-center gap-2">
+                  <Avatar className="size-10">
+                    <AvatarImage
+                      src={currentUser?.image || "https://github.com/shadcn.png"}
+                      alt={currentUser?.name || ""}
+                    />
+                    <AvatarFallback>AV</AvatarFallback>
+                  </Avatar>
+                  <p>{currentUser?.name}</p>
+                </div>
               </Link>
+
+              <button onClick={handleSignOut}>
+                <Image src="/sign-out.png" alt="sign-out" width={30} height={30} />
+              </button>
+
             </>
           ) : (
-            <form
-              action={async () => {
-                "use server";
-
-                //await signIn("github");
-              }}
-            >
-              <button type="submit">Login</button>
-            </form>
+            <Link href="/sign-in">
+              Sign In
+            </Link>
           )}
         </div>
       </nav>
@@ -70,3 +65,4 @@ const Navbar = async () => {
 };
 
 export default Navbar;
+

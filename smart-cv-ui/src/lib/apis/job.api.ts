@@ -17,7 +17,6 @@ export async function getJobDetailsApi(
 
 export async function createJob(
     body: CreateJobBodySchema
-
 ): Promise<CreateJobResponseSchema> {
   const response = await restClient.post<CreateJobResponseSchema>(
     "/job/command",
