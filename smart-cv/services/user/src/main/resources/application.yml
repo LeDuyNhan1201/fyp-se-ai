@@ -75,10 +75,40 @@ logging:
     correlation: "[${spring.application.name:}, %X{traceId:-}, %X{spanId:-}]"
 
   level:
+#    com:
+#      zaxxer:
+#        hikari: DEBUG
     org:
       springframework:
-        web.cors: DEBUG
+#        web.cors: DEBUG
         security: DEBUG
+
+# -------- Resilience4j ---------
+resilience4j:
+  circuitbreaker:
+    configs:
+      grpcGroup:
+        registerHealthIndicator: true
+        slidingWindowSize: 50
+        minimumNumberOfCalls: 5
+        failureRateThreshold: 50
+        waitDurationInOpenState: 10s
+        permittedNumberOfCallsInHalfOpenState: 3
+        slidingWindowType: COUNT_BASED
+
+    instances:
+      exampleService:
+        baseConfig: grpcGroup
+
+  timelimiter:
+    configs:
+      grpcGroup:
+        timeoutDuration: 10s
+        cancelRunningFuture: true
+
+    instances:
+      exampleService:
+        baseConfig: grpcGroup
 
 # --------- Metrics & Monitoring ---------
 management:
@@ -143,6 +173,7 @@ spring:
 
   grpc:
     server:
+      name: auth-service
       host: ${USER_SERVICE_HOST:localhost}
       port: ${USER_SERVICE_GRPC_PORT:31006}
       servlet:

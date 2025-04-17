@@ -73,6 +73,45 @@ logging:
       springframework:
         security: DEBUG
 
+# -------- Resilience4j ---------
+resilience4j:
+  circuitbreaker:
+    configs:
+      grpcGroup:
+        registerHealthIndicator: true
+        slidingWindowSize: 50
+        minimumNumberOfCalls: 5
+        failureRateThreshold: 50
+        waitDurationInOpenState: 10s
+        permittedNumberOfCallsInHalfOpenState: 3
+        slidingWindowType: COUNT_BASED
+
+    instances:
+      authService:
+        baseConfig: grpcGroup
+      fileService:
+        baseConfig: grpcGroup
+      jobService:
+        baseConfig: grpcGroup
+      cvProcessor:
+        baseConfig: grpcGroup
+
+  timelimiter:
+    configs:
+      grpcGroup:
+        timeoutDuration: 10s
+        cancelRunningFuture: true
+
+    instances:
+      authService:
+        baseConfig: grpcGroup
+      fileService:
+        baseConfig: grpcGroup
+      jobService:
+        baseConfig: grpcGroup
+      cvProcessor:
+        baseConfig: grpcGroup
+
 # --------- Metrics & Monitoring ---------
 management:
   info:
@@ -136,22 +175,34 @@ spring:
 
   grpc:
     client:
+      enabled: true
+      observations:
+        enabled: true
       channels:
         auth-service:
           address: static://${AUTH_SERVICE_ADDRESS:localhost:31006}
+          negotiation-type: plaintext
           health:
             enabled: true
-            service-name: com.ben.smartcv.common.AuthService
-          observations:
+            service-name: auth-service
+
+        cv-processor:
+            address: static://${CV_PROCESSOR_ADDRESS:localhost:32001}
+            negotiation-type: plaintext
+
+        file-service:
+          address: static://${FILE_SERVICE_ADDRESS:localhost:31002}
+          negotiation-type: plaintext
+          health:
             enabled: true
+            service-name: file-service
 
         job-service:
           address: static://${JOB_SERVICE_ADDRESS:localhost:31003}
+          negotiation-type: plaintext
           health:
             enabled: true
-            service-name: com.ben.smartcv.common.JobService
-          observations:
-            enabled: true
+            service-name: job-service
 
   graphql:
     path: /graphql

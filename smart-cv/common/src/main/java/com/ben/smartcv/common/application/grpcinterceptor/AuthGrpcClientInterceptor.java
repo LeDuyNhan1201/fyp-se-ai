@@ -6,13 +6,15 @@ import io.grpc.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.grpc.client.GlobalClientInterceptor;
+import org.springframework.stereotype.Component;
 
 @Slf4j
+@Component
 @GlobalClientInterceptor
 public class AuthGrpcClientInterceptor implements ClientInterceptor {
 
     @Value("${spring.application.name}")
-    private String microserviceName;
+    private String applicationName;
 
     @Override
     public <ReqT, RespT> ClientCall<ReqT, RespT> interceptCall(
@@ -22,8 +24,8 @@ public class AuthGrpcClientInterceptor implements ClientInterceptor {
 
         String[] methodNameRaw = method.getFullMethodName().split("\\.");
         String methodName = methodNameRaw[methodNameRaw.length - 1];
-        log.info("Grpc client interceptor: [{}] -> [{}]: {}",
-                microserviceName, StringHelper.convertToUpperHyphen(methodName.split("/")[0]), methodName);
+        log.info("[{}] client call to [{}]: {}", applicationName,
+                StringHelper.convertToUpperHyphen(methodName.split("/")[0]), methodName);
 
         return new ForwardingClientCall.SimpleForwardingClientCall<ReqT, RespT>(next.newCall(method, callOptions)) {
 
@@ -32,7 +34,7 @@ public class AuthGrpcClientInterceptor implements ClientInterceptor {
                 String token = (Constant.GRPC_AUTHORIZATION_CONTEXT.get() != null)
                         ? Constant.GRPC_AUTHORIZATION_CONTEXT.get() : Constant.REST_AUTHORIZATION_CONTEXT.get();
 
-                log.info("[{}]: ||||||||||||||||||||||||||||||||||||||||||||||||||||Bearer Token: {}", microserviceName, token);
+                log.info("Bearer Token: {}", token);
                 if (token != null) headers.put(Constant.AUTHORIZATION_KEY, token);
 
                 super.start(responseListener, headers);

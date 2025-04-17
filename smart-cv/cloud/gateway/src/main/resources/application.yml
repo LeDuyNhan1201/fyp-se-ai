@@ -101,7 +101,7 @@ spring:
       globalcors:
         cors-configurations:
           '[/**]':
-            allowedOrigins: "http://localhost:3000" # Next.js frontend
+            allowedOrigins: "http://localhost:3000"
             allowedMethods: "GET,POST,PUT,DELETE,OPTIONS"
             allowedHeaders: "Authorization,Content-Type,Accept-Language,No-Auth"
             allowCredentials: true
@@ -116,7 +116,6 @@ spring:
               args:
                 name: cvService
                 fallbackUri: forward:/cv/fallback
-
             - name: Retry
               args:
                 name: cvService
@@ -135,7 +134,6 @@ spring:
               args:
                 name: fileService
                 fallbackUri: forward:/file/fallback
-
             - name: Retry
               args:
                 name: fileService
@@ -154,7 +152,6 @@ spring:
               args:
                 name: jobService
                 fallbackUri: forward:/job/fallback
-
             - name: Retry
               args:
                 name: jobService
@@ -173,7 +170,6 @@ spring:
               args:
                 name: userService
                 fallbackUri: forward:/user/fallback
-
             - name: Retry
               args:
                 name: userService
@@ -192,7 +188,6 @@ spring:
               args:
                 name: notificationService
                 fallbackUri: forward:/notification/fallback
-
             - name: Retry
               args:
                 name: notificationService
@@ -202,89 +197,63 @@ spring:
                   maxBackoff: 5s
                   factor: 2
 
-  resilience4j:
-    circuitbreaker:
-      instances:
-        cvService:
-          registerHealthIndicator: true  # Đăng ký health indicator cho Actuator
-          slidingWindowSize: 10          # Kích thước cửa sổ trượt
-          failureRateThreshold: 50       # Ngưỡng phần trăm lỗi để mở Circuit Breaker
-          waitDurationInOpenState: 10000 # Thời gian đợi khi Circuit Breaker ở trạng thái mở (mili giây)
-          permittedNumberOfCallsInHalfOpenState: 3 # Số cuộc gọi được phép khi ở trạng thái half-open
-          minimumNumberOfCalls: 5        # Số lượng tối thiểu các cuộc gọi trước khi tính toán lỗi
-          automaticTransitionFromOpenToHalfOpenEnabled: true # Tự động chuyển từ trạng thái open sang half-open
+resilience4j:
+  circuitbreaker:
+    configs:
+      defaultGroup:
+        registerHealthIndicator: true
+        slidingWindowSize: 10
+        failureRateThreshold: 50
+        waitDurationInOpenState: 10s
+        permittedNumberOfCallsInHalfOpenState: 3
+        minimumNumberOfCalls: 5
+        automaticTransitionFromOpenToHalfOpenEnabled: true
 
-        fileService:
-          registerHealthIndicator: true
-          slidingWindowSize: 10
-          failureRateThreshold: 50
-          waitDurationInOpenState: 10000
-          permittedNumberOfCallsInHalfOpenState: 3
-          minimumNumberOfCalls: 5
-          automaticTransitionFromOpenToHalfOpenEnabled: true
+    instances:
+      cvService:
+        baseConfig: defaultGroup
+      fileService:
+        baseConfig: defaultGroup
+      jobService:
+        baseConfig: defaultGroup
+      userService:
+        baseConfig: defaultGroup
+      notificationService:
+        baseConfig: defaultGroup
 
-        jobService:
-          registerHealthIndicator: true
-          slidingWindowSize: 10
-          failureRateThreshold: 50
-          waitDurationInOpenState: 10000
-          permittedNumberOfCallsInHalfOpenState: 3
-          minimumNumberOfCalls: 5
-          automaticTransitionFromOpenToHalfOpenEnabled: true
+  timelimiter:
+    configs:
+      defaultGroup:
+        timeoutDuration: 1s
+        cancelRunningFuture: true
 
-        userService:
-          registerHealthIndicator: true
-          slidingWindowSize: 10
-          failureRateThreshold: 50
-          waitDurationInOpenState: 10000
-          permittedNumberOfCallsInHalfOpenState: 3
-          minimumNumberOfCalls: 5
-          automaticTransitionFromOpenToHalfOpenEnabled: true
+    instances:
+      cvService:
+        baseConfig: defaultGroup
+      fileService:
+        baseConfig: defaultGroup
+      jobService:
+        baseConfig: defaultGroup
+      userService:
+        baseConfig: defaultGroup
+      notificationService:
+        baseConfig: defaultGroup
 
-        notificationService:
-          registerHealthIndicator: true
-          slidingWindowSize: 10
-          failureRateThreshold: 50
-          waitDurationInOpenState: 10000
-          permittedNumberOfCallsInHalfOpenState: 3
-          minimumNumberOfCalls: 5
-          automaticTransitionFromOpenToHalfOpenEnabled: true
+  retry:
+    configs:
+      defaultGroup:
+        maxAttempts: 3
+        waitDuration: 1s
 
-    timelimiter:
-      instances:
-        cvService:
-          timeoutDuration: 1s
+    instances:
+      cvService:
+        baseConfig: defaultGroup
+      fileService:
+        baseConfig: defaultGroup
+      jobService:
+        baseConfig: defaultGroup
+      userService:
+        baseConfig: defaultGroup
+      notificationService:
+        baseConfig: defaultGroup
 
-        fileService:
-          timeoutDuration: 1s
-
-        jobService:
-          timeoutDuration: 1s
-
-        userService:
-          timeoutDuration: 1s
-
-        notificationService:
-          timeoutDuration: 1s
-
-    retry:
-      instances:
-        cvService:
-          maxAttempts: 3
-          waitDuration: 1s
-
-        fileService:
-          maxAttempts: 3
-          waitDuration: 1s
-
-        jobService:
-          maxAttempts: 3
-          waitDuration: 1s
-
-        userService:
-          maxAttempts: 3
-          waitDuration: 1s
-
-        notificationService:
-          maxAttempts: 3
-          waitDuration: 1s

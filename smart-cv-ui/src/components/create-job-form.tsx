@@ -43,7 +43,7 @@ export default function CreateJobForm() {
   const onSubmit = (data: CreateJobBodySchema) => {
     mutation.mutate(data, {
       onSuccess: (response) => {
-        toast.success(ressponse.message);
+        toast.success(response.message);
       },
       onError: (error) => {
         console.log(error);

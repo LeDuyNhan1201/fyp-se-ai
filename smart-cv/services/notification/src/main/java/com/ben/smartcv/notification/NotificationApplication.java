@@ -1,5 +1,6 @@
 package com.ben.smartcv.notification;
 
+import com.ben.smartcv.common.infrastructure.web.CommonGrpcServerConfig;
 import com.ben.smartcv.common.infrastructure.web.OpenApiConfig;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -14,7 +15,8 @@ import org.springframework.context.annotation.FilterType;
 @ComponentScan(
 		basePackages = { "com.ben.smartcv.common", "com.ben.smartcv.notification" },
 		excludeFilters = {
-				@ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = OpenApiConfig.class)
+				@ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = OpenApiConfig.class),
+				@ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = CommonGrpcServerConfig.class),
 })
 public class NotificationApplication {
 

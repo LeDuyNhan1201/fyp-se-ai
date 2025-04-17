@@ -2,6 +2,7 @@ package com.ben.smartcv.user;
 
 import com.ben.smartcv.common.infrastructure.security.CustomJwtDecoder;
 import com.ben.smartcv.common.infrastructure.security.SecurityConfig;
+import com.ben.smartcv.common.infrastructure.web.CommonGrpcClientConfig;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
@@ -16,7 +17,8 @@ import org.springframework.context.annotation.FilterType;
 		basePackages = { "com.ben.smartcv.common", "com.ben.smartcv.user" },
 		excludeFilters = {
 				@ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = CustomJwtDecoder.class),
-				@ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = SecurityConfig.class)
+				@ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = SecurityConfig.class),
+				@ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = CommonGrpcClientConfig.class)
 		})
 public class UserApplication {
 

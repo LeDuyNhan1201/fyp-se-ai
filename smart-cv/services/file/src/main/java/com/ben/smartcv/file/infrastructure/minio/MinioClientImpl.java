@@ -77,7 +77,7 @@ public class MinioClientImpl implements IMinioClient {
                     .method(Method.GET)
                     .bucket(bucketName)
                     .object(objectKey)
-                    .expiry(1, TimeUnit.DAYS) // 1 week
+                    .expiry(1, TimeUnit.DAYS)
                     .build());
 
         } catch (MinioException | InvalidKeyException | IOException | NoSuchAlgorithmException e) {

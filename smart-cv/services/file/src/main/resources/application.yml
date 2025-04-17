@@ -27,7 +27,7 @@ security:
 
   grpc:
     public-methods:
-      - FileService/getDownloadUrl
+      - FileService/getAllDownloadUrls
 
 # --------- Axon ---------
 axon:
@@ -72,6 +72,33 @@ logging:
     org:
       springframework:
         security: DEBUG
+
+# -------- Resilience4j ---------
+resilience4j:
+  circuitbreaker:
+    configs:
+      grpcGroup:
+        registerHealthIndicator: true
+        slidingWindowSize: 50
+        minimumNumberOfCalls: 5
+        failureRateThreshold: 50
+        waitDurationInOpenState: 10s
+        permittedNumberOfCallsInHalfOpenState: 3
+        slidingWindowType: COUNT_BASED
+
+    instances:
+      authService:
+        baseConfig: grpcGroup
+
+  timelimiter:
+    configs:
+      grpcGroup:
+        timeoutDuration: 10s
+        cancelRunningFuture: true
+
+    instances:
+      authService:
+        baseConfig: grpcGroup
 
 # --------- Metrics & Monitoring ---------
 management:
@@ -135,23 +162,31 @@ spring:
       max-request-size: 50MB
 
   grpc:
+    server:
+      name: file-service
+      host: ${FILE_SERVICE_HOST:localhost}
+      port: ${FILE_SERVICE_GRPC_PORT:31002}
+      servlet:
+        enabled: false
+      reflection:
+        enabled: true
+      health:
+        enabled: true
+        actuator:
+          enabled: true
+        observations:
+          enabled: true
+
     client:
+      enabled: true
+      observations:
+        enabled: true
       channels:
         auth-service:
           address: static://${AUTH_SERVICE_ADDRESS:localhost:31006}
           health:
             enabled: true
-            service-name: com.ben.smartcv.common.AuthService
-          observations:
-            enabled: true
-
-        job-service:
-          address: static://${JOB_SERVICE_ADDRESS:localhost:31003}
-          health:
-            enabled: true
-            service-name: com.ben.smartcv.common.JobService
-          observations:
-            enabled: true
+            service-name: auth-service
 
   messages:
     basename: i18n/messages

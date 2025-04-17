@@ -11,47 +11,65 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.jose.jws.MacAlgorithm;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
+import org.springframework.stereotype.Component;
+
 import javax.crypto.spec.SecretKeySpec;
+
 import java.util.List;
+import java.util.stream.Stream;
 
 import static io.grpc.Status.UNAUTHENTICATED;
 import static lombok.AccessLevel.PRIVATE;
 
 @Slf4j
 @FieldDefaults(level = PRIVATE)
+@Component
 @GlobalServerInterceptor
 public class AuthGrpcServerInterceptor implements ServerInterceptor {
 
     @Value("${security.jwt.access-signer-key}")
     String accessSignerKey;
 
-    @Value("${spring.application.name}")
-    String microserviceName;
-
     NimbusJwtDecoder nimbusJwtDecoder = null;
 
-    SecurityGrpcProperties securityGrpcProperties;
+    final SecurityGrpcProperties securityGrpcProperties;
+
+    public AuthGrpcServerInterceptor(SecurityGrpcProperties securityGrpcProperties) {
+        this.securityGrpcProperties = securityGrpcProperties;
+    }
 
     @Override
     public <ReqT, RespT> ServerCall.Listener<ReqT> interceptCall(
             ServerCall<ReqT, RespT> call, Metadata headers, ServerCallHandler<ReqT, RespT> next) {
 
+        log.info("Call to method: {}", call.getMethodDescriptor().getFullMethodName());
+
+        List<String> staticPublicMethods = List.of(
+                "ServerReflection/ServerReflectionInfo",
+                "Health/Watch"
+        );
+
         String[] methodNameRaw = call.getMethodDescriptor().getFullMethodName().split("\\.");
         String methodName = methodNameRaw[methodNameRaw.length - 1];
 
-        for (String method : securityGrpcProperties.getPublicMethods())
+        List<String> publicMethods = Stream.concat(
+                staticPublicMethods.stream(),
+                securityGrpcProperties.getPublicMethods().stream()
+        ).toList();
+
+        for (String method : publicMethods)
             if (methodName.contains(method)) return next.startCall(call, headers);
 
         String token = headers.get(Constant.AUTHORIZATION_KEY);
-        log.info("[{}]: token: {}", microserviceName, token);
+        log.info("Token: {}", token);
 
         if (token == null) {
-            log.error("[{}]: Token missing", microserviceName);
+            log.error("Token missing");
             call.close(UNAUTHENTICATED.withDescription("Token missing"), headers);
             return new ServerCall.Listener<>() {};
 
         } else {
-            log.info("[{}] Token: {}", microserviceName, token.substring(7));
+            log.info("Token: {}", token.substring(7));
             SecretKeySpec secretKeySpec = new SecretKeySpec(
                     accessSignerKey.getBytes(),
                     Constant.JWT_SIGNATURE_ALGORITHM.getName());
@@ -62,7 +80,8 @@ public class AuthGrpcServerInterceptor implements ServerInterceptor {
                         .build();
             }
 
-            JwtAuthenticationToken authenticationToken = new JwtAuthenticationToken(nimbusJwtDecoder.decode(token.substring(7)));
+            JwtAuthenticationToken authenticationToken = new JwtAuthenticationToken(
+                    nimbusJwtDecoder.decode(token.substring(7)));
             SecurityContextHolder.getContext().setAuthentication(authenticationToken);
         }
 

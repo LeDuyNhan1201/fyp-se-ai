@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+package com.ben.smartcv.common;
+
+option java_package = "com.ben.smartcv.common.file";
+option java_outer_classname = "FileServiceProto";
+option java_multiple_files = true;
+
+message DownloadUrlEntry {
+
+  string object_key = 1;
+
+  string url = 2;
+
+}
+
+message ObjectKeys {
+
+    repeated string values = 1;
+
+}
+
+message DownloadUrls {
+
+    repeated DownloadUrlEntry values = 1;
+
+}
+
+service FileService {
+
+    rpc getAllDownloadUrls(ObjectKeys) returns (DownloadUrls) {
+    }
+
+}

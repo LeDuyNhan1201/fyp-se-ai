@@ -29,6 +29,7 @@ dependencies {
 	api 'org.springframework.grpc:spring-grpc-spring-boot-starter'
 	api 'org.springframework.boot:spring-boot-starter-graphql'
 	api 'org.springframework.kafka:spring-kafka'
+	api 'org.springframework.cloud:spring-cloud-starter-circuitbreaker-resilience4j'
 	api 'io.grpc:grpc-services'
 	api "redis.clients:jedis:${jedisVersion}" // https://mvnrepository.com/artifact/redis.clients/jedis
 	api "org.springdoc:springdoc-openapi-starter-webmvc-ui:${springdocOpenApiVersion}" // https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-starter-webmvc-ui

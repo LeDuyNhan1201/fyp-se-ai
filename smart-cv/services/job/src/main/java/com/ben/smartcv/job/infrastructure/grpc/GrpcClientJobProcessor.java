@@ -5,10 +5,6 @@ import com.ben.smartcv.common.job.ExtractedJobData;
 import com.ben.smartcv.common.job.JobCreatedEvent;
 import com.ben.smartcv.common.job.JobProcessorGrpc;
 import com.ben.smartcv.common.util.TimeHelper;
-import io.grpc.ManagedChannel;
-import io.grpc.Status;
-import io.grpc.StatusRuntimeException;
-import jakarta.annotation.PreDestroy;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
@@ -21,8 +17,6 @@ import static lombok.AccessLevel.PRIVATE;
 @RequiredArgsConstructor
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 public class GrpcClientJobProcessor {
-
-    ManagedChannel jobProcessorManagedChannel;
 
     JobProcessorGrpc.JobProcessorBlockingStub jobProcessorClient;
 
@@ -38,11 +32,6 @@ public class GrpcClientJobProcessor {
         ExtractedJobData response = jobProcessorClient.extractData(protoEvent);
         log.info("Extracted job data: {}", response);
         return response;
-    }
-
-    @PreDestroy
-    public void shutdownGrpcChanel() {
-        jobProcessorManagedChannel.shutdown();
     }
 
 }

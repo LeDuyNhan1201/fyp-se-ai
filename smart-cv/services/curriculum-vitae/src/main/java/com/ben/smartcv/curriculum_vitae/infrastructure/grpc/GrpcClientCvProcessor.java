@@ -5,8 +5,6 @@ import com.ben.smartcv.common.cv.CvProcessorGrpc;
 import com.ben.smartcv.common.cv.ExtractedCvData;
 import com.ben.smartcv.common.cv.RawCvInfo;
 import com.ben.smartcv.common.job.PreviewJobDescription;
-import io.grpc.ManagedChannel;
-import jakarta.annotation.PreDestroy;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
@@ -19,8 +17,6 @@ import static lombok.AccessLevel.PRIVATE;
 @RequiredArgsConstructor
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 public class GrpcClientCvProcessor {
-
-    ManagedChannel jobServiceManagedChannel;
 
     CvProcessorGrpc.CvProcessorBlockingStub cvProcessorClient;
 
@@ -40,11 +36,6 @@ public class GrpcClientCvProcessor {
         ExtractedCvData response = cvProcessorClient.extractData(rawCvInfo);
         log.info("Extracted cv data: {}", response);
         return response;
-    }
-
-    @PreDestroy
-    public void shutdownGrpcChanel() {
-        jobServiceManagedChannel.shutdown();
     }
 
 }

@@ -62,7 +62,7 @@ export default function CvsList({ jobId }: JobDetailsProps) {
             <CardContent>
               {cv.downloadUrl && (
                 <div className="border rounded-lg p-2 bg-gray-50">
-              {isImage(cv.downloadUrl) && (
+              {isImage(cv.objectKey) && (
                 <img
                   src={cv.downloadUrl}
                   alt="CV Preview"
@@ -70,7 +70,7 @@ export default function CvsList({ jobId }: JobDetailsProps) {
                 />
               )}
 
-              {isPdf(cv.downloadUrl) && (
+              {isPdf(cv.objectKey) && (
                 <iframe
                   src={cv.downloadUrl}
                   className="w-full h-40 rounded"

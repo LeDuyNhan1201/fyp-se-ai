@@ -38,7 +38,6 @@ public class GrpcJobService extends JobServiceGrpc.JobServiceImplBase {
                 .addAllEducations(job.get().getEducations())
                 .addAllExperiences(job.get().getExperiences());
 
-        // Send the response
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
     }
