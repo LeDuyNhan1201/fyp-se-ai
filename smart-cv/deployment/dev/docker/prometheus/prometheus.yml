@@ -1,0 +1,19 @@
+global:
+  scrape_interval: 2s
+  evaluation_interval: 2s
+
+scrape_configs:
+  - job_name: otel-collector
+    static_configs:
+      - targets:
+        - 'smartcv-otel-collector:5555'  # Collector service trong Docker Compose và cổng OTLP gRPC
+
+  - job_name: prometheus
+    honor_timestamps: true
+    scrape_interval: 15s
+    scrape_timeout: 10s
+    metrics_path: /metrics
+    scheme: http
+    static_configs:
+      - targets:
+        - 'smartcv-prometheus:9090'  # Prometheus service trong Docker Compose và cổng Prometheus

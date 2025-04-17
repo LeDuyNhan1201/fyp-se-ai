@@ -42,7 +42,7 @@ public class AuthGrpcServerInterceptor implements ServerInterceptor {
     public <ReqT, RespT> ServerCall.Listener<ReqT> interceptCall(
             ServerCall<ReqT, RespT> call, Metadata headers, ServerCallHandler<ReqT, RespT> next) {
 
-        log.info("Call to method: {}", call.getMethodDescriptor().getFullMethodName());
+        log.debug("Call to method: {}", call.getMethodDescriptor().getFullMethodName());
 
         List<String> staticPublicMethods = List.of(
                 "ServerReflection/ServerReflectionInfo",
@@ -61,7 +61,7 @@ public class AuthGrpcServerInterceptor implements ServerInterceptor {
             if (methodName.contains(method)) return next.startCall(call, headers);
 
         String token = headers.get(Constant.AUTHORIZATION_KEY);
-        log.info("Token: {}", token);
+        log.debug("Token: {}", token);
 
         if (token == null) {
             log.error("Token missing");
@@ -69,7 +69,7 @@ public class AuthGrpcServerInterceptor implements ServerInterceptor {
             return new ServerCall.Listener<>() {};
 
         } else {
-            log.info("Token: {}", token.substring(7));
+            log.debug("Token: {}", token.substring(7));
             SecretKeySpec secretKeySpec = new SecretKeySpec(
                     accessSignerKey.getBytes(),
                     Constant.JWT_SIGNATURE_ALGORITHM.getName());

@@ -23,7 +23,7 @@ public class BearerTokenInterceptor implements HandlerInterceptor {
         if (authorizationHeader != null && authorizationHeader.startsWith(BEARER_PREFIX)) {
             String uuid = SecurityContextHolder.getContext().getAuthentication().getName();
             Constant.REST_AUTHORIZATION_CONTEXT.set(uuid);
-            log.info("Bearer Token: {}", Constant.REST_AUTHORIZATION_CONTEXT.get());
+            log.debug("Bearer Token: {}", Constant.REST_AUTHORIZATION_CONTEXT.get());
         }
         return true;
     }

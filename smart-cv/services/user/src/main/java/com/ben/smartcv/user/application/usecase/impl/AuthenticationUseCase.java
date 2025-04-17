@@ -23,6 +23,7 @@ import com.nimbusds.jose.crypto.MACVerifier;
 import com.nimbusds.jwt.JWTClaimsSet;
 import com.nimbusds.jwt.SignedJWT;
 import io.grpc.stub.StreamObserver;
+import io.micrometer.observation.annotation.Observed;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -134,6 +135,7 @@ public class AuthenticationUseCase extends AuthServiceGrpc.AuthServiceImplBase i
     }
 
     @Override
+    @Observed(name = "sign-in", contextualName = "Sign In UseCase")
     public ResponseDto.SignIn signIn(UserCommand.SignIn command) {
         User user = userUseCase.findByEmail(command.getEmail());
 

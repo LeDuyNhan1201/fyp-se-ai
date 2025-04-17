@@ -24,7 +24,7 @@ public class AuthGrpcClientInterceptor implements ClientInterceptor {
 
         String[] methodNameRaw = method.getFullMethodName().split("\\.");
         String methodName = methodNameRaw[methodNameRaw.length - 1];
-        log.info("[{}] client call to [{}]: {}", applicationName,
+        log.debug("[{}] client call to [{}]: {}", applicationName,
                 StringHelper.convertToUpperHyphen(methodName.split("/")[0]), methodName);
 
         return new ForwardingClientCall.SimpleForwardingClientCall<ReqT, RespT>(next.newCall(method, callOptions)) {
@@ -34,7 +34,7 @@ public class AuthGrpcClientInterceptor implements ClientInterceptor {
                 String token = (Constant.GRPC_AUTHORIZATION_CONTEXT.get() != null)
                         ? Constant.GRPC_AUTHORIZATION_CONTEXT.get() : Constant.REST_AUTHORIZATION_CONTEXT.get();
 
-                log.info("Bearer Token: {}", token);
+                log.debug("Bearer Token: {}", token);
                 if (token != null) headers.put(Constant.AUTHORIZATION_KEY, token);
 
                 super.start(responseListener, headers);

@@ -1,0 +1,74 @@
+receivers:
+  otlp:
+    protocols:
+      grpc:
+        endpoint: 0.0.0.0:5555
+      http:
+        endpoint: 0.0.0.0:6666
+        cors:
+          allowed_origins:
+            - "http://*"
+            - "https://*"
+
+connectors:
+  servicegraph:
+    latency_histogram_buckets: [100ms, 250ms, 1s, 5s, 10s]
+    dimensions:
+      - dimension-1
+      - dimension-2
+    store:
+      ttl: 2s
+      max_items: 20
+
+exporters:
+  debug:
+    verbosity: basic
+  prometheusremotewrite:
+    endpoint: http://smartcv-prometheus:9090/api/v1/write
+    resource_to_telemetry_conversion:
+      enabled: true
+  otlp:
+    endpoint: "smartcv-tempo:4317"
+    tls:
+      insecure: true
+  loki:
+    endpoint: http://smartcv-loki:3100/loki/api/v1/push
+    default_labels_enabled:
+      exporter: true
+      job: true
+
+processors:
+  batch: {}
+  transform:
+    metric_statements:
+      - context: metric
+        statements:
+          - set(description, "") where name == "queueSize"
+          - set(description, "") where name == "rpc.server.duration"
+  resource/loki:
+    attributes:
+      - action: insert
+        key: loki.resource.labels
+        value: service.name, service.namespace
+
+service:
+  pipelines:
+    traces:
+      receivers: [otlp]
+      processors: [batch]
+      exporters: [otlp, servicegraph]
+    metrics:
+      receivers: [otlp, servicegraph]
+      processors: [transform, batch]
+      exporters: [prometheusremotewrite]
+    logs:
+      receivers: [otlp]
+      processors: [resource/loki, batch]
+      exporters: [loki]
+
+  telemetry:
+    metrics:
+      address: smartcv-otel-collector:8888
+      level: detailed
+    logs:
+      level: INFO

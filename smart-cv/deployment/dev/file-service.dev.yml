@@ -1,20 +1,32 @@
+x-default-logging: &logging
+  driver: "json-file"
+  options:
+    max-size: "5m"
+    max-file: "2"
+
 services:
   # --------- Minio ---------
   smartcv-minio:
     image: minio/minio:latest
     container_name: smartcv-minio
-    command: server /data --console-address ":9001"
+    logging: *logging
     restart: always
+    command: server /data --console-address ":9001"
     ports:
       - 9000:9000
       - 9001:9001
-    networks:
-      - smartcv-network
-    volumes:
-      - smartcv-minio-data:/data:r
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/ready"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
     environment:
       MINIO_ROOT_USER: ${MINIO_USERNAME}
       MINIO_ROOT_PASSWORD: ${MINIO_PASSWORD}
+    volumes:
+      - smartcv-minio-data:/data:rw
+    networks:
+      - smartcv-network
 
 volumes:
   smartcv-minio-data:

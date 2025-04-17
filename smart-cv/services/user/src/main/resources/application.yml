@@ -111,7 +111,19 @@ resilience4j:
         baseConfig: grpcGroup
 
 # --------- Metrics & Monitoring ---------
+otel:
+  exporter:
+    otlp:
+      endpoint: "http://localhost:4318"
+      protocol: "http/protobuf"
+  resource:
+    attributes: "service.name=my-application"
+    
 management:
+  otlp:
+    tracing:
+      endpoint: ${OTLP_ENDPOINT:http://localhost:4318 }
+
   info:
     git:
       enabled: true
@@ -150,6 +162,8 @@ management:
       application: ${spring.application.name}
 
   observations:
+    annotations:
+      enabled: true
     key-values:
       application: ${spring.application.name}
 

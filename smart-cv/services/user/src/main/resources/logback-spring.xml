@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <jmxConfigurator/>
+    <include resource="org/springframework/boot/logging/logback/base.xml"/>
+    <springProperty scope="context" name="appName" source="spring.application.name"/>
+
+    <!-- Đặt level mặc định cho toàn hệ thống -->
+    <root level="INFO" />
+
+    <!-- Appender cho Loki -->
+    <appender name="LOKI" class="com.github.loki4j.logback.Loki4jAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>DEBUG</level>
+        </filter>
+
+        <lokiUrl>http://localhost:3100/loki/api/v1/push</lokiUrl>
+        <batchSize>50</batchSize> <!-- Giảm số lượng log batch mỗi lần gửi -->
+        <batchTimeoutMs>1000</batchTimeoutMs> <!-- Giảm thời gian timeout -->
+        <label>
+            <app>spring-app</app>
+            <level>%level</level>
+        </label>
+        <sortByTime>true</sortByTime>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Appender cho Logstash -->
+<!--    <appender name="LOGSTASH" class="net.logstash.logback.appender.LogstashTcpSocketAppender">-->
+<!--        <destination>localhost:5000</destination>-->
+
+<!--        &lt;!&ndash; Chỉ log WARN và ERROR &ndash;&gt;-->
+<!--        <filter class="ch.qos.logback.classic.filter.LevelFilter">-->
+<!--            <level>DEBUG</level>-->
+<!--            <onMatch>DENY</onMatch>-->
+<!--            <onMismatch>NEUTRAL</onMismatch>-->
+<!--        </filter>-->
+
+<!--        <encoder class="net.logstash.logback.encoder.LogstashEncoder" />-->
+<!--    </appender>-->
+
+    <!-- Root logger -->
+    <root level="INFO">
+        <appender-ref ref="LOKI" />
+<!--        <appender-ref ref="LOGSTASH" />-->
+    </root>
+</configuration>

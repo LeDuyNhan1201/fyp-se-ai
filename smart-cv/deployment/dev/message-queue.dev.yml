@@ -1,18 +1,25 @@
+x-default-logging: &logging
+  driver: "json-file"
+  options:
+    max-size: "5m"
+    max-file: "2"
+
 services:
   # --------- Kafka brokers ---------
   smartcv-kafka1:
     image: confluentinc/cp-kafka:latest
     container_name: smartcv-kafka1
+    logging: *logging
     restart: always
     ports:
       - 9091:9091
       - 9991:9991
-    networks:
-      - smartcv-network
-    volumes:
-      - smartcv-kafka1-data:/var/lib/kafka/data
+    healthcheck:
+      test: [ "CMD-SHELL", "kafka-topics --bootstrap-server localhost:9091 --list || exit 1" ]
+      interval: 10s
+      retries: 5
+      start_period: 15s
     environment:
-      # Kraft
       CLUSTER_ID: cLs1
       KAFKA_BROKER_ID: 1
       KAFKA_BROKER_RACK: r1
@@ -20,7 +27,6 @@ services:
       KAFKA_PROCESS_ROLES: broker,controller
       KAFKA_CONTROLLER_QUORUM_VOTERS: 1@smartcv-kafka1:29091
 
-      # Listeners
       KAFKA_LISTENERS: LOCAL://:9091,PLAINTEXT://smartcv-kafka1:19091,CONTROLLER://smartcv-kafka1:29091,BROKER://smartcv-kafka1:39091
       KAFKA_ADVERTISED_LISTENERS: LOCAL://localhost:9091,PLAINTEXT://smartcv-kafka1:19091,BROKER://smartcv-kafka1:39091
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT,LOCAL:PLAINTEXT,BROKER:PLAINTEXT
@@ -60,19 +66,29 @@ services:
       KAFKA_DEFAULT_REPLICATION_FACTOR: 1
 
       KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
-      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1 # 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+    volumes:
+      - smartcv-kafka1-data:/var/lib/kafka/data
+    networks:
+      - smartcv-network
 
   # --------- Schema registry ---------
   smartcv-schemaregistry:
     image: confluentinc/cp-schema-registry:latest
     container_name: smartcv-schemaregistry
+    logging: *logging
     restart: always
     depends_on:
-      - smartcv-kafka1
+      smartcv-kafka1:
+        condition: service_healthy
     ports:
       - 8085:8085
-    networks:
-      - smartcv-network
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8085/subjects" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
     environment:
       SCHEMA_REGISTRY_HOST_NAME: smartcv-schemaregistry
       SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: smartcv-kafka1:19091
@@ -85,40 +101,59 @@ services:
 
       SCHEMA_REGISTRY_KAFKASTORE_TOPIC_REPLICATION_FACTOR: 2
       SCHEMA_REGISTRY_DEBUG: true
+    networks:
+      - smartcv-network
 
   # --------- Axon Server ---------
   smartcv-axonserver:
     image: axoniq/axonserver:latest
     container_name: smartcv-axonserver
+    logging: *logging
     restart: always
     ports:
       - 8024:8024
       - 8124:8124
-    networks:
-      - smartcv-network
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8024/actuator/health" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 15s
     environment:
       AXONIQ_AXONSERVER_HOSTNAME: smartcv-axonserver
       AXONIQ_AXONSERVER_STANDALONE: "TRUE"
       AXONIQ_AXONSERVER_DEVMODE: true
+    networks:
+      - smartcv-network
 
   # --------- Kafka Debezium ---------
   smartcv-debezium:
     image: debezium/connect:3.0.0.Final
     container_name: smartcv-debezium
+    logging: *logging
     restart: always
     depends_on:
-      [ smartcv-kafka1, smartcv-postgres ]
+      smartcv-kafka1:
+        condition: service_healthy
+      smartcv-postgres:
+        condition: service_healthy
     ports:
       - 8083:8083
       - 5005:5005
-    networks:
-      - smartcv-network
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8083/" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
     environment:
       BOOTSTRAP_SERVERS: smartcv-kafka1:19091
       GROUP_ID: smartcv_debezium_group
       CONFIG_STORAGE_TOPIC: smartcv_debezium_connect_configs
       OFFSET_STORAGE_TOPIC: smartcv_debezium_connect_offsets
       STATUS_STORAGE_TOPIC: smartcv_debezium_connect_statuses
+    networks:
+      - smartcv-network
 
 volumes:
   smartcv-kafka1-data:
