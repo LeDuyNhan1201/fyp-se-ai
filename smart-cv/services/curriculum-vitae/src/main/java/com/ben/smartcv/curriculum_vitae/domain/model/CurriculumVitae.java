@@ -1,5 +1,6 @@
 package com.ben.smartcv.curriculum_vitae.domain.model;
 
+import com.ben.smartcv.common.contract.dto.Enum;
 import com.ben.smartcv.common.domain.MongoAuditingDocument;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
@@ -53,5 +54,9 @@ public class CurriculumVitae extends MongoAuditingDocument {
     @NotNull
     @Field(value = "score", targetType = FieldType.DOUBLE)
     Double score;
+
+    @NotNull
+    @Field(value = "status", targetType = FieldType.STRING)
+    Enum.CvStatus status;
 
 }

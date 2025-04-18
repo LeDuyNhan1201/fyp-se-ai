@@ -55,7 +55,7 @@ public class MailUseCase implements IMailUseCase {
         LocaleContextHolder.setLocale(Locale.of(event.getLocale()));
 
         JobInfo jobInfo = jobServiceClient.callGetInfoById(event.getJobId());
-        PreviewUser userInfo = authServiceClient.callGetById(event.getUserId());
+        PreviewUser userInfo = authServiceClient.callGetById(event.getReceiverId());
 
         String to = userInfo.getEmail();
 

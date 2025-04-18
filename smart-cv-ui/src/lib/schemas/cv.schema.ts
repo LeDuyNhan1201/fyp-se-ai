@@ -19,6 +19,13 @@ export const curriculumVitaeSchema = z.object({
 });
 export type CurriculumVitaeSchema = z.infer<typeof curriculumVitaeSchema>;
 
+export const curriculumVitaeStatusSchema = z.enum([
+  "Approved",
+  "Rejected",
+  "Pending",
+]);
+export type CurriculumVitaeStatusSchema = z.infer<typeof curriculumVitaeStatusSchema>;
+
 export const cvTagSchema = z.object({
   id: z.string(),
   jobId: z.string().uuid(),
@@ -26,9 +33,9 @@ export const cvTagSchema = z.object({
   objectKey: z.string(),
   downloadUrl: z.string().url(),
   score: z.number(),
+  status: curriculumVitaeStatusSchema,
 });
 export type CvTagSchema = z.infer<typeof cvTagSchema>;
-
 
 export const searchCvsQuerySchema = z.object({
   jobId: z.string().uuid().optional().nullable().default(null),
@@ -54,6 +61,24 @@ export const applyCvResponseSchema = z.object({
   message: z.string(),
 });
 export type ApplyCvResponseSchema = z.infer<typeof applyCvResponseSchema>;
+
+export const approveCvParamsSchema = z.object({
+  jobId: z.string().uuid(),
+});
+export type ApproveCvParamsSchema = z.infer<typeof approveCvParamsSchema>;
+
+export const approveCvBodySchema = z.object({
+  title: z.string().max(200).optional().nullable().default(null),
+  content: z.string().max(1000).optional().nullable().default(null),
+  receiverId: z.string().uuid(),
+  cvId: z.string().uuid(),
+});
+export type ApproveCvBodySchema = z.infer<typeof approveCvBodySchema>;
+
+export const approveCvResponseSchema = z.object({
+  message: z.string(),
+});
+export type ApproveCvResponseSchema = z.infer<typeof approveCvResponseSchema>;
 
 export const cvErrorResponseSchema = z.discriminatedUnion(
   "errorCode",

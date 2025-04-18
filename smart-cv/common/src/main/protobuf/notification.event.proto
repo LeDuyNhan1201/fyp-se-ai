@@ -24,8 +24,8 @@ message ApprovalMailSentEvent {
 
     string locale = 3;
 
-    string userId = 4;
+    string receiver_id = 4;
 
-    string jobId = 5;
+    string job_id = 5;
 
 }

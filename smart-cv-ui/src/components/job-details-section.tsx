@@ -55,7 +55,7 @@ export default function JobDetailsSection({ id }: JobDetailsProps) {
 
     mutate(body, {
       onSuccess: (response) => {
-        setSelectedFile(null); 
+        setSelectedFile(); 
         toast.success(response.message);
       },
       onError: (error) => {

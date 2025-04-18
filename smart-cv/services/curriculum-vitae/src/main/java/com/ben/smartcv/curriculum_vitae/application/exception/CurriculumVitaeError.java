@@ -4,8 +4,9 @@ import lombok.Getter;
 
 @Getter
 public enum CurriculumVitaeError {
-    CAN_NOT_SEED_CVS("job/can-not-seed-cvs", "ErrorMsg.canNotSeedCvs"),
-    CAN_NOT_SAVE_CV("job/can-not-save-cv", "ErrorMsg.canNotSaveCv"),
+    CAN_NOT_SEED_CVS("cv/can-not-seed-cvs", "ErrorMsg.CanNotSeedCvs"),
+    CAN_NOT_SAVE_CV("cv/can-not-save-cv", "ErrorMsg.CanNotSaveCv"),
+    CAN_NOT_UPDATE_CV("cv/can-not-update-cv", "ErrorMsg.CanNotUpdateCv"),
     ;
 
     CurriculumVitaeError(String code, String message) {

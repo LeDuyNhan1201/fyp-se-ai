@@ -1,5 +1,6 @@
 package com.ben.smartcv.common.contract.event;
 
+import com.ben.smartcv.common.contract.command.BaseCommand;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.SuperBuilder;
@@ -63,6 +64,38 @@ public class CvEvent {
     public static class CvFileDeleted extends BaseEvent<String> {
 
         String objectKey;
+
+    }
+
+    @Getter
+    @Setter
+    @SuperBuilder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @FieldDefaults(level = PRIVATE)
+    public static class CvApproved extends BaseCommand<String> {
+
+        String title;
+
+        String content;
+
+        String jobId;
+
+        String receiverId;
+
+        String cvId;
+
+    }
+
+    @Getter
+    @Setter
+    @SuperBuilder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @FieldDefaults(level = PRIVATE)
+    public static class CvRenewed extends BaseCommand<String> {
+
+        String cvId;
 
     }
 

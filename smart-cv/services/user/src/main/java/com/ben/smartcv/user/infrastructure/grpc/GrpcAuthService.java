@@ -1,4 +1,4 @@
-package com.ben.smartcv.user.infrastructure;
+package com.ben.smartcv.user.infrastructure.grpc;
 
 import com.ben.smartcv.common.application.exception.CommonHttpException;
 import com.ben.smartcv.common.auth.*;

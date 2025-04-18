@@ -22,4 +22,17 @@ public class Enum {
 
     }
 
+    public enum CvStatus {
+        PENDING("Pending"),
+        APPROVED("Approved"),
+        REJECTED("Rejected"),
+
+        ;
+        CvStatus(String status) {
+            this.status = status;
+        }
+
+        final String status;
+    }
+
 }

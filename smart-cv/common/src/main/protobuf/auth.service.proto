@@ -6,8 +6,6 @@ option java_package = "com.ben.smartcv.common.auth";
 option java_outer_classname = "AuthServiceProto";
 option java_multiple_files = true;
 
-import "job.event.proto";
-
 message IntrospectRequest {
 
     string token = 1;

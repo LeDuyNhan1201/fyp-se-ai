@@ -1,6 +1,8 @@
 package com.ben.smartcv.curriculum_vitae.application.handler;
 
 import com.ben.smartcv.common.contract.command.CvCommand;
+import com.ben.smartcv.common.contract.command.NotificationCommand;
+import com.ben.smartcv.common.contract.dto.Enum;
 import com.ben.smartcv.common.contract.event.CvEvent;
 import com.ben.smartcv.common.cv.ExtractedCvData;
 import com.ben.smartcv.common.util.LogHelper;
@@ -77,6 +79,42 @@ public class CvEventHandler {
     }
 
     @EventHandler
+    public void on(CvEvent.CvApproved event,
+                   @MetaDataValue("correlationId") String correlationId,
+                   @MetaDataValue("causationId") String causationId) {
+        LogHelper.logMessage(log, "CvApproved", correlationId, causationId, event);
+        try {
+            commandUseCase.updateStatus(event.getCvId(), Enum.CvStatus.APPROVED);
+
+            String identifier = UUID.randomUUID().toString();
+            NotificationCommand .SendApprovalMail command = NotificationCommand.SendApprovalMail.builder()
+                    .id(identifier)
+                    .title(event.getTitle())
+                    .content(event.getContent())
+                    .jobId(event.getJobId())
+                    .receiverId(event.getReceiverId())
+                    .cvId(event.getCvId())
+                    .build();
+            commandGateway.sendAndWait(command,
+                    MetaData.with("correlationId", identifier).and("causationId", event.getId()));
+
+        } catch (Exception e) {
+            log.error("Cv approving failed: {}", e.getMessage());
+            sendFailureNotification(event.getId());
+        }
+        eventPublisher.send(event, correlationId, causationId);
+    }
+
+    @EventHandler
+    public void on(CvEvent.CvRenewed event,
+                   @MetaDataValue("correlationId") String correlationId,
+                   @MetaDataValue("causationId") String causationId) {
+        LogHelper.logMessage(log, "CvRenewed", correlationId, causationId, event);
+        commandUseCase.updateStatus(event.getCvId(), Enum.CvStatus.PENDING);
+        eventPublisher.send(event, correlationId, causationId);
+    }
+
+    @EventHandler
     public void on(CvEvent.CvDeleted event,
                    @MetaDataValue("correlationId") String correlationId,
                    @MetaDataValue("causationId") String causationId) {
@@ -91,6 +129,15 @@ public class CvEventHandler {
                 .id(identifier)
                 .objectKey(event.getObjectKey())
                 .build(), MetaData.with("correlationId", identifier).and("causationId", event.getId()));
+    }
+
+    private void sendFailureNotification(String causationId) {
+        String identifier = UUID.randomUUID().toString();
+        commandGateway.sendAndWait(NotificationCommand.SendNotification.builder()
+                .id(identifier)
+                .title("Notify.Title.ApproveFailed")
+                .content("Notify.Content.ApproveFailed")
+                .build(), MetaData.with("correlationId", identifier).and("causationId", causationId));
     }
 
 }

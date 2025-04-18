@@ -44,11 +44,36 @@ export default function CvsList({ jobId }: JobDetailsProps) {
   if (error) return <p className="text-red-500">Error loading CVs.</p>;
 
   const items = data?.items || [];
+  const [cvItems, setCvItems] = useState(items); // clone từ props hoặc query
+
+  const { mutate: approveCv, isPending } = useApproveCvMutation({jobId});
+  const handleSendMail = (receiverId: string, cvId: string) => {
+    approveCv(
+      body: {
+        title: null,
+        content: null,
+        receiverId,
+        cvId,
+      },
+      onSuccess: (response) => {
+        toast.success(response.message);
+        // Update cv status locally
+        setCvItems((prev) =>
+          prev.map((cv) =>
+            cv.id === cvId ? { ...cv, status: "Approved" } : cv
+          )
+        );
+      },
+      onError: (error) => {
+        toast.error(error.message);
+      },
+    );
+  };
 
   return (
     <div className="space-y-6">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {items.map((cv: CvTagSchema) => (
+        {cvItems.map((cv: CvTagSchema) => (
           <Card
             key={cv.id}
             className="shadow-md rounded-xl border border-gray-200 h-full flex flex-col justify-between"
@@ -82,7 +107,7 @@ export default function CvsList({ jobId }: JobDetailsProps) {
         </CardContent>
 
         {cv.downloadUrl && (
-          <CardFooter className="flex justify-end">
+          <CardFooter className="flex justify-between items-center w-full">
             <a
               href={cv.downloadUrl}
               target="_blank"
@@ -93,9 +118,23 @@ export default function CvsList({ jobId }: JobDetailsProps) {
                 Download
               </Button>
             </a>
+
+            {cv.status === "Pending" ? (
+              <Button
+                onClick={() => handleSendMail(cv.createdBy, cv.id)}
+                variant="outline"
+                size="sm"
+                disabled={isPending}
+              >
+                {isPending ? "Sending..." : "Approve"}
+              </Button>
+            ) : (
+              <p className="text-sm text-green-600">{cv.status}</p>
+            )}
           </CardFooter>
         )}
-      </Card>
+
+        </Card>
         ))}
       </div>
 

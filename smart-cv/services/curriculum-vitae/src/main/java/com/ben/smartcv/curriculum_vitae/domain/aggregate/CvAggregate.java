@@ -30,11 +30,19 @@ public class CvAggregate {
     @AggregateIdentifier
     String id;
 
+    String cvId;
+
     String objectKey;
 
     String jobId;
 
     String createdBy;
+
+    String title;
+
+    String content;
+
+    String receiverId;
 
     @CommandHandler
     public CvAggregate(CvCommand.ProcessCv command,
@@ -62,6 +70,32 @@ public class CvAggregate {
                 .build(), MetaData.with("correlationId", command.getId()).and("causationId", correlationId));
     }
 
+    @CommandHandler
+    public CvAggregate(CvCommand.ApproveCv command,
+                       @MetaDataValue("correlationId") String correlationId,
+                       @MetaDataValue("causationId") String causationId) {
+        LogHelper.logMessage(log, "ApproveCv", correlationId, causationId, command);
+        apply(CvEvent.CvApproved.builder()
+                .id(command.getId())
+                .title(command.getTitle())
+                .content(command.getContent())
+                .jobId(command.getJobId())
+                .receiverId(command.getReceiverId())
+                .cvId(command.getCvId())
+                .build(), MetaData.with("correlationId", command.getId()).and("causationId", correlationId));
+    }
+
+    @CommandHandler
+    public CvAggregate(CvCommand.RollbackApproveCv command,
+                       @MetaDataValue("correlationId") String correlationId,
+                       @MetaDataValue("causationId") String causationId) {
+        LogHelper.logMessage(log, "ApproveCv", correlationId, causationId, command);
+        apply(CvEvent.CvRenewed.builder()
+                .id(command.getId())
+                .cvId(command.getCvId())
+                .build(), MetaData.with("correlationId", command.getId()).and("causationId", correlationId));
+    }
+
     @EventSourcingHandler
     public void on(CvEvent.CvProcessed event) {
         // 7
@@ -78,6 +112,22 @@ public class CvAggregate {
         this.objectKey = event.getObjectKey();
     }
 
+    @EventSourcingHandler
+    public void on(CvEvent.CvApproved event) {
+        this.id = event.getId();
+        this.title = event.getTitle();
+        this.content = event.getContent();
+        this.jobId = event.getJobId();
+        this.receiverId = event.getReceiverId();
+        this.cvId = event.getCvId();
+    }
+
+    @EventSourcingHandler
+    public void on(CvEvent.CvRenewed event) {
+        this.id = event.getId();
+        this.cvId = event.getCvId();
+    }
+
     @ExceptionHandler(resultType = Exception.class, payloadType = CvCommand.ApplyCv.class)
     public void handleExceptionForApplyCvCommand(Exception exception) {
         log.error("Unexpected Exception occurred when applied cv: {}", exception.getMessage());
@@ -91,6 +141,16 @@ public class CvAggregate {
     @ExceptionHandler(resultType = Exception.class, payloadType = CvCommand.RollbackProcessCv.class)
     public void handleExceptionForRollbackProcessCvCommand(Exception exception) {
         log.error("Unexpected Exception occurred when rolled back process cv: {}", exception.getMessage());
+    }
+
+    @ExceptionHandler(resultType = Exception.class, payloadType = CvCommand.ApproveCv.class)
+    public void handleExceptionForRollbackApproveCvCommand(Exception exception) {
+        log.error("Unexpected Exception occurred when approve cv: {}", exception.getMessage());
+    }
+
+    @ExceptionHandler(resultType = Exception.class, payloadType = CvCommand.RollbackApproveCv.class)
+    public void handleExceptionForRollbackRollbackApproveCvCommand(Exception exception) {
+        log.error("Unexpected Exception occurred when rolled back approve cv: {}", exception.getMessage());
     }
 
 }

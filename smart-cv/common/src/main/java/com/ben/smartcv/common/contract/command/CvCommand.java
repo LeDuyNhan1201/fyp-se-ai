@@ -64,4 +64,36 @@ public class CvCommand {
 
     }
 
+    @Getter
+    @Setter
+    @SuperBuilder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @FieldDefaults(level = PRIVATE)
+    public static class ApproveCv extends BaseCommand<String> {
+
+        String title;
+
+        String content;
+
+        String jobId;
+
+        String receiverId;
+
+        String cvId;
+
+    }
+
+    @Getter
+    @Setter
+    @SuperBuilder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @FieldDefaults(level = PRIVATE)
+    public static class RollbackApproveCv extends BaseCommand<String> {
+
+        String cvId;
+
+    }
+
 }

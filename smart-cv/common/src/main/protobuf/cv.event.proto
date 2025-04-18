@@ -10,7 +10,7 @@ message CvAppliedEvent {
 
     string object_key = 1;
 
-    string jobId = 2;
+    string job_id = 2;
 
     string created_by = 3;
 
@@ -20,7 +20,7 @@ message CvProcessedEvent {
 
     string object_key = 1;
 
-    string jobId = 2;
+    string job_id = 2;
 
     string created_by = 3;
 
@@ -35,5 +35,25 @@ message CvDeletedEvent {
 message CvFileDeletedEvent {
 
     string object_key = 1;
+
+}
+
+message CvApprovedEvent {
+
+    string title = 1;
+
+    string content = 2;
+
+    string job_id = 3;
+
+    string receiver_id = 4;
+
+    string cv_id = 5;
+
+}
+
+message CvRenewedEvent {
+
+    string cv_id = 1;
 
 }

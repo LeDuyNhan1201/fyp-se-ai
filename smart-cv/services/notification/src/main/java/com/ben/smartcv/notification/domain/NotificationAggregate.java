@@ -34,9 +34,11 @@ public class NotificationAggregate {
 
     String content;
 
-    String userId;
-
     String jobId;
+
+    String receiverId;
+
+    String cvId;
 
     @CommandHandler
     public NotificationAggregate(NotificationCommand.SendNotification command,
@@ -59,7 +61,8 @@ public class NotificationAggregate {
                 .id(command.getId())
                 .title(command.getTitle())
                 .content(command.getContent())
-                .userId(command.getUserId())
+                .receiverId(command.getReceiverId())
+                .cvId(command.getCvId())
                 .jobId(command.getJobId())
                 .build(), MetaData.with("correlationId", command.getId()).and("causationId", correlationId));
     }
@@ -76,8 +79,9 @@ public class NotificationAggregate {
         this.id = event.getId();
         this.content = event.getContent();
         this.title = event.getTitle();
-        this.userId = event.getUserId();
         this.jobId = event.getJobId();
+        this.cvId = event.getCvId();
+        this.receiverId = event.getReceiverId();
     }
 
     @ExceptionHandler(resultType = Exception.class, payloadType = NotificationCommand.SendNotification.class)

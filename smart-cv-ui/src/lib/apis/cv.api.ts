@@ -4,7 +4,10 @@ import {
 } from "../schemas/file.schema"
 import {
   ApplyCvRequestParamsSchema,
-  ApplyCvResponseSchema
+  ApplyCvResponseSchema,
+  ApproveCvParamsSchema,
+  ApproveCvBodySchema,
+  ApproveCvResponseSchema,
 } from "../schemas/cv.schema"
 
 export async function applyCvApi<ApplyCvResponseSchema>(
@@ -26,3 +29,18 @@ export async function applyCvApi<ApplyCvResponseSchema>(
   );
 
   return response.data;
+}
+
+export async function approveCvApi<TResponse>(
+  params: ApproveCvParamsSchema,
+  body: ApproveCvBodySchema,
+): Promise<ApproveCvResponseSchema> {
+  
+  const response = await restClient.post<ApproveCvResponseSchema>(
+    `/cv/command/approve/${params.jobId}/job`, 
+    body
+  );
+
+  return response.data;
+}
+

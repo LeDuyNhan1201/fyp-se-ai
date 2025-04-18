@@ -38,9 +38,11 @@ public class NotificationEvent {
 
         String content;
 
-        String userId;
-
         String jobId;
+
+        String receiverId;
+
+        String cvId;
 
     }
 

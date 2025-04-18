@@ -1,11 +1,11 @@
-package com.ben.smartcv.notification.application.dto;
+package com.ben.smartcv.curriculum_vitae.application.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 public class RequestDto {
 
-    public record SendApprovalMail(
+    public record ApproveCv(
 
             String title,
 
