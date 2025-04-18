@@ -21,4 +21,6 @@ public class BaseCommand<TId> {
     @TargetAggregateIdentifier
     TId id;
 
+    String locale = "en";
+
 }

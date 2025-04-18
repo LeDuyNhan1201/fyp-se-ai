@@ -34,6 +34,10 @@ public class NotificationAggregate {
 
     String content;
 
+    String userId;
+
+    String jobId;
+
     @CommandHandler
     public NotificationAggregate(NotificationCommand.SendNotification command,
                                  @MetaDataValue("correlationId") String correlationId,
@@ -46,6 +50,20 @@ public class NotificationAggregate {
                 .build(), MetaData.with("correlationId", command.getId()).and("causationId", correlationId));
     }
 
+    @CommandHandler
+    public NotificationAggregate(NotificationCommand.SendApprovalMail command,
+                                 @MetaDataValue("correlationId") String correlationId,
+                                 @MetaDataValue("causationId") String causationId) {
+        LogHelper.logMessage(log, "SendApprovalMail", correlationId, causationId, command);
+        apply(NotificationEvent.ApprovalMailSent.builder()
+                .id(command.getId())
+                .title(command.getTitle())
+                .content(command.getContent())
+                .userId(command.getUserId())
+                .jobId(command.getJobId())
+                .build(), MetaData.with("correlationId", command.getId()).and("causationId", correlationId));
+    }
+
     @EventSourcingHandler
     public void on(NotificationEvent.NotificationSent event) {
         this.id = event.getId();
@@ -53,9 +71,23 @@ public class NotificationAggregate {
         this.title = event.getTitle();
     }
 
+    @EventSourcingHandler
+    public void on(NotificationEvent.ApprovalMailSent event) {
+        this.id = event.getId();
+        this.content = event.getContent();
+        this.title = event.getTitle();
+        this.userId = event.getUserId();
+        this.jobId = event.getJobId();
+    }
+
     @ExceptionHandler(resultType = Exception.class, payloadType = NotificationCommand.SendNotification.class)
-    public void handleExceptionForNotificationSentEvent(Exception exception) {
+    public void handleExceptionForSendNotificationCommand(Exception exception) {
         log.error("Unexpected Exception occurred when send notification: {}", exception.getMessage());
+    }
+
+    @ExceptionHandler(resultType = Exception.class, payloadType = NotificationCommand.SendApprovalMail.class)
+    public void handleExceptionForSendApprovalMailCommand(Exception exception) {
+        log.error("Unexpected Exception occurred when send approval mail: {}", exception.getMessage());
     }
 
 }

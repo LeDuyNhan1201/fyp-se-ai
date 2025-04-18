@@ -2,6 +2,7 @@ package com.ben.smartcv.notification.application.handler;
 
 import com.ben.smartcv.common.contract.event.NotificationEvent;
 import com.ben.smartcv.common.util.LogHelper;
+import com.ben.smartcv.notification.application.usecase.IMailUseCase;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
@@ -20,6 +21,8 @@ import static lombok.AccessLevel.PRIVATE;
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 public class NotificationEventHandler {
 
+    IMailUseCase mailUseCase;
+
     @EventHandler
     public void on(NotificationEvent.NotificationSent event,
                    @MetaDataValue("correlationId") String correlationId,
@@ -31,6 +34,16 @@ public class NotificationEventHandler {
             LocaleContextHolder.setLocale(Locale.of(event.getLocale()));
             log.info("Notification sent to locale: {}", LocaleContextHolder.getLocale().getLanguage());
         }
+    }
+
+    @EventHandler
+    public void on(NotificationEvent.ApprovalMailSent event,
+                   @MetaDataValue("correlationId") String correlationId,
+                   @MetaDataValue("causationId") String causationId) {
+        log.info("Approval Mail sent: {}", event.getTitle());
+        LogHelper.logMessage(log, "ApprovalMailSent", correlationId, causationId, event);
+
+        mailUseCase.sendApprovalMail(event);
     }
 
 }

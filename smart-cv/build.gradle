@@ -61,15 +61,12 @@ subprojects {
         implementation "io.micrometer:micrometer-core:${micrometerVersion}" // https://mvnrepository.com/artifact/io.micrometer/micrometer-core
         implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
 
-        // Metrics
-        implementation 'io.micrometer:micrometer-registry-prometheus'
-
-        // Tracing (OpenTelemetry without agent)
+        // Tracing with OpenTelemetry
         implementation 'io.micrometer:micrometer-tracing-bridge-otel'
         implementation 'io.opentelemetry:opentelemetry-exporter-otlp'
 
-        // Loki
-        implementation "com.github.loki4j:loki-logback-appender:${lokiVersion}"
+        // OpenTelemetry Instrumentation
+        implementation 'io.opentelemetry.instrumentation:opentelemetry-spring-boot-starter'
 
         /* --------- Test Dependencies --------- */
         testImplementation 'org.springframework.boot:spring-boot-starter-test'
@@ -84,6 +81,7 @@ subprojects {
         imports {
             mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
             mavenBom "org.springframework.grpc:spring-grpc-dependencies:${springGrpcVersion}"
+            mavenBom("io.opentelemetry.instrumentation:opentelemetry-instrumentation-bom:${openTelemetryVersion}")
             mavenBom "org.axonframework:axon-bom:${axonVersion}"
         }
     }

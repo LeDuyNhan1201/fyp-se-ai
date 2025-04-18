@@ -2,9 +2,9 @@ receivers:
   otlp:
     protocols:
       grpc:
-        endpoint: 0.0.0.0:5555
+        endpoint: 0.0.0.0:4317
       http:
-        endpoint: 0.0.0.0:6666
+        endpoint: 0.0.0.0:4318
         cors:
           allowed_origins:
             - "http://*"
@@ -20,25 +20,9 @@ connectors:
       ttl: 2s
       max_items: 20
 
-exporters:
-  debug:
-    verbosity: basic
-  prometheusremotewrite:
-    endpoint: http://smartcv-prometheus:9090/api/v1/write
-    resource_to_telemetry_conversion:
-      enabled: true
-  otlp:
-    endpoint: "smartcv-tempo:4317"
-    tls:
-      insecure: true
-  loki:
-    endpoint: http://smartcv-loki:3100/loki/api/v1/push
-    default_labels_enabled:
-      exporter: true
-      job: true
-
 processors:
-  batch: {}
+  batch:
+    timeout: 100ms
   transform:
     metric_statements:
       - context: metric
@@ -51,24 +35,52 @@ processors:
         key: loki.resource.labels
         value: service.name, service.namespace
 
+exporters:
+  debug:
+    verbosity: detailed
+
+  prometheus:
+    endpoint: 0.0.0.0:8889
+
+  prometheusremotewrite:
+    endpoint: http://smartcv-prometheus:9090/api/v1/write
+    resource_to_telemetry_conversion:
+      enabled: true
+
+  otlp/tempo:
+    endpoint: "smartcv-tempo:4317"
+    tls:
+      insecure: true
+
+  loki:
+    endpoint: http://smartcv-loki:3100/loki/api/v1/push
+    default_labels_enabled:
+      exporter: true
+      job: true
+
+extensions:
+  health_check: {}
+
 service:
   pipelines:
     traces:
       receivers: [otlp]
       processors: [batch]
-      exporters: [otlp, servicegraph]
+      exporters: [debug, servicegraph, otlp/tempo]
+
     metrics:
       receivers: [otlp, servicegraph]
       processors: [transform, batch]
-      exporters: [prometheusremotewrite]
+      exporters: [debug, prometheus, prometheusremotewrite]
+
     logs:
       receivers: [otlp]
       processors: [resource/loki, batch]
-      exporters: [loki]
+      exporters: [debug, loki]
 
   telemetry:
     metrics:
-      address: smartcv-otel-collector:8888
+      address: 0.0.0.0:8888
       level: detailed
     logs:
       level: INFO

@@ -1,6 +1,7 @@
 package com.ben.smartcv.job.infrastructure.grpc;
 
 import com.ben.smartcv.common.job.JobId;
+import com.ben.smartcv.common.job.JobInfo;
 import com.ben.smartcv.common.job.JobServiceGrpc;
 import com.ben.smartcv.common.job.PreviewJobDescription;
 import com.ben.smartcv.job.domain.model.SlaveJob;
@@ -37,6 +38,23 @@ public class GrpcJobService extends JobServiceGrpc.JobServiceImplBase {
                 .addAllSkills(job.get().getSkills())
                 .addAllEducations(job.get().getEducations())
                 .addAllExperiences(job.get().getExperiences());
+
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+    }
+
+    @Override
+    public void getInfoById(JobId request, StreamObserver<JobInfo> responseObserver) {
+        Optional<SlaveJob> job = slaveJobRepository.findById(request.getId());
+
+        if (job.isEmpty()) {
+            responseObserver.onError(Status.NOT_FOUND.withDescription("Job not found.").asRuntimeException());
+            return;
+        }
+
+        JobInfo.Builder responseBuilder = JobInfo.newBuilder()
+                .setOrganizationName(job.get().getOrganizationName())
+                .setPosition(job.get().getPosition());
 
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();

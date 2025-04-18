@@ -18,8 +18,6 @@ public interface IAuthenticationUseCase {
 
     boolean introspect(String token) throws JOSEException, ParseException;
 
-    void introspect(IntrospectRequest request, StreamObserver<IntrospectResponse> responseObserver);
-
     void validateSignUp(RequestDto.SignUp request);
 
     void signUp(UserEvent.SignedUp event);

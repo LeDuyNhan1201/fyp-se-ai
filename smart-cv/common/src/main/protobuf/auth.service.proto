@@ -20,8 +20,24 @@ message IntrospectResponse {
 
 }
 
+message PreviewUser {
+
+    string email = 1;
+
+    string name = 2;
+
+}
+
+message UserId {
+
+    string id = 1;
+
+}
+
 service AuthService {
 
     rpc introspect(IntrospectRequest) returns (IntrospectResponse) {}
+
+    rpc getPreviewById(UserId) returns (PreviewUser) {}
 
 }

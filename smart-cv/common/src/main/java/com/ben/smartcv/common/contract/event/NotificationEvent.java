@@ -18,13 +18,29 @@ public class NotificationEvent {
     @AllArgsConstructor
     @NoArgsConstructor
     @FieldDefaults(level = PRIVATE)
-    public static class NotificationSent extends BaseCommand<String> {
+    public static class NotificationSent extends BaseEvent<String> {
 
         String title;
 
         String content;
 
-        String locale;
+    }
+
+    @Getter
+    @Setter
+    @SuperBuilder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @FieldDefaults(level = PRIVATE)
+    public static class ApprovalMailSent extends BaseCommand<String> {
+
+        String title;
+
+        String content;
+
+        String userId;
+
+        String jobId;
 
     }
 

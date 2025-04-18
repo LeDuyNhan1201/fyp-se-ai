@@ -23,7 +23,23 @@ public class NotificationCommand {
 
         String content;
 
-        String locale;
+    }
+
+    @Getter
+    @Setter
+    @SuperBuilder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @FieldDefaults(level = PRIVATE)
+    public static class SendApprovalMail extends BaseCommand<String> {
+
+        String title;
+
+        String content;
+
+        String userId;
+
+        String jobId;
 
     }
 

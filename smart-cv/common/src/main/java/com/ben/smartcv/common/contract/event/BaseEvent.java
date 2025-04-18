@@ -19,4 +19,6 @@ public class BaseEvent<TId> {
 
     TId id;
 
+    String locale = "en";
+
 }

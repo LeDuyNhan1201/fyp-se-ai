@@ -2,9 +2,6 @@ package com.ben.smartcv.user.application.usecase.impl;
 
 import com.ben.smartcv.common.application.exception.CommonError;
 import com.ben.smartcv.common.application.exception.CommonHttpException;
-import com.ben.smartcv.common.auth.AuthServiceGrpc;
-import com.ben.smartcv.common.auth.IntrospectRequest;
-import com.ben.smartcv.common.auth.IntrospectResponse;
 import com.ben.smartcv.common.contract.command.UserCommand;
 import com.ben.smartcv.common.contract.event.UserEvent;
 import com.ben.smartcv.common.util.Constant;
@@ -22,7 +19,6 @@ import com.nimbusds.jose.crypto.MACSigner;
 import com.nimbusds.jose.crypto.MACVerifier;
 import com.nimbusds.jwt.JWTClaimsSet;
 import com.nimbusds.jwt.SignedJWT;
-import io.grpc.stub.StreamObserver;
 import io.micrometer.observation.annotation.Observed;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -49,7 +45,7 @@ import static java.time.temporal.ChronoUnit.SECONDS;
 @RequiredArgsConstructor
 @Slf4j
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-public class AuthenticationUseCase extends AuthServiceGrpc.AuthServiceImplBase implements IAuthenticationUseCase  {
+public class AuthenticationUseCase implements IAuthenticationUseCase  {
 
     IUserUseCase userUseCase;
 
@@ -72,30 +68,6 @@ public class AuthenticationUseCase extends AuthServiceGrpc.AuthServiceImplBase i
     @NonFinal
     @Value("${security.jwt.refreshable-duration}")
     long REFRESHABLE_DURATION;
-
-    @Override
-    public void introspect(IntrospectRequest request, StreamObserver<IntrospectResponse> responseObserver) {
-        // Get the token from the request
-        String token = request.getToken();
-
-        // Initialize response builder
-        IntrospectResponse.Builder responseBuilder = IntrospectResponse.newBuilder();
-
-        try {
-            boolean isValid = introspect(token);
-            responseBuilder.setValid(isValid);
-
-        } catch (JOSEException | ParseException e) {
-            responseObserver.onError(io.grpc.Status.INTERNAL
-                    .withDescription(String.format("Token parsing or validation error: %s", e.getMessage()))
-                    .asRuntimeException());
-            return;
-        }
-
-        // Send the response
-        responseObserver.onNext(responseBuilder.build());
-        responseObserver.onCompleted();
-    }
 
     @Override
     public boolean introspect(String token) throws JOSEException, ParseException {

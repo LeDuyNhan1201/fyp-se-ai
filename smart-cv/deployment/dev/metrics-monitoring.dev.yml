@@ -18,8 +18,10 @@ services:
         condition: service_healthy
     command: [ "--config=/etc/otelcol-config.yml", "--feature-gates=pkg.translator.prometheus.NormalizeName"]
     ports:
-      - 5555:5555
-      - 6666:6666
+      - 8888:8888
+      - 8889:8889
+      - 4317:4317 # otlp grpc
+      - 4318:4318 # otlp http
     volumes:
       - ./docker/otel-collector/otelcol-config.yml:/etc/otelcol-config.yml
     networks:
@@ -89,7 +91,7 @@ services:
       start_period: 10s
     volumes:
       - ./docker/loki/loki-config.yaml:/etc/loki/loki-config.yaml:ro
-      - ./loki-data:/loki
+      - ./docker/loki/data:/loki
     networks:
       - smartcv-network
 
@@ -102,7 +104,7 @@ services:
       - "10001:10001"
       - "/var/tempo"
     volumes:
-      - ./tempo-data:/var/tempo
+      - ./docker/tempo/data:/var/tempo
 
   smartcv-tempo:
     image: *tempoImage
@@ -115,8 +117,6 @@ services:
     ports:
       - 3200:3200   # tempo
       - 9095:9095 # tempo grpc
-      - 4317:4317  # otlp grpc
-      - 4318:4318  # otlp http
     healthcheck:
       test: [ "CMD", "wget", "--spider", "-q", "http://localhost:3200/ready" ]
       interval: 10s
@@ -124,7 +124,7 @@ services:
       retries: 5
       start_period: 10s
     volumes:
-      - ./docker/tempo/tempo-local.yaml:/etc/tempo.yaml:ro
-      - ./tempo-data:/var/tempo
+      - ./docker/tempo/tempo.yaml:/etc/tempo.yaml:ro
+      - ./docker/tempo/data:/var/tempo
     networks:
       - smartcv-network

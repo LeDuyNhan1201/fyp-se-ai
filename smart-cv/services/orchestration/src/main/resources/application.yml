@@ -22,7 +22,43 @@ eureka:
       defaultZone: http://${eureka.instance.hostname}:${DISCOVERY_PORT:31000}/eureka/
 
 # --------- Metrics & Monitoring ---------
+otel:
+  instrumentation:
+    common:
+      default-enabled: false  # Tắt toàn bộ mặc định, chọn lọc bật từng cái
+    jdbc:
+      enabled: false
+    spring-web:
+      enabled: false
+    spring-webmvc:
+      enabled: false
+    logback-appender:
+      enabled: true
+    logback-mdc:
+      enabled: true
+    micrometer:
+      enabled: true  # Bật để gửi metrics qua Prometheus
+    kafka:
+      enabled: true
+    mongo:
+      enabled: true
+    r2dbc:
+      enabled: false
+
 management:
+  opentelemetry:
+    resource-attributes:
+      service.name: ${spring.application.name}
+      cluster: local
+
+  otlp:
+    tracing:
+      endpoint: ${OTLP_ENDPOINT:http://localhost:4318}/v1/traces
+    metrics:
+      export:
+        endpoint: ${OTLP_ENDPOINT:http://localhost:4318}/v1/metrics
+        step: 5s
+
   info:
     git:
       enabled: true
@@ -61,10 +97,13 @@ management:
       application: ${spring.application.name}
 
   observations:
+    annotations:
+      enabled: true
     key-values:
       application: ${spring.application.name}
 
   tracing:
+    enabled: true
     sampling:
       probability: 1.0
 
