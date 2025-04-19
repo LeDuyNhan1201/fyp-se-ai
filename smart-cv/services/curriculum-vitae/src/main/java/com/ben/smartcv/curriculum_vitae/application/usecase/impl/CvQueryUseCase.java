@@ -79,6 +79,7 @@ public class CvQueryUseCase implements ICvQueryUseCase {
                         .downloadUrl(cachedUrls.getOrDefault(cv.getObjectKey(),
                                 "https://cv.smartcv.com/" + cv.getObjectKey()))
                         .score(cv.getScore())
+                        .status(cv.getStatus().getValue())
                         .nextCursor(nextCursor)
                         .hasNextPage(hasNextPage)
                         .build()

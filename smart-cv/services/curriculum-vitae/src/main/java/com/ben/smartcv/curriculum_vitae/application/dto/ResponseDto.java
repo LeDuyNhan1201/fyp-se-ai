@@ -27,6 +27,8 @@ public class ResponseDto {
 
         Double score;
 
+        String status;
+
         String nextCursor;
 
         boolean hasNextPage;

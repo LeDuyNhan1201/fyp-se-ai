@@ -25,6 +25,7 @@ export const SEARCH_CVS_QUERY = gql`
         objectKey
         downloadUrl
         score
+        status
       }
       nextCursor
       hasNextPage 
@@ -51,7 +52,7 @@ export const useSearchCvs = (filters: SearchCvsQuerySchema) => {
 
   const validatedData = searchCvsResponseSchema.parse(data.search);
 
-  const nextCursor = validatedData.nextCursor;
+  const nextCursor = validatedData.cursor;
   const hasNextPage = validatedData.hasNextPage;
 
   const loadMore = () => {

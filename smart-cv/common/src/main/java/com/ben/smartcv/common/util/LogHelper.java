@@ -6,7 +6,7 @@ import java.time.Instant;
 public final class LogHelper {
 
     public static void logMessage(Logger log, String messageType, String correlationId, String causationId, Object payload) {
-        log.debug("[{}]: Message: {} | correlationId: {} | causationId: {} | payload: {}",
+        log.info("[{}]: Message: {} | correlationId: {} | causationId: {} | payload: {}",
                 log.getName(), messageType, correlationId, causationId, payload);
     }
 

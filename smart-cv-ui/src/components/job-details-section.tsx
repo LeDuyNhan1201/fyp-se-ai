@@ -8,13 +8,10 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
-  DialogClose,
 } from "@/components/ui/dialog"
 import JobDetailsCard from "@/components/job-details-card";
 import { GraphqlClientProvider } from "@/app/graphql-client-provider";
 import CvsList from "@/components/cvs-list";
-import { createApolloClient, searchCVsCache } from "@/lib/graphql-client";
-import { ApolloProvider } from "@apollo/client";
 import { useCurrentUserActions } from "@/hooks/current-user-store";
 import { useGetJobDetailsQuery } from "@/hooks/queries/job.query";
 import { getJobDetailsParamsSchema } from "@/lib/schemas/job.schema";
@@ -36,13 +33,13 @@ export default function JobDetailsSection({ id }: JobDetailsProps) {
 
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const { mutate, isLoading } = useApplyCvMutation({ jobId: id });
+  const { mutate, isPending } = useApplyCvMutation({ jobId: id });
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
       console.log("Selected file:", file);
-      setSelectedFile(file);    
+      setSelectedFile(file);
     }
   };
 
@@ -55,7 +52,7 @@ export default function JobDetailsSection({ id }: JobDetailsProps) {
 
     mutate(body, {
       onSuccess: (response) => {
-        setSelectedFile(); 
+        setSelectedFile(null);
         toast.success(response.message);
       },
       onError: (error) => {
@@ -76,10 +73,10 @@ export default function JobDetailsSection({ id }: JobDetailsProps) {
             <Button
               type="button"
               onClick={handleApplyClick}
-              disabled={isLoading}
+              disabled={isPending}
               className="w-full"
             >
-              {isLoading ? "Uploading..." : "Apply"}
+              {isPending ? "Uploading..." : "Apply"}
             </Button>
           </div>
         )}

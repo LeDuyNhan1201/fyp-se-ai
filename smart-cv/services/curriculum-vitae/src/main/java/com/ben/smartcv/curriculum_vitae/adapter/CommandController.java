@@ -45,6 +45,7 @@ public class CommandController {
                     .id(identifier)
                     .title(request.title())
                     .jobId(jobId)
+                    .cvId(request.cvId())
                     .content(request.content())
                     .receiverId(request.receiverId())
                     .build();

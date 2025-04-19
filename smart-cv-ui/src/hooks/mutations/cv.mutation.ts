@@ -1,4 +1,4 @@
-import { 
+import {
   ApplyCvRequestParamsSchema,
   ApplyCvResponseSchema,
   CvErrorResponseSchema,
@@ -16,10 +16,10 @@ export function useApplyCvMutation(
 ) {
   const mutationKey = ["cv", "create"] as const;
   return useMutation<
-      ApplyCvResponseSchema,
-      CvErrorResponseSchema,
-      UploadFileBodySchema
-    >({
+    ApplyCvResponseSchema,
+    CvErrorResponseSchema,
+    UploadFileBodySchema
+  >({
     mutationKey,
     mutationFn: (body) => applyCvApi<ApplyCvResponseSchema>(params, body),
     throwOnError: (error) => isAxiosError(error),
@@ -32,11 +32,11 @@ export function useApproveCvMutation(
   const mutationKey = ["cv", "approve-cv"] as const;
   return useMutation<
     ApproveCvResponseSchema,
-    CvErrorResponseSchema,            
+    CvErrorResponseSchema,
     ApproveCvBodySchema
   >({
     mutationKey,
-    mutationFn: (body) => approveCvApi(params, body),
+    mutationFn: (body) => approveCvApi<ApproveCvResponseSchema>(params, body),
     throwOnError: (error) => isAxiosError(error),
   });
 }

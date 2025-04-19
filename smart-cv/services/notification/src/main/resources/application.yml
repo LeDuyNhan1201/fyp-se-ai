@@ -173,7 +173,7 @@ spring:
     import: file:env.properties
 
   application:
-    name: notification
+    name: notification-service
 
   messages:
     basename: i18n/messages
