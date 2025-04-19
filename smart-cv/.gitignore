@@ -42,5 +42,5 @@ __pycache__/
 *.pyc
 *.pyo
 
-tempo-data/
-loki-data/
+tempo/data/
+loki/data/
