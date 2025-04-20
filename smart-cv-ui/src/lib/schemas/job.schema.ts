@@ -32,7 +32,7 @@ export const searchJobsSchema = z.object({
   fromSalary: z.number().positive().optional().nullable().default(null),
   toSalary: z.number().positive().optional().nullable().default(null),
   page: z.number().int().positive().min(1).optional().nullable().default(1),
-  size: z.number().int().positive().max(10).optional().nullable().default(3),
+  size: z.number().int().positive().max(10).optional().nullable().default(6),
 });
 export type SearchJobsSchema = z.infer<typeof searchJobsSchema>;
 
@@ -57,7 +57,7 @@ export const createJobBodySchema = z.object({
   expiredAt: z.date(),
   requirements: z.string().max(500),
 });
-export type CreateJobBodySchema = z.infer<typeof createJobSchema>;
+export type CreateJobBodySchema = z.infer<typeof createJobBodySchema>;
 
 export const createJobResponseSchema = z.object({
   message: z.string(),
