@@ -66,6 +66,7 @@ subprojects {
         testImplementation 'org.springframework.grpc:spring-grpc-test'
         testImplementation 'org.springframework.graphql:spring-graphql-test'
         testImplementation 'org.springframework.kafka:spring-kafka-test'
+        testImplementation "org.axonframework:axon-test:${axonVersion}"
         testImplementation 'io.projectreactor:reactor-test'
         testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
     }

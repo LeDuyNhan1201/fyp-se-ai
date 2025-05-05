@@ -45,16 +45,16 @@ public abstract class BaseKafkaListenerConfig<K, V> {
         return factory;
     }
 
-    private ConsumerFactory<K, V> typeConsumerFactory(Class<K> keyClazz, Class<V> valueClazz) {
+    private ConsumerFactory<K, V> typeConsumerFactory(Class<K> keyClass, Class<V> valueClass) {
         Map<String, Object> props = buildConsumerProperties();
         // wrapper in case serialization/deserialization occur
-        var keyDeserialize = new ErrorHandlingDeserializer<>(gettJsonDeserializer(keyClazz));
-        var valueDeserialize = new ErrorHandlingDeserializer<>(gettJsonDeserializer(valueClazz));
+        var keyDeserialize = new ErrorHandlingDeserializer<>(getJsonDeserializer(keyClass));
+        var valueDeserialize = new ErrorHandlingDeserializer<>(getJsonDeserializer(valueClass));
         return new DefaultKafkaConsumerFactory<>(props, keyDeserialize, valueDeserialize);
     }
 
-    private static <T> JsonDeserializer<T> gettJsonDeserializer(Class<T> clazz) {
-        var jsonDeserializer = new JsonDeserializer<>(clazz);
+    private static <T> JsonDeserializer<T> getJsonDeserializer(Class<T> mClass) {
+        var jsonDeserializer = new JsonDeserializer<>(mClass);
         jsonDeserializer.addTrustedPackages("*");
         return jsonDeserializer;
     }

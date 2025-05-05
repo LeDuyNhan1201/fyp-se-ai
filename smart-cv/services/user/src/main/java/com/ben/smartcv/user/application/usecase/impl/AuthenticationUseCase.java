@@ -200,7 +200,7 @@ public class AuthenticationUseCase implements IAuthenticationUseCase  {
 
         JWTClaimsSet jwtClaimsSet = new JWTClaimsSet.Builder()
                 .subject(user.getId())
-                .issuer("com.ben.smart-cv")
+                .issuer(Constant.JWT_ISSUER)
                 .issueTime(new Date())
                 .expirationTime(expiryTime)
                 .jwtID(jwtID)

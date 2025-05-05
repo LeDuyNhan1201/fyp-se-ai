@@ -3,7 +3,9 @@ package com.ben.smartcv.job.application.usecase.impl;
 import com.ben.smartcv.common.contract.command.JobCommand;
 import com.ben.smartcv.common.contract.command.NotificationCommand;
 import com.ben.smartcv.job.application.usecase.ISlaveJobWriteSideUseCase;
+import com.ben.smartcv.job.domain.model.MasterJob;
 import com.ben.smartcv.job.domain.model.SlaveJob;
+import com.ben.smartcv.job.infrastructure.repository.IMasterJobRepository;
 import com.ben.smartcv.job.infrastructure.repository.ISlaveJobRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -26,15 +28,18 @@ public class SlaveJobWriteSideUseCase implements ISlaveJobWriteSideUseCase {
 
     CommandGateway commandGateway;
 
-    ISlaveJobRepository repository;
+    ISlaveJobRepository slaveJobRepository;
+
+    IMasterJobRepository masterJobRepository;
 
     @Override
     public void create(SlaveJob item) {
+        if (slaveJobRepository.existsById(item.getId())) return;
         try {
-            repository.save(item);
+            slaveJobRepository.save(item);
         } catch (Exception e) {
             log.error("Error creating master job: {}", e.getMessage());
-            rollback(item.getId());
+            rollbackCreate(item.getId());
         }
     }
 
@@ -45,10 +50,40 @@ public class SlaveJobWriteSideUseCase implements ISlaveJobWriteSideUseCase {
 
     @Override
     public void delete(String id) {
-        log.info("Deleting master job: {}", id);
+        try {
+            slaveJobRepository.deleteById(id);
+        } catch (Exception e) {
+            log.error("Error deleting slave job: {}", e.getMessage());
+            SlaveJob slaveJob = slaveJobRepository.findById(id).orElse(null);
+            if (slaveJob != null) {
+                MasterJob masterJob = MasterJob.builder()
+                        .id(slaveJob.getId())
+                        .createdBy(slaveJob.getCreatedBy())
+                        .createdAt(slaveJob.getCreatedAt())
+                        .updatedBy(slaveJob.getUpdatedBy())
+                        .updatedAt(slaveJob.getUpdatedAt())
+                        .isDeleted(slaveJob.isDeleted())
+                        .deletedBy(slaveJob.getDeletedBy())
+                        .deletedAt(slaveJob.getDeletedAt())
+                        .version(slaveJob.getVersion())
+                        .organizationName(slaveJob.getOrganizationName())
+                        .email(slaveJob.getEmail())
+                        .phone(slaveJob.getPhone())
+                        .position(slaveJob.getPosition())
+                        .educations(slaveJob.getEducations())
+                        .skills(slaveJob.getSkills())
+                        .experiences(slaveJob.getExperiences())
+                        .fromSalary(slaveJob.getSalary().getLowerBound().getValue().get())
+                        .toSalary(slaveJob.getSalary().getUpperBound().getValue().get())
+                        .expiredAt(slaveJob.getExpiredAt())
+                        .requirements(slaveJob.getRequirements())
+                        .build();
+                masterJobRepository.save(masterJob);
+            }
+        }
     }
 
-    private void rollback(String jobId) {
+    private void rollbackCreate(String jobId) {
         String identifier = UUID.randomUUID().toString();
         commandGateway.send(JobCommand.RollbackCreateJob.builder()
                 .id(identifier)

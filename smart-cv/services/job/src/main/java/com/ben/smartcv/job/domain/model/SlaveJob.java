@@ -38,7 +38,7 @@ public class SlaveJob {
     Instant updatedAt;
 
     @Field(name = "is_deleted", type = FieldType.Boolean)
-    Boolean isDeleted = false;
+    boolean isDeleted = false;
 
     @Field(name = "deleted_by", type = FieldType.Keyword)
     String deletedBy;
@@ -101,7 +101,7 @@ public class SlaveJob {
         slaveJob.setCreatedAt(masterJob.getCreatedAt());
         slaveJob.setUpdatedBy(masterJob.getUpdatedBy());
         slaveJob.setUpdatedAt(masterJob.getUpdatedAt());
-        slaveJob.setIsDeleted(masterJob.isDeleted());
+        slaveJob.setDeleted(masterJob.isDeleted());
         slaveJob.setDeletedBy(masterJob.getDeletedBy());
         slaveJob.setDeletedAt(masterJob.getDeletedAt());
         slaveJob.setVersion(masterJob.getVersion());
