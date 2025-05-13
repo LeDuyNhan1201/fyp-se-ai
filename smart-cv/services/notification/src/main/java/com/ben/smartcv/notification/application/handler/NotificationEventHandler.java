@@ -50,7 +50,7 @@ public class NotificationEventHandler {
     public void on(NotificationEvent.ApprovalMailSent event,
                    @MetaDataValue("correlationId") String correlationId,
                    @MetaDataValue("causationId") String causationId) {
-        log.info("Approval Mail sent: {}", event.getTitle());
+        log.info("Approval Mail sent: {}", event.getCvId());
         LogHelper.logMessage(log, "ApprovalMailSent", correlationId, causationId, event);
 
         try {

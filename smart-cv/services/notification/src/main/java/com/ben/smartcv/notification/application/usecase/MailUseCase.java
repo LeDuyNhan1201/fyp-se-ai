@@ -85,8 +85,8 @@ public class MailUseCase implements IMailUseCase {
 
     private void sendMail(Enum.MailType type, String to, String subject, String body) throws Exception {
         String templateName = switch (type) {
-            case APPROVAL -> "approval-template.html";
-            case REJECTION -> "rejection-template.html";
+            case APPROVAL -> "approval.html";
+            case REJECTION -> "rejection.html";
             default -> throw new NotificationHttpException(
                     NotificationError.INVALID_TYPE,
                     HttpStatus.INTERNAL_SERVER_ERROR

@@ -41,6 +41,7 @@ security:
   grpc:
     public-methods:
       - AuthService/introspect
+      - AuthService/getPreviewById
 
 # --------- Axon ---------
 axon:

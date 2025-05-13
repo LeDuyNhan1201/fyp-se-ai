@@ -39,8 +39,8 @@ public class EventPublisher {
 
     public void send(NotificationEvent.ApprovalMailSent event, String correlationId, String causationId) {
         ApprovalMailSentEvent protoEvent = ApprovalMailSentEvent.newBuilder()
-                .setTitle(event.getTitle())
-                .setContent(event.getContent())
+                .setTitle(event.getTitle() == null ? "" : event.getTitle())
+                .setContent(event.getContent() == null ? "" : event.getContent())
                 .setLocale(event.getLocale())
                 .build();
 

@@ -36,6 +36,7 @@ security:
   grpc:
     public-methods:
       - JobService/getById
+      - JobService/getInfoById
 
 # --------- Axon ---------
 axon:

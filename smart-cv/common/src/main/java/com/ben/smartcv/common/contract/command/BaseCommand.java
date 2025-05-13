@@ -23,4 +23,8 @@ public class BaseCommand<TId> {
 
     String locale = "en";
 
+    public String getLocale() {
+        return locale == null ? "en" : locale;
+    }
+
 }
